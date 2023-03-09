@@ -1,0 +1,34 @@
+query FindAllLgas($input: FindLgaInput!) {
+  findAllLga(input: $input) {
+    id
+    name
+  }
+}
+
+query FindAllStates($input: FindStateInput!){
+  findAllStates(input: $input){
+    id
+    name
+  }
+}
+
+query FindAllWards($input: FindWardInput!){
+  findAllWards(input: $input){
+    id,
+    name
+  }
+}
+
+query VerifyNIn($input: VerifyNinInput!){
+  verifyNin(input: $input){
+    _id
+    bvn
+    customer
+    dob
+    firstname
+    lastname
+    fullname
+    state_of_origin
+    state_of_residence
+  }
+}

@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;900&family=Roboto:wght@300;400;500;900&display=swap");
+
+@import "reset";
+@import "variables";
+@import "mixins";
+@import "mixins_pub";
+@import "screensize";
+@import "table";
+@import "buttons";
+@import "markdown";
+@import "form";
+
+:root {
+  --fontFamily: "Roboto", sans-serif;
+  /* --fontFamily: "Space Grotesk, sans-serif", */
+}
+
+*, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  font-family: var(--fontFamily);
+}
+
+.none {
+  display: none;
+}

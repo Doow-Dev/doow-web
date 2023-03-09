@@ -1,0 +1,118 @@
+@import "../../styles/variables";
+@import "../../styles/screensize";
+
+.navbar {
+  color: #fff;
+  background-color: $primaryColor;
+  width: 100%;
+  height: 50px;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  padding-left: 15px;
+  display: none;
+
+  @include tabletSS {
+    display: block;
+  }
+
+  @include mobileSS {
+    padding-left: 20px;
+    visibility: visible;
+  }
+
+  .show {
+    left: 0;
+  }
+  .brand {
+    font-size: medium;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 50px;
+    a {
+      color: #fff;
+      // color: $primaryColor;
+    }
+  }
+
+  ul {
+    float: right;
+    margin-right: 40px;
+    border-top: rgb(189, 191, 192);
+    border-style: solid;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-width: 0.5px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    // height: 100vh;
+    padding-left: 10px;
+    // width: 50%;
+    @include tabletSS {
+      visibility: visible;
+      position: fixed;
+      width: 50%;
+      height: 100vh;
+      color: #fff;
+      background-color: $primaryColor;
+      top: 50px;
+      text-align: left;
+      left: -100%;
+      transition: all 0.5s;
+    }
+    a {
+      .active {
+        background-color: $secondaryColor;
+        border-color: $primaryColor;
+        transition: 0.5s;
+        padding: 0 10px;
+        li {
+          color: #fff;
+        }
+      }
+    }
+    li {
+      line-height: 50px;
+      display: inline-block;
+      color: #fff;
+      border-radius: 8px;
+
+      @include tabletSS {
+        display: block;
+        margin: 10px;
+        line-height: 30px;
+      }
+      &:hover {
+        background-color: $primaryColor;
+        color: #fff;
+        transition: 0.5s;
+      }
+    }
+    .active {
+      background-color: $secondaryColor;
+      border-color: $primaryColor;
+      transition: 0.5s;
+      li {
+        color: #fff;
+      }
+    }
+  }
+  label.icon {
+    // color: $primaryColor;
+    color: #fff;
+    font-size: medium;
+    line-height: 50px;
+    float: right;
+    margin-right: 40px;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+    @include tabletSS {
+      display: block;
+    }
+    @include mobileSS {
+      visibility: visible;
+    }
+  }
+}

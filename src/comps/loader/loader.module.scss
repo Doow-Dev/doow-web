@@ -1,0 +1,22 @@
+@import "../../styles/variables";
+@import "../../styles/screensize";
+
+.loader {
+  margin-left: 200px;
+  z-index: 2;
+  width: calc(100vw - 200px);
+  height: 100vh;
+  background-color: rgba(27, 27, 27, 0.25);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include mobileSS {
+    width: 100vw;
+    margin-top: 50px;
+    margin-left: 0px;
+  }
+}

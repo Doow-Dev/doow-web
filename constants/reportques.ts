@@ -1,0 +1,17 @@
+export const questionList: string[] = [
+  "Did you observe the distribution of election materials in your polling unit?",
+  "When did election personnel arrive at your polling unit?",
+  "Did they arrive early or late?",
+  "Did you notice the presence of security operatives in your polling unit?",
+  "When did accreditation commence and stop in your polling unit?",
+  "Prior to voting, did you check the ballot boxes to ensure they were empty?",
+  "Did you inspect the voting booth to make sure there is nothing there that might in any way influence the voter?",
+  "When did voting commence and close in your polling unit?",
+  "When did sorting/counting of ballot papers commence and stop in your polling unit?",
+  "Did you observe any cases of under-aged voting in your polling unit?",
+  "Did you observe any cases of voter impersonation in your polling unit?",
+  "Did you observe any cases of multiple voting in your polling unit?",
+  "Did you observe any other election irregularities in your polling unit that are not in accordance with the provisions of the electoral act?",
+  "Did you countersign the result forms at the Polling Station and the collation forms at the Collation Centres?",
+  "Did you receive the completed, stamped, signed, and dated copies of the Statement of Result of Poll Forms and the Collation of Result Forms?",
+];

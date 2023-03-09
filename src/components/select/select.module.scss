@@ -1,0 +1,25 @@
+@import "../../styles/variables";
+
+.select_container {
+  width: 100%;
+
+  select {
+    width: 100%;
+    color: #424040;
+
+    option {
+      font-size: 16px;
+      color: rgb(79, 77, 77);
+
+      &:checked {
+        background-color: #ccc;
+      }
+    }
+
+    option:nth-child(1) {
+      //   opacity: 0.3;
+      color: gray;
+      font-size: 18px;
+    }
+  }
+}
