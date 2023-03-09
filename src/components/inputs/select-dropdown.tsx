@@ -3,8 +3,7 @@ import styled from "styled-components";
 import Select, { DropdownIndicatorProps, StylesConfig } from "react-select";
 import { globalStyles } from "../constants";
 import { themes } from "../../themes";
-import { IconImage } from "./custom-input.element";
-
+import Image from "next/image";
 export interface OptionsInterface {
   value: string;
   label: string;
@@ -119,4 +118,16 @@ const LabelText = styled.p<{ margin?: string }>`
 const ErrorText = styled.p`
   font-size: 13px;
   color: ${globalStyles.colors.fail};
+`;
+
+export const IconImage = styled(Image)<{
+  width?: number;
+  height?: number;
+  padding?: string;
+}>`
+  cursor: pointer;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  margin: 0px;
+  padding: ${({ padding }) => (padding ? padding : "0px")};
 `;

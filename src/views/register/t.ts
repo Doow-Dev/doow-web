@@ -1,4 +1,4 @@
-import { OptionsInterface } from "../../components/inputs";
+import { OptionsInterface } from "../../components/inputs/select-dropdown";
 import { Marital_Status } from "../../generated/graphql";
 
 export interface StepInterface {

@@ -1,6 +1,5 @@
 import React from "react";
 import CustomButton from "../../../components/buttons/custom-button";
-import { SelectDropdown } from "../../../components/inputs";
 import Input from "../../../components/inputs/input";
 import styles from "./steps.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,6 +7,7 @@ import { MaritalOptions } from "../t";
 import { Marital_Status, MemberCreateInput } from "../../../generated/graphql";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { SelectDropdown } from "../../../components/inputs/select-dropdown";
 
 interface Props {
   prevStep: () => void;

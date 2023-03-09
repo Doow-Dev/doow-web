@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CustomButton from "../../../components/buttons/custom-button";
-import { OptionsInterface, SelectDropdown } from "../../../components/inputs";
+import { OptionsInterface, SelectDropdown } from "../../../components/inputs/select-dropdown";
 import Loading from "../../../components/loading/loading";
 import { MemberCreateInput } from "../../../generated/graphql";
 import {
