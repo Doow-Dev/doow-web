@@ -1,6 +1,5 @@
 import React from "react";
 import { MagnifyingGlass } from "react-loader-spinner";
-import Colors from "../../../constants/colors";
 import styles from "./loader.module.scss";
 
 export default function Loader() {
@@ -14,7 +13,7 @@ export default function Loader() {
         wrapperStyle={{}}
         wrapperClass="MagnifyingGlass-wrapper"
         glassColor="#c0efff"
-        color={Colors.primaryColor}
+        color="#04475E"
       />
     </div>
   );
