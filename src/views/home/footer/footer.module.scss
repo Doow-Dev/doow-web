@@ -17,9 +17,51 @@
     padding-left: 20px;
     visibility: visible;
   }
-
   .brand {
-    color: $secondaryColor;
-    color: $fadeFontColor;
+    color: $primaryColor;
+    font-size: larger;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    width: 100%;
+    // background-color: aqua;
+    .linkList {
+      width: 100%;
+      display: flex;
+      font-weight: 300;
+      font-size: small;
+      justify-content: space-between;
+      ul {
+        text-align: left;
+        li {
+          color: #fff;
+          padding: 10px 0;
+          &:hover {
+            color: $fadeFontColor;
+          }
+        }
+      }
+    }
+    .shortText {
+      padding: 40px;
+      font-weight: 300;
+    }
+    .copywright {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      bottom: 0px;
+      p {
+        padding: 15px 0;
+        font-weight: 300;
+        font-size: small;
+        color: $fadeFontColor;
+      }
+    }
   }
 }
