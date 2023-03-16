@@ -1,8 +1,8 @@
-@import "../../styles/variables";
-@import "../../styles/screensize";
+@import "../../../styles/variables";
+@import "../../../styles/screensize";
 
 .container {
-  min-height: 100vh;
+  min-height: calc(100vh - 0px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
   }
 
   .sectionTitle {
-    color: $primaryColor;
+    color: $fontColor;
     margin-bottom: 30px;
     @include mobileSS {
       font-size: 4rem;

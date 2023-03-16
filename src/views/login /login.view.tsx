@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import LandingNavBar from "../Landing/navbar/navbar.comp";
+import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./login.module.scss";
 import Input from "../../components/inputs/input";
 import { Formik } from "formik";
