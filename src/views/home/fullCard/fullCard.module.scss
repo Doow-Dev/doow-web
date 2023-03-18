@@ -82,7 +82,8 @@
         font-size: medium;
         height: 7rem * 5;
         width: 8.6rem * 5;
-        margin: 20px;
+        margin: 0px;
+        object-fit: fill;
         align-items: center;
         @include tabletSS {
           display: block;

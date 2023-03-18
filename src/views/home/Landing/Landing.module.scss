@@ -15,6 +15,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: 70%;
     @include mobileSS {
       width: 70%;
     }
@@ -27,8 +28,8 @@
       font-size: 4rem;
     }
     span {
-      font-size: 10rem;
-      font-weight: 600;
+      font-size: 8rem;
+      font-weight: 800;
       @include tabletSS {
         font-size: 3rem;
         display: block;
@@ -38,9 +39,10 @@
 
   .smallText {
     color: $primaryColor;
-    font-size: 1.6rem;
+    font-size: 3.5rem;
+    font-weight: 600;
     padding-bottom: 50px;
-    font-weight: 300;
+
     @include mobileSS {
       font-size: 1.4rem;
     }

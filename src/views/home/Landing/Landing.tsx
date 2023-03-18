@@ -10,11 +10,11 @@ export const HomeLanding = () => {
       {/* <img src="/images/logo.png" className={styles.imgd} /> */}
       <div className={styles.content}>
         <div className={styles.sectionTitle}>
-          <span>Let's </span>
-          <span>Doow It.</span>
+          <span>Cross-border banking for African startups and businesses</span>
+          {/* <span>Doow It.</span> */}
         </div>
 
-        <p className={styles.smallText}>Welcome to DOOW.</p>
+        <p className={styles.smallText}>Let's Doow It..</p>
       </div>
     </div>
   );
