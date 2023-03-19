@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "./halfCard.module.scss";
 
@@ -37,6 +38,13 @@ export const HalfCard = (props: IFullCard) => {
         </div>
 
         <div className={styles.imager}>
+          {/* <Image
+            src={props.imgUrl}
+            className={styles.imgd}
+            alt="icon"
+            width={200}
+            height={200}
+          /> */}
           <img src={props.imgUrl} className={styles.imgd} />
         </div>
         <input className={styles.btn} value={props.buttonTitle} type="button" />

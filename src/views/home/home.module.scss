@@ -6,16 +6,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 25px;
+  width: 100%;
+  // background-color: aqua;
+  // margin-left: 25px;
+  @include tabletSS {
+    height: fit-content;
+  }
   img {
-    width: fit-content;
+    width: 100%;
+    // background-color: rgb(255, 102, 0);
     height: 65vh;
     object-fit: contain;
     // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     // display: none;
     @include tabletSS {
-      width: 85%;
-      height: 50%;
+      height: fit-content;
+      width: 85vw;
+      // height: 50%;
     }
   }
 }

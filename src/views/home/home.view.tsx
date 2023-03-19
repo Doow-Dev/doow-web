@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContainer } from "./cardContainer/cardContainer";
+import { CardContainer } from "./halfCard/cardContainer";
 import { Styler } from "./cardContainer/styler";
 import FooterHome from "./footer/footer.comp";
 import { FullCard } from "./fullCard/fullCard";
@@ -51,7 +51,7 @@ export default function HomeView() {
         bgColor={Styler.white}
       />
       <CardBanner />
-      {/* <CardContainer
+      <CardContainer
         bgColor={Styler.white}
         card1={
           <HalfCard
@@ -83,7 +83,7 @@ export default function HomeView() {
             textColor={Styler.white}
           />
         }
-      /> */}
+      />
       <HomeFaq />
       <FooterHome />
     </div>
