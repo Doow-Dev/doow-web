@@ -1,3 +1,3 @@
-# APCMIMS
+# DOOW
 
-- An election management system for the All Progressive Congress Political Party.
+- A Cross-border Payment System.

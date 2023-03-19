@@ -4,9 +4,9 @@ import Input from "../../../components/inputs/input";
 import styles from "./steps.module.scss";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Modal } from "../../../components/modal";
 import MenuContext from "../../../context/drop-menu-context";
 import { MemberCreateInput } from "../../../generated/graphql";
+import Modal from "../../../comps/modal";
 
 interface Props {
   prevStep: () => void;
@@ -34,7 +34,6 @@ export const ProvidePhone: React.FC<Props> = (props) => {
   const { closeMenu, open } = useContext(MenuContext);
   return (
     <div className={styles.container}>
-      {showModal && <Modal onClick={closeMenu} />}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
