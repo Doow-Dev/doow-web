@@ -2,18 +2,20 @@
 @import "../../styles/screensize";
 
 .imageContainer {
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  // background-color: aquamarine;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: center;
-  margin-left: 20px;
+  margin-left: 25px;
   img {
-    width: 70%;
-    height: 65%;
-    object-fit: cover;
+    width: fit-content;
+    height: 65vh;
+    object-fit: contain;
+    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    // display: none;
+    @include tabletSS {
+      width: 85%;
+      height: 50%;
+    }
   }
 }

@@ -8,6 +8,8 @@ import { Jumbutron } from "./jumbotron/jumbutron";
 import { HomeLanding } from "./Landing/Landing";
 import LandingNavBar from "./navbar/navbar.comp";
 import styles from "./home.module.scss";
+import { HomeFaq } from "./faq/faq";
+import { CardBanner } from "./cardBanner/CardBanner";
 
 export default function HomeView() {
   return (
@@ -15,8 +17,11 @@ export default function HomeView() {
       <LandingNavBar />
       <HomeLanding />
       <Jumbutron
-        title={"Spend, save and enjoy."}
-        subtitle={"Na who chop dey see tomorrow."}
+        title={"Do business in 190+ countries from one place"}
+        subtitle={`
+        Whether you're a one-man business, a startup or a large coorporation,
+          Doow is the place to manage all your local and international finances
+          at anytime.`}
         bgColor={Styler.background1}
       />
 
@@ -28,7 +33,7 @@ export default function HomeView() {
         subtitle={"A lil Story. A lil Story. A lil Story"}
         imgUrl={"./images/reports.png"}
         buttonTitle={"Get Started"}
-        bgColor={"rgb(7, 138, 164)"}
+        bgColor="#00bbf9"
         textColor={Styler.white}
       />
 
@@ -37,7 +42,7 @@ export default function HomeView() {
         subtitle={"A lil Story. A lil Story. A lil Story"}
         imgUrl={"./images/invoice.png"}
         buttonTitle={"Get Started"}
-        bgColor={"rgb(7, 141, 99)"}
+        bgColor="#06BEA6"
         textColor={Styler.white}
       />
       <Jumbutron
@@ -45,29 +50,41 @@ export default function HomeView() {
         subtitle={"Na who chop dey see tomorrow."}
         bgColor={Styler.white}
       />
-      <CardContainer
+      <CardBanner />
+      {/* <CardContainer
         bgColor={Styler.white}
         card1={
           <HalfCard
-            title="Half Card"
-            subtitle={"A lil Story. A lil Story. A lil Story"}
+            title="Multi-Currency Business Accounts"
+            subtitle={`
+              You can open local and international business 
+              accounts in the US, UK, Europe, Kenya, and Nigeria, without all 
+              the unnecessary paperwork, 
+              and having to visit a bank branch in any of these countries.
+            `}
             imgUrl={"./images/currency.png"}
             buttonTitle={"Get Started"}
-            bgColor={"rgb(208, 5, 215)"}
+            bgColor="#9b5de5"
             textColor={Styler.white}
           />
         }
         card2={
           <HalfCard
-            title="Half Card"
-            subtitle={"A lil Story. A lil Story. A lil Story"}
+            title={`Expense Mgt & Permissions`}
+            subtitle={`You can easily create spend 
+            policies and limits for budget categories, reimbursements, 
+            company cards, and global accounts to align with your company’s 
+            financial goals at anytime. Add as many team members to your 
+            finance workspace and manage their real-time
+            spend and access levels from one dashboard.`}
             imgUrl={"./images/expenses.png"}
             buttonTitle={"Get Started"}
-            bgColor={"rgb(5, 116, 81)"}
+            bgColor="#f15bb5"
             textColor={Styler.white}
           />
         }
-      />
+      /> */}
+      <HomeFaq />
       <FooterHome />
     </div>
   );

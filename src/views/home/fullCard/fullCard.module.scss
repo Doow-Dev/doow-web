@@ -10,7 +10,10 @@
   margin: 60px 0px;
   width: 100%;
   padding: 0% 15%;
-
+  @include tabletSS {
+    margin: 25px 0px;
+    padding: 0% 10%;
+  }
   .content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -21,16 +24,20 @@
     border-radius: 20px;
     width: 100%;
     &:hover .imager img {
-      height: 7rem * 4.5;
-      width: 8.6rem * 4.5;
+      height: 7rem * 4.9;
+      width: 8.6rem * 4.9;
       transition: 0.5s ease-out;
       box-shadow: #fff;
     }
     &:hover {
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
-    @include mobileSS {
-      width: 70%;
+    @include tabletSS {
+      height: 80vh;
+      border-radius: 10px;
+      margin: 0 20px;
+      grid-template-columns: repeat(1, 1fr);
+      width: 100%;
     }
 
     .textSection {
@@ -40,8 +47,10 @@
       justify-content: space-between;
       padding: 50px;
       border-radius: 20px;
-      // background-color: rgb(23, 62, 97);
       height: 100%;
+      @include tabletSS {
+        padding: 20px;
+      }
       div {
         display: flex;
         flex-direction: column;
@@ -52,16 +61,13 @@
           font-size: 3rem;
           font-weight: 600;
           @include tabletSS {
-            font-size: 3rem;
+            font-size: 1.8rem;
             display: block;
-          }
-          @include mobileSS {
-            font-size: 4rem;
           }
         }
         .subtitle {
           color: #fff;
-          font-size: 1.4rem;
+          font-size: 1.7rem;
           font-weight: 300;
           text-align: center;
           @include mobileSS {
@@ -76,7 +82,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      // background-color: aqua;
+
+      @include tabletSS {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        // background-color: aqua;
+      }
       .imgd {
         color: #fff;
         font-size: medium;
@@ -84,13 +100,16 @@
         width: 8.6rem * 5;
         margin: 0px;
         object-fit: fill;
-        align-items: center;
         @include tabletSS {
-          display: block;
+          margin-left: 10%;
+          align-self: center;
+          height: 60%;
+          width: 80%;
         }
         @include mobileSS {
-          height: 7rem * 1;
-          width: 8.6rem * 1;
+          align-self: center;
+          height: 60%;
+          width: 100%;
         }
       }
     }
@@ -100,7 +119,7 @@
 .btn {
   border-style: none;
   border-radius: 20px;
-  padding: 5px 15px;
+  padding: 10px 20px;
   font-size: medium;
   background-color: $background1;
   &:hover {

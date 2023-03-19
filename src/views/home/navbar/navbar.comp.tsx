@@ -16,13 +16,38 @@ export default function LandingNavBar() {
     <>
       <div className={styles.navbar}>
         <label className={styles.brand}>
-          {/* <img src="/images/logo.png" className={styles.imgd} /> */}
           <Link href="/" className={styles.brand}>
-            DOOW
+            {/* <img src="/images/hlogo.png" className={styles.imge} /> */}
+            {/* <img src="/images/clogo.png" className={styles.imge} /> */}
+            doow
           </Link>
         </label>
 
         <ul className={showNav ? styles.show : ""}>
+          <NavListItem
+            name={"Accounting"}
+            setShowNav={() => setShowNav(!showNav)}
+            href={"/accounting"}
+            path={_path}
+            styleName={styles.link}
+            activeStyle={styles.active}
+          />
+          <NavListItem
+            name={"Banking"}
+            setShowNav={() => setShowNav(!showNav)}
+            href={"/banking"}
+            path={_path}
+            styleName={styles.link}
+            activeStyle={styles.active}
+          />
+          <NavListItem
+            name={"Products"}
+            setShowNav={() => setShowNav(!showNav)}
+            href={"/products"}
+            path={_path}
+            styleName={styles.link}
+            activeStyle={styles.active}
+          />
           <li
             onClick={() => setShowNav(!showNav)}
             className={_path == `/login` ? styles.active : ""}
@@ -42,5 +67,27 @@ export default function LandingNavBar() {
         </label>
       </div>
     </>
+  );
+}
+
+interface INavListItem {
+  name: string;
+  setShowNav: () => void;
+  href: string;
+  path: string;
+  styleName: string;
+  activeStyle: string;
+}
+
+export function NavListItem(props: INavListItem) {
+  return (
+    <li
+      onClick={props.setShowNav}
+      className={props.path == props.href ? props.activeStyle : ""}
+    >
+      <Link href={props.href} className={props.styleName}>
+        {props.name}
+      </Link>
+    </li>
   );
 }

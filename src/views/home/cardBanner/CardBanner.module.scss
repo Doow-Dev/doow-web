@@ -5,10 +5,11 @@
   min-height: calc(100vh - 70px);
   width: 100vw;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
   background-color: rgb(255, 255, 255);
   background-size: cover;
   background-position: center;
@@ -16,18 +17,18 @@
       rgba(220, 241, 218, 0.1),
       rgba(129, 133, 103, 0.1)
     ),
-    url(../../../../public/images/banner.png);
+    url(../../../../public/images/card_banner.png);
 
   @include tabletSS {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100vw;
     margin-top: 50px;
     height: 80vh;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top;
     background-image: linear-gradient(
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 0.1)
+        rgba(225, 236, 224, 0.1),
+        rgba(129, 133, 103, 0.1)
       ),
       url(../../../../public/images/mobile.png);
   }
@@ -38,7 +39,8 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 50%;
+    width: 100%;
+    padding: 20px;
     @include tabletSS {
       width: 60%;
     }
@@ -47,8 +49,10 @@
   .sectionTitle {
     color: $fontColor;
     margin-bottom: 30px;
+    margin-left: 70px;
     h1 {
-      font-size: 9rem;
+      font-size: 6.5rem;
+      text-align: left;
       font-weight: 500;
       word-spacing: 5px;
       @include tabletSS {
@@ -56,8 +60,7 @@
         display: block;
       }
       @include mobileSS {
-        font-size: 3rem;
-        font-weight: 600;
+        font-size: 2.5rem;
       }
     }
   }
@@ -68,11 +71,12 @@
     align-items: center;
     .smallText {
       width: 80%;
-      font-size: 1.8rem;
-      font-family: "Roboto";
+      font-size: 2rem;
+      line-height: 30px;
+      font-family: "Inter";
       font-weight: 300;
       padding-bottom: 30px;
-
+      text-align: left;
       @include mobileSS {
         font-size: 1.4rem;
       }

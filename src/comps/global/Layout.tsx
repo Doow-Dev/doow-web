@@ -8,9 +8,10 @@ export default function Layout(props) {
       <Head>
         <title>DOOW </title>
         <meta name="doow" content="Created by Hexelan" />
-        <link rel="icon" href="/images/logo.png" />
+        {/* <link rel="icon" href="/images/logo.png" /> */}
+        <link rel="icon" href="/images/Doow.png" />
       </Head>
-      <NavBar />
+      {/* <NavBar /> */}
       {/* <SideBar /> */}
       {props.children}
     </>

@@ -15,7 +15,14 @@ export const HalfCard = (props: IFullCard) => {
 
   return (
     // <div className={styles.container}>
-    <div className={styles.content} style={{ backgroundColor: props.bgColor }}>
+    <div
+      className={styles.content}
+      style={{
+        backgroundColor: props.bgColor,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <div className={styles.textSection}>
         <div>
           <h3

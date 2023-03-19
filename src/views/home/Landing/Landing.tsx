@@ -7,14 +7,18 @@ export const HomeLanding = () => {
 
   return (
     <div id="home" className={styles.container}>
-      {/* <img src="/images/logo.png" className={styles.imgd} /> */}
       <div className={styles.content}>
         <div className={styles.sectionTitle}>
-          <span>Cross-border banking for African startups and businesses</span>
+          <h1>Cross-border banking for african startups</h1>
           {/* <span>Doow It.</span> */}
         </div>
 
-        <p className={styles.smallText}>Let's Doow It..</p>
+        <div className={styles.bottomDiv}>
+          <p className={styles.smallText}>
+            Be the first to get early access when we launch beta!
+          </p>
+          <div className={styles.btn}>Join the waitlist</div>
+        </div>
       </div>
     </div>
   );

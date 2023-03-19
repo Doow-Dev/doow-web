@@ -17,7 +17,7 @@ export const Jumbutron = (props: IJumbutron) => {
       <div className={styles.content}>
         <div className={styles.sectionTitle}>{props.title}</div>
 
-        <p className={styles.subtitle}>{props.title}</p>
+        <p className={styles.subtitle}>{props.subtitle}</p>
       </div>
     </div>
   );
