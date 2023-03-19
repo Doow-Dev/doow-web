@@ -11,6 +11,7 @@
   justify-content: space-between;
   border-radius: 1rem;
   border: 1px solid $primaryBlue;
+  font-family: 'Manrope', sans-serif;
 
   & > .top,
   .bottom {
@@ -21,14 +22,29 @@
 
   & .accountName {
     font-weight: 500;
+    color: #000;
   }
 
   & .balance {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+
+    @include largeSS {
+        font-size: 18px;
+        letter-spacing: 0px;
+    }
+
+    @include mobileSS {
+        font-size: 20px;
+        letter-spacing: 1.1px;
+    }
   }
 
   & .profileImg {
     border-radius: 50%;
+    border: 2px solid #aaa;
   }
+  
 }

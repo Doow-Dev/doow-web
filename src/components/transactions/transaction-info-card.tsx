@@ -31,7 +31,19 @@ export const TransInfoCard: React.FC<Props> = (props) => {
         <div className={`${styles.transType} ${styles[getColor()]}`}>
           {transType}
         </div>
-        <div className={styles.accountTypeInfo}>Account Type All</div>
+        <div className={styles.accountTypeInfo}>
+          Account Type{" "}
+          <select
+            style={{
+              border: "none",
+              outline: "none",
+              color: "#006fff",
+              background: "transparent",
+            }}
+          >
+            <option>ALL</option>
+          </select>
+        </div>
       </div>
       <div className={styles.columnRight}>
         <div>

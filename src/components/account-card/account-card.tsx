@@ -1,16 +1,17 @@
 import Image from "next/image";
 import React from "react";
+import AvatarGroup from "../avatar/avatar-group";
 import styles from "./account-card.module.scss";
 
 interface Props {
   accountName: string;
   balance: string;
   countryFlag: string;
-  profileImg: string;
+  profileUrls: string[];
 }
 
 export const AccountCard: React.FC<Props> = (props) => {
-  const { accountName, balance, countryFlag, profileImg } = props;
+  const { accountName, balance, countryFlag, profileUrls } = props;
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -25,13 +26,7 @@ export const AccountCard: React.FC<Props> = (props) => {
       </div>
       <div className={styles.bottom}>
         <p className={styles.balance}>Bal: {balance}</p>
-        <Image
-          src={profileImg}
-          width={25}
-          height={25}
-          alt="profile-pic"
-          className={styles.profileImg}
-        />
+        <AvatarGroup imageUrls={profileUrls} />
       </div>
     </div>
   );
