@@ -1,0 +1,29 @@
+@import "../../styles/variables";
+
+.rateContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #777;
+
+  & > .period {
+    font-size: 13px;
+  }
+
+  & > .rate {
+    color: #048f19;
+  }
+
+  & > .rate.red {
+    color: $primaryRed;
+  }
+}
+
+.rateContainer.small {
+  font-size: 11px;
+
+  & > .period {
+    font-size: 10px;
+  }
+}

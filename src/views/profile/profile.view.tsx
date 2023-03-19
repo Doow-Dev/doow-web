@@ -1,8 +1,8 @@
 import NavBar from "../../comps/navbar/navbar.comp";
 import { SideBar } from "../../comps/sidebar/sidebar";
 import { useAuthState } from "../../context/auth";
+import LandingNavBar from "../Landing/navbar/navbar.comp";
 import styles from "./profile.module.scss";
-import { FaUserCircle } from "react-icons/fa";
 
 export const ProfileView = () => {
   const { me } = useAuthState();
@@ -14,7 +14,7 @@ export const ProfileView = () => {
   return (
     <>
       <SideBar />
-      <NavBar />
+      <LandingNavBar />
       <div className={styles.container}>
         <div className={styles.contents}>
           <p>Content here</p>

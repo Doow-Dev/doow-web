@@ -1,20 +1,15 @@
 import styles from "./sidebar.module.scss";
 import Link from "next/link";
-import { logout, useAuthDispatch, useAuthState } from "../../context/auth";
 import { sideBarItems } from "./sidebar-items";
 import { TfiAngleUp, TfiAngleDown } from "react-icons/tfi";
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export const SideBar = () => {
   const [showLinks, setShowLinks] = useState<boolean>(false);
   const [activeLink, setActiveLink] = useState<number | null>(null);
-  const dispatch = useAuthDispatch();
-  const handleLogout = async () => {
-    await logout(dispatch);
-  };
-
-  const data = useAuthState();
+  const route = useRouter();
 
   const toggleShowLinks = (i: number) => {
     if (i === activeLink) {
@@ -27,9 +22,6 @@ export const SideBar = () => {
 
   return (
     <div className={`${styles.sidebar_menu} ${styles.active}`}>
-      <Link href="/">
-        <h3>DOOW</h3>
-      </Link>
       <div className={styles.sidebar}>
         <div className={styles.links}>
           {sideBarItems.map((item, i) => (
@@ -62,6 +54,7 @@ export const SideBar = () => {
             width={40}
             height={40}
             alt={"doow-logo"}
+            onClick={() => route.push("/")}
           />
           <div className={styles.logoInfo}>
             <div>

@@ -1,0 +1,34 @@
+@import "../../styles/screensize";
+@import "../../styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 150px;
+  padding: 1.5rem;
+  justify-content: space-between;
+  border-radius: 1rem;
+  border: 1px solid $primaryBlue;
+
+  & > .top,
+  .bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  & .accountName {
+    font-weight: 500;
+  }
+
+  & .balance {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  & .profileImg {
+    border-radius: 50%;
+  }
+}

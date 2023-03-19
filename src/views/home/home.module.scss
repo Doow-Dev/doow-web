@@ -1,72 +1,98 @@
-@import "../../styles/variables";
 @import "../../styles/screensize";
+@import "../../styles/variables";
 
 .container {
-  min-height: 100vh;
+  margin-left: 345px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-
-  .content {
+  @include tabletSS {
+    margin: 0px;
+    margin-top: 50px;
+  }
+  .contents {
+    width: 100%;
+    padding: 80px 60px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    @include mobileSS {
-      width: 70%;
+    gap: 60px;
+
+    @include tabletSS {
+      padding: 20px 20px;
     }
   }
+}
 
-  .sectionTitle {
-    color: $primaryColor;
-    margin-bottom: 30px;
-    @include mobileSS {
-      font-size: 4rem;
-    }
-    span {
-      font-size: 10rem;
-      font-weight: 600;
-      @include tabletSS {
-        font-size: 3rem;
-        display: block;
-      }
-    }
+.topSection {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  .btnGroup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
-  .smallText {
-    color: $primaryColor;
-    font-size: 1.6rem;
-    padding-bottom: 50px;
-    font-weight: 300;
+  @include laptopSS {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  @include tabletSS {
+  }
+}
+
+.container {
+  .middleSection,
+  .bottomSection .bottomRow {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 3rem;
+    row-gap: 3rem;
+
+    // @media screen(max-width: ) {
+
+    // }
+
+    @include laptopSS {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      row-gap: 3rem;
+      column-gap: 1rem;
+    }
+
+    @include tabletSS {
+      // column-gap: 2rem;
+    }
+
     @include mobileSS {
-      font-size: 1.4rem;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+
+      margin-bottom: 80px;
     }
   }
-  .dropdown {
-    padding: 10px;
-    // width: 100%;
+}
 
-    select {
-      text-align: center;
-      width: 50%;
-      padding: 5px 20px;
-      border-radius: 10px;
-      background-color: $primaryColor;
-      color: #fff;
-      height: 40px;
-      border-style: none;
-      width: 30vw;
-      option {
-        text-align: center;
-      }
-      @include mobileSS {
-        width: 70vw;
-        // background-color: aquamarine;
-      }
-    }
+.topLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .totalBalance {
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+  }
+
+  .currencyInfo {
+    font-size: 14px;
   }
 }
 
@@ -86,5 +112,24 @@
   @include mobileSS {
     height: 7rem * 1;
     width: 8.6rem * 1;
+  }
+}
+
+.bottomSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  & > .topRow,
+  .bottomRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & div {
+      display: flex;
+      gap: 10px;
+    }
   }
 }
