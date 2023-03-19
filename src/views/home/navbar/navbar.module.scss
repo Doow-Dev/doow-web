@@ -79,7 +79,7 @@
       display: inline-block;
       border-radius: 8px;
       &:hover {
-        background-color: #fff;
+        background-color: $fontColor;
         color: $primaryColor;
         transition: 0.5s;
         border-radius: 0px;
@@ -101,10 +101,11 @@
 
       a {
         font-size: medium;
-        text-transform: uppercase;
+        // text-transform: uppercase;
         font-weight: bold;
         color: $primaryColor;
         margin: 0 10px;
+        font-family: "Roboto";
         @include tabletSS {
           color: $primaryColor;
           font-size: smaller;
