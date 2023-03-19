@@ -18,7 +18,7 @@ export const HomeFaq = () => {
 
         <div className={styles.itemSection}>
           <FaqItem
-            title={"A title"}
+            title={"What type of card can I get?"}
             content={
               <div>
                 <p>

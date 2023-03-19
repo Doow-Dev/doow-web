@@ -31,6 +31,7 @@ export const FullCard = (props: IFullCard) => {
               {props.subtitle}
             </p>
           </div>
+
           <input
             className={styles.btn}
             value={props.buttonTitle}

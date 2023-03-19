@@ -23,21 +23,25 @@
     text-align: center;
     border-radius: 20px;
     width: 100%;
-    &:hover .imager img {
-      height: 7rem * 4.9;
-      width: 8.6rem * 4.9;
-      transition: 0.5s ease-out;
-      box-shadow: #fff;
-    }
+    // &:hover .imager img {
+    //   height: 7rem * 4.9;
+    //   width: 8.6rem * 4.9;
+    //   transition: 0.5s ease-out;
+    //   box-shadow: #fff;
+    // }
     &:hover {
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
     @include tabletSS {
-      height: 80vh;
+      height: max-content;
       border-radius: 10px;
       margin: 0 20px;
-      grid-template-columns: repeat(1, 1fr);
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      // grid-template-columns: repeat(1, 1fr);
     }
 
     .textSection {
@@ -89,27 +93,25 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        // justify-content: center;
         margin: 0 auto;
-        // background-color: aqua;
       }
-      .imgd {
+      img {
         color: #fff;
         font-size: medium;
         height: 7rem * 5;
         width: 8.6rem * 5;
         margin: 0px;
+        display: block;
         object-fit: fill;
+        // display: none;
+        // background-color: aqua;
         @include tabletSS {
-          margin-left: 10%;
+          // margin-left: 10%;
           align-self: center;
-          height: 60%;
-          width: 80%;
-        }
-        @include mobileSS {
-          align-self: center;
-          height: 60%;
-          width: 100%;
+          height: auto;
+          width: 70%;
+          margin-bottom: 30px;
         }
       }
     }
@@ -122,9 +124,14 @@
   padding: 10px 20px;
   font-size: medium;
   background-color: $background1;
+
   &:hover {
     background-color: $secondaryColor;
     color: #fff;
     transition: 0.5s ease-in-out;
+  }
+
+  @include mobileSS {
+    margin-top: 30px;
   }
 }
