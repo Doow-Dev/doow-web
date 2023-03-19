@@ -1,0 +1,111 @@
+@import "../../../styles/variables";
+@import "../../../styles/screensize";
+
+.container {
+  // min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $background1;
+  margin: 60px 0px;
+  width: 100%;
+  padding: 0% 15%;
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 65vh;
+    margin: 0 50px;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    width: 100%;
+    &:hover .imager img {
+      height: 7rem * 4.5;
+      width: 8.6rem * 4.5;
+      transition: 0.5s ease-out;
+      box-shadow: #fff;
+    }
+    &:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    }
+    @include mobileSS {
+      width: 70%;
+    }
+
+    .textSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 50px;
+      border-radius: 20px;
+      // background-color: rgb(23, 62, 97);
+      height: 100%;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .sectionTitle {
+          color: #fff;
+          margin-bottom: 20px;
+          font-size: 3rem;
+          font-weight: 600;
+          @include tabletSS {
+            font-size: 3rem;
+            display: block;
+          }
+          @include mobileSS {
+            font-size: 4rem;
+          }
+        }
+        .subtitle {
+          color: #fff;
+          font-size: 1.4rem;
+          font-weight: 300;
+          text-align: center;
+          @include mobileSS {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+
+    .imager {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // background-color: aqua;
+      .imgd {
+        color: #fff;
+        font-size: medium;
+        height: 7rem * 5;
+        width: 8.6rem * 5;
+        margin: 0px;
+        object-fit: fill;
+        align-items: center;
+        @include tabletSS {
+          display: block;
+        }
+        @include mobileSS {
+          height: 7rem * 1;
+          width: 8.6rem * 1;
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  border-style: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: medium;
+  background-color: $background1;
+  &:hover {
+    background-color: $secondaryColor;
+    color: #fff;
+    transition: 0.5s ease-in-out;
+  }
+}
