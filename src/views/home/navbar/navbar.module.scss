@@ -2,16 +2,15 @@
 @import "../../../styles/screensize";
 
 .navbar {
-  background-color: $primaryColor;
-  color: #fff;
+  background-color: #fbfcfa;
   width: 100%;
-  height: 50px;
+  height: 70px;
   z-index: 2;
   position: fixed;
   top: 0;
   padding-left: 15px;
-
   @include tabletSS {
+    height: 50px;
     display: block;
   }
 
@@ -24,41 +23,49 @@
     left: 0;
   }
   .brand {
-    color: #fff;
+    color: $secondaryColor;
+    align-items: center;
+    margin-left: 50px;
+    a {
+      font-weight: 900;
+      font-family: "Comfortaa";
+      font-size: 3rem;
+      letter-spacing: -1px;
+    }
+    @include tabletSS {
+      margin-left: 10px;
+    }
   }
   label.brand {
     font-size: medium;
     font-weight: bold;
     display: inline-block;
-    // position: absolute;
-    line-height: 50px;
-    color: #fff;
+    line-height: 70px;
+    @include tabletSS {
+      line-height: 50px;
+    }
     a {
-      color: #fff;
+      color: $secondaryColor;
     }
   }
 
   ul {
     float: right;
     margin-right: 40px;
-    border-top: rgb(189, 191, 192);
+    border-top: $background1;
     border-style: solid;
     border-left: none;
     border-right: none;
     border-bottom: none;
     border-width: 0.5px;
-    // background-color: $primaryColor;
-    // background-color: rgb(126, 12, 12);
-
-    height: 50px;
+    height: 70px;
     // width: 50%;
     @include tabletSS {
       visibility: visible;
       position: fixed;
       width: 50%;
       height: 100vh;
-      background-color: rgba(255, 255, 255, 0.8);
-      color: $primaryColor;
+      background-color: #fff;
       top: 50px;
       text-align: left;
       left: -100%;
@@ -68,12 +75,11 @@
     }
 
     li {
-      line-height: 50px;
+      line-height: 70px;
       display: inline-block;
-      color: $primaryColor;
       border-radius: 8px;
       &:hover {
-        background-color: #fff;
+        background-color: $fontColor;
         color: $primaryColor;
         transition: 0.5s;
         border-radius: 0px;
@@ -85,6 +91,7 @@
         display: block;
         margin: 10px;
         line-height: 30px;
+
         &:hover {
           background-color: $primaryColor;
           color: #fff;
@@ -93,12 +100,15 @@
       }
 
       a {
-        font-size: small;
-        color: #fff;
-        text-transform: uppercase;
+        font-size: medium;
+        // text-transform: uppercase;
+        font-weight: bold;
+        color: $primaryColor;
         margin: 0 10px;
+        // font-family: "Roboto";
         @include tabletSS {
           color: $primaryColor;
+          font-size: smaller;
         }
       }
     }
@@ -111,9 +121,9 @@
     }
   }
   label.icon {
-    color: #fff;
+    color: $primaryColor;
     font-size: medium;
-    line-height: 50px;
+    line-height: 70px;
     float: right;
     margin-right: 40px;
     align-items: center;
@@ -124,23 +134,7 @@
     }
     @include mobileSS {
       visibility: visible;
+      line-height: 70px;
     }
   }
 }
-
-// .imgd {
-//   color: #fff;
-//   font-size: medium;
-//   line-height: 50px;
-//   // float: right;
-//   height: 35px;
-//   width: 45px;
-//   // margin-right: 40px;
-//   align-items: center;
-//   @include tabletSS {
-//     display: block;
-//   }
-//   @include mobileSS {
-//     visibility: visible;
-//   }
-// }

@@ -107,11 +107,20 @@
   margin: 20px;
   align-items: center;
   @include tabletSS {
-    display: block;
+    height: fit-content;
   }
-  @include mobileSS {
-    height: 7rem * 1;
-    width: 8.6rem * 1;
+  img {
+    width: 100%;
+    // background-color: rgb(255, 102, 0);
+    height: 65vh;
+    object-fit: contain;
+    // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    // display: none;
+    @include tabletSS {
+      height: fit-content;
+      width: 85vw;
+      // height: 50%;
+    }
   }
 }
 

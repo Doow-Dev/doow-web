@@ -1,6 +1,5 @@
 import { IconButton } from "../../components/buttons";
 import { SideBar } from "../../comps/sidebar/sidebar";
-import LandingNavBar from "../Landing/navbar/navbar.comp";
 import styles from "./home.module.scss";
 import { BsArrowRight, BsPlusLg } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -13,7 +12,6 @@ export default function HomeView() {
   return (
     <>
       <SideBar />
-      <LandingNavBar />
       <div className={styles.container}>
         <div className={styles.contents}>
           <div className={styles.topSection}>

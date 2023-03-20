@@ -1,0 +1,47 @@
+@import "../../../styles/variables";
+@import "../../../styles/screensize";
+
+.container {
+  // min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $background1;
+  .content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    text-align: center;
+    max-width: 65%;
+    padding: 100px 0px;
+    @include mobileSS {
+      width: 70%;
+    }
+  }
+
+  .sectionTitle {
+    color: $fontColor;
+    margin-bottom: 30px;
+    font-size: 5rem;
+    font-weight: 600;
+    @include tabletSS {
+      font-size: 3rem;
+      display: block;
+    }
+    @include mobileSS {
+      font-size: 2.2rem;
+    }
+  }
+
+  .subtitle {
+    color: $fontColor;
+    font-size: 1.8rem;
+    font-weight: 300;
+    text-align: center;
+    @include mobileSS {
+      font-size: 1.4rem;
+    }
+  }
+}

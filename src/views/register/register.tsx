@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { MemberCreateInput } from "../../generated/graphql";
-import LandingNavBar from "../Landing/navbar/navbar.comp";
+import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./register.module.scss";
 import {
   StateInfo,

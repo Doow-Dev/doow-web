@@ -1,0 +1,78 @@
+@import "../../../styles/variables";
+@import "../../../styles/screensize";
+
+.container {
+  background-color: $fontColor;
+  width: 100%;
+  z-index: 2;
+  padding: 20px 15%;
+  // height: 50px;
+  // min-height: 50vh;
+
+  @include tabletSS {
+    display: block;
+  }
+
+  @include mobileSS {
+    padding-left: 20px;
+    visibility: visible;
+  }
+  .brand {
+    color: $primaryColor;
+    font-size: larger;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    width: 100%;
+    // background-color: aqua;
+    .linkList {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-row-gap: 20px;
+      font-weight: 300;
+      font-size: small;
+      justify-content: space-between;
+
+      @include mobileSS {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        flex-direction: column;
+        padding: 0 20px;
+      }
+      ul {
+        text-align: left;
+        li {
+          color: #fff;
+          padding: 10px 0;
+          &:hover {
+            color: $fadeFontColor;
+          }
+        }
+      }
+    }
+    .shortText {
+      padding: 40px;
+      font-weight: 300;
+      font-size: x-small;
+      text-align: center;
+    }
+    .copywright {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      bottom: 0px;
+      p {
+        padding: 15px 0;
+        font-weight: 300;
+        font-size: small;
+        color: $fadeFontColor;
+      }
+    }
+  }
+}
