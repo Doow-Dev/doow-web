@@ -1,119 +1,91 @@
-import { IconButton } from "../../components/buttons";
-import { SideBar } from "../../comps/sidebar/sidebar";
+import React from "react";
+import { CardContainer } from "./halfCard/cardContainer";
+import { Styler } from "./cardContainer/styler";
+import FooterHome from "./footer/footer.comp";
+import { FullCard } from "./fullCard/fullCard";
+import { HalfCard } from "./halfCard/halfCard";
+import { Jumbutron } from "./jumbotron/jumbutron";
+import { HomeLanding } from "./Landing/Landing";
+import LandingNavBar from "./navbar/navbar.comp";
 import styles from "./home.module.scss";
-import { BsArrowRight, BsPlusLg } from "react-icons/bs";
-import { HiDotsHorizontal } from "react-icons/hi";
-import { RateText } from "../../components/text";
-import { TransInfoCard } from "../../components/transactions";
-import { AccountCard } from "../../components/account-card";
-import Select from "../../components/select/select";
+import { HomeFaq } from "./faq/faq";
+import { CardBanner } from "./cardBanner/CardBanner";
 
 export default function HomeView() {
   return (
-    <>
-      <SideBar />
-      <div className={styles.container}>
-        <div className={styles.contents}>
-          <div className={styles.topSection}>
-            <div className={styles.topLeft}>
-              <RateText rateValue={25} periodText="in the last 7 days" tiny />
-              <p className={styles.totalBalance}>$570,000.00</p>
-              <p className={styles.currencyInfo}>
-                Total available balance in{" "}
-                <select
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    color: "#006fff",
-                    background: "transparent",
-                  }}
-                >
-                  <option>USD</option>
-                  <option>NGN</option>
-                  <option>KES</option>
-                </select>
-              </p>
-            </div>
-            <div className={styles.btnGroup}>
-              <IconButton icon={<BsPlusLg />} title="Add money" />
-              <IconButton icon={<BsArrowRight />} title="Send money" />
-              <IconButton icon={<HiDotsHorizontal />} />
-            </div>
-          </div>
-          {/* middle section */}
-          <div className={styles.middleSection}>
-            <TransInfoCard
-              periodText="in the last 7 days"
-              rateValue={27}
-              transType="Money in"
-              transAmount={"151,900.00"}
-            />
-            <TransInfoCard
-              periodText="compared to last 7 days"
-              rateValue={-56}
-              transType="Money out"
-              transAmount={"2,000.00"}
-            />
-            <TransInfoCard transType="Pending" transAmount={"2,000.00"} />
-          </div>
-          <div className={styles.bottomSection}>
-            <div className={styles.topRow}>
-              <div>
-                <p>Accounts </p>
-                <select
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    color: "#006fff",
-                    background: "transparent",
-                  }}
-                >
-                  <option>All</option>
-                </select>
-              </div>
-              <div>
-                <IconButton icon={<BsArrowRight />} title="Add account" />
-                <IconButton icon={<HiDotsHorizontal />} />
-              </div>
-            </div>
-            <div className={styles.bottomRow}>
-              <AccountCard
-                accountName="Doow Holdings Inc."
-                balance={"$370, 000"}
-                countryFlag={"/assets/flags/usa.svg"}
-                profileUrls={["/assets/profiles/afro-hair.jpeg"]}
-              />
-              <AccountCard
-                accountName="Doow Nigeria Ltd"
-                balance={"N70,000,000"}
-                countryFlag={"/assets/flags/nigeria.png"}
-                profileUrls={[
-                  "/assets/profiles/headtie-man.jpeg",
-                  "/assets/profiles/afro-hair.jpeg",
-                  "/assets/profiles/spec-man.jpeg",
-                  "/assets/profiles/spec-man.jpeg",
-                  "/assets/profiles/spec-man.jpeg",
-                ]}
-              />
-              <AccountCard
-                accountName="Doow Kenya"
-                balance={"KES 990,000"}
-                countryFlag={"/assets/flags/kenya.jpg"}
-                profileUrls={[
-                  "/assets/profiles/afro-hair.jpeg",
-                  "/assets/profiles/spec-man.jpeg",
-                ]}
-              />
-              <AccountCard
-                accountName="SAAS Subscriptions"
-                balance={"£165,000"}
-                countryFlag={"/assets/flags/british.png"}
-                profileUrls={["/assets/profiles/afro-hair.jpeg"]}
-              />
-            </div>
-          </div>
-        </div>
+    <div>
+      <LandingNavBar />
+      <HomeLanding />
+
+      <Jumbutron
+        title={"Do business in 190+ countries from one place"}
+        subtitle={`
+        Whether you're a one-man business, a startup or a large coorporation,
+          Doow is the place to manage all your local and international finances
+          at anytime.`}
+        bgColor={Styler.background1}
+      />
+      <div className={styles.imageContainer}>
+        <img src="./images/private.png" className={styles.img} />
       </div>
-    </>
+      <FullCard
+        title="Firsty, spend and save faster."
+        subtitle={"A lil Story. A lil Story. A lil Story"}
+        imgUrl={"./images/reports.png"}
+        buttonTitle={"Get Started"}
+        bgColor="#00bbf9"
+        textColor={Styler.white}
+      />
+
+      <FullCard
+        title="Send, spend and save faster."
+        subtitle={"A lil Story. A lil Story. A lil Story"}
+        imgUrl={"./images/invoice.png"}
+        buttonTitle={"Get Started"}
+        bgColor="#06BEA6"
+        textColor={Styler.white}
+      />
+      <Jumbutron
+        title={"Spend, save and enjoy."}
+        subtitle={"Na who chop dey see tomorrow."}
+        bgColor={Styler.white}
+      />
+      <CardBanner />
+      <CardContainer
+        bgColor={Styler.white}
+        card1={
+          <HalfCard
+            title="Multi-Currency Business Accounts"
+            subtitle={`
+              You can open local and international business 
+              accounts in the US, UK, Europe, Kenya, and Nigeria, without all 
+              the unnecessary paperwork, 
+              and having to visit a bank branch in any of these countries.
+            `}
+            imgUrl={"./images/currency.png"}
+            buttonTitle={"Get Started"}
+            bgColor="#9b5de5"
+            textColor={Styler.white}
+          />
+        }
+        card2={
+          <HalfCard
+            title={`Expense Mgt & Permissions`}
+            subtitle={`You can easily create spend 
+            policies and limits for budget categories, reimbursements, 
+            company cards, and global accounts to align with your company’s 
+            financial goals at anytime. Add as many team members to your 
+            finance workspace and manage their real-time
+            spend and access levels from one dashboard.`}
+            imgUrl={"./images/expenses.png"}
+            buttonTitle={"Get Started"}
+            bgColor="#f15bb5"
+            textColor={Styler.white}
+          />
+        }
+      />
+      <HomeFaq />
+      <FooterHome />
+    </div>
   );
 }

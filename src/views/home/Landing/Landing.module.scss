@@ -24,7 +24,7 @@
     height: 80vh;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: top;
+    background-position-y: 50px;
     background-image: linear-gradient(
         rgba(255, 255, 255, 0.1),
         rgba(255, 255, 255, 0.1)
@@ -40,7 +40,7 @@
     text-align: center;
     width: 50%;
     @include tabletSS {
-      width: 60%;
+      width: 70%;
     }
   }
 
@@ -55,10 +55,11 @@
       @include tabletSS {
         font-size: 4rem;
         display: block;
+        margin-top: 30vw;
       }
       @include mobileSS {
         font-size: 3rem;
-        font-weight: 600;
+        font-weight: 900;
       }
     }
   }

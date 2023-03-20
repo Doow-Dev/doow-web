@@ -12,7 +12,6 @@ export const ProfileView = () => {
 
   return (
     <>
-      <SideBar />
       <div className={styles.container}>
         <div className={styles.contents}>
           <p>Content here</p>
