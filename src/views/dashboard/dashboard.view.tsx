@@ -6,7 +6,6 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { RateText } from "../../components/text";
 import { TransInfoCard } from "../../components/transactions";
 import { AccountCard } from "../../components/account-card";
-import LandingNavBar from "../home/navbar/navbar.comp";
 import DashboardNavBar from "./navbar/navbar.comp";
 import { useState } from "react";
 
