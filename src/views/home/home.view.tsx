@@ -16,6 +16,7 @@ export default function HomeView() {
     <div>
       <LandingNavBar />
       <HomeLanding />
+
       <Jumbutron
         title={"Do business in 190+ countries from one place"}
         subtitle={`
@@ -24,7 +25,6 @@ export default function HomeView() {
           at anytime.`}
         bgColor={Styler.background1}
       />
-
       <div className={styles.imageContainer}>
         <img src="./images/private.png" className={styles.img} />
       </div>

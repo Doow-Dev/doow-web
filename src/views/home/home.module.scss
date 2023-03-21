@@ -2,7 +2,7 @@
 @import "../../styles/screensize";
 
 .imageContainer {
-  height: 70vh;
+  // height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,9 +13,10 @@
     height: fit-content;
   }
   img {
-    width: 100%;
+    width: 80%;
     // background-color: rgb(255, 102, 0);
-    height: 65vh;
+    height: auto;
+    // height: 65vh;
     object-fit: contain;
     // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     // display: none;

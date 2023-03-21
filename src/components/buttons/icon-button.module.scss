@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.btnContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #dbdbdb;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+
+  & > svg,
+  & > p {
+    color: $primaryBlue;
+  }
+}
