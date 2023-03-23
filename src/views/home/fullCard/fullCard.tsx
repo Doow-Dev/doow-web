@@ -1,9 +1,13 @@
 import { useRouter } from "next/router";
+import { BiArrowToRight } from "react-icons/bi";
+import { BsArrowRight } from "react-icons/bs";
 import styles from "./fullCard.module.scss";
 
 interface IFullCard {
   title: string;
   subtitle: string;
+  subtitle2?: string;
+  subtitle3?: string;
   imgUrl: string;
   buttonTitle: string;
   bgColor: string;
@@ -30,13 +34,17 @@ export const FullCard = (props: IFullCard) => {
             <p className={styles.subtitle} style={{ color: props.textColor }}>
               {props.subtitle}
             </p>
+            <p className={styles.subtitle2} style={{ color: props.textColor }}>
+              {props.subtitle2}
+            </p>
           </div>
 
-          <input
-            className={styles.btn}
-            value={props.buttonTitle}
-            type="button"
-          />
+          <div className={styles.btnSection}>
+            <p className={styles.btn}>{props.buttonTitle}</p>
+            <p className={styles.btnArrow}>
+              <BsArrowRight />
+            </p>
+          </div>
         </div>
 
         <div className={styles.imager}>

@@ -80,14 +80,23 @@ interface INavListItem {
 }
 
 export function NavListItem(props: INavListItem) {
+  const [showDropdown, setshowDropdown] = useState(false);
   return (
     <li
       onClick={props.setShowNav}
+      onMouseEnter={() => setshowDropdown(true)}
+      onMouseLeave={() => setshowDropdown(false)}
       className={props.path == props.href ? props.activeStyle : ""}
     >
       <Link href={props.href} className={props.styleName}>
         {props.name}
       </Link>
+      <ul className={styles.dropdown}>
+        <li>Home</li>
+        <li>Home1</li>
+        <li>Home2</li>
+        <li>Home3</li>
+      </ul>
     </li>
   );
 }

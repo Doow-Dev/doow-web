@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { BsArrowRight } from "react-icons/bs";
 import styles from "./halfCard.module.scss";
 
 interface IFullCard {
@@ -36,18 +37,16 @@ export const HalfCard = (props: IFullCard) => {
             {props.subtitle}
           </p>
         </div>
-
+        <div className={styles.btnSection}>
+          <p className={styles.btn}>{props.buttonTitle}</p>
+          <p className={styles.btnArrow}>
+            <BsArrowRight />
+          </p>
+        </div>
+        {/* <input className={styles.btn} value={props.buttonTitle} type="button" /> */}
         <div className={styles.imager}>
-          {/* <Image
-            src={props.imgUrl}
-            className={styles.imgd}
-            alt="icon"
-            width={200}
-            height={200}
-          /> */}
           <img src={props.imgUrl} className={styles.imgd} />
         </div>
-        <input className={styles.btn} value={props.buttonTitle} type="button" />
       </div>
     </div>
     // </div>

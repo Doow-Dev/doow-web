@@ -59,6 +59,37 @@
         }
       }
     }
+    .btnSection {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      &:hover > p {
+        color: $fontColor;
+        cursor: pointer;
+      }
+      @include tabletSS {
+        margin-left: 0;
+        padding-left: 0;
+      }
+      .btn {
+        color: #fff;
+        padding: 10px 0px;
+        font-size: large;
+        font-weight: 600;
+        margin-top: 50px 0;
+        line-height: 20px;
+        @include tabletSS {
+          font-size: small;
+          padding: 10px 0px;
+          margin-top: 20px 0;
+        }
+      }
+      .btnArrow {
+        margin-top: 5px;
+        margin-left: 15px;
+        color: #fff;
+      }
+    }
   }
 
   .imager {
@@ -91,21 +122,21 @@
   }
 }
 
-.btn {
-  border-style: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  font-size: medium;
-  background-color: $background1;
-  &:hover {
-    background-color: $secondaryColor;
-    color: #fff;
-    transition: 0.5s ease-in-out;
-  }
-  @include tabletSS {
-    margin-top: 20px;
-  }
-}
+// .btn {
+//   border-style: none;
+//   border-radius: 20px;
+//   padding: 10px 20px;
+//   font-size: medium;
+//   background-color: $background1;
+//   &:hover {
+//     background-color: $secondaryColor;
+//     color: #fff;
+//     transition: 0.5s ease-in-out;
+//   }
+//   @include tabletSS {
+//     margin-top: 20px;
+//   }
+// }
 
 .diver {
   display: flex;

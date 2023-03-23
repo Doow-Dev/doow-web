@@ -8,7 +8,7 @@ export default function FooterHome() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h4 className={styles.brand}> DOOW</h4>
+        {/* <h4 className={styles.brand}> DOOW</h4> */}
         <div className={styles.linkList}>
           <ul>
             <li>Links</li>
