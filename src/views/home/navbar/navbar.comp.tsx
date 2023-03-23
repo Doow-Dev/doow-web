@@ -25,28 +25,45 @@ export default function LandingNavBar() {
 
         <ul className={showNav ? styles.show : ""}>
           <NavListItem
-            name={"Accounting"}
-            setShowNav={() => setShowNav(!showNav)}
-            href={"/accounting"}
-            path={_path}
-            styleName={styles.link}
-            activeStyle={styles.active}
-          />
-          <NavListItem
-            name={"Banking"}
+            name={"Products"}
             setShowNav={() => setShowNav(!showNav)}
             href={"/banking"}
             path={_path}
             styleName={styles.link}
             activeStyle={styles.active}
+            dropdownItems={[
+              {
+                title: "Account",
+                href: "#",
+              },
+            ]}
           />
           <NavListItem
-            name={"Products"}
+            name={"Use Case"}
             setShowNav={() => setShowNav(!showNav)}
-            href={"/products"}
+            href={"/#"}
             path={_path}
             styleName={styles.link}
             activeStyle={styles.active}
+            dropdownItems={[]}
+          />
+          <NavListItem
+            name={"Accounting"}
+            setShowNav={() => setShowNav(!showNav)}
+            href={"/#"}
+            path={_path}
+            styleName={styles.link}
+            activeStyle={styles.active}
+            dropdownItems={[]}
+          />
+          <NavListItem
+            name={"Company"}
+            setShowNav={() => setShowNav(!showNav)}
+            href={"/#"}
+            path={_path}
+            styleName={styles.link}
+            activeStyle={styles.active}
+            dropdownItems={[]}
           />
           <li
             onClick={() => setShowNav(!showNav)}
@@ -62,7 +79,7 @@ export default function LandingNavBar() {
           {showNav ? (
             <FaTimes onClick={() => setShowNav(!showNav)} />
           ) : (
-            <FaBars onClick={() => setShowNav(!showNav)} />
+            <FaBars onCglick={() => setShowNav(!showNav)} />
           )}
         </label>
       </div>
@@ -77,6 +94,10 @@ interface INavListItem {
   path: string;
   styleName: string;
   activeStyle: string;
+  dropdownItems: {
+    title: string;
+    href: string;
+  }[];
 }
 
 export function NavListItem(props: INavListItem) {
@@ -92,10 +113,9 @@ export function NavListItem(props: INavListItem) {
         {props.name}
       </Link>
       <ul className={styles.dropdown}>
-        <li>Home</li>
-        <li>Home1</li>
-        <li>Home2</li>
-        <li>Home3</li>
+        {props.dropdownItems.map((v, i) => (
+          <li key={i}>{v.title}</li>
+        ))}
       </ul>
     </li>
   );
