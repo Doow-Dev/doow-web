@@ -27,7 +27,9 @@ export const CardBanner = () => {
             can set spend policies and limits, monitor expenses, and even freeze
             or delete cards in a few clicks.
           </p>
-          <div className={styles.btn}>Join the waitlist</div>
+          <div className={styles.btn} onClick={() => router.push("waitlist")}>
+            Join the waitlist
+          </div>
         </div>
       </div>
     </div>

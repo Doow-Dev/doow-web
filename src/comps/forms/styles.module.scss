@@ -2,7 +2,7 @@
 @import "../../styles/screensize";
 
 @mixin label {
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   font-weight: bold;
   font-size: 1.5rem;
   font-weight: 400;
@@ -33,8 +33,13 @@
   font-weight: 400;
   font-size: 1.6rem;
   padding: 15px 12px;
-  background-color: $background1;
-
+  background-color: #fff;
+  &:active {
+    outline: solid 1px $primaryColor;
+  }
+  &:focus {
+    outline: solid 1px $primaryColor;
+  }
   @include mobileSS {
     font-size: 1.2rem;
   }
@@ -46,8 +51,9 @@
   }
 
   &:has(input:focus) {
-    border: 2px solid $primaryColor;
+    // border: 2px solid $primaryColor;
   }
+
   input {
     @include gInput;
   }

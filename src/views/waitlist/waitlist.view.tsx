@@ -1,42 +1,81 @@
-import type { NextPage } from "next";
-import Head from "next/head";
 import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./waitlist.module.scss";
 import Link from "next/link";
+import React, { useState } from "react";
+import { WaitlistLanding } from "./Landing/Landing";
+import FooterHome from "../home/footer/footer.comp";
+import { InputButton, InputText } from "../../comps/forms";
+import { AboutBody, AboutSection, AboutTitle } from "../about/comps";
+import WaitListModal from "./modal";
 
-import { useRouter } from "next/router";
-import Loading from "../../components/loading/loading";
-import loading from "../../components/loading/loading";
-import { InputText } from "../../comps/forms";
-
-export const WaitList: NextPage = () => {
-  const router = useRouter();
+export function WaitList() {
+  const [showSuccessful, setshowSuccessful] = useState(false);
   return (
     <div>
-      <div className={styles.login}>
-        {loading && <Loading />}
-        <LandingNavBar />
-        <div className={styles.container}>
-          <h2>Welcome Back</h2>
+      <LandingNavBar />
+      <WaitlistLanding />
+
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <AboutSection>
+            <AboutTitle>Join th waitlist!</AboutTitle>
+            <AboutBody>
+              Our global spend management platform helps companies streamline
+              their finance workflow so decision makers can easily analyze
+              patterns and make data informed decisions in real time.
+            </AboutBody>
+          </AboutSection>
+
           <form onSubmit={(e) => e.preventDefault()}>
             <InputText
-              label={"Name"}
-              name={"Name"}
-              id={"name"}
+              label={"First name"}
+              name={"first_name"}
+              placeholder={"First name"}
+              id={"first_name"}
               onChange={function (): void {
                 throw new Error("Function not implemented.");
               }}
             />
 
-            <div className={styles.take_action}>
-              <p>Not yet on the platform? </p>
-              <span>
-                <Link href="register">Register</Link>
-              </span>
-            </div>
+            <InputText
+              label={"Last name"}
+              placeholder={"Last name"}
+              name={"last_name"}
+              id={"last_name"}
+              onChange={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+
+            <InputText
+              label={"Email"}
+              placeholder={"Email"}
+              name={"email"}
+              id={"email"}
+              onChange={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+
+            <InputButton
+              name={"Join"}
+              onClick={() => setshowSuccessful(true)}
+            />
+            {showSuccessful && (
+              <WaitListModal
+                heading={"doow"}
+                content={`
+                You are now on the waitlist.
+                We can't wait to show you what Cross-border business banking should feel like.
+              `}
+                onClose={() => setshowSuccessful(false)}
+                name={"Joe"}
+              />
+            )}
           </form>
         </div>
       </div>
+      <FooterHome />
     </div>
   );
-};
+}

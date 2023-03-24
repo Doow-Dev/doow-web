@@ -51,9 +51,10 @@ and budgets as you need in 40+ currencies, and assign the right
 management and spending permissions to your team
           `}
         imgUrl={"./images/half.png"}
-        buttonTitle={"Get Started"}
+        buttonTitle={"Join the waitlist"}
         bgColor="#06BEA6"
         textColor={Styler.white}
+        btnHref={"waitlist"}
       />
 
       <FullCard
@@ -68,10 +69,11 @@ management and spending permissions to your team
          and other global and local payment 
          methods available in the US, UK, Europe, Kenya, and Nigeria.
         `}
-        imgUrl={"./images/payment.png"}
-        buttonTitle={"Get Started"}
+        imgUrl={"./images/paym.png"}
+        buttonTitle={"Join the waitlist"}
         bgColor="#E18738"
         textColor={Styler.white}
+        btnHref={"waitlist"}
       />
 
       <CardBanner />
@@ -84,23 +86,25 @@ management and spending permissions to your team
         title="Fx"
         subtitle={"A lil Story. A lil Story. A lil Story"}
         imgUrl={"./images/fx7.png"}
-        buttonTitle={"Get Started"}
+        buttonTitle={"Join the waitlist"}
         bgColor="#099CCD"
         textColor={Styler.white}
+        btnHref={"waitlist"}
       />
       <FullCard
         title="Fx"
         subtitle={"A lil Story. A lil Story. A lil Story"}
         imgUrl={"./images/exp1.png"}
-        buttonTitle={"Get Started"}
+        buttonTitle={"Join the waitlist"}
         bgColor="#589479"
         // bgColor="#2d6a4f"
         textColor={Styler.white}
+        btnHref={"waitlist"}
       />
       {/* <FullCard
         title="Fx"
         subtitle={"A lil Story. A lil Story. A lil Story"}
-        buttonTitle={"Get Started"}
+        buttonTitle={"Join the waitlist"}
         imgUrl={"./images/reports.png"}
         bgColor="#80E329"
         textColor={Styler.white}
@@ -122,7 +126,7 @@ management and spending permissions to your team
               and having to visit a bank branch in any of these countries.
             `}
             imgUrl={"./images/integrate.png"}
-            buttonTitle={"Get Started"}
+            buttonTitle={"Join the waitlist"}
             bgColor="#9b5de5"
             textColor={Styler.white}
           />
@@ -137,7 +141,7 @@ management and spending permissions to your team
             finance workspace and manage their real-time
             spend and access levels from one dashboard.`}
             imgUrl={"./images/report.png"}
-            buttonTitle={"Get Started"}
+            buttonTitle={"Join the waitlist"}
             bgColor="#ef476f"
             // bgColor="#f15bb5"
             textColor={Styler.white}
@@ -157,9 +161,10 @@ management and spending permissions to your team
          methods available in the US, UK, Europe, Kenya, and Nigeria.
         `}
         imgUrl={"./images/report.png"}
-        buttonTitle={"Get Started"}
+        buttonTitle={"Join the waitlist"}
         bgColor="#E18738"
         textColor={Styler.white}
+        btnHref={"waitlist"}
       />
 
       <Jumbutron

@@ -25,15 +25,40 @@ export default function LandingNavBar() {
 
         <ul className={showNav ? styles.show : ""}>
           <NavListItem
+            name={"Overview"}
+            setShowNav={() => setShowNav(!showNav)}
+            href={"/"}
+            path={_path}
+            styleName={styles.link}
+            activeStyle={styles.active}
+            dropdownItems={[]}
+          />
+          <NavListItem
             name={"Products"}
             setShowNav={() => setShowNav(!showNav)}
-            href={"/banking"}
+            href={"#"}
             path={_path}
             styleName={styles.link}
             activeStyle={styles.active}
             dropdownItems={[
               {
-                title: "Account",
+                title: "Business Cards",
+                href: "#",
+              },
+              {
+                title: "Global Cards",
+                href: "#",
+              },
+              {
+                title: "FX",
+                href: "#",
+              },
+              {
+                title: "Payment",
+                href: "#",
+              },
+              {
+                title: "Spend Management",
                 href: "#",
               },
             ]}
@@ -45,9 +70,26 @@ export default function LandingNavBar() {
             path={_path}
             styleName={styles.link}
             activeStyle={styles.active}
-            dropdownItems={[]}
+            dropdownItems={[
+              {
+                title: "For CEOs",
+                href: "#",
+              },
+              {
+                title: "For CFOs",
+                href: "#",
+              },
+              {
+                title: "For Employees",
+                href: "#",
+              },
+              {
+                title: "For Ecommerce",
+                href: "#",
+              },
+            ]}
           />
-          <NavListItem
+          {/* <NavListItem
             name={"Accounting"}
             setShowNav={() => setShowNav(!showNav)}
             href={"/#"}
@@ -55,11 +97,11 @@ export default function LandingNavBar() {
             styleName={styles.link}
             activeStyle={styles.active}
             dropdownItems={[]}
-          />
+          /> */}
           <NavListItem
-            name={"Company"}
+            name={"About"}
             setShowNav={() => setShowNav(!showNav)}
-            href={"/#"}
+            href={"/about_us"}
             path={_path}
             styleName={styles.link}
             activeStyle={styles.active}
@@ -79,7 +121,7 @@ export default function LandingNavBar() {
           {showNav ? (
             <FaTimes onClick={() => setShowNav(!showNav)} />
           ) : (
-            <FaBars onCglick={() => setShowNav(!showNav)} />
+            <FaBars onClick={() => setShowNav(!showNav)} />
           )}
         </label>
       </div>

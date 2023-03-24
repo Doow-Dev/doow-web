@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { BiArrowToRight } from "react-icons/bi";
 import { BsArrowRight } from "react-icons/bs";
+import JoinWaitlist from "../JoinBtn/JoinWaitlist";
 import styles from "./fullCard.module.scss";
 
 interface IFullCard {
@@ -12,6 +13,7 @@ interface IFullCard {
   buttonTitle: string;
   bgColor: string;
   textColor: string;
+  btnHref: string;
 }
 
 export const FullCard = (props: IFullCard) => {
@@ -24,7 +26,7 @@ export const FullCard = (props: IFullCard) => {
         style={{ backgroundColor: props.bgColor }}
       >
         <div className={styles.textSection}>
-          <div>
+          <div className={styles.textContent}>
             <h3
               className={styles.sectionTitle}
               style={{ color: props.textColor }}
@@ -38,13 +40,7 @@ export const FullCard = (props: IFullCard) => {
               {props.subtitle2}
             </p>
           </div>
-
-          <div className={styles.btnSection}>
-            <p className={styles.btn}>{props.buttonTitle}</p>
-            <p className={styles.btnArrow}>
-              <BsArrowRight />
-            </p>
-          </div>
+          <JoinWaitlist title={props.buttonTitle} href={props.btnHref} />
         </div>
 
         <div className={styles.imager}>

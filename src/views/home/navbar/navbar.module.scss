@@ -112,13 +112,13 @@
         display: block;
         font-size: medium;
         font-weight: bold;
-        color: $primaryColor;
+        color: $secondaryColor;
         margin: 0 20px;
         text-align: center;
         // font-family: "Roboto";
 
         @include tabletSS {
-          color: $primaryColor;
+          // color: $primaryColor;
           font-size: smaller;
         }
       }
@@ -166,15 +166,3 @@
     }
   }
 }
-
-// s7 - 480
-// 58 - 390
-
-// - 500
-
-// m1 pro 2021 16gb 512gb
-// - 800
-
-// max-budget
-// - 256gb
-// -

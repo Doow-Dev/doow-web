@@ -6,7 +6,6 @@ import Input from "../../components/inputs/input";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/buttons/custom-button";
-import Link from "next/link";
 import { logMemberIn, useAuthDispatch, useAuthState } from "../../context/auth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -42,7 +41,12 @@ export const LoginView: NextPage = () => {
         {loading && <Loading />}
         <LandingNavBar />
         <div className={styles.container}>
-          <h2>Welcome Back</h2>
+          <h2>Welcome to Doow</h2>
+          <p>Video section</p>
+          <br />
+          <br />
+          <br />
+          <br />
           <form onSubmit={(e) => e.preventDefault()}>
             <Formik
               initialValues={initialValues}
@@ -66,41 +70,35 @@ export const LoginView: NextPage = () => {
               {({ values, errors, handleChange, handleSubmit, touched }) => (
                 <>
                   <Input
-                    type="number"
-                    label="Phone"
+                    type="text"
+                    label="First name"
                     value={values.phone}
-                    placeholder="Enter your phone number"
+                    placeholder="First name"
                     handleChange={handleChange("phone")}
                     error={touched.phone && errors.phone}
                   />
                   <Input
-                    type="password"
-                    label="Password"
-                    value={values.password}
-                    placeholder="Enter your password"
-                    handleChange={handleChange("password")}
-                    error={touched.password && errors.password}
+                    type="text"
+                    label="Last name"
+                    value={values.phone}
+                    placeholder="Last name"
+                    handleChange={handleChange("phone")}
+                    error={touched.phone && errors.phone}
+                  />
+                  <Input
+                    type="email"
+                    label="Business email"
+                    value={values.phone}
+                    placeholder="email"
+                    handleChange={handleChange("phone")}
+                    error={touched.phone && errors.phone}
                   />
 
-                  <div className={styles.take_action}>
-                    <p>Forgot your password? </p>
-                    <span>
-                      <Link href="#">Reset it here</Link>
-                    </span>
-                  </div>
-
                   <CustomButton
-                    title="Log in"
+                    title="Submit"
                     onClickHandler={handleSubmit}
                     type={"submit"}
                   />
-
-                  <div className={styles.take_action}>
-                    <p>Not yet on the platform? </p>
-                    <span>
-                      <Link href="register">Register</Link>
-                    </span>
-                  </div>
                 </>
               )}
             </Formik>

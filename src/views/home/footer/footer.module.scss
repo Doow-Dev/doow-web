@@ -5,7 +5,7 @@
   background-color: $fontColor;
   width: 100%;
   z-index: 2;
-  padding: 20px 15%;
+  padding: 40px 15%;
   // height: 50px;
   // min-height: 50vh;
 
@@ -18,8 +18,10 @@
     visibility: visible;
   }
   .brand {
-    color: $primaryColor;
-    font-size: larger;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 300;
+    font-family: "Manrope";
   }
   .content {
     display: flex;
@@ -31,16 +33,18 @@
     .linkList {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-row-gap: 20px;
       font-weight: 300;
       font-size: small;
       justify-content: space-between;
 
       @include mobileSS {
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
+        grid-template-columns: 1fr;
+        // display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         padding: 0 20px;
       }
       ul {
@@ -51,24 +55,34 @@
           &:hover {
             color: $fadeFontColor;
           }
+          a {
+            color: #fff;
+          }
         }
       }
     }
-    .shortText {
-      padding: 40px;
+    .address {
       font-weight: 300;
-      font-size: x-small;
-      text-align: center;
+      font-size: 12px;
+      p {
+        padding-bottom: 10px;
+      }
+    }
+    .shortText {
+      font-weight: 300;
+      font-size: 11px;
+      text-align: left;
     }
     .copywright {
+      padding-bottom: 10px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      bottom: 0px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-top: 20px;
       p {
-        padding: 15px 0;
+        padding: 0px;
         font-weight: 300;
         font-size: small;
         color: $fadeFontColor;

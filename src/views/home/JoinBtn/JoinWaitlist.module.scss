@@ -1,0 +1,39 @@
+@import "../../../styles/variables";
+@import "../../../styles/screensize";
+// @import "../../../styles/mixins_pub";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //   background-color: rgb(207, 59, 59);
+  width: 100%;
+  &:hover > p {
+    color: $fontColor;
+    cursor: pointer;
+  }
+  @include tabletSS {
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .btn {
+    color: #fff;
+    padding: 10px 0px;
+    font-size: large;
+    font-weight: 600;
+    margin-top: 50px 0;
+    line-height: 20px;
+    align-items: center;
+
+    @include tabletSS {
+      font-size: small;
+      padding: 10px 0px;
+      margin-top: 20px 0;
+    }
+  }
+  .btnArrow {
+    margin-top: 5px;
+    margin-left: 15px;
+    color: #fff;
+  }
+}
