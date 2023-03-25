@@ -43,6 +43,22 @@
         letter-spacing: 1.1px;
     }
   }
+  & .pending {
+    font-size: 20px;
+    color: orange;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+
+    @include largeSS {
+        font-size: 18px;
+        letter-spacing: 0px;
+    }
+
+    @include mobileSS {
+        font-size: 20px;
+        letter-spacing: 1.1px;
+    }
+  }
 
   & .profileImg {
     border-radius: 50%;

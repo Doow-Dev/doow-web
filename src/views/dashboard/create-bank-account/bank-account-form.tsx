@@ -22,10 +22,11 @@ export interface ICreateBankAccountForm {
 
 interface Props {
   handleCloseForm: () => void;
+  handleCloseModal: () => void;
 }
 
 export const BankAccountForm: React.FC<Props> = (props) => {
-  const { handleCloseForm } = props;
+  const { handleCloseForm, handleCloseModal } = props;
   const [step, setStep] = useState<number>(1);
   const [formState, setFormState] = useState<ICreateBankAccountForm>({
     accountName: "",
@@ -35,7 +36,6 @@ export const BankAccountForm: React.FC<Props> = (props) => {
 
   const handleSubmitRequest = () => {
     handleCloseForm();
-    console.log(formState);
   };
 
   const getStep = () => {
@@ -87,7 +87,7 @@ export const BankAccountForm: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <Modal onClick={handleCloseForm} />
+      <Modal onClick={handleCloseModal} />
       <div className={styles.container}>
         <h2>{stepTitles[step - 1]}</h2>
         <span className={styles.step}>

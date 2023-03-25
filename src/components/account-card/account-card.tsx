@@ -5,7 +5,7 @@ import styles from "./account-card.module.scss";
 
 interface Props {
   accountName: string;
-  balance: string;
+  balance?: string;
   countryFlag: string;
   profileUrls: string[];
 }
@@ -25,7 +25,11 @@ export const AccountCard: React.FC<Props> = (props) => {
         />
       </div>
       <div className={styles.bottom}>
-        <p className={styles.balance}>Bal: {balance}</p>
+        {balance ? (
+          <p className={styles.balance}>Bal: {balance}</p>
+        ) : (
+          <p className={styles.pending}>Pending</p>
+        )}
         <AvatarGroup imageUrls={profileUrls} />
       </div>
     </div>

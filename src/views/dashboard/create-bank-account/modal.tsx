@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const Modal: React.FC<Props> = ({ onClick }) => {
-  return <div className={styles.modal}></div>;
+  return <div className={styles.modal} onClick={onClick}></div>;
 };
 
 export default Modal;
