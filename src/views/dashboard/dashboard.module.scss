@@ -85,6 +85,10 @@
   flex-direction: column;
   gap: 10px;
 
+  @include mobileSS {
+    align-items: center;
+  }
+
   .totalBalance {
     font-size: 30px;
     font-weight: 600;

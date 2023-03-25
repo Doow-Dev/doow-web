@@ -106,9 +106,6 @@ const Container = styled.div<{ width?: string }>`
 `;
 
 const LabelText = styled.p<{ margin?: string }>`
-  /* font-size: 14px;
-  font-weight: 500;
-  margin: ${({ margin }) => (margin ? margin : "0")}; */
   font-size: 16.5px;
   @media ${themes.breakpoints.sm} {
     font-size: 14px;

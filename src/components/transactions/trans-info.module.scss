@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+@import "../../styles/screensize";
 
 .container {
   display: flex;
@@ -12,6 +13,12 @@
   font-family: 'Manrope', sans-serif;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+  .containe * {
+    @include mobileSS {
+      font-size: 10px;
+    }
+  }
 
   & .columnLeft {
     height: 100%;
