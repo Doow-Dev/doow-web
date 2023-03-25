@@ -75,10 +75,15 @@ export default function DashboardView() {
     setShowMessage(false);
     accounts.push({
       accountName: "Doow Nigeria Ltd.",
-      balance: "N5,000,000",
+      balance: "",
       countryFlag: "/assets/flags/nigeria.png",
       profileUrls: ["/assets/profiles/spec-man.jpeg"],
     });
+  };
+
+  const handleCloseModal = () => {
+    setOpenForm(false);
+    setOpenModal(false);
   };
   return (
     <>
@@ -169,7 +174,7 @@ export default function DashboardView() {
           </div>
         </div>
         {openForm && openModal && (
-          <BankAccountForm handleCloseForm={closeForm} />
+          <BankAccountForm handleCloseForm={closeForm} handleCloseModal={handleCloseModal} />
         )}
         {showMessage && openModal && (
           <NotificationBanner
