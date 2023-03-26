@@ -77,14 +77,25 @@ management and spending permissions to your team
       />
 
       <CardBanner />
-      <Jumbutron
+      {/* <Jumbutron
         title={"Spend, save and enjoy."}
         subtitle={"Na who chop dey see tomorrow."}
         bgColor={Styler.white}
-      />
+      /> */}
       <FullCard
-        title="Fx"
-        subtitle={"A lil Story. A lil Story. A lil Story"}
+        title="Conversions"
+        subtitle={`Access market leading interbank exchange rates across the world in real-time`}
+        subtitle2={`
+        Avoid high exchange rates and transfer fees when you convert on Doow. 
+        Our FX partners offer real-time market-leading rates every day, even on weekends,
+        so your business can always exchange and spend whenever you want.`}
+        subtitle3={`
+          You can hold funds in more than 40 currencies and exchange whenever you 
+          decide is right for your business. In seconds, 
+          you can move money from your foreign balances into 
+          your local currency account and withdraw via your 
+          preferred local payment method.
+        `}
         imgUrl={"./images/fx7.png"}
         buttonTitle={"Join the waitlist"}
         bgColor="#099CCD"
@@ -92,8 +103,28 @@ management and spending permissions to your team
         btnHref={"waitlist"}
       />
       <FullCard
-        title="Fx"
-        subtitle={"A lil Story. A lil Story. A lil Story"}
+        title="Expense Mgt & Permissions"
+        subtitle={`
+          Doow helps you manage budget and expenses globally, 
+          so you can explore more innovative 
+          possibilities for your business.
+
+        `}
+        subtitle2={`You can easily create spend policies and limits for 
+        budget categories, reimbursements, company cards, 
+        and global accounts to align with your company’s 
+        financial goals at anytime. Add as many team members to 
+        your finance workspace and manage their real-time spend 
+        and access levels from one dashboard.
+      `}
+        subtitle3={`
+          From expense management to Doow company 
+          and employee cards, business bank accounts, 
+          sub-accounts, budgets, and even our multi-currency 
+          wallets, you can assign roles and different 
+          levels of permission to your team.
+
+        `}
         imgUrl={"./images/exp1.png"}
         buttonTitle={"Join the waitlist"}
         bgColor="#589479"
@@ -110,8 +141,10 @@ management and spending permissions to your team
         textColor={Styler.white}
       /> */}
       <Jumbutron
-        title={"Spend, save and enjoy."}
-        subtitle={"Na who chop dey see tomorrow."}
+        title={`
+          We're not a bank. We’re Doow, different and even better for your finances!
+        `}
+        subtitle={"Let’s doow this!"}
         bgColor={Styler.white}
       />
       {/* <CardContainer
@@ -165,16 +198,17 @@ management and spending permissions to your team
         bgColor="#E18738"
         textColor={Styler.white}
         btnHref={"waitlist"}
+        containerBgColor={Styler.white}
       />
 
-      <Jumbutron
+      {/* <Jumbutron
         title={"Do business in 190+ countries from one place"}
         subtitle={`
         Whether you're a one-man business, a startup or a large coorporation,
           Doow is the place to manage all your local and international finances
           at anytime.`}
         bgColor={Styler.background1}
-      />
+      /> */}
       <HomeFaq />
       <FooterHome />
     </div>

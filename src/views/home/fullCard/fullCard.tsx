@@ -12,6 +12,7 @@ interface IFullCard {
   imgUrl: string;
   buttonTitle: string;
   bgColor: string;
+  containerBgColor?: string;
   textColor: string;
   btnHref: string;
 }
@@ -20,7 +21,10 @@ export const FullCard = (props: IFullCard) => {
   const router = useRouter();
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{ backgroundColor: props.containerBgColor }}
+    >
       <div
         className={styles.content}
         style={{ backgroundColor: props.bgColor }}
@@ -39,6 +43,14 @@ export const FullCard = (props: IFullCard) => {
             <p className={styles.subtitle2} style={{ color: props.textColor }}>
               {props.subtitle2}
             </p>
+            {props.subtitle3 && (
+              <p
+                className={styles.subtitle2}
+                style={{ color: props.textColor }}
+              >
+                {props.subtitle3}
+              </p>
+            )}
           </div>
           <JoinWaitlist title={props.buttonTitle} href={props.btnHref} />
         </div>
