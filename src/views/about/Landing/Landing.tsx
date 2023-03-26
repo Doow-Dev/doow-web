@@ -8,7 +8,7 @@ export const AboutUsLanding = () => {
     <div id="about" className={styles.container}>
       <div className={styles.content}>
         <div className={styles.sectionTitle}>
-          <h1>Manage all your business' finance in one place.</h1>
+          <h1>Manage all your business' finance in one place</h1>
           {/* <span>Doow It.</span> */}
         </div>
 

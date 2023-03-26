@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import styles from "./navbar.module.scss";
 import { FaTimes, FaBars } from "react-icons/fa";
 import Image from "next/image";
+import HomeDropComp from "../modal";
+import HomeDropdown from "../dropdown";
 
 export default function LandingNavBar() {
   const router = useRouter();
@@ -17,22 +19,23 @@ export default function LandingNavBar() {
       <div className={styles.navbar}>
         <label className={styles.brand}>
           <Link href="/" className={styles.brand}>
-            {/* <img src="/images/hlogo.png" className={styles.imge} /> */}
+            {/* <img src="/images/Doow.png" className={styles.imge} /> */}
+            <img src="/images/onwhite.png" className={styles.imge} />
             {/* <img src="/images/clogo.png" className={styles.imge} /> */}
-            doow
+            {/* doow */}
           </Link>
         </label>
 
         <ul className={showNav ? styles.show : ""}>
-          <NavListItem
-            name={"Overview"}
-            setShowNav={() => setShowNav(!showNav)}
-            href={"/"}
-            path={_path}
-            styleName={styles.link}
-            activeStyle={styles.active}
-            dropdownItems={[]}
-          />
+          <li
+            onClick={() => setShowNav(!showNav)}
+            className={_path == `/` ? styles.active : ""}
+          >
+            <Link href={"/"} className={styles.link}>
+              Overview
+            </Link>
+          </li>
+
           <NavListItem
             name={"Products"}
             setShowNav={() => setShowNav(!showNav)}
@@ -64,7 +67,7 @@ export default function LandingNavBar() {
             ]}
           />
           <NavListItem
-            name={"Use Case"}
+            name={"Solutions"}
             setShowNav={() => setShowNav(!showNav)}
             href={"/#"}
             path={_path}
@@ -145,20 +148,29 @@ interface INavListItem {
 export function NavListItem(props: INavListItem) {
   const [showDropdown, setshowDropdown] = useState(false);
   return (
-    <li
-      onClick={props.setShowNav}
-      onMouseEnter={() => setshowDropdown(true)}
-      onMouseLeave={() => setshowDropdown(false)}
-      className={props.path == props.href ? props.activeStyle : ""}
-    >
-      <Link href={props.href} className={props.styleName}>
-        {props.name}
-      </Link>
-      <ul className={styles.dropdown}>
-        {props.dropdownItems.map((v, i) => (
-          <li key={i}>{v.title}</li>
-        ))}
-      </ul>
-    </li>
+    <>
+      {/* {showDropdown && (
+        <HomeDropdown
+          heading={"Header me"}
+          content={"Content we"}
+          onClose={() => {}}
+        />
+      )} */}
+      <li
+        onClick={props.setShowNav}
+        onMouseEnter={() => setshowDropdown(true)}
+        onMouseLeave={() => setshowDropdown(false)}
+        className={props.path == props.href ? props.activeStyle : ""}
+      >
+        <Link href={props.href} className={props.styleName}>
+          {props.name}
+        </Link>
+        <ul className={styles.dropdown}>
+          {props.dropdownItems.map((v, i) => (
+            <li key={i}>{v.title}</li>
+          ))}
+        </ul>
+      </li>
+    </>
   );
 }

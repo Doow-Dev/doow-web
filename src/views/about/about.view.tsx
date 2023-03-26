@@ -4,6 +4,7 @@ import { AboutBody, AboutSection, AboutTitle } from "./comps";
 import styles from "./about.module.scss";
 import { AboutUsLanding } from "./Landing/Landing";
 import FooterHome from "../home/footer/footer.comp";
+import { HomeFaq } from "../home/faq/faq";
 
 export default function AboutUsView() {
   return (
@@ -69,6 +70,7 @@ export default function AboutUsView() {
           </AboutSection>
         </div>
       </div>
+      <HomeFaq />
       <FooterHome />
     </div>
   );

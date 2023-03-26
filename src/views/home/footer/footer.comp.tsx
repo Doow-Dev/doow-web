@@ -2,28 +2,39 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./footer.module.scss";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function FooterHome() {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.linkList}>
-          <h4 className={styles.brand}> doow</h4>
+          <div className={styles.brand}>
+            {/* doow */}
+            <img src="/images/ongreen.png" className={styles.imge} />
+          </div>
           <ul>
-            <li>Products</li>
-            <li>Business Cards</li>
-            <li>Global Cards</li>
-            <li>Payments</li>
-            <li>Fx</li>
-            <li>Spend management</li>
+            <li className={styles.listheader}>Products</li>
+            <li className={styles.listItems}>Business Cards</li>
+            <li className={styles.listItems}>Global Cards</li>
+            <li className={styles.listItems}>Payments</li>
+            <li className={styles.listItems}>Fx</li>
+            <li className={styles.listItems}>Spend management</li>
           </ul>
           <ul>
-            <li>Company</li>
-            <li>
-              <Link href={"/about_us"}>About Us</Link>
+            <li className={styles.listheader}>Company</li>
+            <li
+              className={styles.listItems}
+              onClick={() => router.push("/about_us")}
+            >
+              About Us
             </li>
-            <li>
-              <Link href={"/contact_us"}>Contact Us</Link>
+            <li
+              className={styles.listItems}
+              onClick={() => router.push("/contact_us")}
+            >
+              Contact Us
             </li>
           </ul>
           <div className={styles.address}>
