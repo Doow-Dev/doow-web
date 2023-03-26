@@ -1,9 +1,9 @@
 import React from "react";
-import { CardContainer } from "./halfCard/cardContainer";
+// import { CardContainer } from "./halfCard/cardContainer";
+// import { HalfCard } from "./halfCard/halfCard";
 import { Styler } from "./cardContainer/styler";
 import FooterHome from "./footer/footer.comp";
 import { FullCard } from "./fullCard/fullCard";
-import { HalfCard } from "./halfCard/halfCard";
 import { Jumbutron } from "./jumbotron/jumbutron";
 import { HomeLanding } from "./Landing/Landing";
 import LandingNavBar from "./navbar/navbar.comp";
@@ -77,11 +77,6 @@ management and spending permissions to your team
       />
 
       <CardBanner />
-      {/* <Jumbutron
-        title={"Spend, save and enjoy."}
-        subtitle={"Na who chop dey see tomorrow."}
-        bgColor={Styler.white}
-      /> */}
       <FullCard
         title="Conversions"
         subtitle={`Access market leading interbank exchange rates across the world in real-time`}
@@ -132,14 +127,7 @@ management and spending permissions to your team
         textColor={Styler.white}
         btnHref={"waitlist"}
       />
-      {/* <FullCard
-        title="Fx"
-        subtitle={"A lil Story. A lil Story. A lil Story"}
-        buttonTitle={"Join the waitlist"}
-        imgUrl={"./images/reports.png"}
-        bgColor="#80E329"
-        textColor={Styler.white}
-      /> */}
+
       <Jumbutron
         title={`
           We're not a bank. We’re Doow, different and even better for your finances!
@@ -201,14 +189,6 @@ management and spending permissions to your team
         containerBgColor={Styler.white}
       />
 
-      {/* <Jumbutron
-        title={"Do business in 190+ countries from one place"}
-        subtitle={`
-        Whether you're a one-man business, a startup or a large coorporation,
-          Doow is the place to manage all your local and international finances
-          at anytime.`}
-        bgColor={Styler.background1}
-      /> */}
       <HomeFaq />
       <FooterHome />
     </div>
