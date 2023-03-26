@@ -3,6 +3,8 @@ $mobileScreensize: 640px;
 $tabletScreensize: 768px;
 $midLaptopScreensize: 1400px;
 $laptopScreensize: 1940px;
+$laptopScreensize: 1040px;
+$largeScreensize: 1540px;
 
 @mixin mobileSS() {
   @media (max-width: $mobileScreensize) {
@@ -24,6 +26,11 @@ $laptopScreensize: 1940px;
 
 @mixin laptopSS() {
   @media (max-width: $laptopScreensize) {
+    @content;
+  }
+}
+@mixin largeSS() {
+  @media (max-width: $largeScreensize) {
     @content;
   }
 }

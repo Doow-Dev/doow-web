@@ -114,7 +114,7 @@ export default function LandingNavBar() {
             onClick={() => setShowNav(!showNav)}
             className={_path == `/login` ? styles.active : ""}
           >
-            <Link href={"/login"} className={styles.link}>
+            <Link href={"/dashboard"} className={styles.link}>
               Login
             </Link>
           </li>

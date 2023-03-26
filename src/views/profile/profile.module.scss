@@ -2,7 +2,7 @@
 @import "../../styles/variables";
 
 .container {
-  margin-left: 200px;
+  margin-left: 345px;
   display: flex;
   flex-direction: column;
   @include tabletSS {
@@ -11,99 +11,11 @@
   }
   .contents {
     width: 100%;
-    padding: 40px 20px;
+    padding: 40px 30px;
     margin: 0 auto;
     @include tabletSS {
-      padding: 20px 10px;
+      padding: 20px 20px;
     }
-    .sectionTitle {
-      padding: 10px 0px;
-    }
-  }
-
-  .profile {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0px;
-    .image {
-      height: 50px;
-      width: 60px;
-      border-radius: 7.5px;
-    }
-
-    h3 {
-      padding: 10px;
-      @include tabletSS {
-        font-size: medium;
-      }
-    }
-
-    p {
-      text-align: center;
-      font-size: medium;
-
-      @include tabletSS {
-        font-size: small;
-      }
-    }
-  }
-
-  .cards {
-    padding: 50px auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 20px;
-    row-gap: 0px;
-    width: 100%;
-    @include tabletSS {
-      grid-template-columns: repeat(1, 1fr);
-
-    }
-    @include mobileSS {
-      grid-template-columns: repeat(1, 1fr);
-      padding: 0px 0px;
-      width: 90%;
-      margin: 0 auto;
-    }
-    div {
-      background-color: #fff;
-      //   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-      height: 100px;
-      width: 100%;
-      margin: 10px 0px;
-      border-radius: 10px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      @include mobileSS {
-        height: 70px;
-      }
-      h3 {
-        color: $primaryColor;
-        font-size: large;
-        font-weight: 600;
-
-        @include tabletSS {
-          font-size: medium;
-        }
-
-      }
-      p {
-        color: rgb(15, 15, 15);
-        font-weight: 400;
-        text-align: center;
-        font-size: medium;
-
-        @include tabletSS {
-          font-size: small;
-        }
-      }
-    }
+    
   }
 }
