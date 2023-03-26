@@ -53,6 +53,8 @@ export default function FooterHome() {
           the laws of Delaware, United States of America. Doow is not a bank.
           Doow offers all of its services in partnership with licensed banking
           and financial partners in their respective jurisdictions worldwide.
+        </div>
+        <div className={styles.shortText}>
           All logos, trademarks and brand names belong to their respective
           owners. Using these brand items does not imply endorsement with Doow.
         </div>
