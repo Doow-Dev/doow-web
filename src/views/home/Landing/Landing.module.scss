@@ -19,12 +19,11 @@
     url(../../../../public/images/banner.png);
 
   @include tabletSS {
-    width: 100vw;
-    margin-top: 20px;
+    // width: 100vw;
+    // margin-top: 20px;
     height: 100vh;
     background-size: contain;
     background-repeat: no-repeat;
-    // background-position-y: 60vh;
     background-position-y: 60vh;
     background-image: linear-gradient(
         rgba(255, 255, 255, 0.1),

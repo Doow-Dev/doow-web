@@ -9,6 +9,7 @@ import { BsArrow90DegDown } from "react-icons/bs";
 import styles from "./faq.module.scss";
 
 export const HomeFaq = () => {
+  // useEf;
   return (
     <div id="home" className={styles.container}>
       <div className={styles.content}>
@@ -32,9 +33,7 @@ export const HomeFaq = () => {
             }
           />
           <FaqItem
-            title={
-              "Can I open foreign business accounts from anywhere in the world?"
-            }
+            title={"Can I open foreign business accounts from anywhere?"}
             content={
               <div>
                 <p>
@@ -92,6 +91,7 @@ export function FaqItem(props: IFaqItem) {
         onClick={() => setshowBody(!showBody)}
       >
         <h3>{props.title}</h3>
+
         {showBody ? <BiChevronUp size={20} /> : <BiChevronDown size={20} />}
       </div>
       {showBody && <div className={styles.ItemBody}>{props.content}</div>}

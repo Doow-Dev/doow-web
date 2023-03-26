@@ -52,7 +52,7 @@ management and spending permissions to your team
           `}
         imgUrl={"./images/half.png"}
         buttonTitle={"Join the waitlist"}
-        bgColor="#06BEA6"
+        bgColor="#04aa94"
         textColor={Styler.white}
         btnHref={"waitlist"}
       />
