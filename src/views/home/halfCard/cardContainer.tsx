@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
 import styles from "./halfCard.module.scss";
-import { Styler } from "./styler";
+import { Styler } from "../cardContainer/styler";
 
 interface CardContainer {
   bgColor: string;
@@ -11,7 +10,7 @@ interface CardContainer {
 }
 export const CardContainer = (props: CardContainer) => {
   return (
-    <div style={{ ...Styler.diver, backgroundColor: props.bgColor }}>
+    <div className={styles.diver} style={{ backgroundColor: props.bgColor }}>
       {props.card1}
       {props.card2}
     </div>

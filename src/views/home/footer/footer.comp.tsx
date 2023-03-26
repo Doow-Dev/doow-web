@@ -1,40 +1,60 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import styles from "./footer.module.scss";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function FooterHome() {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h4 className={styles.brand}> DOOW</h4>
         <div className={styles.linkList}>
+          <div className={styles.brand}>
+            {/* doow */}
+            <img src="/images/ongreen.png" className={styles.imge} />
+          </div>
           <ul>
-            <li>Links</li>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
+            <li className={styles.listheader}>Products</li>
+            <li className={styles.listItems}>Business Cards</li>
+            <li className={styles.listItems}>Global Cards</li>
+            <li className={styles.listItems}>Payments</li>
+            <li className={styles.listItems}>Fx</li>
+            <li className={styles.listItems}>Spend management</li>
           </ul>
           <ul>
-            <li>Navigation</li>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
+            <li className={styles.listheader}>Company</li>
+            <li
+              className={styles.listItems}
+              onClick={() => router.push("/about_us")}
+            >
+              About Us
+            </li>
+            <li
+              className={styles.listItems}
+              onClick={() => router.push("/contact_us")}
+            >
+              Contact Us
+            </li>
           </ul>
-          <ul>
-            <li>Products</li>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-          </ul>
-        </div>
-        <div className={styles.shortText}>
-          We are the choosen generation, called to show forth his excellency.
+          <div className={styles.address}>
+            <p>Doow Inc.</p>
+            <p>1736, 1007 N Orange St. 4th Floor,</p>
+            <p>Wilmington, DE, New Castle,</p>
+            <p>United States, 19801</p>
+            <p>Contact: Email us at @support@doow.co</p>
+          </div>
         </div>
         <div className={styles.copywright}>
           <p>© copyright All rights reserved</p>
-          <p>Powered by Hexelan</p>
+        </div>
+        <div className={styles.shortText}>
+          Doow Inc. is a financial technology company duly incorporated under
+          the laws of Delaware, United States of America. Doow is not a bank.
+          Doow offers all of its services in partnership with licensed banking
+          and financial partners in their respective jurisdictions worldwide.
+          All logos, trademarks and brand names belong to their respective
+          owners. Using these brand items does not imply endorsement with Doow.
         </div>
       </div>
     </div>

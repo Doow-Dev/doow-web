@@ -16,7 +16,9 @@ export const HomeLanding = () => {
           <p className={styles.smallText}>
             Be the first to get early access when we launch beta!
           </p>
-          <div className={styles.btn}>Join the waitlist</div>
+          <div className={styles.btn} onClick={() => router.push("waitlist")}>
+            Join the waitlist
+          </div>
         </div>
       </div>
     </div>

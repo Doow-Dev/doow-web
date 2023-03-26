@@ -4,10 +4,10 @@
 .container {
   background-color: $fontColor;
   width: 100%;
-  height: 50px;
   z-index: 2;
-  min-height: 50vh;
-  padding: 20px 15%;
+  padding: 40px 15%;
+  // height: 50px;
+  // min-height: 50vh;
 
   @include tabletSS {
     display: block;
@@ -18,8 +18,13 @@
     visibility: visible;
   }
   .brand {
-    color: $primaryColor;
-    font-size: larger;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 300;
+    font-family: "Manrope";
+    img {
+      height: 30px;
+    }
   }
   .content {
     display: flex;
@@ -30,34 +35,60 @@
     // background-color: aqua;
     .linkList {
       width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-row-gap: 20px;
       font-weight: 300;
       font-size: small;
       justify-content: space-between;
+
+      @include mobileSS {
+        grid-template-columns: 1fr;
+        // display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+      }
       ul {
         text-align: left;
-        li {
+        .listItems {
           color: #fff;
           padding: 10px 0;
           &:hover {
             color: $fadeFontColor;
           }
+          a {
+            color: #fff;
+          }
+        }
+        .listheader {
+          font-weight: bold;
         }
       }
     }
-    .shortText {
-      padding: 40px;
+    .address {
       font-weight: 300;
+      font-size: 12px;
+      p {
+        padding-bottom: 10px;
+      }
+    }
+    .shortText {
+      font-weight: 300;
+      font-size: 11px;
+      text-align: left;
     }
     .copywright {
+      padding-bottom: 10px;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      bottom: 0px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-top: 20px;
       p {
-        padding: 15px 0;
+        padding: 0px;
         font-weight: 300;
         font-size: small;
         color: $fadeFontColor;

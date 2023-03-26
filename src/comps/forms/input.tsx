@@ -24,13 +24,13 @@ export function InputText(props: Props): JSX.Element {
         <span>{sublabel}</span>
       </label>
       <input
-        title="inputtext"
+        // title="inputtext"
         type="text"
         id={id}
         placeholder={placeholder}
         name={name}
         value={value}
-        onChange={onChange}
+        // onChange={onChange}
       />
     </div>
   );
@@ -61,9 +61,17 @@ export function Seperator() {
 
 interface IButton {
   name: string;
+  onClick: () => void;
 }
 
 export function InputButton(props: IButton): JSX.Element {
   const { name } = props;
-  return <input className={styles.btn} value={name} type="button" />;
+  return (
+    <input
+      className={styles.btn}
+      value={name}
+      type="button"
+      onClick={props.onClick}
+    />
+  );
 }

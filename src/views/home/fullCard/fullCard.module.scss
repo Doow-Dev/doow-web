@@ -1,15 +1,16 @@
 @import "../../../styles/variables";
 @import "../../../styles/screensize";
+@import "../../../styles/mixins_pub";
 
 .container {
   // min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $background1;
-  margin: 60px 0px;
+  // background-color: $background1;
+  // margin: 60px 0px;
   width: 100%;
-  padding: 0% 15%;
+  padding: 60px 10%;
   @include tabletSS {
     margin: 25px 0px;
     padding: 0% 10%;
@@ -17,27 +18,32 @@
   .content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    height: 65vh;
+    grid-column-gap: 30px;
+    height: 74vh;
     margin: 0 50px;
     align-items: center;
     text-align: center;
     border-radius: 20px;
     width: 100%;
-    &:hover .imager img {
-      height: 7rem * 4.9;
-      width: 8.6rem * 4.9;
-      transition: 0.5s ease-out;
-      box-shadow: #fff;
-    }
+    // &:hover .imager img {
+    //   height: 7rem * 4.9;
+    //   width: 8.6rem * 4.9;
+    //   transition: 0.5s ease-out;
+    //   box-shadow: #fff;
+    // }
     &:hover {
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     }
     @include tabletSS {
-      height: 80vh;
+      height: max-content;
       border-radius: 10px;
       margin: 0 20px;
-      grid-template-columns: repeat(1, 1fr);
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      // grid-template-columns: repeat(1, 1fr);
     }
 
     .textSection {
@@ -45,17 +51,21 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-between;
-      padding: 50px;
+      padding: 30px;
+      // padding-top: 50px;
       border-radius: 20px;
       height: 100%;
+      // background-color: bisque;
       @include tabletSS {
         padding: 20px;
       }
-      div {
+      .textContent {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         .sectionTitle {
+          text-align: left;
+          font-family: "Manrope";
           color: #fff;
           margin-bottom: 20px;
           font-size: 3rem;
@@ -67,9 +77,20 @@
         }
         .subtitle {
           color: #fff;
+
           font-size: 1.7rem;
           font-weight: 300;
-          text-align: center;
+          text-align: left;
+          @include mobileSS {
+            font-size: 1.4rem;
+          }
+        }
+        .subtitle2 {
+          color: #fff;
+          font-size: 1.7rem;
+          font-weight: 300;
+          text-align: left;
+          margin-top: 20px;
           @include mobileSS {
             font-size: 1.4rem;
           }
@@ -89,42 +110,28 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        // justify-content: center;
         margin: 0 auto;
-        // background-color: aqua;
       }
-      .imgd {
+      img {
         color: #fff;
         font-size: medium;
-        height: 7rem * 5;
-        width: 8.6rem * 5;
+        height: auto;
+        width: 100%;
         margin: 0px;
+        display: block;
         object-fit: fill;
+        // display: none;
+        // background-color: aqua;
         @include tabletSS {
-          margin-left: 10%;
+          // margin-left: 10%;
           align-self: center;
-          height: 60%;
-          width: 80%;
-        }
-        @include mobileSS {
-          align-self: center;
-          height: 60%;
-          width: 100%;
+          height: auto;
+          width: 90%;
+          margin-left: 20px;
+          margin-bottom: 30px;
         }
       }
     }
-  }
-}
-
-.btn {
-  border-style: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  font-size: medium;
-  background-color: $background1;
-  &:hover {
-    background-color: $secondaryColor;
-    color: #fff;
-    transition: 0.5s ease-in-out;
   }
 }

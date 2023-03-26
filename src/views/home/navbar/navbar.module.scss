@@ -4,7 +4,7 @@
 .navbar {
   background-color: #fbfcfa;
   width: 100%;
-  height: 70px;
+  height: 60px;
   z-index: 2;
   position: fixed;
   top: 0;
@@ -26,6 +26,20 @@
     color: $secondaryColor;
     align-items: center;
     margin-left: 50px;
+    img {
+      height: 35px;
+      margin-top: 10px;
+      // margin-left: 50px;
+      @include tabletSS {
+        margin-top: 8.5px;
+        height: 30px;
+      }
+      @include mobileSS {
+        // margin-left: 30px;
+        margin-top: 7px;
+        height: 25px;
+      }
+    }
     a {
       font-weight: 900;
       font-family: "Comfortaa";
@@ -40,7 +54,7 @@
     font-size: medium;
     font-weight: bold;
     display: inline-block;
-    line-height: 70px;
+    line-height: 60px;
     @include tabletSS {
       line-height: 50px;
     }
@@ -58,7 +72,7 @@
     border-right: none;
     border-bottom: none;
     border-width: 0.5px;
-    height: 70px;
+    height: 60px;
     // width: 50%;
     @include tabletSS {
       visibility: visible;
@@ -75,18 +89,16 @@
     }
 
     li {
-      line-height: 70px;
+      line-height: 60px;
       display: inline-block;
-      border-radius: 8px;
+      position: relative;
       &:hover {
-        background-color: $fontColor;
+        // background-color: $fontColor;
         color: $primaryColor;
         transition: 0.5s;
         border-radius: 0px;
       }
-      &:hover > a {
-        color: $primaryColor;
-      }
+
       @include tabletSS {
         display: block;
         margin: 10px;
@@ -98,32 +110,69 @@
           transition: 0.5s;
         }
       }
-
-      a {
-        font-size: medium;
-        // text-transform: uppercase;
-        font-weight: bold;
+      &:hover > a {
         color: $primaryColor;
-        margin: 0 10px;
-        font-family: "Roboto";
+      }
+      &:hover > ul {
+        display: block;
+        transition: position 2s ease;
+      }
+      a {
+        display: block;
+        font-size: medium;
+        // font-weight: bold;
+        color: $secondaryColor;
+        margin: 0 20px;
+        text-align: center;
+        // font-family: "Roboto";
+
         @include tabletSS {
-          color: $primaryColor;
+          // color: $primaryColor;
           font-size: smaller;
+        }
+      }
+
+      ul {
+        width: 100%;
+        position: absolute;
+        z-index: 999;
+        display: none;
+        // margin-top: 10px;
+        li {
+          background-color: #ffffff;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          display: block;
+          padding: 0px 20px;
+          text-align: left;
+          border-radius: 0px;
+          margin: 0px;
+          line-height: 40px;
+          border-bottom: #fff solid 1px;
+          width: 200px;
+
+          // width: max-content;
+          font-size: small;
+          font-weight: bold;
+          color: $fontColor;
+          &:hover {
+            color: $primaryColor;
+          }
         }
       }
     }
     .active {
-      background-color: $primaryColor;
+      // background-color: $primaryColor;
+
       transition: 0.5s;
       a {
-        color: #fff;
+        color: $primaryColor;
       }
     }
   }
   label.icon {
     color: $primaryColor;
     font-size: medium;
-    line-height: 70px;
+    line-height: 60px;
     float: right;
     margin-right: 40px;
     align-items: center;
@@ -134,7 +183,7 @@
     }
     @include mobileSS {
       visibility: visible;
-      line-height: 70px;
+      line-height: 50px;
     }
   }
 }

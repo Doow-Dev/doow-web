@@ -1,0 +1,29 @@
+@import "../../styles//variables";
+@import "../../styles//screensize";
+
+.container {
+  // width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // background-color: rgb(92, 179, 45);
+  margin-top: 50px;
+  .content {
+    margin: 50px 0;
+    width: 80%;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    div {
+      margin: 25px 10px;
+    }
+
+    @include tabletSS {
+      width: 90%;
+      grid-template-columns: 1fr;
+    }
+    .topMessage {
+      padding-left: 30px;
+    }
+  }
+}

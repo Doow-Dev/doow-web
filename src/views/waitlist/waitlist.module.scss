@@ -1,67 +1,51 @@
 @import "../../styles//variables";
 @import "../../styles//screensize";
 
-.login {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  padding-top: 50px;
-  flex-direction: column;
-  align-items: center;
-}
-
 .container {
-  width: 50%;
-  max-width: 410px;
-  margin-top: 50px;
-  border-radius: 1rem;
+  // width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  h2 {
-    font-size: 32px;
-    margin-bottom: 5rem;
-
-    @include mobileSS {
-        font-size: 22px;
-    }
-  }
-
-  form {
-    width: 100%;
+  // background-color: rgb(92, 179, 45);
+  .content {
+    margin: 50px 0;
+    width: 80%;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-  }
-}
+    align-items: center;
+    form {
+      width: 50%;
 
-.take_action {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-
-p {
-    opacity: 0.3;
-}
-
-  span a {
-    font-weight: 500;
-    color: $primaryColor;
-    text-decoration: underline;
-  }
-
-  @include mobileSS {
-    flex-direction: column;
-    gap: 0;
-
-    p, span {
-        font-size: 14px;
+      @include mobileSS {
+        width: 100%;
+      }
     }
   }
 }
 
-.take_action:last-child {
-  justify-content: center;
-}
+// .container {
+//   width: 50%;
+//   max-width: 410px;
+//   margin-top: 50px;
+//   border-radius: 1rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+
+//   h2 {
+//     font-size: 32px;
+//     margin-bottom: 5rem;
+
+//     @include mobileSS {
+//         font-size: 22px;
+//     }
+//   }
+
+//   form {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2rem;
+//   }
+// }
