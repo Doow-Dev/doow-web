@@ -27,15 +27,6 @@ export default function LandingNavBar() {
         </label>
 
         <ul className={showNav ? styles.show : ""}>
-          <li
-            onClick={() => setShowNav(!showNav)}
-            className={_path == `/` ? styles.active : ""}
-          >
-            <Link href={"/"} className={styles.link}>
-              Overview
-            </Link>
-          </li>
-
           <NavListItem
             name={"Products"}
             setShowNav={() => setShowNav(!showNav)}
@@ -92,24 +83,7 @@ export default function LandingNavBar() {
               },
             ]}
           />
-          {/* <NavListItem
-            name={"Accounting"}
-            setShowNav={() => setShowNav(!showNav)}
-            href={"/#"}
-            path={_path}
-            styleName={styles.link}
-            activeStyle={styles.active}
-            dropdownItems={[]}
-          /> */}
-          <NavListItem
-            name={"About"}
-            setShowNav={() => setShowNav(!showNav)}
-            href={"/about_us"}
-            path={_path}
-            styleName={styles.link}
-            activeStyle={styles.active}
-            dropdownItems={[]}
-          />
+
           <li
             onClick={() => setShowNav(!showNav)}
             className={_path == `/login` ? styles.active : ""}

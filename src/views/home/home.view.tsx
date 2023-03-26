@@ -78,13 +78,12 @@ management and spending permissions to your team
 
       <CardBanner />
       <FullCard
-        title="Conversions"
-        subtitle={`Access market leading interbank exchange rates across the world in real-time`}
-        subtitle2={`
+        title="Access market leading interbank exchange rates across the world in real-time"
+        subtitle={`
         Avoid high exchange rates and transfer fees when you convert on Doow. 
         Our FX partners offer real-time market-leading rates every day, even on weekends,
         so your business can always exchange and spend whenever you want.`}
-        subtitle3={`
+        subtitle2={`
           You can hold funds in more than 40 currencies and exchange whenever you 
           decide is right for your business. In seconds, 
           you can move money from your foreign balances into 
@@ -99,20 +98,14 @@ management and spending permissions to your team
       />
       <FullCard
         title="Expense Mgt & Permissions"
-        subtitle={`
-          Doow helps you manage budget and expenses globally, 
-          so you can explore more innovative 
-          possibilities for your business.
-
-        `}
-        subtitle2={`You can easily create spend policies and limits for 
+        subtitle={`You can easily create spend policies and limits for 
         budget categories, reimbursements, company cards, 
         and global accounts to align with your company’s 
         financial goals at anytime. Add as many team members to 
         your finance workspace and manage their real-time spend 
         and access levels from one dashboard.
       `}
-        subtitle3={`
+        subtitle2={`
           From expense management to Doow company 
           and employee cards, business bank accounts, 
           sub-accounts, budgets, and even our multi-currency 
@@ -183,7 +176,7 @@ management and spending permissions to your team
         `}
         imgUrl={"./images/report.png"}
         buttonTitle={"Join the waitlist"}
-        bgColor="#E18738"
+        bgColor="#8338ec"
         textColor={Styler.white}
         btnHref={"waitlist"}
         containerBgColor={Styler.white}
