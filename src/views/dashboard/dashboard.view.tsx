@@ -91,6 +91,7 @@ export default function DashboardView() {
       <SideBar showMenu={showMenu} />
       <div className={styles.container}>
         <div className={styles.contents}>
+        <p className={styles.welcome}>Welcome, Tolani</p>
           <div className={styles.topSection}>
             <div className={styles.topLeft}>
               <RateText rateValue={25} periodText="in the last 7 days" tiny />
