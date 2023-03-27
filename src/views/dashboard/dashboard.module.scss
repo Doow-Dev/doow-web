@@ -1,6 +1,18 @@
 @import "../../styles/screensize";
 @import "../../styles/variables";
 
+.welcome {
+  width: 100%;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: left;
+
+  @include mobileSS {
+    text-align: center;
+    font-size: 2rem;
+  }
+}
+
 .container {
   margin-left: 345px;
   display: flex;
