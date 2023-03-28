@@ -149,7 +149,7 @@ management and spending permissions to your team
         btnHref={"waitlist"}
         containerBgColor={Styler.white}
       />
-      {/* <Integrations /> */}
+      <Integrations />
       <HomeFaq />
       <FooterHome />
     </div>

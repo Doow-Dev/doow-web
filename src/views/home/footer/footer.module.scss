@@ -55,6 +55,7 @@
         .listItems {
           color: #fff;
           padding: 10px 0;
+          word-spacing: 5px;
           &:hover {
             color: $fadeFontColor;
           }
@@ -70,16 +71,22 @@
     .address {
       font-weight: 300;
       font-size: 12px;
+      .addressheader {
+        font-weight: bold;
+      }
       p {
         padding-bottom: 10px;
       }
     }
     .shortText {
       font-weight: 300;
-      font-size: 11px;
+      font-size: 12px;
       text-align: left;
       padding-bottom: 10px;
       width: 100%;
+      @include mobileSS {
+        padding-left: 20px;
+      }
     }
     .copywright {
       padding-bottom: 10px;
@@ -89,6 +96,9 @@
       align-items: flex-start;
       justify-content: flex-start;
       margin-top: 20px;
+      @include mobileSS {
+        padding-left: 20px;
+      }
       p {
         padding: 0px;
         font-weight: 300;

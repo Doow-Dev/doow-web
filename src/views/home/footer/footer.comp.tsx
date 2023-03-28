@@ -16,11 +16,13 @@ export default function FooterHome() {
           </div>
           <ul>
             <li className={styles.listheader}>Products</li>
-            <li className={styles.listItems}>Business Cards</li>
-            <li className={styles.listItems}>Global Cards</li>
-            <li className={styles.listItems}>Payments</li>
-            <li className={styles.listItems}>Fx</li>
+            <li className={styles.listItems}>Foreign business accounts</li>
+            <li className={styles.listItems}>Cooperate cards</li>
+            <li className={styles.listItems}>Global payments</li>
+            <li className={styles.listItems}>Fx & conversions</li>
+            <li className={styles.listItems}>Multi-currency reimbursements</li>
             <li className={styles.listItems}>Spend management</li>
+            <li className={styles.listItems}>Conections</li>
           </ul>
           <ul>
             <li className={styles.listheader}>Company</li>
@@ -28,21 +30,21 @@ export default function FooterHome() {
               className={styles.listItems}
               onClick={() => router.push("/about_us")}
             >
-              About Us
+              About us
             </li>
             <li
               className={styles.listItems}
               onClick={() => router.push("/contact_us")}
             >
-              Contact Us
+              Contact us
             </li>
           </ul>
           <div className={styles.address}>
-            <p>Doow Inc.</p>
-            <p>1736, 1007 N Orange St. 4th Floor,</p>
-            <p>Wilmington, DE, New Castle,</p>
-            <p>United States, 19801</p>
-            <p>Contact: Email us at @support@doow.co</p>
+            <p className={styles.addressheader}>Doow Inc.</p>
+            <p>1007 N Orange St. 4th Floor,</p>
+            <p>Wilmington, DE,</p>
+            <p>United States</p>
+            {/* <p>support@doow.co</p> */}
           </div>
         </div>
         <div className={styles.copywright}>

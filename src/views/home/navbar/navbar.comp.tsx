@@ -3,22 +3,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./navbar.module.scss";
 import { FaTimes, FaBars } from "react-icons/fa";
-import Image from "next/image";
-import HomeDropComp from "../modal";
-import HomeDropdown from "../dropdown";
-import { IconType } from "react-icons/lib";
+
 import {
-  MdEngineering,
   MdGroup,
-  MdIntegrationInstructions,
   MdManageAccounts,
-  MdMoney,
-  MdPayments,
+  MdOutlineManageAccounts,
 } from "react-icons/md";
-import { IoIdCardSharp } from "react-icons/io5";
-import { RiGlobalFill, RiTeamFill } from "react-icons/ri";
+import { IoIdCardSharp, IoSwapVerticalOutline } from "react-icons/io5";
+import { RiBankLine, RiOrganizationChart } from "react-icons/ri";
 import { BiCard, BiCreditCard, BiShoppingBag } from "react-icons/bi";
-import { BsCurrencyDollar } from "react-icons/bs";
+import { BsCurrencyDollar, BsPersonPlus } from "react-icons/bs";
+import { HiOutlineCurrencyDollar, HiOutlineUserGroup } from "react-icons/hi";
+import { VscDebugDisconnect } from "react-icons/vsc";
 
 export default function LandingNavBar() {
   const router = useRouter();
@@ -49,44 +45,44 @@ export default function LandingNavBar() {
             activeStyle={styles.active}
             dropdownItems={[
               {
-                title: "Global Cards",
+                title: "Cooperate cards",
                 href: "#",
                 subtitle: `
-                 Checking, HYSA, and other local and global business accounts without paperwork. 
+                Unlimited corporate & employee cards available everywhere
                 `,
                 icon: <BiCreditCard />,
               },
               {
-                title: "Global Accounts",
+                title: "Foreign business accounts",
                 href: "#",
                 subtitle: `
-                 Checking, HYSA, and other local and global business accounts without paperwork. 
+                 Checking, HYSA, and other local and global business accounts without paperwork
                 `,
-                icon: <RiGlobalFill />,
+                icon: <RiBankLine />,
               },
               {
-                title: "Fx & Conversions",
+                title: "Fx & conversions",
                 href: "#",
                 subtitle: `
                   Avoid high exchange rates & transfer fees
                 `,
-                icon: <BsCurrencyDollar />,
+                icon: <IoSwapVerticalOutline />,
               },
               {
-                title: "Payment",
+                title: "Global payments",
                 href: "#",
                 subtitle: `
                   ACH, wires, SWIFT, and other global payment methods 
                 `,
-                icon: <MdPayments />,
+                icon: <HiOutlineCurrencyDollar />,
               },
               {
-                title: "Expense Management",
+                title: "Spend management",
                 href: "#",
                 subtitle: `
                  Approve, automate and manage all company spend in one place
                 `,
-                icon: <MdMoney />,
+                icon: <MdOutlineManageAccounts />,
               },
               {
                 title: "Connections",
@@ -94,7 +90,7 @@ export default function LandingNavBar() {
                 subtitle: `
                  Integrate with your existing banks, card providers and finance tools
                 `,
-                icon: <MdIntegrationInstructions />,
+                icon: <VscDebugDisconnect />,
               },
             ]}
           />
@@ -112,15 +108,15 @@ export default function LandingNavBar() {
                 subtitle: `
                   Complete picture of your global finance lifecycle
                 `,
-                icon: <MdManageAccounts />,
+                icon: <RiOrganizationChart />,
               },
               {
                 title: "For CFOs",
                 href: "#",
                 subtitle: `
-                  Accelerate financial growth with real-time data and automated approvals
+                  Boost financial growth with data and automated approvals for controllers, budgets etc.
                 `,
-                icon: <RiTeamFill />,
+                icon: <MdOutlineManageAccounts />,
               },
               {
                 title: "For Managers",
@@ -128,7 +124,7 @@ export default function LandingNavBar() {
                 subtitle: `
                   Manage team-level spend, policies and permissions
                 `,
-                icon: <MdGroup />,
+                icon: <BsPersonPlus />,
               },
               {
                 title: "For Employees",
@@ -136,25 +132,33 @@ export default function LandingNavBar() {
                 subtitle: `
                  Spend within set company limits, policies and be accountable
                 `,
-                icon: <MdGroup />,
+                icon: <HiOutlineUserGroup />,
               },
               {
                 title: "For Ecommerce",
                 href: "#",
                 subtitle: `
-                  Receive payments from your customers anywhere in the world.
+                  Receive payments from your customers anywhere in the world, then 
+                  settle and hold in any currency
                 `,
                 icon: <BiShoppingBag />,
               },
             ]}
           />
-
           <li
             onClick={() => setShowNav(!showNav)}
             className={_path == `/login` ? styles.active : ""}
           >
             <Link href={"/dashboard"} className={styles.link}>
               Login
+            </Link>
+          </li>
+          <li
+            onClick={() => setShowNav(!showNav)}
+            className={_path == `/waitlist` ? styles.active : ""}
+          >
+            <Link href={"/waitlist"} className={styles.link}>
+              Get early access
             </Link>
           </li>
         </ul>
