@@ -84,6 +84,7 @@
       text-align: left;
       padding-bottom: 10px;
       width: 100%;
+      color: $fadeFontColor;
       @include mobileSS {
         padding-left: 20px;
       }
@@ -96,6 +97,7 @@
       align-items: flex-start;
       justify-content: flex-start;
       margin-top: 20px;
+
       @include mobileSS {
         padding-left: 20px;
       }

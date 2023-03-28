@@ -12,6 +12,7 @@ interface IFullCard {
   imgUrl: string;
   buttonTitle: string;
   bgColor: string;
+  fontColor?: string;
   containerBgColor?: string;
   textColor: string;
   btnHref: string;
@@ -52,7 +53,11 @@ export const FullCard = (props: IFullCard) => {
               </p>
             )}
           </div>
-          <JoinWaitlist title={props.buttonTitle} href={props.btnHref} />
+          <JoinWaitlist
+            title={props.buttonTitle}
+            href={props.btnHref}
+            fontColor={"light"}
+          />
         </div>
 
         <div className={styles.imager}>

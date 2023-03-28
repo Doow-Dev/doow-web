@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { useRouter } from "next/router";
+import { JoinWaitlistBlack } from "../JoinBtn/JoinWaitlist";
 import styles from "./CardBanner.module.scss";
 
 export const CardBanner = () => {
@@ -27,8 +27,15 @@ export const CardBanner = () => {
             can set spend policies and limits, monitor expenses, and even freeze
             or delete cards in a few clicks.
           </p>
-          <div className={styles.btn} onClick={() => router.push("waitlist")}>
-            Join the waitlist
+          <div
+            className={styles.btnClick}
+            onClick={() => router.push("waitlist")}
+          >
+            <JoinWaitlistBlack
+              title="Get early access"
+              href="/waitlist"
+              fontColor={"dark"}
+            />
           </div>
         </div>
       </div>
