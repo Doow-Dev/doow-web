@@ -37,7 +37,7 @@ export function ContactUsView() {
             </AboutSection>
           </div>
 
-          <div>
+          <div className={styles.formSection}>
             <p className={styles.topMessage}>
               Send us a message and someone will be in touch shortly.
             </p>

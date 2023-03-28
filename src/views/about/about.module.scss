@@ -27,6 +27,7 @@
 
   @include mobileSS {
     font-size: 3rem;
+    margin-bottom: 7px;
   }
 }
 .title {
@@ -36,6 +37,7 @@
   margin-bottom: 20px;
 
   @include mobileSS {
+    margin-bottom: 12px;
     font-size: 3.5rem;
   }
 }

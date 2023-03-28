@@ -14,16 +14,22 @@
     text-align: left;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    div {
-      margin: 25px 10px;
-    }
-
     @include tabletSS {
       width: 90%;
       grid-template-columns: 1fr;
     }
+    div {
+      margin: 25px 10px;
+      @include tabletSS {
+        margin: 15px 0px;
+      }
+    }
+
     .topMessage {
       padding-left: 30px;
+    }
+
+    .formSection {
     }
   }
 }
