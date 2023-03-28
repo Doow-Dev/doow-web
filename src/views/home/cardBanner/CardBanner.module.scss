@@ -99,19 +99,12 @@
   }
 }
 
-.btn {
-  border-style: none;
-  border-radius: 10px;
+.btnClick {
   padding: 10px 30px;
   width: fit-content;
-  font-size: medium;
-  font-weight: 800;
-  background-color: #000;
-  color: #fff;
+  color: $fontColor;
   &:hover {
-    background-color: #fff;
     color: #000;
-    border: solid 1px #000;
     transition: 0.5s ease-in-out;
   }
 }

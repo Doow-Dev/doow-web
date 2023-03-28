@@ -15,6 +15,7 @@ import { BiCard, BiCreditCard, BiShoppingBag } from "react-icons/bi";
 import { BsCurrencyDollar, BsPersonPlus } from "react-icons/bs";
 import { HiOutlineCurrencyDollar, HiOutlineUserGroup } from "react-icons/hi";
 import { VscDebugDisconnect } from "react-icons/vsc";
+import MobileSideBar from "../navbarComp/navbar.comp";
 
 export default function LandingNavBar() {
   const router = useRouter();
@@ -25,6 +26,13 @@ export default function LandingNavBar() {
   // console.log("Path -", _path);
   return (
     <>
+      {showNav && (
+        <MobileSideBar
+          onClose={function (): void {
+            setShowNav(false);
+          }}
+        />
+      )}
       <div className={styles.navbar}>
         <label className={styles.brand}>
           <Link href="/" className={styles.brand}>

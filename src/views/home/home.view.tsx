@@ -12,6 +12,7 @@ import { HomeFaq } from "./faq/faq";
 import { CardBanner } from "./cardBanner/CardBanner";
 import { JumbutronMid } from "./jumbotronMid/jumbutronMid";
 import { Integrations } from "./integrations/integrations";
+import MobileSideBar from "./navbarComp/navbar.comp";
 
 export default function HomeView() {
   return (
