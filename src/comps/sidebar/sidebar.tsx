@@ -1,17 +1,17 @@
 import styles from "./sidebar.module.scss";
 import Link from "next/link";
 import { sideBarItems } from "./sidebar-items";
-import { TfiAngleUp, TfiAngleDown } from "react-icons/tfi";
+import { TfiAngleDown, TfiAngleUp } from "react-icons/tfi";
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import { FaAngleRight } from "react-icons/fa";
+import Image from "next/image";
+
 
 interface Props {
   showMenu: boolean;
 }
 
-export const SideBar: React.FC<Props> = ({showMenu}) => {
+export const SideBar: React.FC<Props> = ({ showMenu }) => {
   // const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const [showLinks, setShowLinks] = useState<boolean>(false);
@@ -23,19 +23,12 @@ export const SideBar: React.FC<Props> = ({showMenu}) => {
   // };
 
   const toggleShowLinks = (i: number) => {
-    if (i === activeLink) {
-      setShowLinks((prev) => !prev);
-    } else {
-      setActiveLink(i);
-      setShowLinks(true);
-    }
+    setActiveLink(i);
+    setShowLinks(true);
   };
 
   return (
     <div className={`${styles.sidebar_menu} ${showMenu ? styles.active : ""}`}>
-      {/* <div className={styles.toggle_btn} onClick={toggleMenu}>
-        <FaAngleRight />
-      </div> */}
       <div className={styles.sidebar}>
         <div className={styles.links}>
           {sideBarItems.map((item, i) => (
@@ -45,28 +38,30 @@ export const SideBar: React.FC<Props> = ({showMenu}) => {
               }`}
               key={i}
             >
-              <Link href={"#"} onClick={() => toggleShowLinks(i)}>
-                {item.icon}
-                <p>{item.title}</p>
-                <TfiAngleUp />
-              </Link>
-              <div className={styles.sub_menu}>
-                {item.subLinks.map((link, idx) => (
-                  <Link key={idx} href={link.link}>
-                    {link.title}
-                  </Link>
-                ))}
+              {item.icon}
+              <div className={styles.content}>
+                <Link href={"#"} >
+                  <p className={styles.header}>
+                    {item.title}
+                    <TfiAngleUp />
+                  </p>
+                </Link>
+                <div className={styles.sub_menu}>
+                  {item.subLinks.map((link, idx) => (
+                    <Link key={idx} href={link.link} onClick={() => toggleShowLinks(i)}>
+                      {link.title}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
-          {/* add active class */}
         </div>
-        {/* doow logo section */}
         <div className={styles.logoSection}>
           <Image
             src={"/assets/icons/doowlogo-circle.png"}
-            width={40}
-            height={40}
+            width={30}
+            height={30}
             alt={"doow-logo"}
             onClick={() => route.push("/")}
           />

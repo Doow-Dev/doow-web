@@ -1,5 +1,4 @@
 import { IconButton } from "../../components/buttons";
-import { SideBar } from "../../comps/sidebar/sidebar";
 import styles from "./dashboard.module.scss";
 import { BsArrowRight, BsPlusLg } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -10,6 +9,7 @@ import DashboardNavBar from "./navbar/navbar.comp";
 import { useState } from "react";
 import BankAccountForm from "./create-bank-account/bank-account-form";
 import NotificationBanner from "./notification-banner";
+import { SideBar } from "../../comps/sidebar/sidebar";
 
 interface IAccountCardInfo {
   accountName: string;
