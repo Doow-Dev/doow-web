@@ -17,15 +17,10 @@ export const DashboardNavBar: React.FC<Props> = ({
   const _path = router.pathname.toString();
   const [user, setUser] = useState(null);
   const show = "show";
-  // console.log("Path -", _path);
   return (
     <>
       <div className={styles.navbar}>
-        <label className={styles.brand}>
-          <Link href="/" className={styles.brand}>
-            doow
-          </Link>
-        </label>
+        <div></div>
 
         <label className={styles.icon}>
           {showMenu ? (

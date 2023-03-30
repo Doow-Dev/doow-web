@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./navbar.module.scss";
 import { FaTimes, FaBars } from "react-icons/fa";
-import { logout, useAuthDispatch, useAuthState } from "../../context/auth";
 import { sidebarItems } from "../sidebar/sidebarItems";
 
 export default function NavBar() {
@@ -13,12 +12,9 @@ export default function NavBar() {
   const show = "show";
   const [showNav, setShowNav] = useState(false);
 
-  const dispatch = useAuthDispatch();
-  const handleLogout = async () => {
-    await logout(dispatch);
-  };
+ 
+ 
 
-  const data = useAuthState();
 
   return (
     <>
@@ -39,7 +35,7 @@ export default function NavBar() {
                   key={i}
                   onClick={
                     item.title === "Logout"
-                      ? handleLogout
+                      ? () => {}
                       : () => setShowNav(!showNav)
                   }
                 >

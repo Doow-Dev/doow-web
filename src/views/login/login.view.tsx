@@ -6,7 +6,6 @@ import Input from "../../components/inputs/input";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/buttons/custom-button";
-import { logMemberIn, useAuthDispatch, useAuthState } from "../../context/auth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Loading from "../../components/loading/loading";
@@ -27,13 +26,12 @@ const validationSchema = Yup.object().shape({
 });
 
 export const LoginView: NextPage = () => {
-  const { loading, errorMessage } = useAuthState();
-  const dispatch = useAuthDispatch();
+ 
   const router = useRouter();
   return (
     <div>
       <div className={styles.login}>
-        {loading && <Loading />}
+        {/* {loading && <Loading />} */}
         <LandingNavBar />
         <div className={styles.container}>
           <h2>Welcome to Doow</h2>
@@ -46,10 +44,7 @@ export const LoginView: NextPage = () => {
               onSubmit={async (values) => {
                 // add login implementation
                 try {
-                  const response = await logMemberIn(dispatch, {
-                    phone: "0" + values.phone,
-                    password: values.password,
-                  });
+                  // add login/sign here
                   toast.success(`log in successful`);
 
                   router.push("/profile");

@@ -14,7 +14,7 @@
 }
 
 .container {
-  margin-left: 345px;
+  margin-left: 50px;
   display: flex;
   flex-direction: column;
   @include tabletSS {
@@ -157,4 +157,9 @@
       gap: 10px;
     }
   }
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
 }

@@ -1,28 +1,24 @@
 import { type AppType } from "next/app";
-import { AccountCreationProvider } from "../context";
 import "../styles/index.scss";
 import { ApolloProvider } from "@apollo/client";
-import graphqlClient from "../graphql/apollo";
 import Layout from "../comps/global/Layout";
-import { MenuContextProvider } from "../context";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "../context/auth";
+import apolloClient from "../constants/apollo-client";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "../redux/store";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (
     <>
-      <ApolloProvider client={graphqlClient}>
-        <AuthProvider>
-          <MenuContextProvider>
-            <AccountCreationProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </AccountCreationProvider>
-          </MenuContextProvider>
-        </AuthProvider>
+      <ApolloProvider client={apolloClient}>
+        <ReduxProvider store={store}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ReduxProvider>
       </ApolloProvider>
+
       <ToastContainer
         closeButton={false}
         hideProgressBar={true}

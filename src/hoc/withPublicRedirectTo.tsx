@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Loading from "../components/loading/loading";
-import { useAuthState } from "../context/auth";
 
 const withPublicRedirectTo = (WrappedComponent: any, redirectTo?: string) => {
   // eslint-disable-next-line react/display-name
@@ -18,7 +17,7 @@ const withPublicRedirectTo = (WrappedComponent: any, redirectTo?: string) => {
 
     if (typeof window !== "undefined") {
       const router = useRouter();
-      const { accessToken } = useAuthState();
+      const { accessToken } = localStorage; // update with redux value
 
       if (accessToken) {
         router.replace(redirectTo ? redirectTo : "/profile");

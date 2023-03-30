@@ -19,7 +19,10 @@ export default function LandingNavBar() {
   const [user, setUser] = useState(null);
   const show = "show";
   const [showNav, setShowNav] = useState(false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e6860be672abe0e54ceddcb9b3032a6aa58e8ab
   return (
     <>
       {/* {showNav && ( */}

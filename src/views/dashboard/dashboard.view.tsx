@@ -1,5 +1,4 @@
 import { IconButton } from "../../components/buttons";
-import { SideBar } from "../../comps/sidebar/sidebar";
 import styles from "./dashboard.module.scss";
 import { BsArrowRight, BsPlusLg } from "react-icons/bs";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -10,6 +9,9 @@ import DashboardNavBar from "./navbar/navbar.comp";
 import { useState } from "react";
 import BankAccountForm from "./create-bank-account/bank-account-form";
 import NotificationBanner from "./notification-banner";
+import { SideBar } from "../../comps/sidebar/sidebar";
+import { useAppSelector } from "../../redux/hooks";
+import Loading from "../../components/loading/loading";
 
 interface IAccountCardInfo {
   accountName: string;
@@ -60,6 +62,9 @@ export default function DashboardView() {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [accounts, setAccounts] = useState<IAccountCardInfo[]>(initialAccounts);
+  const { account, loading } = useAppSelector(
+    (state) => state.virtualAccountState
+  );
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -73,25 +78,23 @@ export default function DashboardView() {
   const closeMessage = () => {
     setOpenForm(false);
     setShowMessage(false);
-    accounts.push({
-      accountName: "Doow Nigeria Ltd.",
-      balance: "",
-      countryFlag: "/assets/flags/nigeria.png",
-      profileUrls: ["/assets/profiles/spec-man.jpeg"],
-    });
+    if (account.accountName) {
+      accounts.push(account);
+    }
   };
 
   const handleCloseModal = () => {
     setOpenForm(false);
     setOpenModal(false);
   };
+
   return (
     <>
       <DashboardNavBar onToggleMenu={toggleMenu} showMenu={showMenu} />
       <SideBar showMenu={showMenu} />
       <div className={styles.container}>
         <div className={styles.contents}>
-        <p className={styles.welcome}>Welcome, Tolani</p>
+          <p className={styles.welcome}>Welcome, Tolani</p>
           <div className={styles.topSection}>
             <div className={styles.topLeft}>
               <RateText rateValue={25} periodText="in the last 7 days" tiny />
@@ -175,7 +178,10 @@ export default function DashboardView() {
           </div>
         </div>
         {openForm && openModal && (
-          <BankAccountForm handleCloseForm={closeForm} handleCloseModal={handleCloseModal} />
+          <BankAccountForm
+            handleCloseForm={closeForm}
+            handleCloseModal={handleCloseModal}
+          />
         )}
         {showMessage && openModal && (
           <NotificationBanner
@@ -183,6 +189,7 @@ export default function DashboardView() {
             closeMessage={closeMessage}
           />
         )}
+        {loading && <Loading />}
       </div>
     </>
   );
