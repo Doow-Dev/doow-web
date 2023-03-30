@@ -21,7 +21,7 @@ export default function MobileSideBar(props: IProps) {
       <div className={styles.navbar}>
         <div className={styles.listContainer}>
           {/* <p onClick={() => props.onClose()}>Close</p> */}
-          <div className={styles.sliderItem}>Get access</div>
+
           <div onClick={() => setInnerSec({ activeTab: "PRODUCTS" })}>
             <p>Products</p>
             <MdKeyboardArrowRight />
@@ -30,16 +30,15 @@ export default function MobileSideBar(props: IProps) {
             Solutions
             <MdKeyboardArrowRight />
           </div>
+          <div
+            className={styles.sliderItem}
+            onClick={() => router.push("/login")}
+          >
+            Login
+          </div>
         </div>
         <div className={styles.buttons}>
-          <div className={styles.innerButtons}>
-            <div className="btn" onClick={() => router.push("/login")}>
-              Sign in
-            </div>
-            <div className="btn" onClick={() => router.push("/signup")}>
-              Sign up
-            </div>
-          </div>
+          <div className={styles.innerButtons}></div>
           <div className="btn" onClick={() => router.push("/waitlist")}>
             Get early access
           </div>
