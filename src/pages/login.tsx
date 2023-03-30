@@ -1,5 +1,6 @@
 import React from "react";
+import { LoginView } from "../views/login/login.view";
 
 export default function LoginPage() {
-  return <div>LoginPage</div>;
+  return <LoginView />;
 }

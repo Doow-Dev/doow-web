@@ -32,21 +32,13 @@ export const LoginView: NextPage = () => {
   const router = useRouter();
   return (
     <div>
-      <Head>
-        <title>login</title>
-        <meta name="description" content="The login page of DOOW members" />
-        <link rel="icon" href="/assets/images/apc-logo.png" />
-      </Head>
       <div className={styles.login}>
         {loading && <Loading />}
         <LandingNavBar />
         <div className={styles.container}>
           <h2>Welcome to Doow</h2>
           <p>Video section</p>
-          <br />
-          <br />
-          <br />
-          <br />
+
           <form onSubmit={(e) => e.preventDefault()}>
             <Formik
               initialValues={initialValues}
