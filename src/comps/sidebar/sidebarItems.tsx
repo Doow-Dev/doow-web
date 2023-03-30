@@ -5,14 +5,13 @@ import { FaMoneyBill } from "react-icons/fa";
 import { IoDocument, IoNotifications } from "react-icons/io5";
 import { MdDashboard, MdOutlineAccountCircle } from "react-icons/md";
 import { TiGroup } from "react-icons/ti";
-import { Member_Type } from "../../generated/graphql";
 
 interface ISidebarItem {
   icon: ReactNode;
   title: string;
   link: string;
   callBack?: () => void;
-  agentType: Array<Member_Type>;
+  agentType: any;
 }
 
 export const sidebarItems: Array<ISidebarItem> = [
@@ -49,40 +48,40 @@ export const sidebarItems: Array<ISidebarItem> = [
   //   link: "/chat",
   //   agentType: [Member_Type.State],
   // },
-  {
-    icon: <TiGroup />,
-    title: "Congress",
-    link: "/congress",
-    agentType: [Member_Type.State],
-  },
-  {
-    icon: <BsChatTextFill />,
-    title: "Convention",
-    link: "/convention",
-    agentType: [Member_Type.State],
-  },
-  {
-    icon: <IoDocument />,
-    title: "Forms",
-    link: "/forms",
-    agentType: [Member_Type.State],
-  },
-  {
-    icon: <MdDashboard />,
-    title: "Dashboard",
-    link: "/dashboard",
-    agentType: [Member_Type.State],
-  },
-  {
-    icon: <BiHelpCircle />,
-    title: "Help",
-    link: "/help",
-    agentType: [Member_Type.State],
-  },
-  {
-    icon: <BiLogOutCircle />,
-    title: "Logout",
-    link: "/#",
-    agentType: [Member_Type.State, Member_Type.National],
-  },
+  // {
+  //   icon: <TiGroup />,
+  //   title: "Congress",
+  //   link: "/congress",
+  //   agentType: [Member_Type.State],
+  // },
+  // {
+  //   icon: <BsChatTextFill />,
+  //   title: "Convention",
+  //   link: "/convention",
+  //   agentType: [Member_Type.State],
+  // },
+  // {
+  //   icon: <IoDocument />,
+  //   title: "Forms",
+  //   link: "/forms",
+  //   agentType: [Member_Type.State],
+  // },
+  // {
+  //   icon: <MdDashboard />,
+  //   title: "Dashboard",
+  //   link: "/dashboard",
+  //   agentType: [Member_Type.State],
+  // },
+  // {
+  //   icon: <BiHelpCircle />,
+  //   title: "Help",
+  //   link: "/help",
+  //   agentType: [Member_Type.State],
+  // },
+  // {
+  //   icon: <BiLogOutCircle />,
+  //   title: "Logout",
+  //   link: "/#",
+  //   agentType: [Member_Type.State, Member_Type.National],
+  // },
 ];

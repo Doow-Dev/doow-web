@@ -8,6 +8,7 @@
 # environment vars
 
 .env
+.env.local
 
 # testing
 /coverage

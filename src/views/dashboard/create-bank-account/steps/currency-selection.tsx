@@ -1,30 +1,34 @@
-import React, { useState } from "react";
-import { SelectDropdown } from "../../../../components/inputs/select-dropdown";
-import Select from "../../../../components/select/select";
-import IconSelect from "../../select/icon-select";
+import { Formik } from "formik";
+import React from "react";
 import SelectComp, { ISelectOption } from "../../select/select-comp";
 import { ICreateBankAccountForm } from "../bank-account-form";
 import styles from "./steps.module.scss";
+import * as Yup from "yup";
 
 const currencyOptions: ISelectOption[] = [
   {
-    value: "EUR Account",
+    label: "EUR Business Account",
+    value: "EUR",
     imgUrl: "/assets/flags/euro.png",
   },
   {
-    value: "GBP Account",
+    label: "GBP Business Account",
+    value: "GBP",
     imgUrl: "/assets/flags/british.png",
   },
   {
-    value: "USD Account",
+    label: "USD Business Account",
+    value: "USD",
     imgUrl: "/assets/flags/usa.jpg",
   },
   {
-    value: "KES Account",
+    label: "KES Business Account",
+    value: "KES",
     imgUrl: "/assets/flags/kenya.jpg",
   },
   {
-    value: "Nigerian (NGN) Business account",
+    label: "Nigerian (NGN) Business Account",
+    value: "NGN",
     imgUrl: "/assets/flags/nigeria.png",
   },
 ];
@@ -36,46 +40,54 @@ interface Props {
   setFormData: (formData: ICreateBankAccountForm) => void;
 }
 
+const initialValues = {
+  currency: "",
+};
+
+const validationSchema = Yup.object().shape({
+  currency: Yup.string().required("select a currency option"),
+});
+
 export const CurrencySelection: React.FC<Props> = ({
   formState,
   nextStep,
   prevStep,
   setFormData,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
-  const [errorMsg, setErrorMsg] = useState<string>("");
-
-  const handleRequestAccount = () => {
-    if (selectedValue) {
-      nextStep();
-    } else {
-      setErrorMsg("select an option");
-    }
-  };
-  const handleSelectCurrency = (value: string) => {
-    setErrorMsg("")
-    setSelectedValue(value);
-    setFormData({ ...formState, currency: value });
-  };
   return (
     <div className={styles.step}>
       <p className={styles.info}>
         Create foreign accounts in EUR, GBP, USD, KES and NGN from anywhere
       </p>
-      <div className={styles.dropdown}>
-        <SelectComp
-          title="Currency"
-          label="Select Currency"
-          options={currencyOptions}
-          onChange={(value) => {
-            handleSelectCurrency(value);
-          }}
-          error={errorMsg}
-        />
-      </div>
-      <button className={styles.button} onClick={handleRequestAccount}>
-        Request Account
-      </button>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values) => {
+          setFormData({ ...formState, currency: values.currency });
+          nextStep();
+        }}
+      >
+        {({ errors, values, handleChange, handleSubmit, touched }) => (
+          <>
+            <div className={styles.dropdown}>
+              <SelectComp
+                title="Currency"
+                label="Select Currency"
+                options={currencyOptions}
+                onChange={handleChange("currency")}
+                error={
+                  touched.currency && errors.currency
+                    ? errors.currency
+                    : undefined
+                }
+              />
+            </div>
+            <button className={styles.button} onClick={() => handleSubmit()}>
+              Request Account
+            </button>
+          </>
+        )}
+      </Formik>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ICreateBankAccountForm } from "../bank-account-form";
 import styles from "./steps.module.scss";
 import { TfiFiles } from "react-icons/tfi";
@@ -16,18 +16,11 @@ export const DocumentVerification: React.FC<Props> = ({
   prevStep,
   setFormData,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string>("");
-
-  const handleRequestAccount = () => {
-    if (selectedValue) {
-      nextStep();
-    }
-  };
   return (
     <div className={styles.step}>
       <div className={styles.content_section}>
         <div className={styles.info_container}>
-          <p>Registeration Documents</p>
+          <p>Registration Documents</p>
           <div className={styles.documents}>
             <TfiFiles />
             <p>6 uploaded files</p>
@@ -50,7 +43,9 @@ export const DocumentVerification: React.FC<Props> = ({
           <button className={styles.button} onClick={prevStep}>
             Back
           </button>
-          <button className={styles.button} onClick={nextStep}>Next</button>
+          <button className={styles.button} onClick={nextStep}>
+            Next
+          </button>
         </div>
       </div>
     </div>

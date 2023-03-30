@@ -1,18 +1,19 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
+import { loadEnvConfig } from "@next/env";
+
+loadEnvConfig(process.cwd());
 
 const config: CodegenConfig = {
   overwrite: true,
-  // schema: "https://eims.up.railway.app/graphql",
-
-  // schema: "https://mims.up.railway.app/graphql",
-  schema: "http://192.168.0.138:5000/graphql",
+  schema: `${process.env.NEXT_PUBLIC_GRAPHQL_URL}/graphql`,
   documents: ["src/graphql/**/*.graphql"],
   generates: {
-    "src/generated/graphql.tsx": {
+    "src/graphql/generated/graphql.tsx": {
       plugins: [
         "typescript",
         "typescript-operations",
         "typescript-react-apollo",
+        
       ],
     },
     "./graphql.schema.json": {

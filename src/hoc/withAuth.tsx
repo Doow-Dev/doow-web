@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Loading from "../components/loading/loading";
-import { useAuthState } from "../context/auth";
 
 const withAuth = (WrappedComponent: any) => {
   // eslint-disable-next-line react/display-name
@@ -19,7 +18,7 @@ const withAuth = (WrappedComponent: any) => {
     if (typeof window !== "undefined") {
       const router = useRouter();
       const path = router.pathname;
-      const { accessToken, me } = useAuthState();
+      const { accessToken, me } = localStorage; // update with the redux value
       if (!accessToken) {
         router.replace("/login");
         return null;

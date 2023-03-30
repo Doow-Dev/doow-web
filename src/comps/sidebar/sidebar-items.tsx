@@ -3,6 +3,7 @@ import { TbArrowsRightLeft } from "react-icons/tb";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { BsBank } from "react-icons/bs";
 import { VscHome } from "react-icons/vsc";
+import {HiOutlineCalculator} from 'react-icons/hi'
 
 interface ISubLink {
   title: string;
@@ -72,7 +73,7 @@ export const sideBarItems: ISidebarItem[] = [
     ],
   },
   {
-    icon: <TbArrowsRightLeft />,
+    icon: <HiOutlineCalculator />,
     title: "Accounting",
     subLinks: [
       {

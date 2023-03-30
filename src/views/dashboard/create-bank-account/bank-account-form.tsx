@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./modal";
 import styles from "./bank-account-form.module.scss";
-import Input from "../../../components/inputs/input";
 import { CurrencySelection, DocumentVerification } from "./steps";
 import BvnVerification from "./steps/bvn-verification";
 
@@ -13,7 +12,9 @@ const stepTitles = [
 
 export interface ICreateBankAccountForm {
   accountName: string;
+  accountAlias: string;
   currency: string;
+  bvn: string;
   balance?: string;
   bank: string;
   countryFlag?: string;
@@ -30,8 +31,10 @@ export const BankAccountForm: React.FC<Props> = (props) => {
   const [step, setStep] = useState<number>(1);
   const [formState, setFormState] = useState<ICreateBankAccountForm>({
     accountName: "",
+    accountAlias: "",
     currency: "",
     bank: "",
+    bvn: "",
   });
 
   const handleSubmitRequest = () => {

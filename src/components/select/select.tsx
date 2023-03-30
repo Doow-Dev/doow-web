@@ -16,7 +16,7 @@ export const Select: React.FC<Props> = ({ options, title }) => {
     <div className={styles.select_container}>
       <select
         title={title}
-        onChange={(e) => console.log(e.currentTarget.value)}
+        onChange={(e) => {}}
       >
         <option value={""}>{title}</option>
         {options.map((option, idx) => (
