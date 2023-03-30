@@ -10,25 +10,6 @@
   animation-direction: normal;
 }
 
-@keyframes sliderInLeft {
-  from: {
-    transform: translateX(-300px);
-    left: -100px;
-  }
-  to: {
-    transform: translateX(-100px);
-    left: 0px;
-  }
-}
-@-webkit-keyframes sliderInLeft {
-  from: {
-    transform: translateX(-300px);
-  }
-  to: {
-    transform: translateX(-100px);
-  }
-}
-
 .sliderItem {
   animation: sliderInLeft 2s;
 }
@@ -103,7 +84,7 @@
 .buttons {
   padding: 20px 30px;
   padding-top: 50px;
-  padding-bottom: 20px;
+  padding-bottom: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;

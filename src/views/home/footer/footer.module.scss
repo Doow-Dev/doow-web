@@ -55,12 +55,13 @@
         .listItems {
           color: #fff;
           padding: 10px 0;
-          word-spacing: 5px;
+          word-spacing: 3px;
           &:hover {
             color: $fadeFontColor;
           }
           a {
             color: #fff;
+            width: fit-content;
           }
         }
         .listheader {

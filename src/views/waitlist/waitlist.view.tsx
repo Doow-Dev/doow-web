@@ -1,11 +1,8 @@
 import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./waitlist.module.scss";
-import Link from "next/link";
 import React, { useState } from "react";
-import { WaitlistLanding } from "./Landing/Landing";
 import FooterHome from "../home/footer/footer.comp";
 import { InputButton, InputText } from "../../comps/forms";
-import { AboutBody, AboutSection, AboutTitle } from "../about/comps";
 import WaitListModal from "./modal";
 
 export function WaitList() {
@@ -13,18 +10,16 @@ export function WaitList() {
   return (
     <div>
       <LandingNavBar />
-      <WaitlistLanding />
-
       <div className={styles.container}>
         <div className={styles.content}>
-          <AboutSection>
-            <AboutTitle>Join th waitlist!</AboutTitle>
-            <AboutBody>
+          <div className={styles.banner}>
+            <h1>Join the waitlist!</h1>
+            <p>
               Our global spend management platform helps companies streamline
               their finance workflow so decision makers can easily analyze
-              patterns and make data informed decisions in real time.
-            </AboutBody>
-          </AboutSection>
+              patterns and make data informed decisions in real time
+            </p>
+          </div>
 
           <form onSubmit={(e) => e.preventDefault()}>
             <InputText

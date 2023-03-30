@@ -8,20 +8,28 @@ import { RiBankLine } from "react-icons/ri";
 import { BiCreditCard } from "react-icons/bi";
 import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { VscDebugDisconnect } from "react-icons/vsc";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { motion } from "framer-motion";
 import { NavListItem } from "./nav_list_tem";
+import NavFooter from "./NavFooter";
 
 interface IProducts {
   onClose: () => void;
+  isOpen: boolean;
 }
 
 export default function MobileProductsSideBar(props: IProducts) {
   const router = useRouter();
   const _path = router.pathname.toString();
   const [showNav, setShowNav] = useState(false);
+  const width = 800;
   return (
     <>
-      <div className={styles.productNav}>
+      <motion.div
+        animate={{ x: props.isOpen ? 0 : -width }}
+        initial={{ x: -500 }}
+        transition={{ duration: 1, type: "spring" }}
+        className={styles.productNav}
+      >
         <div className={styles.listContainer}>
           <p onClick={() => props.onClose()}>
             <MdKeyboardArrowLeft />
@@ -88,14 +96,8 @@ export default function MobileProductsSideBar(props: IProducts) {
             />
           </div>
         </div>
-        <div className={styles.buttons}>
-          <div className={styles.innerButtons}>
-            <div className="btn">Sign in</div>
-            <div className="btn">Sign up</div>
-          </div>
-          <div className="btn">Get early access</div>
-        </div>
-      </div>
+        <NavFooter />
+      </motion.div>
     </>
   );
 }

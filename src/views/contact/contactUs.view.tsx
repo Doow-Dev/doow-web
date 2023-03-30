@@ -16,25 +16,11 @@ export function ContactUsView() {
   return (
     <div>
       <LandingNavBar />
-      {/* <WaitlistLanding /> */}
-
       <div className={styles.container}>
         <div className={styles.content}>
-          <div>
-            <AboutSection>
-              <AboutTitle>Hey there!</AboutTitle>
-              <AboutBody>How can we help you?</AboutBody>
-              <br />
-              <br />
-              <AboutTitle>Doow Inc.</AboutTitle>
-              {/* <AboutSubtitle>Doow Inc.</AboutSubtitle> */}
-              <AboutBody>
-                Location: 1736, 1007 N Orange St. 4th Floor, Willington, DE, New
-                Castle, United States, 19801
-              </AboutBody>
-              <AboutBody>Email: support@doow.co</AboutBody>
-              <AboutBody>Social Media: LinkedIn, Twitter</AboutBody>
-            </AboutSection>
+          <div className={styles.topContent}>
+            <h1>Hey there!</h1>
+            <p>How can we help you?</p>
           </div>
 
           <div className={styles.formSection}>
@@ -43,36 +29,14 @@ export function ContactUsView() {
             </p>
             <form onSubmit={(e) => e.preventDefault()}>
               <InputText
-                label={"First name"}
-                name={"first_name"}
-                placeholder={"First name"}
-                id={"first_name"}
-                onChange={function (): void {}}
-              />
-
-              <InputText
-                label={"Last name"}
-                placeholder={"Last name"}
-                name={"last_name"}
-                id={"last_name"}
-                onChange={function (): void {}}
-              />
-              <InputText
-                label={"Company name"}
-                placeholder={"Company name"}
-                name={"company_name"}
-                id={"company_name"}
-                onChange={function (): void {}}
-              />
-
-              <InputText
-                label={"Work Email"}
+                label={""}
                 placeholder={"mark@work-email.com"}
                 name={"workemail"}
                 id={"workemail"}
                 onChange={function (): void {}}
               />
 
+              <textarea placeholder="Comments" />
               <InputButton
                 name={"Send message"}
                 onClick={() => setshowSuccessful(true)}
