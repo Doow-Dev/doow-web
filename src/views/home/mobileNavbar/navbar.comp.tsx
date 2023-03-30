@@ -31,7 +31,7 @@ export default function MobileSideBar(props: IProps) {
       >
         <div className={styles.listContainer}>
           {/* <p onClick={() => props.onClose()}>Close</p> */}
-          <div className={styles.sliderItem}>Get access</div>
+
           <div onClick={() => setInnerSec({ activeTab: "PRODUCTS" })}>
             <p>Products</p>
             <MdKeyboardArrowRight />
@@ -47,7 +47,6 @@ export default function MobileSideBar(props: IProps) {
             Login
           </div>
         </div>
-
         <NavFooter />
       </motion.div>
       {showInnerSec.activeTab === "PRODUCTS" && (

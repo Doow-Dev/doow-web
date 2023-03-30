@@ -9,87 +9,38 @@ import CustomButton from "../../components/buttons/custom-button";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import Loading from "../../components/loading/loading";
+import { HomeLandingR } from "../Landing/Landing";
+import SignIn from "./signIn";
+import Link from "next/link";
+import SignUp from "./signUp";
+import { useState } from "react";
 
-const initialValues = {
-  phone: "",
-  password: "",
-};
-
-const validationSchema = Yup.object().shape({
-  phone: Yup.string()
-    .required("phone number is required")
-    .matches(
-      /^(?:(?:(?:\+?234(?:\h1)?|01)\h*)?(?:\(\d{3}\)|\d{3})|\d{4})(?:\W*\d{3})?\W*\d{4}$/,
-      "please enter a valid phone number"
-    ),
-  password: Yup.string().required("password is required"),
-});
+export interface IProps {
+  onChange: () => void;
+}
 
 export const LoginView: NextPage = () => {
- 
+  const [showSignUp, setShowSignUp] = useState(false);
   const router = useRouter();
+
   return (
     <div>
       <div className={styles.login}>
         {/* {loading && <Loading />} */}
-        <LandingNavBar />
+
         <div className={styles.container}>
-          <h2>Welcome to Doow</h2>
-          <p>Video section</p>
-
-          <form onSubmit={(e) => e.preventDefault()}>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={async (values) => {
-                // add login implementation
-                try {
-                  // add login/sign here
-                  toast.success(`log in successful`);
-
-                  router.push("/profile");
-                } catch (error) {
-                  toast.error(`log in failed, try again`);
-                } finally {
-                }
-              }}
-            >
-              {({ values, errors, handleChange, handleSubmit, touched }) => (
-                <>
-                  <Input
-                    type="text"
-                    label="First name"
-                    value={values.phone}
-                    placeholder="First name"
-                    handleChange={handleChange("phone")}
-                    error={touched.phone && errors.phone}
-                  />
-                  <Input
-                    type="text"
-                    label="Last name"
-                    value={values.phone}
-                    placeholder="Last name"
-                    handleChange={handleChange("phone")}
-                    error={touched.phone && errors.phone}
-                  />
-                  <Input
-                    type="email"
-                    label="Business email"
-                    value={values.phone}
-                    placeholder="email"
-                    handleChange={handleChange("phone")}
-                    error={touched.phone && errors.phone}
-                  />
-
-                  <CustomButton
-                    title="Submit"
-                    onClickHandler={handleSubmit}
-                    type={"submit"}
-                  />
-                </>
-              )}
-            </Formik>
-          </form>
+          <div className={styles.imgContainer}>
+            <Link href="/">
+              <img src="/images/Doow.png" className={styles.imgd} />
+            </Link>
+            <h1>Cross-border banking</h1>
+            <p className={styles.smallText}>Welcome</p>
+          </div>
+          {showSignUp ? (
+            <SignUp onChange={() => setShowSignUp(false)} />
+          ) : (
+            <SignIn onChange={() => setShowSignUp(true)} />
+          )}
         </div>
       </div>
     </div>
