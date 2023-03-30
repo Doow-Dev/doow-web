@@ -7,29 +7,7 @@ import { useAppDispatch } from "../../../../redux/hooks";
 import { createNgnAccountsThunk } from "../../../../redux/features/virtual-account/createNgnAccountThunk";
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-const currencyOptions: ISelectOption[] = [
-  {
-    label: "Banc-Corp MFB",
-    value: "Banc-Corp MFB",
-    imgUrl: "/assets/logos/banc-corp_logo.png",
-  },
-  {
-    label: "FCMB",
-    value: "FCMB",
-    imgUrl: "/assets/logos/fcmb_logo.png",
-  },
-  {
-    label: "Providus",
-    value: "Providus",
-    imgUrl: "/assets/logos/providus.png",
-  },
-  {
-    label: "Wema",
-    value: "Wema",
-    imgUrl: "/assets/logos/wema-logo.png",
-  },
-];
+import { TfiFiles } from "react-icons/tfi";
 
 interface Props {
   prevStep: () => void;
@@ -40,28 +18,22 @@ interface Props {
 }
 
 const initialValues = {
-  bvn: "",
-  accountAlias: "",
-  bank: "",
+  bvn: "22843796374",
 };
 
 const validationSchema = Yup.object().shape({
   bvn: Yup.string()
     .required("please enter a BVN")
     .length(11, "BVN must be 11 characters"),
-  accountAlias: Yup.string().required("please enter an account alias"),
-  bank: Yup.string().required("please select a bank"),
 });
 
-export const BvnVerification: React.FC<Props> = ({
+export const PersonalDetails: React.FC<Props> = ({
   formState,
   nextStep,
   prevStep,
   setFormData,
   handleSubmitRequest,
 }) => {
-  const dispatch = useAppDispatch();
-
   return (
     <div className={styles.step}>
       <p className={styles.info}>
@@ -73,27 +45,11 @@ export const BvnVerification: React.FC<Props> = ({
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          console.log({ values });
           setFormData({
             ...formState,
-            accountAlias: values.accountAlias,
             bvn: values.bvn,
-            bank: values.bank,
           });
-
-          await dispatch(
-            createNgnAccountsThunk({
-              currency: "NGN",
-              accountType: "corporate",
-
-              KYCInformation: {
-                bvn: values.bvn,
-                businessName: values.accountAlias,
-              },
-            })
-          );
-
-          handleSubmitRequest();
+          nextStep();
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
@@ -115,36 +71,21 @@ export const BvnVerification: React.FC<Props> = ({
                 />
               </div>{" "}
               <div className={styles.info_container}>
-                <p>Account Name</p>
+                <p>International Passport</p>
                 <div className={styles.documents}>
-                  <p>Doow Nigeria Ltd</p>
+                  <TfiFiles />
+                  <p>1 uploaded file</p>
                 </div>
               </div>
-              <div className={styles.info_container}>
-                <p>Account Alias</p>
-                <Input
-                  value={values.accountAlias}
-                  handleChange={handleChange("accountAlias")}
-                  error={
-                    touched.accountAlias && errors.accountAlias
-                      ? errors.accountAlias
-                      : undefined
-                  }
-                />
-              </div>
-              <div className={styles.dropdown}>
-                <SelectComp
-                  title="Select Bank"
-                  label="Select Bank"
-                  options={currencyOptions}
-                  onChange={handleChange("bank")}
-                  error={touched.bank && errors.bank ? errors.bank : undefined}
-                />
-              </div>
             </div>
-            <button className={styles.button} onClick={() => handleSubmit()}>
-              Request
-            </button>
+            <div className={styles.button_container}>
+              <button className={styles.button} onClick={prevStep}>
+                Back
+              </button>
+              <button className={styles.button} onClick={() => handleSubmit()}>
+                Next
+              </button>
+            </div>
           </>
         )}
       </Formik>
@@ -152,4 +93,4 @@ export const BvnVerification: React.FC<Props> = ({
   );
 };
 
-export default BvnVerification;
+export default PersonalDetails;

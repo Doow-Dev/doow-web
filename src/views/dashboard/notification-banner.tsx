@@ -2,6 +2,8 @@ import React from "react";
 import Modal from "./create-bank-account/modal";
 import styles from "./create-bank-account/bank-account-form.module.scss";
 import { useAppSelector } from "../../redux/hooks";
+import Lottie from "lottie-react";
+import successAnimation from "../../../public/assets/lotties/success.json";
 
 interface Props {
   handleCloseForm: () => void;
@@ -18,14 +20,13 @@ export const NotificationBanner: React.FC<Props> = ({
   return (
     <div>
       <Modal onClick={handleCloseForm} />
-      <div className={styles.container}>
+      <div className={styles.bannerContainer}>
         <h2>Message</h2>
-
         <div className={styles.message_box}>
-          <img
-            src="/assets/lotties/success.gif"
-            className={styles.icon}
-            alt="success icon"
+          <Lottie
+            animationData={successAnimation}
+            loop={false}
+            style={{ width: "80px", height: "80px" }}
           />
           <p>
             Your new {currency} business account,
