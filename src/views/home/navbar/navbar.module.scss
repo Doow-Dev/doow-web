@@ -97,6 +97,7 @@
       position: relative;
       margin: 0 10px;
       // padding: 0 20px;
+      // background-color: #af8218;
       &:hover {
         color: $primaryColor;
         transition: 1s ease-in-out;
@@ -132,6 +133,12 @@
           font-size: smaller;
           text-align: left;
         }
+
+        svg {
+          font-size: medium;
+          margin-left: 10px;
+          // margin-top: 10px;
+        }
       }
       ul {
         position: absolute;
@@ -145,7 +152,6 @@
           // color: #000;
           // display: inline-block;
           // flex-direction: column;
-          // background-color: #af8218;
         }
         li {
           background-color: #ffffff;

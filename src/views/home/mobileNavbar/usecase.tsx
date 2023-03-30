@@ -1,37 +1,33 @@
 import React, { useState } from "react";
-import Link from "next/link";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import styles from "./navbar.module.scss";
-import { FaTimes, FaBars } from "react-icons/fa";
 import { MdKeyboardArrowLeft, MdOutlineManageAccounts } from "react-icons/md";
-import { IoSwapVerticalOutline } from "react-icons/io5";
-import { RiBankLine, RiOrganizationChart } from "react-icons/ri";
-import {
-  BiArrowBack,
-  BiArrowFromLeft,
-  BiArrowToLeft,
-  BiArrowToRight,
-  BiCreditCard,
-  BiShoppingBag,
-} from "react-icons/bi";
+import { RiOrganizationChart } from "react-icons/ri";
+import { BiShoppingBag } from "react-icons/bi";
 import { BsPersonPlus } from "react-icons/bs";
-import { HiOutlineCurrencyDollar, HiOutlineUserGroup } from "react-icons/hi";
-import { VscDebugDisconnect } from "react-icons/vsc";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { HiOutlineUserGroup } from "react-icons/hi";
 import { NavListItem } from "./nav_list_tem";
+import NavFooter from "./NavFooter";
 
 interface IProducts {
   onClose: () => void;
+  isOpen: boolean;
 }
 
 export default function MobileUseCaseSideBar(props: IProducts) {
   const router = useRouter();
   const _path = router.pathname.toString();
-
+  const width = 800;
   const [showNav, setShowNav] = useState(false);
   return (
     <>
-      <div className={styles.productNav}>
+      <motion.div
+        animate={{ x: props.isOpen ? 0 : -width }}
+        initial={{ x: -500 }}
+        transition={{ duration: 1, type: "spring" }}
+        className={styles.productNav}
+      >
         <div className={styles.listContainer}>
           <p onClick={() => props.onClose()}>
             <MdKeyboardArrowLeft />
@@ -91,14 +87,8 @@ export default function MobileUseCaseSideBar(props: IProducts) {
             />
           </div>
         </div>
-        <div className={styles.buttons}>
-          <div className={styles.innerButtons}>
-            <div className="btn">Sign in</div>
-            <div className="btn">Sign up</div>
-          </div>
-          <div className="btn">Get early access</div>
-        </div>
-      </div>
+        <NavFooter />
+      </motion.div>
     </>
   );
 }
