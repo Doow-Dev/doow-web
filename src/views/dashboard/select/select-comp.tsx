@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 export interface ISelectOption {
   value: string;
   imgUrl?: string;
+  label: string;
 }
 
 interface Props {
@@ -19,9 +20,10 @@ export const SelectComp: React.FC<Props> = ({
   onChange,
   options,
   title,
-  error
+  error,
 }) => {
   const [currentValue, SetCurrentValue] = useState("");
+  const [currentLabel, SetCurrentLabel] = useState("");
   const [open, SetOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -30,11 +32,12 @@ export const SelectComp: React.FC<Props> = ({
   const handleClose = () => {
     SetOpen(false);
   };
-  const handleValueChange = (value) => {
+  const handleValueChange = (value: string, label: string) => {
     SetCurrentValue(value);
+    SetCurrentLabel(label);
   };
-  const handleChange = (value) => {
-    handleValueChange(value);
+  const handleChange = (value: string, label: string) => {
+    handleValueChange(value, label);
     // call method, if it exists
     if (onChange) {
       onChange(value);
@@ -50,19 +53,19 @@ export const SelectComp: React.FC<Props> = ({
           onClick={handleOpen}
           isSelected={currentValue !== ""}
         >
-          {currentValue !== "" ? currentValue : label}
+          {currentValue !== "" ? currentLabel : label}
         </SelectLabelButton>
         <DropdownStyle isVisible={open}>
           {options.map((item, index) => (
             <DropdownItem
-              onClick={() => handleChange(item.value)}
+              onClick={() => handleChange(item.value, item.label)}
               active={item.value === currentValue}
               key={index}
             >
               {/* <p>{value}</p> */}
               <div>
                 {item.imgUrl && <img src={item.imgUrl} />}
-                <p>{item.value}</p>
+                <p>{item.label}</p>
               </div>
             </DropdownItem>
           ))}
@@ -179,5 +182,9 @@ const Label = styled.p`
 `;
 
 const Error = styled.p`
-  color: red
-`
+  font-size: 1.4rem;
+  color: #eb5757;
+  @media (max-width: 640px) {
+    font-size: 1.2rem;
+  }
+`;

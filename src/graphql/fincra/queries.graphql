@@ -1,0 +1,31 @@
+query FindAllVirtualAccount($input: ListMerchantVirtualAccountsInput!){ 
+  findAllVirtualAccounts(input: $input){
+     data {
+      results {
+        status
+        isActive
+        accountNumber
+        merchantReference
+        KYCInformation{
+          firstName
+          lastName
+          email
+          businessName
+          bvn
+          birthDate
+          occupation
+        	businessCategory
+          accountDesignation
+          address {
+            country
+            zip
+            street
+            state
+          }
+        }
+        isActive
+        
+      }
+    }
+  }
+}

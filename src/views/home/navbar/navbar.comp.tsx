@@ -23,7 +23,6 @@ export default function LandingNavBar() {
   const [user, setUser] = useState(null);
   const show = "show";
   const [showNav, setShowNav] = useState(false);
-  // console.log("Path -", _path);
   return (
     <>
       {showNav && (
