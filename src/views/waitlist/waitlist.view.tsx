@@ -13,18 +13,16 @@ export function WaitList() {
   return (
     <div>
       <LandingNavBar />
-      <WaitlistLanding />
-
       <div className={styles.container}>
         <div className={styles.content}>
-          <AboutSection>
-            <AboutTitle>Join th waitlist!</AboutTitle>
-            <AboutBody>
+          <div className={styles.banner}>
+            <h1>Join the waitlist!</h1>
+            <p>
               Our global spend management platform helps companies streamline
               their finance workflow so decision makers can easily analyze
-              patterns and make data informed decisions in real time.
-            </AboutBody>
-          </AboutSection>
+              patterns and make data informed decisions in real time
+            </p>
+          </div>
 
           <form onSubmit={(e) => e.preventDefault()}>
             <InputText

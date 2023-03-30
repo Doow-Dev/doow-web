@@ -9,6 +9,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 interface IProps {
   onClose: () => void;
 }
+
 export default function MobileSideBar(props: IProps) {
   const router = useRouter();
   const _path = router.pathname.toString();
@@ -32,10 +33,16 @@ export default function MobileSideBar(props: IProps) {
         </div>
         <div className={styles.buttons}>
           <div className={styles.innerButtons}>
-            <div className="btn">Sign in</div>
-            <div className="btn">Sign up</div>
+            <div className="btn" onClick={() => router.push("/login")}>
+              Sign in
+            </div>
+            <div className="btn" onClick={() => router.push("/signup")}>
+              Sign up
+            </div>
           </div>
-          <div className="btn">Get early access</div>
+          <div className="btn" onClick={() => router.push("/waitlist")}>
+            Get early access
+          </div>
         </div>
       </div>
       {showInnerSec.activeTab === "PRODUCTS" && (

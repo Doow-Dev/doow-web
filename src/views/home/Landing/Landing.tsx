@@ -17,7 +17,7 @@ export const HomeLanding = () => {
             Be the first to get early access when we launch beta!
           </p>
           <div className={styles.btn} onClick={() => router.push("waitlist")}>
-            Join the waitlist
+            Get early access
           </div>
         </div>
       </div>

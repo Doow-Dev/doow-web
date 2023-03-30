@@ -25,7 +25,7 @@ export default function HomeView() {
         subtitle={`
         Whether you're a one-man business, a startup or a large coorporation,
           Doow is the place to manage all your local and international finances
-          at anytime.`}
+          at anytime`}
         bgColor={Styler.background1}
       />
       <div className={styles.imageContainer}>
@@ -53,7 +53,7 @@ and budgets as you need in 40+ currencies, and assign the right
 management and spending permissions to your team
           `}
         imgUrl={"./images/half.png"}
-        buttonTitle={"Join the waitlist"}
+        buttonTitle={"Get early access"}
         bgColor="#04aa94"
         textColor={Styler.white}
         btnHref={"waitlist"}
@@ -72,10 +72,11 @@ management and spending permissions to your team
          methods available in the US, UK, Europe, Kenya, and Nigeria.
         `}
         imgUrl={"./images/paym.png"}
-        buttonTitle={"Join the waitlist"}
+        buttonTitle={"Get early access"}
         bgColor="#E18738"
         textColor={Styler.white}
         btnHref={"waitlist"}
+        containerBgColor={"#fff"}
       />
 
       <CardBanner />
@@ -93,7 +94,7 @@ management and spending permissions to your team
           preferred local payment method.
         `}
         imgUrl={"./images/fx7.png"}
-        buttonTitle={"Join the waitlist"}
+        buttonTitle={"Get early access"}
         bgColor="#099CCD"
         textColor={Styler.white}
         btnHref={"waitlist"}
@@ -116,7 +117,7 @@ management and spending permissions to your team
 
         `}
         imgUrl={"./images/exp1.png"}
-        buttonTitle={"Join the waitlist"}
+        buttonTitle={"Get early access"}
         bgColor="#589479"
         // bgColor="#2d6a4f"
         textColor={Styler.white}
@@ -127,7 +128,7 @@ management and spending permissions to your team
         title={`
           We're not a bank. We’re Doow, different and even better for your finances!
         `}
-        subtitle={"Let’s doow this!"}
+        subtitle={"Get early access"}
         bgColor={Styler.white}
       />
 
@@ -144,7 +145,7 @@ management and spending permissions to your team
          methods available in the US, UK, Europe, Kenya, and Nigeria.
         `}
         imgUrl={"./images/report.png"}
-        buttonTitle={"Join the waitlist"}
+        buttonTitle={"Get early access"}
         bgColor="#8338ec"
         textColor={Styler.white}
         btnHref={"waitlist"}

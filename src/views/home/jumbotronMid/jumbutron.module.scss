@@ -17,15 +17,25 @@
   }
   .content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     text-align: center;
     max-width: 65%;
     padding: 100px 0px;
-
     @include tabletSS {
+      flex-direction: column;
       padding: 20px 0px;
       width: 100%;
+    }
+    div {
+      padding: 0px 20px;
+      width: 100%;
+      svg {
+        font-size: 23px;
+      }
+      @include tabletSS {
+        padding: 20px 0px;
+      }
     }
   }
 

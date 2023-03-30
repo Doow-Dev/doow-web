@@ -14,7 +14,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  @include mobileSS {
+  @include tabletSS {
     width: 100vw;
     margin-top: 50px;
     margin-left: 0px;
@@ -31,6 +31,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    @include tabletSS {
+      margin-bottom: 25%;
+      width: 80%;
+    }
     .sectionTitle {
       width: 100%;
       background-color: $background1;
@@ -52,12 +56,13 @@
     justify-content: center;
     height: 100%;
     line-height: 30px;
-    width: 80%;
+    width: 100%;
     p {
       text-align: center;
     }
     h1 {
       margin-bottom: 20px;
+      text-align: center;
     }
   }
 }
