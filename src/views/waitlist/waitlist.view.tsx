@@ -1,11 +1,8 @@
 import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./waitlist.module.scss";
-import Link from "next/link";
 import React, { useState } from "react";
-import { WaitlistLanding } from "./Landing/Landing";
 import FooterHome from "../home/footer/footer.comp";
 import { InputButton, InputText } from "../../comps/forms";
-import { AboutBody, AboutSection, AboutTitle } from "../about/comps";
 import WaitListModal from "./modal";
 
 export function WaitList() {
