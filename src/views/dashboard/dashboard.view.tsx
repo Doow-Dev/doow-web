@@ -23,13 +23,13 @@ interface IAccountCardInfo {
 const initialAccounts: IAccountCardInfo[] = [
   {
     accountName: "Doow Holdings Inc.",
-    balance: "$370, 000",
+    balance: "$000, 000",
     countryFlag: "/assets/flags/usa.svg",
     profileUrls: ["/assets/profiles/afro-hair.jpeg"],
   },
   {
     accountName: "Doow Nigeria Ltd",
-    balance: "N70,000,000",
+    balance: "N000,000",
     countryFlag: "/assets/flags/nigeria.png",
     profileUrls: [
       "/assets/profiles/headtie-man.jpeg",
@@ -41,7 +41,7 @@ const initialAccounts: IAccountCardInfo[] = [
   },
   {
     accountName: "Doow Kenya",
-    balance: "KES 990,000",
+    balance: "KES 000,000",
     countryFlag: "/assets/flags/kenya.jpg",
     profileUrls: [
       "/assets/profiles/afro-hair.jpeg",
@@ -50,7 +50,7 @@ const initialAccounts: IAccountCardInfo[] = [
   },
   {
     accountName: "SAAS Subscriptions",
-    balance: "£165,000",
+    balance: "£000,000",
     countryFlag: "/assets/flags/british.png",
     profileUrls: ["/assets/profiles/afro-hair.jpeg"],
   },
@@ -97,8 +97,8 @@ export default function DashboardView() {
           <p className={styles.welcome}>Welcome, Tolani</p>
           <div className={styles.topSection}>
             <div className={styles.topLeft}>
-              <RateText rateValue={25} periodText="in the last 7 days" tiny />
-              <p className={styles.totalBalance}>$570,000.00</p>
+              <RateText rateValue={0} periodText="in the last 7 days" tiny />
+              <p className={styles.totalBalance}>$000,000.00</p>
               <p className={styles.currencyInfo}>
                 Total available balance in{" "}
                 <select
@@ -125,17 +125,17 @@ export default function DashboardView() {
           <div className={styles.middleSection}>
             <TransInfoCard
               periodText="in the last 7 days"
-              rateValue={27}
+              rateValue={0.0001}
               transType="Money in"
-              transAmount={"151,900.00"}
+              transAmount={"000,000.00"}
             />
             <TransInfoCard
               periodText="compared to last 7 days"
-              rateValue={-56}
+              rateValue={-0.001}
               transType="Money out"
-              transAmount={"2,000.00"}
+              transAmount={"0,000.00"}
             />
-            <TransInfoCard transType="Pending" transAmount={"2,000.00"} />
+            <TransInfoCard transType="Pending" transAmount={"0,000.00"} />
           </div>
           <div className={styles.bottomSection}>
             <div className={styles.topRow}>
