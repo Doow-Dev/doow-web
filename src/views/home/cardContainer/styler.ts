@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 
 export class Styler {
   static white: string = "#fff";
-  static background1: string = "#3ff5ef";
+  static background1: string = "#eff5ef";
   static secondaryColor: string = "#04471c";
   static primaryColor: string = "#0cec2d";
   static fadeFontColor: string = "#969b98";

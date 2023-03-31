@@ -76,7 +76,7 @@ management and spending permissions to your team
         bgColor="#E18738"
         textColor={Styler.white}
         btnHref={"waitlist"}
-        containerBgColor={"#fff"}
+        containerBgColor={Styler.background1}
       />
 
       <CardBanner />
