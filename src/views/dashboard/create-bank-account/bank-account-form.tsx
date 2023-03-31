@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Modal from "./modal";
 import styles from "./bank-account-form.module.scss";
 import { CurrencySelection, DocumentVerification } from "./steps";
-import BvnVerification from "./steps/bvn-verification";
+import { PersonalDetails } from "./steps/personal-details";
+import BusinessAccountDetails from "./steps/business-account-details";
 
 const stepTitles = [
-  "Setup a new business bank account",
-  "Verify your business documents",
-  "BVN Verification",
+  "Setup A New Business Bank Account",
+  "Verify Your Business Documents",
+  "Verify Personal Details",
+  "Business Account Details",
 ];
 
 export interface ICreateBankAccountForm {
@@ -63,7 +65,7 @@ export const BankAccountForm: React.FC<Props> = (props) => {
         );
       case 3:
         return (
-          <BvnVerification
+          <PersonalDetails
             formState={formState}
             nextStep={nextStep}
             prevStep={prevStep}
@@ -71,6 +73,18 @@ export const BankAccountForm: React.FC<Props> = (props) => {
             handleSubmitRequest={handleSubmitRequest}
           />
         );
+        
+        case 4: 
+        return (
+          <BusinessAccountDetails
+            formState={formState}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setFormData={setFormState}
+            handleSubmitRequest={handleSubmitRequest}
+          />
+        );
+
     }
   };
 
