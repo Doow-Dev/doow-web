@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BiHome } from "react-icons/bi";
-import { InputButton, InputText } from "../../comps/forms";
+import { InputButton, InputPassowrd, InputText } from "../../comps/forms";
 import styles from "./login.module.scss";
 import { IProps } from "./login.view";
 
@@ -33,7 +33,7 @@ export default function SignIn(props: IProps) {
             });
           }}
         />
-        <InputText
+        <InputPassowrd
           value={credentials.password}
           label="Password"
           placeholder="password"

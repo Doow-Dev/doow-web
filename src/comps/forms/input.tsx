@@ -36,6 +36,27 @@ export function InputText(props: Props): JSX.Element {
   );
 }
 
+export function InputPassowrd(props: Props): JSX.Element {
+  const { id, label, name, value, placeholder, onChange, sublabel } = props;
+  return (
+    <div className={styles.input_box_text}>
+      <label htmlFor={name} className="label">
+        {label}
+        <span>{sublabel}</span>
+      </label>
+      <input
+        // title="inputtext"
+        type="password"
+        id={id}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
+      />
+    </div>
+  );
+}
+
 export function InputNumber(props: Props): JSX.Element {
   const { id, label, name, value, placeholder, onChange } = props;
   return (
