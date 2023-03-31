@@ -19,14 +19,14 @@ export default function MobileSideBar(props: IProps) {
   const [showInnerSec, setInnerSec] = useState({
     activeTab: "CLOSE",
   });
-  const width = 800;
+  const width = 500;
 
   return (
     <>
       <motion.div
         animate={{ x: props.isOpen ? 0 : -width }}
-        initial={{ x: -100 }}
-        transition={{ duration: 1, type: "spring" }}
+        initial={{ x: -500 }}
+        transition={{ duration: 0.01, type: "spring" }}
         className={styles.navbar}
       >
         <div className={styles.listContainer}>
