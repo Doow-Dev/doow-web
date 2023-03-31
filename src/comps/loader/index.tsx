@@ -1,5 +1,5 @@
 import React from "react";
-import { Circles, MagnifyingGlass } from "react-loader-spinner";
+import { Circles, InfinitySpin, MagnifyingGlass } from "react-loader-spinner";
 import styles from "./loader.module.scss";
 
 export default function Loader() {
@@ -12,8 +12,7 @@ export default function Loader() {
         ariaLabel="MagnifyingGlass-loading"
         wrapperStyle={{}}
         wrapperClass="MagnifyingGlass-wrapper"
-        // glassColor="#c0efff"
-        color="#04475E"
+        color="#63ff61"
       />
     </div>
   );

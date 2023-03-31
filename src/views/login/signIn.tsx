@@ -2,21 +2,37 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BiHome } from "react-icons/bi";
 import { InputButton, InputPassowrd, InputText } from "../../comps/forms";
+import Loader from "../../comps/loader";
 import styles from "./login.module.scss";
 import { IProps } from "./login.view";
 
 export default function SignIn(props: IProps) {
+  const router = useRouter();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
 
-  const router = useRouter();
+  const [showLoader, setshowLoader] = useState(false);
+  const handleLogin = () => {
+    setshowLoader(true);
+    setTimeout(() => {
+      setshowLoader(false);
+      router.push("/account/dashboard");
+    }, 2500);
+  };
+
   return (
     <div className={styles.contentForm}>
+      {showLoader && <Loader />}
       <div className={styles.topText}>
         <h2>Welcome</h2>
-        <BiHome onClick={() => router.push("/")} />
+        {/* <BiHome onClick={() => router.push("/")} /> */}
+        <img
+          src="/images/onwhite.png"
+          className={styles.imgd}
+          onClick={() => router.push("/")}
+        />
       </div>
       <form onSubmit={(e) => e.preventDefault()}>
         <InputText
@@ -46,7 +62,7 @@ export default function SignIn(props: IProps) {
             });
           }}
         />
-        <InputButton name={"Login"} onClick={() => router.push("/dashboard")} />
+        <InputButton name={"Login"} onClick={() => handleLogin()} />
         <p onClick={() => router.push("/waitlist")}>Get early access?</p>
         {/* <p onClick={() => props.onChange()}>Create an account</p> */}
       </form>

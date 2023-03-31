@@ -24,7 +24,7 @@ export const sideBarItems: ISidebarItem[] = [
     subLinks: [
       {
         title: "Global Accounts",
-        link: "/accounts/dashboard",
+        link: "/account/dashboard",
       },
       {
         title: "Currency Wallets",

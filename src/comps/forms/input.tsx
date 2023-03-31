@@ -31,6 +31,7 @@ export function InputText(props: Props): JSX.Element {
         name={name}
         value={value}
         onChange={onChange}
+        autoComplete="off"
       />
     </div>
   );
