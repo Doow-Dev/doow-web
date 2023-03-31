@@ -44,7 +44,7 @@
         // background-color: aqua;
         h2 {
           font-size: larger;
-          font-weight: 700;
+          // font-weight: 700;
           @include tabletSS {
             margin-top: 0px;
           }
