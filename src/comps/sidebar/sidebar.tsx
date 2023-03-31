@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-
 interface Props {
   showMenu: boolean;
 }
@@ -15,7 +14,7 @@ export const SideBar: React.FC<Props> = ({ showMenu }) => {
   // const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const [showLinks, setShowLinks] = useState<boolean>(false);
-  const [activeLink, setActiveLink] = useState<number | null>(null);
+  const [activeLink, setActiveLink] = useState<number | null>(0);
   const route = useRouter();
 
   // const toggleMenu = () => {
@@ -34,13 +33,13 @@ export const SideBar: React.FC<Props> = ({ showMenu }) => {
           {sideBarItems.map((item, i) => (
             <div
               className={`${styles.link} ${
-                showLinks && activeLink === i ? styles.active : ""
+                activeLink === i ? styles.active : ""
               }`}
               key={i}
             >
               {item.icon}
               <div className={styles.content}>
-                <Link href={"#"} >
+                <Link href={"#"}>
                   <p className={styles.header}>
                     {item.title}
                     <TfiAngleUp />
@@ -48,7 +47,11 @@ export const SideBar: React.FC<Props> = ({ showMenu }) => {
                 </Link>
                 <div className={styles.sub_menu}>
                   {item.subLinks.map((link, idx) => (
-                    <Link key={idx} href={link.link} onClick={() => toggleShowLinks(i)}>
+                    <Link
+                      key={idx}
+                      href={link.link}
+                      onClick={() => toggleShowLinks(i)}
+                    >
                       {link.title}
                     </Link>
                   ))}
