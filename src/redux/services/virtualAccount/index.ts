@@ -23,7 +23,6 @@ class VirualAccountService {
         },
       });
 
-
       if (!response || !response.data.findAllVirtualAccounts.data) {
         throw new Error(response.error.message);
       }
@@ -34,7 +33,10 @@ class VirualAccountService {
     }
   }
 
-  async createNgnAccount(args: CreateNigerianAccountInput) {
+  async createNgnAccount(input: {
+    args: CreateNigerianAccountInput;
+    alias: string;
+  }) {
     try {
       const response = await apolloClient.mutate<
         CreateNigerianAccountMutation,
@@ -42,7 +44,7 @@ class VirualAccountService {
       >({
         mutation: CreateNigerianAccountDocument,
         variables: {
-          input: args,
+          input: input.args,
         },
       });
 
@@ -50,7 +52,7 @@ class VirualAccountService {
         throw new Error(response.errors[0].message);
       }
 
-      return response.data.createNgnAccount;
+      return { newAccount: response.data.createNgnAccount, alias: input.alias };
     } catch (error: any) {
       throw new Error(error);
     }
