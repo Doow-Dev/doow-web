@@ -156,7 +156,7 @@ export default function LandingNavBar() {
             onClick={() => setShowNav(!showNav)}
             className={_path == `/waitlist` ? styles.active : ""}
           >
-            <Link href={"/waitlist"} className={styles.link}>
+            <Link href={"/waitlist"} className={styles.linkBtn}>
               Get early access
             </Link>
           </li>

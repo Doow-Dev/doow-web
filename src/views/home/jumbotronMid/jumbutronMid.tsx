@@ -21,7 +21,7 @@ export const JumbutronMid = (props: IJumbutron) => {
       {/* <div className={styles.sectionTitle}>{props.title}</div> */}
       <div className={styles.content}>
         <div>
-          <RiBankLine />,
+          <RiBankLine />
           <p>
             Open multi-currency business accounts without visiting any bank and
             accept payments in USD, NGN, EUR, GBP, and KES via local payment
@@ -29,7 +29,7 @@ export const JumbutronMid = (props: IJumbutron) => {
           </p>
         </div>
         <div>
-          <MdOutlineManageAccounts />,
+          <MdOutlineManageAccounts />
           <p>
             Manage all your budgets, expenses, approvals, and permissions in one
             place!

@@ -17,8 +17,8 @@ export function WaitList() {
   const [waitlist, setWaitlistData] = useState<AddToWaitlistResponse>();
 
   const [waitlistDto, setWaitlist] = useState({
-    first_name: "Hj",
-    last_name: "ghg",
+    first_name: "",
+    last_name: "",
     email: "",
   });
 

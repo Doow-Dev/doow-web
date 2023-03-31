@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { BiHome } from "react-icons/bi";
 import { InputButton, InputText } from "../../comps/forms";
 import styles from "./login.module.scss";
 import { IProps } from "./login.view";
@@ -14,16 +13,13 @@ export default function SignIn(props: IProps) {
   const router = useRouter();
   return (
     <div className={styles.contentForm}>
-      <div className={styles.topText}>
-        <h2>Welcome</h2>
-        <BiHome onClick={() => router.push("/")} />
-      </div>
+      <h2>Welcome</h2>
       <form onSubmit={(e) => e.preventDefault()}>
         <InputText
           //   type="email"
           label="Business email"
           value={credentials.email}
-          placeholder="name@workemail.com"
+          placeholder="email"
           name={""}
           id={"email"}
           onChange={(e) => {
@@ -47,8 +43,7 @@ export default function SignIn(props: IProps) {
           }}
         />
         <InputButton name={"Login"} onClick={() => router.push("/dashboard")} />
-        <p onClick={() => router.push("/waitlist")}>Get early access?</p>
-        {/* <p onClick={() => props.onChange()}>Create an account</p> */}
+        <p onClick={() => props.onChange()}>Create an account</p>
       </form>
     </div>
   );

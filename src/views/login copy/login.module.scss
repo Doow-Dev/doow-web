@@ -1,0 +1,144 @@
+@import "../../styles//variables";
+@import "../../styles//screensize";
+
+.login {
+  height: 100vh;
+  width: 100vw;
+  @include tabletSS {
+    height: 100%;
+    width: 100%;
+  }
+  .container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow-y: hidden;
+    @include tabletSS {
+      overflow-y: scroll;
+      grid-template-columns: 1fr;
+    }
+    .imgContainer {
+      // height: calc(100vh - 40px);
+      background-size: cover;
+      background-position: top;
+      background-image: linear-gradient(
+          rgba(4, 57, 4, 0.893),
+          rgba(3, 53, 3, 0.861)
+        ),
+        url(../../../public/images/dollar.jpg);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      @include tabletSS {
+        height: 30vh;
+
+        // overflow-y: scroll;
+      }
+      .imgd {
+        overflow-y: scroll;
+        height: 70px;
+        width: 70px;
+        margin-bottom: 50px;
+        align-items: center;
+        @include tabletSS {
+          display: block;
+        }
+      }
+      h1 {
+        // color: $fontColor;
+        color: #fff;
+
+        font-size: 5rem;
+        font-weight: 800;
+        padding: 0 10px;
+        text-align: center;
+        font-family: "Manrope";
+        @include tabletSS {
+          font-size: 3.2rem;
+        }
+      }
+      p {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 300;
+        padding: 10px;
+        @include tabletSS {
+          font-size: 2.5rem;
+        }
+      }
+    }
+    .contentForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0px 5vw;
+      overflow-y: scroll;
+      padding-top: 100px;
+      padding-bottom: 100px;
+      // background-color: aqua;
+      @include tabletSS {
+        padding: 0px 10px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+      }
+      h2 {
+        font-size: 32px;
+        margin-bottom: 5rem;
+
+        @include tabletSS {
+          margin-top: 40px;
+          margin-bottom: 20px;
+          font-size: 22px;
+        }
+      }
+
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        p {
+          cursor: pointer;
+          font-size: medium;
+          color: $primaryColor;
+        }
+      }
+    }
+  }
+
+  .take_action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+
+    p {
+      opacity: 0.3;
+    }
+
+    span a {
+      font-weight: 500;
+      color: $primaryColor;
+      text-decoration: underline;
+    }
+
+    @include mobileSS {
+      flex-direction: column;
+      gap: 0;
+
+      p,
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .take_action:last-child {
+    justify-content: center;
+  }
+}
