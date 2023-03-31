@@ -31,10 +31,10 @@ export const virtualAccountSlice = createSlice({
       })
       .addCase(createNgnAccountsThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.newAccount = action.payload;
+        state.newAccount = action.payload.newAccount;
         state.account = {
           balance: "",
-          accountName: action.payload.data.accountInformation.accountName,
+          accountName: action.payload.alias,
           countryFlag: "/assets/flags/nigeria.png",
           profileUrls: ["/assets/profiles/afro-hair.jpeg"],
         };

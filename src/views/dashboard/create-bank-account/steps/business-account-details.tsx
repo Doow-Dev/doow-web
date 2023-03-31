@@ -73,13 +73,16 @@ export const BusinessAccountDetails: React.FC<Props> = ({
 
           await dispatch(
             createNgnAccountsThunk({
-              currency: "NGN",
-              accountType: "corporate",
+              args: {
+                currency: "NGN",
+                accountType: "corporate",
 
-              KYCInformation: {
-                bvn: formState.bvn,
-                businessName: values.accountAlias,
+                KYCInformation: {
+                  bvn: formState.bvn,
+                  businessName: "Doow Nigeria Ltd",
+                },
               },
+              alias: values.accountAlias,
             })
           );
 

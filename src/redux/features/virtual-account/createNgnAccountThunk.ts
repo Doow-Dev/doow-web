@@ -4,7 +4,7 @@ import virtualAccountService from "../../services/virtualAccount";
 
 export const createNgnAccountsThunk = createAsyncThunk(
   "virtualAccount/createNgnAccount",
-  (args: CreateNigerianAccountInput) => {
-    return virtualAccountService.createNgnAccount(args);
+  (input: {args: CreateNigerianAccountInput, alias: string}) => {
+    return virtualAccountService.createNgnAccount(input);
   }
 );
