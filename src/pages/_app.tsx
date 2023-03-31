@@ -18,7 +18,6 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
           </Layout>
         </ReduxProvider>
       </ApolloProvider>
-
       <ToastContainer
         closeButton={false}
         hideProgressBar={true}

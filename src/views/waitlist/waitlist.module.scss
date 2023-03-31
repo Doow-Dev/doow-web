@@ -6,16 +6,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // background-color: rgb(92, 179, 45);
+  margin: 0px;
+  // background-color: rgb(163, 179, 45);
   .banner {
-    padding: 40px 10px;
     background-color: #fff;
+    // background-color: rgb(92, 179, 45);
+    padding: 40px 10px;
+
     width: 100vw;
-    height: 50vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 0px;
     h1 {
       font-size: 5rem;
       margin-bottom: 50px;

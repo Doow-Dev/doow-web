@@ -8,7 +8,7 @@ interface Props {
   value?: string;
   id: string;
   placeholder?: string;
-  onChange: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface IComponrnts {
@@ -30,7 +30,7 @@ export function InputText(props: Props): JSX.Element {
         placeholder={placeholder}
         name={name}
         value={value}
-        // onChange={onChange}
+        onChange={onChange}
       />
     </div>
   );

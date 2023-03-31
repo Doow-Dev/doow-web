@@ -27,7 +27,6 @@ export const LoginView: NextPage = () => {
     <div>
       <div className={styles.login}>
         {/* {loading && <Loading />} */}
-
         <div className={styles.container}>
           <div className={styles.imgContainer}>
             <Link href="/">

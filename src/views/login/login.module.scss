@@ -4,7 +4,10 @@
 .login {
   height: 100vh;
   width: 100vw;
-
+  @include tabletSS {
+    height: 100%;
+    width: 100%;
+  }
   .container {
     height: 100%;
     display: grid;
@@ -16,9 +19,8 @@
     }
     .imgContainer {
       // height: calc(100vh - 40px);
-      // background-color: rgb(255, 255, 255);
       background-size: cover;
-      background-position: center;
+      background-position: top;
       background-image: linear-gradient(
           rgba(4, 57, 4, 0.893),
           rgba(3, 53, 3, 0.861)
@@ -32,8 +34,11 @@
 
       @include tabletSS {
         height: 50vh;
+
+        // overflow-y: scroll;
       }
       .imgd {
+        overflow-y: scroll;
         height: 70px;
         width: 70px;
         margin-bottom: 50px;
@@ -46,14 +51,17 @@
         color: #fff;
         font-size: 5rem;
         font-weight: 800;
+        padding: 0 10px;
+        text-align: center;
         @include tabletSS {
           font-size: 3.5rem;
         }
       }
       p {
         color: #fff;
-        font-size: 3rem;
-        font-weight: 400;
+        font-size: 2.5rem;
+        font-weight: 300;
+        padding: 10px;
         @include tabletSS {
           font-size: 2.5rem;
         }
@@ -69,6 +77,11 @@
       padding-top: 100px;
       padding-bottom: 100px;
       // background-color: aqua;
+      @include tabletSS {
+        padding: 0px 10px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+      }
       h2 {
         font-size: 32px;
         margin-bottom: 5rem;
