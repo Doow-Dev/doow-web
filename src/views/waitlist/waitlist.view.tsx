@@ -15,6 +15,7 @@ export function WaitList() {
   const [sentSuccessful, setsentSuccessful] = useState(false);
   const [showLoader, setLoader] = useState(false);
   const [warningMsg, setWarningMsg] = useState(false);
+  const [emailAlreadyExist, setEmailAlreadyExist] = useState(false);
   const [waitlist, setWaitlistData] = useState<AddToWaitlistResponse>();
 
   const [waitlistDto, setWaitlist] = useState({
@@ -31,22 +32,36 @@ export function WaitList() {
       axios
         .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
         .then((e) => {
+          console.log(e, "then");
           setWaitlist({ first_name: "", last_name: "", email: "" });
           setsentSuccessful(true);
           setWaitlistData(e.data);
-          setLoader(false);
           setshowModalSuccessful(true);
           setTimeout(() => {
+            setLoader(false);
             setsentSuccessful(false);
           }, 5000);
+        })
+        .catch((e) => {
+          setLoader(false);
+          const msg = e.response.data.message;
+          if (msg === "Email already exixts") {
+            setEmailAlreadyExist(true);
+            setTimeout(() => {
+              setEmailAlreadyExist(false);
+            }, 4000);
+          }
         });
     } else {
       setWarningMsg(true);
+      setLoader(false);
       setTimeout(() => {
         setWarningMsg(false);
       }, 4000);
     }
-    setLoader(false);
+    setTimeout(() => {
+      setLoader(false);
+    }, 8000);
   };
 
   return (
@@ -58,6 +73,13 @@ export function WaitList() {
       {warningMsg && (
         <ToastMessage message="Kindly fill all fields" type="error" />
       )}
+      {emailAlreadyExist && (
+        <ToastMessage
+          message="Thanks, email is already on the waitlist"
+          type="info"
+        />
+      )}
+
       {showLoader && <Loader />}
       <div className={styles.container}>
         <div className={styles.content}>
@@ -116,6 +138,20 @@ export function WaitList() {
             {/* <InputButton name={"Join"} onClick={() => handleSubmit()} /> */}
             <InputButton name={"Join"} onClick={() => handleSubmit()} />
 
+            {showModalSuccessful && (
+              <WaitListModal
+                heading={"doow"}
+                position={`You are the ${formartNumberToWords(
+                  waitlist.count
+                )} in line`}
+                content={`
+                  You are now on the waitlist. We can't wait to show you what
+                  Cross-border business banking should feel like.
+                `}
+                onClose={() => setshowModalSuccessful(false)}
+                name={waitlist.first_name}
+              />
+            )}
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}

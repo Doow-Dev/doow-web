@@ -15,7 +15,7 @@ export function getIcon(type: string): IIcons {
     case "info":
       return {
         icon: <FaInfo />,
-        color: "#035CA0",
+        color: "#026eb1",
       };
     case "error":
       return {
@@ -37,7 +37,7 @@ interface IToastMessages {
 
 export default function ToastMessage(props: IToastMessages) {
   return (
-    <div style={containerStyle}>
+    <div style={{ ...containerStyle, borderColor: getIcon(props.type).color }}>
       <div style={{ ...iconStyle, color: getIcon(props.type).color }}>
         {getIcon(props.type).icon}
       </div>
@@ -49,7 +49,7 @@ export default function ToastMessage(props: IToastMessages) {
 }
 
 const containerStyle: CSSProperties = {
-  backgroundColor: "#fff",
+  backgroundColor: "#ffffff",
   padding: "10px 10px",
   // width: "220px",
   position: "fixed",
@@ -61,11 +61,14 @@ const containerStyle: CSSProperties = {
   borderRadius: "10px",
   boxShadow: "0 5px 10px rgba(0, 0, 0, 0.1)",
   transition: "1s ease-in",
+  borderWidth: "0.5px",
+  borderStyle: "solid",
 };
 
 const iconStyle: CSSProperties = {
   color: "green",
   marginRight: "10px",
+  borderRadius: "3px",
 };
 const textStyle: CSSProperties = {
   fontSize: "small",
