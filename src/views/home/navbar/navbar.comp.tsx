@@ -25,7 +25,7 @@ export default function LandingNavBar() {
       <MobileSideBar onClose={() => setShowNav(false)} isOpen={showNav} />
       {/* )} */}
       <div className={styles.navbar}>
-        <label className={styles.brand}>
+        <label className={styles.bran}>
           <Link href="/" className={styles.brand}>
             {/* <img src="/images/Doow.png" className={styles.imge} /> */}
             <img src="/images/onwhite.png" className={styles.imge} />

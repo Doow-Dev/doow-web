@@ -9,7 +9,7 @@
   position: fixed;
   top: 0;
   padding-left: 15px;
-  @include bigTabSS {
+  @include tabletSS {
     height: 50px;
     display: block;
   }
@@ -28,11 +28,14 @@
     color: $secondaryColor;
     align-items: center;
     margin-left: 50px;
+    @include bigTabSS {
+      margin-left: 0px;
+    }
     img {
       height: 40px;
       margin-top: 10px;
       // margin-left: 50px;
-      @include bigTabSS {
+      @include tabletSS {
         margin-top: 10px;
         height: 30px;
       }
@@ -42,7 +45,7 @@
       font-size: 3rem;
       letter-spacing: -1px;
     }
-    @include bigTabSS {
+    @include tabletSS {
       margin-left: 10px;
     }
   }
@@ -51,7 +54,7 @@
     font-weight: bold;
     display: inline-block;
     line-height: 60px;
-    @include bigTabSS {
+    @include tabletSS {
       line-height: 50px;
     }
     a {
@@ -70,7 +73,7 @@
     border-width: 0.5px;
     height: 50px;
     // width: 50%;
-    @include bigTabSS {
+    @include tabletSS {
       visibility: visible;
       position: fixed;
       z-index: 1;
@@ -107,6 +110,9 @@
         display: block;
       }
       @include bigTabSS {
+        margin: 0px;
+      }
+      @include tabletSS {
         display: block;
         margin: 10px;
         line-height: 30px;
@@ -144,7 +150,7 @@
         margin: 0 20px;
         text-align: center;
 
-        @include bigTabSS {
+        @include tabletSS {
           font-size: smaller;
           text-align: left;
         }
@@ -161,7 +167,7 @@
         display: none;
         width: 300px;
         left: -100px;
-        @include bigTabSS {
+        @include tabletSS {
           display: none;
           // position: relative;
           // color: #000;
@@ -184,7 +190,7 @@
             background-color: #efefef;
             transition: 2s linear ease-in;
           }
-          @include bigTabSS {
+          @include tabletSS {
             display: none;
           }
           div {
@@ -235,11 +241,11 @@
     cursor: pointer;
     display: none;
     font-weight: 100;
-    @include bigTabSS {
+    @include tabletSS {
       display: block;
       line-height: 50px;
     }
-    @include bigTabSS {
+    @include tabletSS {
       visibility: visible;
       line-height: 50px;
     }
