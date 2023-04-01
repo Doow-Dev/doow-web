@@ -14,7 +14,7 @@ export type AddToWaitlistResponse = {
   email: string | null;
   created_at: Date | null;
   updated_at: Date | null;
-  count: Date | null;
+  count: number | null;
 };
 
 export class CreateWaitlistDto {

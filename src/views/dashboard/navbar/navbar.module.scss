@@ -31,7 +31,6 @@
     margin-left: 50px;
     a {
       font-weight: 900;
-      font-family: "Comfortaa";
       font-size: 3rem;
       letter-spacing: -1px;
     }
@@ -108,7 +107,6 @@
         font-weight: bold;
         color: $primaryColor;
         margin: 0 10px;
-        // font-family: "Roboto";
         @include tabletSS {
           color: $primaryColor;
           font-size: smaller;

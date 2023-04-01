@@ -62,8 +62,6 @@
     text-align: left;
     font-weight: 700;
     word-spacing: 5px;
-    font-family: "Manrope";
-
     @include tabletSS {
       padding: 0 20px;
       font-size: 4rem;
@@ -91,7 +89,6 @@
     width: 80%;
     font-size: 2rem;
     line-height: 30px;
-    font-family: "Inter";
     font-weight: 300;
     padding-bottom: 30px;
     text-align: left;

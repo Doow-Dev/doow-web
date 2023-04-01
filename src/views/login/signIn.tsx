@@ -15,11 +15,12 @@ export default function SignIn(props: IProps) {
 
   const [showLoader, setshowLoader] = useState(false);
   const handleLogin = () => {
-    setshowLoader(true);
-    setTimeout(() => {
-      setshowLoader(false);
-      router.push("/account/dashboard");
-    }, 2500);
+    router.push("/waitlist");
+    // setshowLoader(true);
+    // setTimeout(() => {
+    //   setshowLoader(false);
+    //   router.push("/account/dashboard");
+    // }, 2500);
   };
 
   return (

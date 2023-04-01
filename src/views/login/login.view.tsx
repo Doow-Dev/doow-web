@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import SignIn from "./signIn";
 import SignUp from "./signUp";
 import { useState } from "react";
-import LandingNavBar from "../home/navbar/navbar.comp";
 
 export interface IProps {
   onChange: () => void;
@@ -17,7 +16,6 @@ export const LoginView: NextPage = () => {
   return (
     <div>
       <div className={styles.login}>
-        {/* <LandingNavBar /> */}
         <div className={styles.container}>
           {showSignUp ? (
             <SignUp onChange={() => setShowSignUp(false)} />

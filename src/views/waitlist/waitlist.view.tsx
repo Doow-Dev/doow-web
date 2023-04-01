@@ -7,7 +7,8 @@ import WaitListModal from "./modal";
 import axios from "axios";
 import ToastMessage from "../../comps/toast";
 import Loader from "../../comps/loader";
-import { AddToWaitlistResponse, GetAllWaitlist } from "../../../dto/waitlist";
+import { AddToWaitlistResponse } from "../../../dto/waitlist";
+import { formartNumberToWords } from "../../helper/numberFIlter";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
@@ -23,23 +24,20 @@ export function WaitList() {
   });
 
   const handleSubmit = async () => {
+    // console.log(formartNumberToWords(24));
     setLoader(true);
     if (waitlistDto.first_name && waitlistDto.last_name && waitlistDto.email) {
       setWaitlist({ first_name: "", last_name: "", email: "" });
-
       axios
         .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
         .then((e) => {
           setWaitlist({ first_name: "", last_name: "", email: "" });
           setsentSuccessful(true);
           setWaitlistData(e.data);
-          console.log(e.data);
           setLoader(false);
           setshowModalSuccessful(true);
           setTimeout(() => {
             setsentSuccessful(false);
-            //
-            // setshowModalSuccessful(false);
           }, 5000);
         });
     } else {
@@ -80,7 +78,6 @@ export function WaitList() {
               placeholder={"First name"}
               id={"first_name"}
               onChange={(e) => {
-                console.log(e.target.value);
                 setWaitlist({
                   ...waitlistDto,
                   first_name: e.target.value,
@@ -116,12 +113,15 @@ export function WaitList() {
               }
             />
 
+            {/* <InputButton name={"Join"} onClick={() => handleSubmit()} /> */}
             <InputButton name={"Join"} onClick={() => handleSubmit()} />
 
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}
-                position={`You are the no. ${waitlist.count} in line`}
+                position={`You are the ${formartNumberToWords(
+                  waitlist.count
+                )} in line`}
                 content={`
                   You are now on the waitlist. We can't wait to show you what
                   Cross-border business banking should feel like.
