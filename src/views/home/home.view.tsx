@@ -1,6 +1,4 @@
 import React from "react";
-// import { CardContainer } from "./halfCard/cardContainer";
-// import { HalfCard } from "./halfCard/halfCard";
 import { Styler } from "./cardContainer/styler";
 import FooterHome from "./footer/footer.comp";
 import { FullCard } from "./fullCard/fullCard";
@@ -12,7 +10,6 @@ import { HomeFaq } from "./faq/faq";
 import { CardBanner } from "./cardBanner/CardBanner";
 import { JumbutronMid } from "./jumbotronMid/jumbutronMid";
 import { Integrations } from "./integrations/integrations";
-import MobileSideBar from "./mobileNavbar/navbar.comp";
 
 export default function HomeView() {
   return (

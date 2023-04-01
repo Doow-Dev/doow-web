@@ -19,7 +19,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 30px;
-    height: 74vh;
+    min-height: 74vh;
     margin: 0 50px;
     align-items: center;
     text-align: center;
@@ -52,7 +52,6 @@
       align-items: flex-start;
       justify-content: space-between;
       padding: 30px;
-      // padding-top: 50px;
       border-radius: 20px;
       height: 100%;
       // background-color: bisque;

@@ -24,6 +24,12 @@ $largeScreensize: 1540px;
   }
 }
 
+@mixin bigTabSS() {
+  @media (max-width: $laptopScreensize2) {
+    @content;
+  }
+}
+
 @mixin laptopSS() {
   @media (max-width: $laptopScreensize) {
     @content;
