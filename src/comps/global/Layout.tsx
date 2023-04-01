@@ -1,16 +1,12 @@
 import Head from "next/head";
 import NavBar from "../navbar/navbar.comp";
 import { SideBar } from "../sidebar/sidebar";
+import MetaHeader from "./Header";
 
 export default function Layout(props) {
   return (
     <>
-      <Head>
-        <title>DOOW </title>
-        <meta name="doow" content="Created by Hexelan" />
-        {/* <link rel="icon" href="/images/logo.png" /> */}
-        <link rel="icon" href="/images/Doow.png" />
-      </Head>
+      <MetaHeader title={"Welcome to doow"} />
       {/* <NavBar /> */}
       {/* <SideBar /> */}
       {props.children}
