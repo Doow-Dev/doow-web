@@ -32,7 +32,8 @@ export const NotificationBanner: React.FC<Props> = ({
             Your new {currency} business account,
             <span className={styles.accountNumber}>
               {" "}
-              {accountInformation.accountNumber}
+              {/* {accountInformation.accountNumber} */}
+              {accountInformation.accountNumber.slice(0, -3)}XXX
             </span>{" "}
             with{" "}
             <span className={styles.accountNumber}>
