@@ -17,7 +17,7 @@
 .navbar {
   display: none;
   @include tabletSS {
-    background-color: #fbfcfa;
+    background-color: #ffffff;
     width: 100%;
     height: 100%;
     z-index: 2;
@@ -100,7 +100,7 @@
 }
 
 .productNav {
-  background-color: #fbfcfa;
+  background-color: #ffffff;
   width: 100%;
   height: calc(100vh - 50px);
   z-index: 2;

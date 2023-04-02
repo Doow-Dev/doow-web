@@ -1,4 +1,18 @@
 @import "variables";
+@import "screensize";
+
+:root {
+  --pFont: 1.8rem;
+
+  // --fontFamily: "Roboto", sans-serif;
+  @include tabletSS {
+    --pFont: 1.5rem;
+  }
+  @include mobileSS {
+    --pFont: 1.3rem;
+  }
+  --fontFamily: "Manrope", sans-serif;
+}
 
 * {
   box-sizing: border-box;
@@ -16,6 +30,12 @@ body {
   background: $background1;
   color: $fontColor;
   cursor: default;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: "Manrope";
 }
 
 h1,
@@ -34,4 +54,8 @@ a {
 }
 li {
   list-style: none;
+}
+
+.none {
+  display: none;
 }

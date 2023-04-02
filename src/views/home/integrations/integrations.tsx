@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { AboutSubtitle, AboutTitle } from "../../about/comps";
+import { AboutSubtitle } from "../../terms-privacy/comps";
 import styles from "./integrations.module.scss";
 
 interface IJumbutron {

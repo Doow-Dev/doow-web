@@ -8,31 +8,3 @@
 @import "buttons";
 @import "markdown";
 @import "form";
-
-:root {
-  --fontFamily: "Manrope", sans-serif;
-  // --fontFamily: "Roboto", sans-serif;
-  /* --fontFamily: "Space Grotesk, sans-serif", */
-}
-
-*,
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-user-select: none;
-  user-select: none;
-  // background-color: #fff;
-}
-
-body {
-  font-family: "Manrope";
-  // font-family: "Inter";
-  // font-family: "Roboto", cursive;
-  // font-family: "Comfortaa", cursive;
-  // font-family: "Quicksand", cursive;
-}
-
-.none {
-  display: none;
-}

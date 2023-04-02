@@ -13,8 +13,8 @@
   background-size: cover;
   background-position: center;
   background-image: linear-gradient(
-      rgba(226, 235, 226, 0.4),
-      rgba(148, 151, 129, 0.2)
+      rgba(226, 235, 226, 0),
+      rgba(158, 160, 144, 0.2)
     ),
     url(../../../../public/images/banner.png);
 
@@ -55,6 +55,7 @@
       font-size: 9rem;
       font-weight: 700;
       word-spacing: 5px;
+      // font-family: "Manrope";
       @include midLaptopSS {
         font-size: 6.5rem;
       }

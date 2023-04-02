@@ -25,10 +25,11 @@
       justify-content: center;
       border-radius: 20px;
       padding: 20px;
-      background-color: rgb(238, 241, 238);
+      background-color: #fff;
       width: 30%;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       // height: 40%;
+      outline: solid 0.1px rgb(158, 164, 157);
       @include tabletSS {
         padding: 0px 10px;
         margin-top: 20px;

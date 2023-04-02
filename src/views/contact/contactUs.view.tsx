@@ -3,31 +3,41 @@ import styles from "./contactUs.module.scss";
 import React, { useState } from "react";
 import FooterHome from "../home/footer/footer.comp";
 import { InputButton, InputText } from "../../comps/forms";
-import {
-  AboutBody,
-  AboutSection,
-  AboutSubtitle,
-  AboutTitle,
-} from "../about/comps";
 import WaitListModal from "./modal";
+import { TopSection } from "../terms-privacy/comps";
 
 export function ContactUsView() {
   const [showSuccessful, setshowSuccessful] = useState(false);
   return (
     <div>
       <LandingNavBar />
+      <TopSection
+        title={"Contact Us"}
+        subtitle={" Send us a message and someone will be in touch shortly."}
+      />
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.topContent}>
+          {/* <div className={styles.topContent}>
             <h1>Hey there!</h1>
             <p>How can we help you?</p>
-          </div>
+          </div> */}
 
           <div className={styles.formSection}>
-            <p className={styles.topMessage}>
-              Send us a message and someone will be in touch shortly.
-            </p>
             <form onSubmit={(e) => e.preventDefault()}>
+              <InputText
+                label={"First name"}
+                placeholder={"First name"}
+                name={"firstname"}
+                id={"firstname"}
+                onChange={function (): void {}}
+              />
+              <InputText
+                label={"Last name"}
+                placeholder={"Last name"}
+                name={"lastname"}
+                id={"lastname"}
+                onChange={function (): void {}}
+              />
               <InputText
                 label={""}
                 placeholder={"mark@work-email.com"}

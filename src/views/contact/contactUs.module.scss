@@ -10,6 +10,7 @@
   margin-top: 50px;
   .content {
     // margin: 50px 0;
+
     width: 80%;
     text-align: left;
     display: flex;
@@ -17,7 +18,10 @@
     align-items: center;
     justify-content: center;
     @include tabletSS {
-      // width: 80%;
+      width: 80%;
+    }
+    @include mobileSS {
+      width: 90%;
     }
     .topContent {
       margin-top: 40px;
@@ -35,12 +39,16 @@
       }
     }
     .formSection {
-      width: 70%;
+      width: 60%;
       display: flex;
       flex-direction: column;
-      // align-items: center;
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 30px;
       @include tabletSS {
         width: 100%;
+        padding: 10px;
       }
       textarea {
         width: 97%;
@@ -50,7 +58,8 @@
         padding: 10px;
         font-size: medium;
         border-radius: 10px;
-        outline: 1px $primaryColor;
+        outline: solid 0.1px $primaryColor;
+        border-style: none;
       }
     }
 

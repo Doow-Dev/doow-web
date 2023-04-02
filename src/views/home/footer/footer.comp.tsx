@@ -38,6 +38,18 @@ export default function FooterHome() {
             >
               Contact us
             </li>
+            <li
+              className={styles.listItems}
+              onClick={() => router.push("/privacy_policy")}
+            >
+              Privacy Policy
+            </li>
+            <li
+              className={styles.listItems}
+              onClick={() => router.push("/terms_of_use")}
+            >
+              Terms of Use
+            </li>
           </ul>
           <div className={styles.address}>
             <p className={styles.addressheader}>Doow Inc.</p>

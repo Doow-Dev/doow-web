@@ -1,8 +1,7 @@
 import React from "react";
 import LandingNavBar from "../home/navbar/navbar.comp";
-import { AboutBody, AboutSection, AboutTitle } from "./comps";
-import styles from "./about.module.scss";
-import { AboutUsLanding } from "./Landing/Landing";
+import { AboutBody, AboutSection, AboutTitle, TopSection } from "./comps";
+import styles from "./styles.module.scss";
 import FooterHome from "../home/footer/footer.comp";
 import { HomeFaq } from "../home/faq/faq";
 
@@ -10,8 +9,11 @@ export default function AboutUsView() {
   return (
     <div>
       <LandingNavBar />
-      <AboutUsLanding />
 
+      <TopSection
+        title={"Manage all your business' finance in one place"}
+        subtitle={"Be the first to get early access when we launch beta!"}
+      />
       <div className={styles.container}>
         <div className={styles.content}>
           <AboutSection>

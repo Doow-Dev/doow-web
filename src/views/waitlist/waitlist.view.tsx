@@ -9,6 +9,7 @@ import ToastMessage from "../../comps/toast";
 import Loader from "../../comps/loader";
 import { AddToWaitlistResponse } from "../../../dto/waitlist";
 import { formartNumberToWords } from "../../helper/numberFIlter";
+import { TopSection } from "../terms-privacy/comps";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
@@ -81,17 +82,16 @@ export function WaitList() {
       )}
 
       {showLoader && <Loader />}
-      <div className={styles.container}>
-        <div className={styles.content}>
-          <div className={styles.banner}>
-            <h1>Join the waitlist!</h1>
-            <p>
-              Our global spend management platform helps companies streamline
+      <TopSection
+        title={"Join the waitlist!"}
+        subtitle={`
+         Our global spend management platform helps companies streamline
               their finance workflow so decision makers can easily analyze
               patterns and make data informed decisions in real time
-            </p>
-          </div>
-
+      `}
+      />
+      <div className={styles.container}>
+        <div className={styles.content}>
           <form onSubmit={(e) => e.preventDefault()}>
             <InputText
               label={"First name"}
