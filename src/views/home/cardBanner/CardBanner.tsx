@@ -14,18 +14,18 @@ export const CardBanner = () => {
 
         <div className={styles.bottomDiv}>
           <p className={styles.smallText}>
-            One-time and recurring payments in multiple currencies, wherever
-            VISA or Mastercard is accepted worldwide.
+            You can make one-time and recurring payments in multiple currencies
+            anywhere VISA or Mastercard is accepted.
           </p>
           <p className={styles.smallText}>
-            Create a debit card for your employees, for teams, for each new
-            project, for each recurring SAAS subscription, for each vendor. You
-            can even create a debit card for fun—literally whatever you want.
+            Create unlimited debit cards for your employees, for teams, for SAAS
+            subscriptions, and for vendors. You can even create a debit card for
+            fun—literally whatever you want.
           </p>
           <p className={styles.smallText}>
-            Real-time control over all your virtual and physical cards, so you
-            can set spend policies and limits, monitor expenses, and even freeze
-            or delete cards in a few clicks.
+            You have real-time control over all company cards, so you can set
+            spend policies and limits, monitor expenses, and even freeze or
+            delete cards.
           </p>
           <div
             className={styles.btnClick}
