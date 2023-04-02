@@ -42,30 +42,41 @@
     justify-content: center;
     text-align: center;
     width: 50%;
-    @include tabletSS {
+    @include bigTabSS {
       width: 70%;
-      margin-bottom: 30vh;
+      margin-bottom: 10vh;
+    }
+    @include tabletSS {
+      width: 85%;
+      margin-bottom: 15vh;
+    }
+    @include mobileSS {
+      width: 90%;
+      margin-bottom: 10vh;
     }
   }
 
   .sectionTitle {
     color: $fontColor;
     margin-bottom: 30px;
+    // background-color: aqua;
     h1 {
-      font-size: 9rem;
+      font-size: 7rem;
       font-weight: 700;
       word-spacing: 5px;
       // font-family: "Manrope";
-      @include midLaptopSS {
-        font-size: 6.5rem;
+      @include bigTabSS {
+        margin-top: 50px;
+        font-size: 5rem;
       }
       @include tabletSS {
-        font-size: 4rem;
+        font-size: 5rem;
+        // margin-bottom: 10px;
         display: block;
-        // margin-top: 30vw;
       }
       @include mobileSS {
-        font-size: 3rem;
+        margin-top: 50px;
+        font-size: 3.5rem;
         font-weight: 900;
       }
     }

@@ -44,7 +44,7 @@ export default function LandingNavBar() {
             activeStyle={styles.active}
             dropdownItems={[
               {
-                title: "Cooperate cards",
+                title: "Corperate Cards",
                 href: "#",
                 subtitle: `
                 Unlimited corporate & employee cards available everywhere
@@ -52,7 +52,7 @@ export default function LandingNavBar() {
                 icon: <BiCreditCard />,
               },
               {
-                title: "Foreign business accounts",
+                title: "Foreign Business Accounts",
                 href: "#",
                 subtitle: `
                  Checking, HYSA, and other local and global business accounts without paperwork
@@ -60,7 +60,7 @@ export default function LandingNavBar() {
                 icon: <RiBankLine />,
               },
               {
-                title: "Fx & conversions",
+                title: "Fx & Conversions",
                 href: "#",
                 subtitle: `
                   Avoid high exchange rates & transfer fees
@@ -76,7 +76,7 @@ export default function LandingNavBar() {
                 icon: <HiOutlineCurrencyDollar />,
               },
               {
-                title: "Spend management",
+                title: "Spend Management",
                 href: "#",
                 subtitle: `
                  Approve, automate and manage all company spend in one place

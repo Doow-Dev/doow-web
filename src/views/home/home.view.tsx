@@ -91,7 +91,7 @@ Europe, Kenya, and Nigeria without having to visit a bank in these countries.
         imgUrl={"./images/fx7.png"}
         buttonTitle={"Get early access"}
         bgColor="#099CCD"
-        textColor={Styler.white}
+        textColor={Styler.background1}
         btnHref={"waitlist"}
       />
       <FullCard

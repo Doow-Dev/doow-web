@@ -16,12 +16,12 @@ export default function FooterHome() {
           </div>
           <ul>
             <li className={styles.listheader}>Products</li>
-            <li className={styles.listItems}>Foreign business accounts</li>
-            <li className={styles.listItems}>Cooperate cards</li>
-            <li className={styles.listItems}>Global payments</li>
-            <li className={styles.listItems}>Fx & conversions</li>
-            <li className={styles.listItems}>Multi-currency reimbursements</li>
-            <li className={styles.listItems}>Spend management</li>
+            <li className={styles.listItems}>Foreign Business Accounts</li>
+            <li className={styles.listItems}>Cooperate Cards</li>
+            <li className={styles.listItems}>Global Payments</li>
+            <li className={styles.listItems}>Fx & Conversions</li>
+            <li className={styles.listItems}>Multi-currency Reimbursements</li>
+            <li className={styles.listItems}>Spend Management</li>
             <li className={styles.listItems}>Conections</li>
           </ul>
           <ul>

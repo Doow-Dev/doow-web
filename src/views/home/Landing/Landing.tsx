@@ -8,7 +8,7 @@ export const HomeLanding = () => {
     <div id="home" className={styles.container}>
       <div className={styles.content}>
         <div className={styles.sectionTitle}>
-          <h1>Cross-border banking for african startups</h1>
+          <h1>Cross-border banking for African startups</h1>
           {/* <span>Doow It.</span> */}
         </div>
 

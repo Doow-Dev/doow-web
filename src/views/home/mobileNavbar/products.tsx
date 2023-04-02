@@ -45,7 +45,7 @@ export default function MobileProductsSideBar(props: IProducts) {
               activeStyle={styles.active}
               dropdownItems={[
                 {
-                  title: "Cooperate cards",
+                  title: "Corperate Cards",
                   href: "#",
                   subtitle: `
                 Unlimited corporate & employee cards available everywhere
@@ -53,7 +53,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   icon: <BiCreditCard />,
                 },
                 {
-                  title: "Foreign business accounts",
+                  title: "Foreign Business Accounts",
                   href: "#",
                   subtitle: `
                  Checking, HYSA, and other local and global business accounts without paperwork
@@ -61,7 +61,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   icon: <RiBankLine />,
                 },
                 {
-                  title: "Fx & conversions",
+                  title: "Fx & Conversions",
                   href: "#",
                   subtitle: `
                   Avoid high exchange rates & transfer fees
@@ -69,7 +69,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   icon: <IoSwapVerticalOutline />,
                 },
                 {
-                  title: "Global payments",
+                  title: "Global Payments",
                   href: "#",
                   subtitle: `
                   ACH, wires, SWIFT, and other global payment methods 
@@ -77,7 +77,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   icon: <HiOutlineCurrencyDollar />,
                 },
                 {
-                  title: "Spend management",
+                  title: "Spend Management",
                   href: "#",
                   subtitle: `
                  Approve, automate and manage all company spend in one place
