@@ -12,7 +12,7 @@ export default function JoinWaitlist(props: IBtn) {
   const router = useRouter();
   return (
     <div className={styles.container}>
-      <p className={styles.btn} onClick={() => router.push(props.href)}>
+      <p className={styles.title} onClick={() => router.push(props.href)}>
         {props.title}
       </p>
       <p className={styles.btnArrow}>
@@ -21,11 +21,12 @@ export default function JoinWaitlist(props: IBtn) {
     </div>
   );
 }
+
 export function JoinWaitlistBlack(props: IBtn) {
   const router = useRouter();
   return (
     <div className={styles.blackContainer}>
-      <p className={styles.btn} onClick={() => router.push(props.href)}>
+      <p className={styles.title} onClick={() => router.push(props.href)}>
         {props.title}
       </p>
       <p className={styles.btnArrow}>

@@ -44,7 +44,7 @@ export default function LandingNavBar() {
             activeStyle={styles.active}
             dropdownItems={[
               {
-                title: "Corperate Cards",
+                title: "Corporate Cards",
                 href: "#",
                 subtitle: `
                 Unlimited corporate & employee cards available everywhere
@@ -63,15 +63,15 @@ export default function LandingNavBar() {
                 title: "Fx & Conversions",
                 href: "#",
                 subtitle: `
-                  Avoid high exchange rates & transfer fees
+                 Hold 40+ currencies, approve, automate and manage all company spend in one place
                 `,
                 icon: <IoSwapVerticalOutline />,
               },
               {
-                title: "Global payments",
+                title: "Global Payments",
                 href: "#",
                 subtitle: `
-                  ACH, wires, SWIFT, and other global payment methods 
+                  ACH, Wires, SWIFT, SEPA, MoMo, Bacs, and other global payment methods 
                 `,
                 icon: <HiOutlineCurrencyDollar />,
               },
@@ -110,10 +110,10 @@ export default function LandingNavBar() {
                 icon: <RiOrganizationChart />,
               },
               {
-                title: "For CFOs",
+                title: "For CFOs & Controllers",
                 href: "#",
                 subtitle: `
-                  Boost financial growth with data and automated approvals for controllers, budgets etc.
+                  Boost financial growth with real-time data and automated approvals
                 `,
                 icon: <MdOutlineManageAccounts />,
               },

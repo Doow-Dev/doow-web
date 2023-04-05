@@ -51,10 +51,10 @@ export default function MobileUseCaseSideBar(props: IProducts) {
                   icon: <RiOrganizationChart />,
                 },
                 {
-                  title: "For CFOs",
+                  title: "For CFOs & Controllers",
                   href: "#",
                   subtitle: `
-                  Boost financial growth with data and automated approvals for controllers, budgets etc.
+                  Boost financial growth with real-time data and automated approvals
                 `,
                   icon: <MdOutlineManageAccounts />,
                 },

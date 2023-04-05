@@ -17,12 +17,12 @@ export default function FooterHome() {
           <ul>
             <li className={styles.listheader}>Products</li>
             <li className={styles.listItems}>Foreign Business Accounts</li>
-            <li className={styles.listItems}>Cooperate Cards</li>
+            <li className={styles.listItems}>Corporate Cards</li>
             <li className={styles.listItems}>Global Payments</li>
             <li className={styles.listItems}>Fx & Conversions</li>
             <li className={styles.listItems}>Multi-currency Reimbursements</li>
             <li className={styles.listItems}>Spend Management</li>
-            <li className={styles.listItems}>Conections</li>
+            <li className={styles.listItems}>Connections</li>
           </ul>
           <ul>
             <li className={styles.listheader}>Company</li>
@@ -30,13 +30,13 @@ export default function FooterHome() {
               className={styles.listItems}
               onClick={() => router.push("/about_us")}
             >
-              About us
+              About Us
             </li>
             <li
               className={styles.listItems}
               onClick={() => router.push("/contact_us")}
             >
-              Contact us
+              Contact Us
             </li>
             <li
               className={styles.listItems}
@@ -52,7 +52,7 @@ export default function FooterHome() {
             </li>
           </ul>
           <div className={styles.address}>
-            <p className={styles.addressheader}>Doow Inc.</p>
+            <p className={styles.addressheader}>Location</p>
             <p>1007 N Orange St. 4th Floor,</p>
             <p>Wilmington, DE,</p>
             <p>United States</p>
@@ -60,7 +60,7 @@ export default function FooterHome() {
           </div>
         </div>
         <div className={styles.copywright}>
-          <p>© copyright All rights reserved</p>
+          <p>© 2023 Doow Inc. All rights reserved</p>
         </div>
         <div className={styles.shortText}>
           Doow Inc. is a financial technology company duly incorporated under

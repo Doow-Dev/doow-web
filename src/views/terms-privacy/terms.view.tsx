@@ -7,10 +7,13 @@ import { TopSection, AboutSection, AboutTitle, AboutBody } from "./comps";
 
 export default function TermsOfServicesView() {
   return (
-    <div>
+    <>
       <LandingNavBar />
 
-      <TopSection title={"Terms of Use"} subtitle={""} />
+      <TopSection
+        title={"Terms of Use"}
+        subtitle={"Updated: 3rd of April, 2023"}
+      />
       <div className={styles.container}>
         <div className={styles.content}>
           <AboutSection>
@@ -67,7 +70,6 @@ export default function TermsOfServicesView() {
                   program that is harmful to the operation of any computer
                   software or hardware.
                 </li>
-                {/* <li></li> */}
               </ul>
             </AboutBody>
           </AboutSection>
@@ -102,6 +104,6 @@ export default function TermsOfServicesView() {
       </div>
       <HomeFaq />
       <FooterHome />
-    </div>
+    </>
   );
 }

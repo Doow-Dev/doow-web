@@ -45,7 +45,7 @@ export default function MobileProductsSideBar(props: IProducts) {
               activeStyle={styles.active}
               dropdownItems={[
                 {
-                  title: "Corperate Cards",
+                  title: "Corporate Cards",
                   href: "#",
                   subtitle: `
                 Unlimited corporate & employee cards available everywhere
@@ -64,7 +64,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   title: "Fx & Conversions",
                   href: "#",
                   subtitle: `
-                  Avoid high exchange rates & transfer fees
+                  Hold 40+ currencies, approve, automate and manage all company spend in one place
                 `,
                   icon: <IoSwapVerticalOutline />,
                 },
@@ -72,7 +72,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   title: "Global Payments",
                   href: "#",
                   subtitle: `
-                  ACH, wires, SWIFT, and other global payment methods 
+                   ACH, Wires, SWIFT, SEPA, MoMo, Bacs, and other global payment methods
                 `,
                   icon: <HiOutlineCurrencyDollar />,
                 },

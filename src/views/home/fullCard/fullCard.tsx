@@ -38,6 +38,7 @@ export const FullCard = (props: IFullCard) => {
             >
               {props.title}
             </h3>
+
             <p className={styles.subtitle} style={{ color: props.textColor }}>
               {props.subtitle}
             </p>
@@ -53,6 +54,7 @@ export const FullCard = (props: IFullCard) => {
               </p>
             )}
           </div>
+
           <JoinWaitlist
             title={props.buttonTitle}
             href={props.btnHref}

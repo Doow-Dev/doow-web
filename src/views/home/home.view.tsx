@@ -22,7 +22,7 @@ export default function HomeView() {
         subtitle={`
         Whether you're a one-man business, a startup or a large coorporation,
           Doow is the place to manage all your local and international finances
-          at anytime`}
+          `}
         bgColor={Styler.background1}
       />
       <div className={styles.imageContainer}>

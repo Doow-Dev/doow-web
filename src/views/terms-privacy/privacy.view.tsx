@@ -18,7 +18,7 @@ export default function PrivacyPolicyView() {
 
       <TopSection
         title={"Privacy Policy"}
-        subtitle={"Be the first to get early access when we launch beta!"}
+        subtitle={"Updated: 3rd of April, 2023"}
       />
       <div className={styles.container}>
         <div className={styles.content}>
@@ -148,7 +148,7 @@ export default function PrivacyPolicyView() {
                 </li>
               </ul>
             </AboutBody>
-            <AboutSubHeading>Confidentiality and Security</AboutSubHeading>
+            <AboutTitle>Confidentiality and Security</AboutTitle>
             <AboutBody>
               Your data will only be accessible to employees or service
               providers who reasonably need it to provide products or services
@@ -158,7 +158,7 @@ export default function PrivacyPolicyView() {
               Doow website, but we can’t warrant the security of your
               information.
             </AboutBody>
-            <AboutSubHeading>Privacy Policy Changes</AboutSubHeading>
+            <AboutTitle>Privacy Policy Changes</AboutTitle>
             <AboutBody>
               This privacy policy may be updated at any time to reflect changes
               in our practices and product offerings. In the event that this

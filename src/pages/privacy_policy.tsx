@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <>
       <MetaHeader title={"Privacy Policy"} />
-      <PrivacyPolicyView />;
+      <PrivacyPolicyView />
     </>
   );
 }

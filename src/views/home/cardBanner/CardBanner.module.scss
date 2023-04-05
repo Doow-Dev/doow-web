@@ -38,6 +38,7 @@
     align-items: flex-start;
     @include tabletSS {
       width: 100%;
+      // text-align: center;
     }
     .content {
       width: 60%;
@@ -46,8 +47,8 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-
       padding: 10px;
+      margin-top: 70px;
       // background-color: aquamarine;
       @include tabletSS {
         margin-top: 55vw;
@@ -61,7 +62,9 @@
 
   .sectionTitle {
     color: $fontColor;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    margin-top: 30px;
+    width: 100%;
     // margin-left: 100px;
     // background-color: rgb(177, 69, 7);
     @include tabletSS {
@@ -69,10 +72,10 @@
       padding: 0px;
     }
     h1 {
-      font-size: 6.5rem;
+      font-size: 4rem;
       text-align: left;
       font-weight: 700;
-      word-spacing: 5px;
+      // word-spacing: 5px;
       @include tabletSS {
         padding: 0 20px;
         font-size: 4rem;
@@ -85,7 +88,7 @@
   }
 
   .bottomDiv {
-    margin-top: 50px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -97,7 +100,7 @@
     }
     .smallText {
       width: 80%;
-      font-size: 2rem;
+      font-size: 1.7rem;
       line-height: 30px;
       font-weight: 300;
       padding-bottom: 30px;
