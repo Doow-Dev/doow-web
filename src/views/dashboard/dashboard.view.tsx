@@ -9,6 +9,7 @@ import DashboardNavBar from "./navbar/navbar.comp";
 import { useState } from "react";
 import BankAccountForm from "./create-bank-account/bank-account-form";
 import NotificationBanner from "./notification-banner";
+// import { SideBar } from "../../comps/sidebar/sidebar";
 import { SideBar } from "../../comps/sidebar/sidebar";
 import { useAppSelector } from "../../redux/hooks";
 import Loading from "../../components/loading/loading";

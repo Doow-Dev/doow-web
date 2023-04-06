@@ -14,11 +14,12 @@
 }
 
 .container {
-  margin-left: 50px;
+  margin-left: 345px;
   display: flex;
   flex-direction: column;
   background-color: #f2f2f2;
-  @include tabletSS {
+
+  @include smallLaptopSS {
     margin: 0px;
     margin-top: 50px;
   }
@@ -49,13 +50,10 @@
     gap: 10px;
   }
 
-  @include laptopSS {
+  @include tabletSS {
     flex-direction: column;
     align-items: center;
     gap: 30px;
-  }
-
-  @include tabletSS {
   }
 }
 
@@ -69,19 +67,11 @@
     column-gap: 3rem;
     row-gap: 3rem;
 
-    // @media screen(max-width: ) {
-
-    // }
-
     @include laptopSS {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       row-gap: 3rem;
       column-gap: 1rem;
-    }
-
-    @include tabletSS {
-      // column-gap: 2rem;
     }
 
     @include mobileSS {

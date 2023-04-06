@@ -1,6 +1,7 @@
 // ? ScreenSizes
 $mobileScreensize: 640px;
 $tabletScreensize: 768px;
+$smallLaptopScreensize: 1090px;
 $midLaptopScreensize: 1400px;
 $laptopScreensize: 1940px;
 $laptopScreensize2: 1040px;
@@ -14,6 +15,12 @@ $largeScreensize: 1540px;
 
 @mixin tabletSS() {
   @media (max-width: $tabletScreensize) {
+    @content;
+  }
+}
+
+@mixin smallLaptopSS() {
+  @media (max-width: $smallLaptopScreensize) {
     @content;
   }
 }
