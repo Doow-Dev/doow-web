@@ -15,7 +15,7 @@ export default function SignIn(props: IProps) {
 
   const [showLoader, setshowLoader] = useState(false);
   const handleLogin = () => {
-    router.push("/waitlist");
+    router.push("/account/dashboard");
     // setshowLoader(true);
     // setTimeout(() => {
     //   setshowLoader(false);
@@ -64,7 +64,9 @@ export default function SignIn(props: IProps) {
           }}
         />
         <InputButton name={"Login"} onClick={() => handleLogin()} />
-        <p onClick={() => router.push("/waitlist")}>Get early access?</p>
+        <p onClick={() => router.push("/account/dashboard")}>
+          Get early access?
+        </p>
         {/* <p onClick={() => props.onChange()}>Create an account</p> */}
       </form>
     </div>
