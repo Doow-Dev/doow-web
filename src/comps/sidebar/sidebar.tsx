@@ -2,7 +2,7 @@ import styles from "./sidebar.module.scss";
 import Link from "next/link";
 import { sideBarItems } from "./sidebar-items";
 import { TfiAngleUp, TfiAngleDown } from "react-icons/tfi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FaAngleRight } from "react-icons/fa";
@@ -10,7 +10,7 @@ interface Props {
   showMenu: boolean;
 }
 
-export const SideBar: React.FC<Props> = ({showMenu}) => {
+export const SideBar: React.FC<Props> = ({ showMenu }) => {
   // const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const [showLinks, setShowLinks] = useState<boolean>(false);
@@ -37,8 +37,12 @@ export const SideBar: React.FC<Props> = ({showMenu}) => {
 
   const handleLinkClick = (i: number) => {
     setShowLinks((prev) => !prev);
-    setActiveLink(i)
-  }
+    setActiveLink(i);
+  };
+
+  useEffect(() => {
+    toggleShowLinks(0)
+  }, []);
 
   return (
     <div className={`${styles.sidebar_menu} ${showMenu ? styles.active : ""}`}>
@@ -61,7 +65,11 @@ export const SideBar: React.FC<Props> = ({showMenu}) => {
               </Link>
               <div className={styles.sub_menu}>
                 {item.subLinks.map((link, idx) => (
-                  <Link key={idx} href={link.link} onClick={() => toggleShowLinks(i)}>
+                  <Link
+                    key={idx}
+                    href={link.link}
+                    onClick={() => toggleShowLinks(i)}
+                  >
                     {link.title}
                   </Link>
                 ))}
