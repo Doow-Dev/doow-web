@@ -13,7 +13,6 @@ const config: CodegenConfig = {
         "typescript",
         "typescript-operations",
         "typescript-react-apollo",
-        
       ],
     },
     "./graphql.schema.json": {
