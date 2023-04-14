@@ -33,7 +33,7 @@ export function WaitList() {
       axios
         .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
         .then((e) => {
-          console.log(e, "then");
+          // console.log(e, "then");
           setWaitlist({ first_name: "", last_name: "", email: "" });
           setsentSuccessful(true);
           setWaitlistData(e.data);
