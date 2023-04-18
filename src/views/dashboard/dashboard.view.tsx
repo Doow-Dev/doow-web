@@ -91,9 +91,9 @@ export default function DashboardView() {
     setOpenModal(false);
   };
 
-  useEffect(() => {
-    router.push("/login");
-  }, []);
+  // useEffect(() => {
+  //   router.push("/login");
+  // }, []);
 
   return (
     <>
