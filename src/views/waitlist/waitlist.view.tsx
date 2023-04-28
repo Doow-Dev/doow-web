@@ -9,7 +9,7 @@ import ToastMessage from "../../comps/toast";
 import Loader from "../../comps/loader";
 import { AddToWaitlistResponse } from "../../../dto/waitlist";
 import { formartNumberToWords } from "../../helper/numberFIlter";
-import { TopSection } from "../terms-privacy/comps";
+import { TopSection } from "../terms/comps";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
@@ -23,18 +23,38 @@ export function WaitList() {
     first_name: "",
     last_name: "",
     email: "",
+    company_name: "",
+    role: "",
   });
 
   const handleSubmit = async () => {
     // console.log(formartNumberToWords(24));
     setLoader(true);
-    if (waitlistDto.first_name && waitlistDto.last_name && waitlistDto.email) {
-      setWaitlist({ first_name: "", last_name: "", email: "" });
+    if (
+      waitlistDto.first_name &&
+      waitlistDto.last_name &&
+      waitlistDto.email &&
+      waitlistDto.company_name &&
+      waitlistDto.role
+    ) {
+      setWaitlist({
+        first_name: "",
+        last_name: "",
+        email: "",
+        company_name: "",
+        role: "",
+      });
+      // console.log(waitlistDto);
       axios
         .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
         .then((e) => {
-          console.log(e, "then");
-          setWaitlist({ first_name: "", last_name: "", email: "" });
+          setWaitlist({
+            first_name: "",
+            last_name: "",
+            email: "",
+            company_name: "",
+            role: "",
+          });
           setsentSuccessful(true);
           setWaitlistData(e.data);
           setshowModalSuccessful(true);
@@ -122,6 +142,33 @@ export function WaitList() {
             />
 
             <InputText
+              label={"Company"}
+              placeholder={"Company name"}
+              name={"Company"}
+              value={waitlistDto.company_name}
+              id={"Company"}
+              onChange={(e) =>
+                setWaitlist({
+                  ...waitlistDto,
+                  company_name: e.target.value,
+                })
+              }
+            />
+
+            <InputText
+              label={"Role"}
+              placeholder={"Position in company"}
+              name={"role"}
+              value={waitlistDto.role}
+              id={"role"}
+              onChange={(e) =>
+                setWaitlist({
+                  ...waitlistDto,
+                  role: e.target.value,
+                })
+              }
+            />
+            <InputText
               label={"Email"}
               placeholder={"Email"}
               name={"email"}
@@ -138,7 +185,7 @@ export function WaitList() {
             {/* <InputButton name={"Join"} onClick={() => handleSubmit()} /> */}
             <InputButton name={"Join"} onClick={() => handleSubmit()} />
 
-            {showModalSuccessful && (
+            {/* {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}
                 position={`You are the ${formartNumberToWords(
@@ -148,22 +195,30 @@ export function WaitList() {
                   You are now on the waitlist. We can't wait to show you what
                   Cross-border business banking should feel like.
                 `}
+                content2={
+                  "Please, can you spare less than 8 mins for a product chat with us?"
+                }
                 onClose={() => setshowModalSuccessful(false)}
-                name={waitlist.first_name}
+                name={`Thank you, ${waitlist.first_name}!`}
+                btnVal={"Let's do this"}
               />
-            )}
+            )} */}
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}
-                position={`You are the ${formartNumberToWords(
-                  waitlist.count
-                )} in line`}
+                position={`You are ${formartNumberToWords(78)} in line`}
                 content={`
-                  You are now on the waitlist. We can't wait to show you what
+                  You are ${formartNumberToWords(
+                    78
+                  )} in line. We can't wait to show you what
                   Cross-border business banking should feel like.
                 `}
                 onClose={() => setshowModalSuccessful(false)}
-                name={waitlist.first_name}
+                name={`Thank you, ${waitlist.first_name}!`}
+                content2={
+                  "Please, can you spare less than 8 mins for a product chat with us?"
+                }
+                btnVal={"Let's do this"}
               />
             )}
           </form>

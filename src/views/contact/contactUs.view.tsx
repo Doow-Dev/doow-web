@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import FooterHome from "../home/footer/footer.comp";
 import { InputButton, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
-import { TopSection } from "../terms-privacy/comps";
+import { TopSection } from "../terms/comps";
 
 export function ContactUsView() {
   const [showSuccessful, setshowSuccessful] = useState(false);

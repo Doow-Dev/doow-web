@@ -21,11 +21,12 @@
   }
 
   .content {
+    position: relative;
     background-color: rgb(255, 255, 255);
     // height: 30vw;
-    width: 60vw;
+    width: 50vw;
     border-radius: 20px;
-    padding: 20px;
+    padding: 10px 60px;
     color: $fontColor;
     display: flex;
     flex-direction: column;
@@ -48,6 +49,7 @@
   }
 
   .sectionContent {
+    position: relative;
     padding: 15px 5px;
     display: flex;
     flex-direction: column;
@@ -62,6 +64,32 @@
     h1 {
       margin-bottom: 20px;
       text-align: center;
+    }
+  }
+  .sectionContentBtn {
+    // background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .btn {
+      width: 100%;
+      height: 3.5rem;
+      padding: 10px 20px;
+      margin: 10px 20px;
+      background-color: $primaryColor;
+      font-size: 1.45rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.5s ease;
+      border-radius: 10px;
+      border-color: #fff;
+      border-width: 1px;
+      border-style: solid;
+      color: #fff;
     }
   }
 }

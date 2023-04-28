@@ -1,6 +1,6 @@
 import React from "react";
 import MetaHeader from "../comps/global/Header";
-import AboutUsView from "../views/terms-privacy/about.view";
+import AboutUsView from "../views/terms/about.view";
 
 export default function HomePage() {
   return (

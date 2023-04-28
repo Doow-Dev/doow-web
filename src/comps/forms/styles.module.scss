@@ -34,12 +34,15 @@
   font-size: 1.6rem;
   padding: 15px 12px;
   background-color: #fff;
+
   outline: solid 0.1px $primaryColor;
   &:active {
     outline: solid 1px $primaryColor;
+    background-color: $background1;
   }
   &:focus {
     outline: solid 1px $primaryColor;
+    background-color: $background1;
   }
   @include mobileSS {
     font-size: 1.2rem;
