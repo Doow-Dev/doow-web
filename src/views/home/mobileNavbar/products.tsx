@@ -64,7 +64,7 @@ export default function MobileProductsSideBar(props: IProducts) {
                   title: "Fx & Conversions",
                   href: "#",
                   subtitle: `
-                  Hold 40+ currencies, approve, automate and manage all company spend in one place
+                  Hold 40+ currencies and access 24/7 competitive rates, convert between liquid and illiquid pairs, settle fast in your preferred currency
                 `,
                   icon: <IoSwapVerticalOutline />,
                 },

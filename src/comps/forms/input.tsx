@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import { error } from "console";
 
 interface Props {
   label: string;
@@ -8,6 +9,7 @@ interface Props {
   value?: string;
   id: string;
   placeholder?: string;
+  error?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,7 +18,8 @@ interface IComponrnts {
 }
 
 export function InputText(props: Props): JSX.Element {
-  const { id, label, name, value, placeholder, onChange, sublabel } = props;
+  const { id, label, name, value, placeholder, onChange, sublabel, error } =
+    props;
   return (
     <div className={styles.input_box_text}>
       <label htmlFor={name} className="label">
@@ -33,12 +36,14 @@ export function InputText(props: Props): JSX.Element {
         onChange={onChange}
         autoComplete="off"
       />
+      <span className={styles.error}>{error}</span>
     </div>
   );
 }
 
 export function InputPassowrd(props: Props): JSX.Element {
-  const { id, label, name, value, placeholder, onChange, sublabel } = props;
+  const { id, label, name, value, placeholder, onChange, error, sublabel } =
+    props;
   return (
     <div className={styles.input_box_text}>
       <label htmlFor={name} className="label">
@@ -54,6 +59,7 @@ export function InputPassowrd(props: Props): JSX.Element {
         value={value}
         onChange={onChange}
       />
+      <span className={styles.error}>{error}</span>
     </div>
   );
 }

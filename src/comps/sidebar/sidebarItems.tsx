@@ -39,49 +39,4 @@ export const sidebarItems: Array<ISidebarItem> = [
     link: "/donate",
     agentType: [],
   },
-
-  // ! Chat Section
-  //* FOR State Admin
-  // {
-  //   icon: <BsChatTextFill />,
-  //   title: "Chat",
-  //   link: "/chat",
-  //   agentType: [Member_Type.State],
-  // },
-  // {
-  //   icon: <TiGroup />,
-  //   title: "Congress",
-  //   link: "/congress",
-  //   agentType: [Member_Type.State],
-  // },
-  // {
-  //   icon: <BsChatTextFill />,
-  //   title: "Convention",
-  //   link: "/convention",
-  //   agentType: [Member_Type.State],
-  // },
-  // {
-  //   icon: <IoDocument />,
-  //   title: "Forms",
-  //   link: "/forms",
-  //   agentType: [Member_Type.State],
-  // },
-  // {
-  //   icon: <MdDashboard />,
-  //   title: "Dashboard",
-  //   link: "/dashboard",
-  //   agentType: [Member_Type.State],
-  // },
-  // {
-  //   icon: <BiHelpCircle />,
-  //   title: "Help",
-  //   link: "/help",
-  //   agentType: [Member_Type.State],
-  // },
-  // {
-  //   icon: <BiLogOutCircle />,
-  //   title: "Logout",
-  //   link: "/#",
-  //   agentType: [Member_Type.State, Member_Type.National],
-  // },
 ];

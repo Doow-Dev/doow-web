@@ -17,6 +17,20 @@
   }
 }
 
+.error {
+  padding-bottom: 0px;
+  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: red;
+
+  @include mobileSS {
+    font-size: 1.2rem;
+  }
+}
+
+
+
 @mixin input_box {
   margin: 10px auto;
   padding: 7px 10px;
