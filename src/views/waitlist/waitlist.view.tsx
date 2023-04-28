@@ -206,10 +206,12 @@ export function WaitList() {
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}
-                position={`You are ${formartNumberToWords(78)} in line`}
+                position={`You are ${formartNumberToWords(
+                  waitlist.count
+                )} in line`}
                 content={`
                   You are ${formartNumberToWords(
-                    78
+                    waitlist.count
                   )} in line. We can't wait to show you what
                   Cross-border business banking should feel like.
                 `}
