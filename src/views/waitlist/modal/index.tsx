@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { MdEmail } from "react-icons/md";
 import styled from "styled-components";
 import styles from "./modal.module.scss";
 
@@ -25,7 +23,6 @@ export default function WaitListModal(props: IModal) {
           {/* <AiOutlineCloseCircle color="red" size={20} /> */}
           <Img src="./images/congrats.png" alt="Congratulations" />
         </div>
-
         <div className={styles.sectionContent}>
           <h1>{props.name}</h1>
           <p>{props.content}</p>
@@ -34,12 +31,11 @@ export default function WaitListModal(props: IModal) {
         <div className={styles.sectionContent}>
           <p>{props.content2}</p>
         </div>
+
         <div className={styles.sectionContentBtn}>
           <Btn
             value={props.btnVal}
-            onClick={() =>
-              router.push("https://0klgle56o3p.typeform.com/to/PGcGjFgK")
-            }
+            onClick={() => router.push("https://forms.gle/Mr5ASnNkyrYawCMT6")}
             type="button"
           />
         </div>

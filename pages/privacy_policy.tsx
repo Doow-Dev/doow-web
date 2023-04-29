@@ -1,6 +1,6 @@
 import React from "react";
-import MetaHeader from "../comps/global/Header";
-import PrivacyPolicyView from "../views/terms/privacy.view";
+import MetaHeader from "../src/comps/global/Header";
+import PrivacyPolicyView from "../src/views/terms/privacy.view";
 
 export default function LoginPage() {
   return (

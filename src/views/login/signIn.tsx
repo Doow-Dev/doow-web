@@ -1,12 +1,11 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { BiHome } from "react-icons/bi";
 import { InputButton, InputPassowrd, InputText } from "../../comps/forms";
-import Loader from "../../comps/loader";
 import styles from "./login.module.scss";
 import { IProps } from "./login.view";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Loading from "../../components/loading/loading";
 
 const initialValues = {
   password: "",
@@ -35,7 +34,7 @@ export default function SignIn(props: IProps) {
 
   return (
     <div className={styles.contentForm}>
-      {showLoader && <Loader />}
+      {showLoader && <Loading />}
       <div className={styles.topText}>
         <h2>Welcome</h2>
         {/* <BiHome onClick={() => router.push("/")} /> */}
@@ -57,7 +56,7 @@ export default function SignIn(props: IProps) {
               router.push("/waitlist");
             }, 2000);
           };
-          handleLogin()
+          handleLogin();
         }}
       >
         {({ values, errors, handleChange, handleSubmit, touched }) => (
@@ -86,9 +85,7 @@ export default function SignIn(props: IProps) {
               }
             />
             <InputButton name={"Login"} onClick={() => handleSubmit()} />
-            <p onClick={() => router.push("/waitlist")}>
-              Get early access?
-            </p>
+            <p onClick={() => router.push("/waitlist")}>Get early access?</p>
             {/* <p onClick={() => props.onChange()}>Create an account</p> */}
           </form>
         )}

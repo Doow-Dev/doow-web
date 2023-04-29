@@ -1,4 +1,4 @@
-import apolloClient from "../../../constants/apollo-client";
+import apolloClient from "../../../graphql/apollo-client";
 import {
   CreateNigerianAccountDocument,
   CreateNigerianAccountInput,

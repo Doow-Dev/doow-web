@@ -16,7 +16,6 @@ export default function HomeView() {
     <div>
       <LandingNavBar />
       <HomeLanding />
-
       <Jumbutron
         title={"Do business in 190+ countries from one place"}
         subtitle={`

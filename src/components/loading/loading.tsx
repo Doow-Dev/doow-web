@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { themes } from "../../themes";
-import { globalStyles } from "../../constants";
+import { themes } from "../../styles/themes";
+import { globalStyles } from "../../styles/themes/globalstyles";
 
 export const Loading = () => {
   return (

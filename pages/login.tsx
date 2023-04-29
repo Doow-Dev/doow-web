@@ -1,6 +1,6 @@
 import React from "react";
-import MetaHeader from "../comps/global/Header";
-import { LoginView } from "../views/login/login.view";
+import MetaHeader from "../src/comps/global/Header";
+import { LoginView } from "../src/views/login/login.view";
 
 export default function LoginPage() {
   return (

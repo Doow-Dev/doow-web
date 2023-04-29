@@ -2,17 +2,22 @@ import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./waitlist.module.scss";
 import React, { useState } from "react";
 import FooterHome from "../home/footer/footer.comp";
-import { InputButton, InputText } from "../../comps/forms";
+import { InputButton, InputSelect, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
-import axios from "axios";
-import ToastMessage from "../../comps/toast";
-import Loader from "../../comps/loader";
-import { AddToWaitlistResponse } from "../../../dto/waitlist";
-import { formartNumberToWords } from "../../helper/numberFIlter";
+import ToastMessage from "../../comps/toast/toast";
+import { AddToWaitlistResponse } from "../../dto/waitlist";
 import { TopSection } from "../terms/comps";
+import Loading from "../../components/loading/loading";
+import { listOfRoles } from "./listOfRoles";
+import { WaitlisthandleSubmit } from "./handlesubmit";
+import styled from "styled-components";
+import Link from "next/link";
+import { formartNumberToWords } from "../../helper/numberFIlter";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
+  const [showInvalidEmail, setShowInvalidEmail] = useState(false);
+  const [showOthersFormField, setShowOthersFormField] = useState(false);
   const [sentSuccessful, setsentSuccessful] = useState(false);
   const [showLoader, setLoader] = useState(false);
   const [warningMsg, setWarningMsg] = useState(false);
@@ -27,64 +32,6 @@ export function WaitList() {
     role: "",
   });
 
-  const handleSubmit = async () => {
-    // console.log(formartNumberToWords(24));
-    setLoader(true);
-    if (
-      waitlistDto.first_name &&
-      waitlistDto.last_name &&
-      waitlistDto.email &&
-      waitlistDto.company_name &&
-      waitlistDto.role
-    ) {
-      setWaitlist({
-        first_name: "",
-        last_name: "",
-        email: "",
-        company_name: "",
-        role: "",
-      });
-      // console.log(waitlistDto);
-      axios
-        .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
-        .then((e) => {
-          setWaitlist({
-            first_name: "",
-            last_name: "",
-            email: "",
-            company_name: "",
-            role: "",
-          });
-          setsentSuccessful(true);
-          setWaitlistData(e.data);
-          setshowModalSuccessful(true);
-          setTimeout(() => {
-            setLoader(false);
-            setsentSuccessful(false);
-          }, 5000);
-        })
-        .catch((e) => {
-          setLoader(false);
-          const msg = e.response.data.message;
-          if (msg === "Email already exixts") {
-            setEmailAlreadyExist(true);
-            setTimeout(() => {
-              setEmailAlreadyExist(false);
-            }, 4000);
-          }
-        });
-    } else {
-      setWarningMsg(true);
-      setLoader(false);
-      setTimeout(() => {
-        setWarningMsg(false);
-      }, 4000);
-    }
-    setTimeout(() => {
-      setLoader(false);
-    }, 8000);
-  };
-
   return (
     <div>
       <LandingNavBar />
@@ -94,6 +41,12 @@ export function WaitList() {
       {warningMsg && (
         <ToastMessage message="Kindly fill all fields" type="error" />
       )}
+      {showInvalidEmail && (
+        <ToastMessage
+          message="Sorry, it has to be a valid business mail"
+          type="error"
+        />
+      )}
       {emailAlreadyExist && (
         <ToastMessage
           message="Thanks, email is already on the waitlist"
@@ -101,7 +54,7 @@ export function WaitList() {
         />
       )}
 
-      {showLoader && <Loader />}
+      {showLoader && <Loading />}
       <TopSection
         title={"Join the waitlist!"}
         subtitle={`
@@ -154,55 +107,79 @@ export function WaitList() {
                 })
               }
             />
-
-            <InputText
-              label={"Role"}
-              placeholder={"Position in company"}
-              name={"role"}
-              value={waitlistDto.role}
-              id={"role"}
-              onChange={(e) =>
-                setWaitlist({
-                  ...waitlistDto,
-                  role: e.target.value,
-                })
-              }
-            />
             <InputText
               label={"Email"}
               placeholder={"Email"}
               name={"email"}
               value={waitlistDto.email}
               id={"email"}
-              onChange={(e) =>
+              onChange={(e) => {
                 setWaitlist({
                   ...waitlistDto,
                   email: e.target.value,
+                });
+              }}
+            />
+
+            <InputSelect
+              title={"Role in your company"}
+              optionsParams={[...listOfRoles]}
+              value={waitlistDto.role}
+              onChange={(e) => {
+                if (e.target.value !== "other") {
+                  setWaitlist({
+                    ...waitlistDto,
+                    role: e.target.value,
+                  });
+                  setShowOthersFormField(false);
+                } else {
+                  setWaitlist({
+                    ...waitlistDto,
+                    role: "",
+                  });
+                  setShowOthersFormField(true);
+                }
+                console.log(e.target.value);
+              }}
+            />
+            {showOthersFormField && (
+              <InputText
+                label={"Other role"}
+                placeholder={"Role in company"}
+                name={"other"}
+                value={waitlistDto.role}
+                id={"role"}
+                onChange={(e) =>
+                  setWaitlist({
+                    ...waitlistDto,
+                    role: e.target.value,
+                  })
+                }
+              />
+            )}
+            <InputButton
+              name={"Join"}
+              onClick={() =>
+                WaitlisthandleSubmit({
+                  setLoader,
+                  setsentSuccessful,
+                  setshowModalSuccessful,
+                  setEmailAlreadyExist,
+                  setWarningMsg,
+                  setWaitlist,
+                  waitlistDto,
+                  setWaitlistData,
+                  setShowInvalidEmail,
                 })
               }
             />
-
-            {/* <InputButton name={"Join"} onClick={() => handleSubmit()} /> */}
-            <InputButton name={"Join"} onClick={() => handleSubmit()} />
-
-            {/* {showModalSuccessful && (
-              <WaitListModal
-                heading={"doow"}
-                position={`You are the ${formartNumberToWords(
-                  waitlist.count
-                )} in line`}
-                content={`
-                  You are now on the waitlist. We can't wait to show you what
-                  Cross-border business banking should feel like.
-                `}
-                content2={
-                  "Please, can you spare less than 8 mins for a product chat with us?"
-                }
-                onClose={() => setshowModalSuccessful(false)}
-                name={`Thank you, ${waitlist.first_name}!`}
-                btnVal={"Let's do this"}
-              />
-            )} */}
+            <p className={styles.bottom_msg}>
+              By submitting this form, you agree to our{" "}
+              <Link href="/terms_of_use">Terms </Link> and have read and
+              acknowledge our <Link href="/privacy_policy">Privacy Policy</Link>{" "}
+              document. 9:44 We need your work email to ensure we are dealing
+              with a business customer.
+            </p>
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}
