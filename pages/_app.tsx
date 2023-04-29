@@ -1,12 +1,12 @@
 import { type AppType } from "next/app";
-import "../styles/index.scss";
+import "../src/styles/index.scss";
 import { ApolloProvider } from "@apollo/client";
-import Layout from "../comps/global/Layout";
+import Layout from "../src/comps/global/Layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import apolloClient from "../graphql/apollo-client";
+import apolloClient from "../src/graphql/apollo-client";
 import { Provider as ReduxProvider } from "react-redux";
-import { store } from "../redux/store";
+import { store } from "../src/redux/store";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
   return (

@@ -6,7 +6,7 @@ import { InputButton, InputSelect, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
 import axios from "axios";
 import ToastMessage from "../../comps/toast";
-import { AddToWaitlistResponse } from "../../../dto/waitlist";
+import { AddToWaitlistResponse } from "../../dto/waitlist";
 import { formartNumberToWords } from "../../helper/numberFIlter";
 import { TopSection } from "../terms/comps";
 import Select from "../../components/select/select";
