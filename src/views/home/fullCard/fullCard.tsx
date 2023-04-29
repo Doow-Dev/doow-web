@@ -1,6 +1,4 @@
 import { useRouter } from "next/router";
-import { BiArrowToRight } from "react-icons/bi";
-import { BsArrowRight } from "react-icons/bs";
 import JoinWaitlist from "../JoinBtn/JoinWaitlist";
 import styles from "./fullCard.module.scss";
 
