@@ -1,10 +1,12 @@
 import axios from "axios";
 import { AddToWaitlistResponse } from "../../dto/waitlist";
+import IsValidBusinessMail from "../../helper/emailChecker";
 
 interface IProps {
   setLoader: (value: React.SetStateAction<boolean>) => void;
   setsentSuccessful: (value: React.SetStateAction<boolean>) => void;
   setshowModalSuccessful: (value: React.SetStateAction<boolean>) => void;
+  setShowInvalidEmail: (value: React.SetStateAction<boolean>) => void;
   setEmailAlreadyExist: (value: React.SetStateAction<boolean>) => void;
   setWarningMsg: (value: React.SetStateAction<boolean>) => void;
   setWaitlistData: (value: React.SetStateAction<AddToWaitlistResponse>) => void;
@@ -36,6 +38,7 @@ export async function WaitlisthandleSubmit(props: IProps) {
     setWaitlist,
     waitlistDto,
     setWaitlistData,
+    setShowInvalidEmail,
   } = props;
 
   setLoader(true);
@@ -46,6 +49,16 @@ export async function WaitlisthandleSubmit(props: IProps) {
     waitlistDto.company_name &&
     waitlistDto.role
   ) {
+    // console.log("invalid mail");
+    if (!IsValidBusinessMail(waitlistDto.email)) {
+      setShowInvalidEmail(true);
+      setLoader(false);
+      setTimeout(() => {
+        setShowInvalidEmail(false);
+      }, 3500);
+      console.log("invalid mail");
+      return;
+    }
     axios
       .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
       .then((e) => {

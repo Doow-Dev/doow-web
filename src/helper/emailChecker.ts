@@ -23,16 +23,25 @@ const params: string[] = [
   "@googlemail.com",
 ];
 
-export default function EmailChecker(value: string) {
-  if (value) {
+export default function IsValidBusinessMail(value: string): boolean {
+  if (ValidateEmail(value)) {
     const match = params.filter((v, i) =>
       value.toLowerCase().includes(v.toLowerCase())
     );
+    // console.log(value, "value");
+    // console.log(match, "match");
 
-    if (match.length > 0) {
+    if (match.length === 0) {
       return true;
     }
     return false;
+  }
+  return false;
+}
+
+function ValidateEmail(mail: string): boolean {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
   }
   return false;
 }

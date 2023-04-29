@@ -6,16 +6,17 @@ import { InputButton, InputSelect, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
 import ToastMessage from "../../comps/toast/toast";
 import { AddToWaitlistResponse } from "../../dto/waitlist";
-import { formartNumberToWords } from "../../helper/numberFIlter";
 import { TopSection } from "../terms/comps";
 import Loading from "../../components/loading/loading";
 import { listOfRoles } from "./listOfRoles";
 import { WaitlisthandleSubmit } from "./handlesubmit";
 import styled from "styled-components";
 import Link from "next/link";
+import { formartNumberToWords } from "../../helper/numberFIlter";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
+  const [showInvalidEmail, setShowInvalidEmail] = useState(false);
   const [showOthersFormField, setShowOthersFormField] = useState(false);
   const [sentSuccessful, setsentSuccessful] = useState(false);
   const [showLoader, setLoader] = useState(false);
@@ -39,6 +40,12 @@ export function WaitList() {
       )}
       {warningMsg && (
         <ToastMessage message="Kindly fill all fields" type="error" />
+      )}
+      {showInvalidEmail && (
+        <ToastMessage
+          message="Sorry, it has to be a valid business mail"
+          type="error"
+        />
       )}
       {emailAlreadyExist && (
         <ToastMessage
@@ -106,12 +113,12 @@ export function WaitList() {
               name={"email"}
               value={waitlistDto.email}
               id={"email"}
-              onChange={(e) =>
+              onChange={(e) => {
                 setWaitlist({
                   ...waitlistDto,
                   email: e.target.value,
-                })
-              }
+                });
+              }}
             />
 
             <InputSelect
@@ -162,6 +169,7 @@ export function WaitList() {
                   setWaitlist,
                   waitlistDto,
                   setWaitlistData,
+                  setShowInvalidEmail,
                 })
               }
             />

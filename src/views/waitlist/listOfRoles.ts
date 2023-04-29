@@ -1,5 +1,9 @@
 export const listOfRoles = [
   {
+    value: null,
+    label: "Select your position",
+  },
+  {
     value: "founder",
     label: "Founder/Co-founder",
   },
