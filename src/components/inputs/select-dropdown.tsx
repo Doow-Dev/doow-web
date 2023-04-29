@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Select, { DropdownIndicatorProps, StylesConfig } from "react-select";
-import { globalStyles } from "../../constants";
-import { themes } from "../../themes";
+import { globalStyles } from "../../styles/themes/globalstyles";
+import { themes } from "../../styles/themes";
 import Image from "next/image";
 export interface OptionsInterface {
   value: string;

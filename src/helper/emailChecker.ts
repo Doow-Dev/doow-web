@@ -1,7 +1,6 @@
 const params: string[] = [
   "@gmail.com",
   "@outlook.com",
-  "@yahoo.com",
   // Apple
   "@apple.com",
   "@me.com",
@@ -10,9 +9,18 @@ const params: string[] = [
   "@qq.com",
   "@orange.fe",
   "@wed.de",
+  //yahoo
+  "@yahoo.com",
   "@myyahoo.com",
   "@yahoo.co.uk",
   "@yahoo.fr",
+  "@aol.com",
+  "@icloudmail.com",
+  "@live.com",
+  "@hotmail.com",
+  "@msn.com",
+  "@yandex.ru",
+  "@googlemail.com",
 ];
 
 export default function EmailChecker(value: string) {

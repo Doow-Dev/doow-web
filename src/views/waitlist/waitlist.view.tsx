@@ -2,14 +2,15 @@ import LandingNavBar from "../home/navbar/navbar.comp";
 import styles from "./waitlist.module.scss";
 import React, { useState } from "react";
 import FooterHome from "../home/footer/footer.comp";
-import { InputButton, InputText } from "../../comps/forms";
+import { InputButton, InputSelect, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
 import axios from "axios";
 import ToastMessage from "../../comps/toast";
-import Loader from "../../comps/loader";
 import { AddToWaitlistResponse } from "../../../dto/waitlist";
 import { formartNumberToWords } from "../../helper/numberFIlter";
 import { TopSection } from "../terms/comps";
+import Select from "../../components/select/select";
+import Loading from "../../components/loading/loading";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
@@ -101,7 +102,7 @@ export function WaitList() {
         />
       )}
 
-      {showLoader && <Loader />}
+      {showLoader && <Loading />}
       <TopSection
         title={"Join the waitlist!"}
         subtitle={`
@@ -168,6 +169,7 @@ export function WaitList() {
                 })
               }
             />
+
             <InputText
               label={"Email"}
               placeholder={"Email"}
@@ -180,6 +182,16 @@ export function WaitList() {
                   email: e.target.value,
                 })
               }
+            />
+
+            <InputSelect
+              params={[
+                {
+                  value: "Hold",
+                  label: "John",
+                },
+              ]}
+              title={"Role in your company"}
             />
 
             {/* <InputButton name={"Join"} onClick={() => handleSubmit()} /> */}
@@ -203,6 +215,7 @@ export function WaitList() {
                 btnVal={"Let's do this"}
               />
             )} */}
+
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}

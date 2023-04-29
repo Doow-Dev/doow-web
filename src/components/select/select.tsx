@@ -6,7 +6,7 @@ interface Props {
   options: SelectOption[];
 }
 
-interface SelectOption {
+export interface SelectOption {
   value: string;
   label: string;
 }
@@ -14,10 +14,7 @@ interface SelectOption {
 export const Select: React.FC<Props> = ({ options, title }) => {
   return (
     <div className={styles.select_container}>
-      <select
-        title={title}
-        onChange={(e) => {}}
-      >
+      <select title={title} onChange={(e) => {}}>
         <option value={""}>{title}</option>
         {options.map((option, idx) => (
           <option value={option.value} key={idx}>
