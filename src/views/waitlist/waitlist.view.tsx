@@ -5,7 +5,7 @@ import FooterHome from "../home/footer/footer.comp";
 import { InputButton, InputSelect, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
 import axios from "axios";
-import ToastMessage from "../../comps/toast";
+import ToastMessage from "../../comps/toast/toast";
 import { AddToWaitlistResponse } from "../../dto/waitlist";
 import { formartNumberToWords } from "../../helper/numberFIlter";
 import { TopSection } from "../terms/comps";
