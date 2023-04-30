@@ -1,40 +1,53 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 import styles from "./modal.module.scss";
 
 interface IModal {
   heading: string;
   name: string;
+
   content: string;
-  content2: string;
   position: string;
   btnVal: string;
   onClose: () => void;
 }
 export default function WaitListModal(props: IModal) {
+  const { heading, name, content, position, btnVal, onClose } = props;
   const router = useRouter();
   return (
     <div className={styles.modal}>
       <div className={styles.content}>
-        <CloseBtn value="Close" onClick={props.onClose} type="button" />
+        <CloseBtn onClick={onClose}>
+          <AiOutlineClose size={20} color="#93BA99" />
+        </CloseBtn>
         <div className={styles.sectionContent}>
           {/* <CloseBtn value="Close" onClick={props.onClose}> */}
-          {/* <AiOutlineCloseCircle color="red" size={20} /> */}
+
           <Img src="./images/congrats.png" alt="Congratulations" />
         </div>
         <div className={styles.sectionContent}>
-          <h1>{props.name}</h1>
-          <p>{props.content}</p>
+          <h1>{name}</h1>
+          <p>
+            You are
+            <span
+              style={{ fontWeight: 700, color: "#07c524", padding: "0 5px" }}
+            >
+              {position}
+            </span>
+            in line. We can't wait to show you what cross-border business
+            banking should feel like.
+          </p>
         </div>
 
         <div className={styles.sectionContent}>
-          <p>{props.content2}</p>
+          <p>{content}</p>
         </div>
 
         <div className={styles.sectionContentBtn}>
           <Btn
-            value={props.btnVal}
+            value={btnVal}
             onClick={() => router.push("https://forms.gle/Mr5ASnNkyrYawCMT6")}
             type="button"
           />
@@ -83,40 +96,21 @@ const Btn = styled.input`
   }
 `;
 
-const CloseBtn = styled.input`
-  /* width: 200px; */
+const CloseBtn = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  /* height: 3.5rem; */
   padding: 5px 10px;
   margin: 10px;
-  background-color: #c5071a;
   font-size: 1.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: 0.5s ease;
-  border-radius: 20px;
-  border-color: #fff;
-  border-width: 1px;
-  border-style: solid;
-  color: #fff;
-
+  svg {
+    color: "#07c524";
+  }
   &:hover {
-    background-color: #7d0c17;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:active {
-    background: #c62132;
-    outline: none;
-    border: 1px solid #304169;
-    box-shadow: inset 0px 2px 1px rgba(46, 49, 55, 0.15),
-      inset 0px 0px 4px rgba(20, 20, 55, 0.3);
+    color: #7d0c17;
   }
 `;
