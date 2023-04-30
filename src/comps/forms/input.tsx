@@ -140,17 +140,16 @@ export function InputSelect(props: ISelect) {
 const Select = styled.select`
   text-align: center;
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 15px 15px;
   border-radius: 5px;
   outline-color: ${globalStyles.colors.primary};
   outline-width: 0.5px;
   outline-style: solid;
   background-color: #fff;
-  color: ${globalStyles.colors.primary};
   border-style: none;
 `;
 const Option = styled.option`
-  text-align: center;
+  text-align: left;
   /* font-size: 20px; */
 `;

@@ -109,7 +109,7 @@ export function WaitList() {
             />
             <InputText
               label={"Email"}
-              placeholder={"Email"}
+              placeholder={"work-email@company"}
               name={"email"}
               value={waitlistDto.email}
               id={"email"}
@@ -122,7 +122,7 @@ export function WaitList() {
             />
 
             <InputSelect
-              title={"Role in your company"}
+              title={"Role"}
               optionsParams={[...listOfRoles]}
               value={waitlistDto.role}
               onChange={(e) => {
@@ -144,7 +144,7 @@ export function WaitList() {
             />
             {showOthersFormField && (
               <InputText
-                label={"Other role"}
+                label={"Others"}
                 placeholder={"Role in company"}
                 name={"other"}
                 value={waitlistDto.role}
@@ -177,29 +177,33 @@ export function WaitList() {
               By submitting this form, you agree to our{" "}
               <Link href="/terms_of_use">Terms </Link> and have read and
               acknowledge our <Link href="/privacy_policy">Privacy Policy</Link>{" "}
-              document. 9:44 We need your work email to ensure we are dealing
-              with a business customer.
+              document. We need your work email to ensure we are dealing with a
+              business customer.
             </p>
             {showModalSuccessful && (
               <WaitListModal
                 heading={"doow"}
-                position={`You are ${formartNumberToWords(
-                  waitlist.count
-                )} in line`}
-                content={`
-                  You are ${formartNumberToWords(
-                    waitlist.count
-                  )} in line. We can't wait to show you what
-                  Cross-border business banking should feel like.
-                `}
+                position={formartNumberToWords(waitlist.count)}
                 onClose={() => setshowModalSuccessful(false)}
                 name={`Thank you, ${waitlist.first_name}!`}
-                content2={
+                content={
                   "Please, can you spare less than 8 mins for a product chat with us?"
                 }
                 btnVal={"Let's do this"}
               />
             )}
+            {/* {!showModalSuccessful && (
+              <WaitListModal
+                heading={"doow"}
+                position={"7th"}
+                onClose={() => setshowModalSuccessful(false)}
+                name={`Thank you, Test!`}
+                content={
+                  "Please, can you spare less than 8 mins for a product chat with us?"
+                }
+                btnVal={"Let's do this"}
+              />
+            )} */}
           </form>
         </div>
       </div>
