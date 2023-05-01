@@ -6,6 +6,7 @@ import { IProps } from "./login.view";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Loading from "../../components/loading/loading";
+import { GlobalLinks } from "../../helper/links";
 
 const initialValues = {
   password: "",
@@ -53,7 +54,7 @@ export default function SignIn(props: IProps) {
             setshowLoader(true);
             setTimeout(() => {
               setshowLoader(false);
-              router.push("/waitlist");
+              router.push(GlobalLinks.home.waitlist);
             }, 2000);
           };
           handleLogin();
@@ -85,7 +86,9 @@ export default function SignIn(props: IProps) {
               }
             />
             <InputButton name={"Login"} onClick={() => handleSubmit()} />
-            <p onClick={() => router.push("/waitlist")}>Get early access?</p>
+            <p onClick={() => router.push(GlobalLinks.home.waitlist)}>
+              Get early access?
+            </p>
             {/* <p onClick={() => props.onChange()}>Create an account</p> */}
           </form>
         )}

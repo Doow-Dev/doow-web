@@ -3,6 +3,7 @@ import Link from "next/link";
 import styles from "./footer.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { GlobalLinks } from "../../../helper/links";
 
 export default function FooterHome() {
   const router = useRouter();
@@ -28,25 +29,25 @@ export default function FooterHome() {
             <li className={styles.listheader}>Company</li>
             <li
               className={styles.listItems}
-              onClick={() => router.push("/about_us")}
+              onClick={() => router.push(GlobalLinks.home.about_us)}
             >
               About Us
             </li>
             <li
               className={styles.listItems}
-              onClick={() => router.push("/contact_us")}
+              onClick={() => router.push(GlobalLinks.home.contact_us)}
             >
               Contact Us
             </li>
             <li
               className={styles.listItems}
-              onClick={() => router.push("/privacy_policy")}
+              onClick={() => router.push(GlobalLinks.home.privacy)}
             >
               Privacy Policy
             </li>
             <li
               className={styles.listItems}
-              onClick={() => router.push("/terms_of_use")}
+              onClick={() => router.push(GlobalLinks.home.terms)}
             >
               Terms of Use
             </li>

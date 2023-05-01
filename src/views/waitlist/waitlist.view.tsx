@@ -10,9 +10,9 @@ import { TopSection } from "../terms/comps";
 import Loading from "../../components/loading/loading";
 import { listOfRoles } from "./listOfRoles";
 import { WaitlisthandleSubmit } from "./handlesubmit";
-import styled from "styled-components";
 import Link from "next/link";
 import { formartNumberToWords } from "../../helper/numberFIlter";
+import { GlobalLinks } from "../../helper/links";
 
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
@@ -175,8 +175,9 @@ export function WaitList() {
             />
             <p className={styles.bottom_msg}>
               By submitting this form, you agree to our{" "}
-              <Link href="/terms_of_use">Terms </Link> and have read and
-              acknowledge our <Link href="/privacy_policy">Privacy Policy</Link>{" "}
+              <Link href={GlobalLinks.home.terms}>Terms </Link> and have read
+              and acknowledge our{" "}
+              <Link href={GlobalLinks.home.privacy}>Privacy Policy</Link>{" "}
               document. We need your work email to ensure we are dealing with a
               business customer.
             </p>

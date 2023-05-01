@@ -12,6 +12,7 @@ import { HiOutlineCurrencyDollar, HiOutlineUserGroup } from "react-icons/hi";
 import { VscDebugDisconnect } from "react-icons/vsc";
 import MobileSideBar from "../mobileNavbar/navbar.comp";
 import { NavListItem } from "./NavItem";
+import { GlobalLinks } from "../../../helper/links";
 
 export default function LandingNavBar() {
   const router = useRouter();
@@ -146,17 +147,21 @@ export default function LandingNavBar() {
           />
           <li
             onClick={() => setShowNav(!showNav)}
-            className={_path == `/login` ? styles.active : ""}
+            className={
+              _path == `${GlobalLinks.auth.login}` ? styles.active : ""
+            }
           >
-            <Link href={"/login"} className={styles.link}>
+            <Link href={GlobalLinks.auth.login} className={styles.link}>
               Login
             </Link>
           </li>
           <li
             onClick={() => setShowNav(!showNav)}
-            className={_path == `/waitlist` ? styles.active : ""}
+            className={
+              _path == `${GlobalLinks.home.waitlist}` ? styles.active : ""
+            }
           >
-            <Link href={"/waitlist"} className={styles.linkBtn}>
+            <Link href={GlobalLinks.home.waitlist} className={styles.linkBtn}>
               Get early access
             </Link>
           </li>

@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { GlobalLinks } from "../../../helper/links";
 import styles from "./Landing.module.scss";
 
 export const HomeLanding = () => {
@@ -16,7 +17,10 @@ export const HomeLanding = () => {
           <p className={styles.smallText}>
             Be the first to get early access when we launch beta!
           </p>
-          <div className={styles.btn} onClick={() => router.push("waitlist")}>
+          <div
+            className={styles.btn}
+            onClick={() => router.push(GlobalLinks.home.waitlist)}
+          >
             Get early access
           </div>
         </div>
