@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { GlobalLinks } from "../../../helper/links";
 import { JoinWaitlistBlack } from "../JoinBtn/JoinWaitlist";
 import styles from "./CardBanner.module.scss";
 
@@ -30,11 +31,11 @@ export const CardBanner = () => {
             </p>
             <div
               className={styles.btnClick}
-              onClick={() => router.push("waitlist")}
+              onClick={() => router.push(GlobalLinks.home.waitlist)}
             >
               <JoinWaitlistBlack
                 title="Get early access"
-                href="/waitlist"
+                href={GlobalLinks.home.waitlist}
                 fontColor={"dark"}
               />
             </div>

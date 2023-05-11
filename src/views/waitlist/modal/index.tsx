@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
+import { GlobalLinks } from "../../../helper/links";
 import styles from "./modal.module.scss";
 
 interface IModal {
@@ -48,7 +49,7 @@ export default function WaitListModal(props: IModal) {
         <div className={styles.sectionContentBtn}>
           <Btn
             value={btnVal}
-            onClick={() => router.push("https://forms.gle/Mr5ASnNkyrYawCMT6")}
+            onClick={() => router.push(GlobalLinks.external.survey)}
             type="button"
           />
         </div>

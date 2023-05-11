@@ -6,6 +6,7 @@ import MobileUseCaseSideBar from "./usecase";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { motion } from "framer-motion";
 import NavFooter from "./NavFooter";
+import { GlobalLinks } from "../../../helper/links";
 
 interface IProps {
   onClose: () => void;
@@ -41,7 +42,7 @@ export default function MobileSideBar(props: IProps) {
           </div>
           <div
             className={styles.sliderItem}
-            onClick={() => router.push("/login")}
+            onClick={() => router.push(GlobalLinks.auth.login)}
           >
             Login
           </div>
