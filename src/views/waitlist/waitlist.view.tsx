@@ -17,7 +17,7 @@ import { GlobalLinks } from "../../helper/links";
 export function WaitList() {
   const [showModalSuccessful, setshowModalSuccessful] = useState(false);
   const [showInvalidEmail, setShowInvalidEmail] = useState(false);
-  const [showOthersFormField, setShowOthersFormField] = useState(false);
+  // const [showOthersFormField, setShowOthersFormField] = useState(false);
   const [sentSuccessful, setsentSuccessful] = useState(false);
   const [showLoader, setLoader] = useState(false);
   const [warningMsg, setWarningMsg] = useState(false);
@@ -53,7 +53,6 @@ export function WaitList() {
           type="info"
         />
       )}
-
       {showLoader && <Loading />}
       <TopSection
         title={"Join the waitlist!"}
@@ -120,29 +119,19 @@ export function WaitList() {
                 });
               }}
             />
-
             <InputSelect
               title={"Role"}
               optionsParams={[...listOfRoles]}
               value={waitlistDto.role}
               onChange={(e) => {
-                if (e.target.value !== "other") {
-                  setWaitlist({
-                    ...waitlistDto,
-                    role: e.target.value,
-                  });
-                  setShowOthersFormField(false);
-                } else {
-                  setWaitlist({
-                    ...waitlistDto,
-                    role: "",
-                  });
-                  setShowOthersFormField(true);
-                }
+                setWaitlist({
+                  ...waitlistDto,
+                  role: e.target.value,
+                });
                 console.log(e.target.value);
               }}
             />
-            {showOthersFormField && (
+            {/* {showOthersFormField && (
               <InputText
                 label={"Others"}
                 placeholder={"Role in company"}
@@ -156,7 +145,7 @@ export function WaitList() {
                   })
                 }
               />
-            )}
+            )} */}
             <InputButton
               name={"Join"}
               onClick={() =>
@@ -193,18 +182,6 @@ export function WaitList() {
                 btnVal={"Let's do this"}
               />
             )}
-            {/* {!showModalSuccessful && (
-              <WaitListModal
-                heading={"doow"}
-                position={"7th"}
-                onClose={() => setshowModalSuccessful(false)}
-                name={`Thank you, Test!`}
-                content={
-                  "Please, can you spare less than 8 mins for a product chat with us?"
-                }
-                btnVal={"Let's do this"}
-              />
-            )} */}
           </form>
         </div>
       </div>

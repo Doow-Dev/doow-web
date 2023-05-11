@@ -43,8 +43,8 @@ export const listOfRoles = [
     value: "freelancer",
     label: "Freelancer",
   },
-  {
-    value: "other",
-    label: "Others",
-  },
+  // {
+  //   value: "other",
+  //   label: "Others",
+  // },
 ];
