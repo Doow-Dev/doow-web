@@ -7,10 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 import apolloClient from "../src/graphql/apollo-client";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "../src/redux/store";
+import { GoogleAnalytics, usePageViews } from "nextjs-google-analytics";
 
 const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
+  usePageViews();
   return (
     <>
+      <GoogleAnalytics
+      // gaMeasurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
+      // trackPageViews
+      />
       <ApolloProvider client={apolloClient}>
         <ReduxProvider store={store}>
           <Layout>

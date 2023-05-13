@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AddToWaitlistResponse } from "../../dto/waitlist";
 import IsValidBusinessMail from "../../helper/emailChecker";
+import { event } from "nextjs-google-analytics";
 
 interface IProps {
   setLoader: (value: React.SetStateAction<boolean>) => void;
@@ -60,7 +61,7 @@ export async function WaitlisthandleSubmit(props: IProps) {
       return;
     }
     axios
-      .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
+      .post(`${process.env.NEXT_PUBLIC_GRAPHQL_URL}/waitlist`, waitlistDto)
       .then((e) => {
         setWaitlist({
           first_name: "",
@@ -75,6 +76,11 @@ export async function WaitlisthandleSubmit(props: IProps) {
         setTimeout(() => {
           setLoader(false);
           setsentSuccessful(false);
+          // track/register the form submission on google analytics
+          event("submit_form", {
+            category: "WaitList",
+            label: waitlistDto.email,
+          });
         }, 5000);
       })
       .catch((e) => {
