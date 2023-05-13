@@ -10,7 +10,7 @@
   top: 0;
   padding-left: 15px;
   display: none;
-  @include tabletSS {
+  @include smallLaptopSS {
     height: 50px;
     display: flex;
     align-items: center;
@@ -19,7 +19,7 @@
 
   @include mobileSS {
     padding-left: 20px;
-    visibility: visible;
+    // visibility: visible;
   }
 
   .show {
@@ -130,7 +130,7 @@
     align-items: center;
     cursor: pointer;
     display: none;
-    @include tabletSS {
+    @include smallLaptopSS {
       display: flex;
     }
     @include mobileSS {

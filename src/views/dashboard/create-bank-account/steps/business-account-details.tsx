@@ -120,7 +120,8 @@ export const BusinessAccountDetails: React.FC<Props> = ({
                 />
               </div>
             </div>
-            <button className={styles.button} onClick={() => handleSubmit()}>
+            {/* update the implementation for the click event below*/}
+            <button className={styles.button} onClick={() => {}}>
               Request
             </button>
           </>
