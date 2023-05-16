@@ -50,7 +50,6 @@ export async function WaitlisthandleSubmit(props: IProps) {
     waitlistDto.company_name &&
     waitlistDto.role
   ) {
-    // console.log("invalid mail");
     if (!IsValidBusinessMail(waitlistDto.email)) {
       setShowInvalidEmail(true);
       setLoader(false);
@@ -72,9 +71,9 @@ export async function WaitlisthandleSubmit(props: IProps) {
         });
         setsentSuccessful(true);
         setWaitlistData(e.data);
+        setLoader(false);
         setshowModalSuccessful(true);
         setTimeout(() => {
-          setLoader(false);
           setsentSuccessful(false);
           // track/register the form submission on google analytics
           // event("submit_form", {
