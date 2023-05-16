@@ -26,7 +26,7 @@ export default function WaitListModal(props: IModal) {
         <div className={styles.sectionContent}>
           {/* <CloseBtn value="Close" onClick={props.onClose}> */}
 
-          <Img src="./images/congrats.png" alt="Congratulations" />
+          <Img src="../images/congrats.png" alt="Congratulations" />
         </div>
         <div className={styles.sectionContent}>
           <h1>{name}</h1>

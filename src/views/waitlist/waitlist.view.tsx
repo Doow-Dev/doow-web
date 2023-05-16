@@ -182,6 +182,18 @@ export function WaitList() {
                 btnVal={"Let's do this"}
               />
             )}
+            {/* {!showModalSuccessful && (
+              <WaitListModal
+                heading={"doow"}
+                position={formartNumberToWords(87)}
+                onClose={() => setshowModalSuccessful(false)}
+                name={`Thank you, John!`}
+                content={
+                  "Please, can you spare less than 8 mins for a product chat with us?"
+                }
+                btnVal={"Let's do this"}
+              />
+            )} */}
           </form>
         </div>
       </div>
