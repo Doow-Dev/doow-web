@@ -126,30 +126,55 @@ export function InputSelect(props: ISelect) {
       <label htmlFor={title} className={styles.label}>
         {title}
       </label>
-      <Select value={value} onChange={onChange}>
+      <Select value={value} required onChange={onChange}>
         {optionsParams.map((v, index) => (
           <Option key={index} value={v.value}>
             {v.label}
           </Option>
         ))}
       </Select>
+      {/* <Select onChange={onChange}>
+        {optionsParams.map((v, index) => (
+          <Option key={index} value={v.value}>
+            {v.label}
+          </Option>
+        ))}
+      </Select> */}
     </div>
   );
 }
 
 const Select = styled.select`
-  text-align: center;
+  height: 50px;
+  text-align: left;
   width: 100%;
   margin: 5px 0;
-  padding: 15px 15px;
+  padding: 15px;
   border-radius: 5px;
   outline-color: ${globalStyles.colors.primary};
   outline-width: 0.5px;
   outline-style: solid;
-  background-color: #fff;
+  background-color: ${globalStyles.colors.backgroundColor};
   border-style: none;
+  color: "#000";
+  position: relative;
 `;
+
 const Option = styled.option`
-  text-align: left;
-  /* font-size: 20px; */
+  color: ${globalStyles.colors.black800};
+  padding: 10px 15px;
+  background-color: ${globalStyles.colors.backgroundColor};
+  appearance: none;
+  position: absolute;
+  left: 20px;
+  cursor: pointer;
 `;
+
+// const Option = styled.option`
+//   text-align: left;
+//   color: ${globalStyles.colors.black800};
+//   padding: 10px 15px;
+//   background-color: #fff;
+//   border-bottom: solid 1px #a6a6a6;
+//   /* font-size: 20px; */
+// `;

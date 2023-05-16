@@ -35,6 +35,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  // -webkit-appearance: none;
+  // appearance: none;
 }
 
 @mixin gInput {
@@ -45,16 +47,21 @@
   font-weight: 400;
   font-size: 1.6rem;
   padding: 15px 12px;
-  background-color: #fff;
   outline: solid 0.1px $primaryColor;
   -webkit-appearance: none;
+  -webkit-background-origin: $background1;
+  background-color: #eff5ef;
+  // background-color: rgb(240, 251, 227);
+  // -webkit-
   &:active {
     outline: solid 1px $primaryColor;
-    background-color: $background1;
+    background-color: #eff5ef;
+    border-radius: 5px;
   }
   &:focus {
     outline: solid 1px $primaryColor;
     background-color: $background1;
+    border-radius: 5px;
   }
   @include mobileSS {
     font-size: 1.2rem;
@@ -66,12 +73,15 @@
     @include label;
   }
 
-  &:has(input:focus) {
-    // border: 2px solid $primaryColor;
-  }
-
   input {
     @include gInput;
+  }
+
+  select {
+    color: rgb(43, 43, 43);
+    * {
+      padding: 10px 20px;
+    }
   }
 }
 .input_box_number {
