@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "jonkwheeler.styled-components-snippets",
-    "rangav.vscode-thunder-client"
+    "rangav.vscode-thunder-client",
+    "exodiusstudios.comment-anchors"
   ]
 }
