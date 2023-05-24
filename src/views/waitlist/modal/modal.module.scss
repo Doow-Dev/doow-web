@@ -34,7 +34,8 @@
     justify-content: center;
     @include tabletSS {
       margin-bottom: 25%;
-      width: 80%;
+      width: 85%;
+      padding: 10px 20px;
     }
     .sectionTitle {
       width: 100%;
@@ -46,6 +47,7 @@
       border-radius: 5px;
       align-items: center;
     }
+    // background-color: rgb(187, 91, 91);
   }
 
   .sectionContent {
@@ -59,7 +61,11 @@
     height: 100%;
     line-height: 30px;
     width: 70%;
-    // background-color: aqua;
+    padding: 15px 5px;
+    @include tabletSS {
+      width: 100%;
+      padding: 10px;
+    }
     p {
       text-align: center;
     }
