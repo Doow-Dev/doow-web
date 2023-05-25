@@ -11,19 +11,12 @@ export default function WaitListModal(props: IModal) {
   return (
     <div className={styles.modal}>
       <div className={styles.content}>
-        {/* <div className={styles.sectionTitle}>
+        <div className={styles.sectionTitle}>
           <h3>{props.heading}</h3>
-        </div> */}
-        <div className={styles.sectionContent}>
-          <h1>Thank you {props.name}</h1>
-          {/* <p>{props.content}</p> */}
-          <p>
-            You are now on the waitlist. We can't wait to show you what
-            Cross-border business banking should feel like.
-          </p>
         </div>
         <div className={styles.sectionContent}>
-          <h1>You are the first in line.</h1>
+          <h1>Thanks for your feedback {props.name}</h1>
+          <p>{props.content}</p>
         </div>
 
         <div className={styles.sectionContent}>

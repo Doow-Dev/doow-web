@@ -5,9 +5,39 @@ import FooterHome from "../home/footer/footer.comp";
 import { InputButton, InputText } from "../../comps/forms";
 import WaitListModal from "./modal";
 import { TopSection } from "../terms/comps";
+import axios from "axios";
+import { TSupport } from "./contact";
 
 export function ContactUsView() {
   const [showSuccessful, setshowSuccessful] = useState(false);
+
+
+  const [supportVal, setSupportVal] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    comment: "",
+  });
+
+
+  const handleSubmit = async (data: TSupport) => {
+console.log(data)
+    await axios
+    .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/support`, data)
+    .then((e) => {
+      // console.log(e)
+      setshowSuccessful(true);
+      setSupportVal({
+        first_name: "",
+        last_name: "",
+        email: "",
+        comment: "",
+      });
+
+  });
+
+
+  }
   return (
     <div>
       <LandingNavBar />
@@ -29,37 +59,69 @@ export function ContactUsView() {
                 placeholder={"First name"}
                 name={"firstname"}
                 id={"firstname"}
-                onChange={function (): void {}}
+                value={supportVal.first_name}
+                onChange={(e) => {
+                  setSupportVal({
+                    ...supportVal,
+                    first_name: e.target.value,
+                  });
+                }}
               />
               <InputText
                 label={"Last name"}
                 placeholder={"Last name"}
                 name={"lastname"}
                 id={"lastname"}
-                onChange={function (): void {}}
+                value={supportVal.last_name}
+                onChange={(e) => {
+                  setSupportVal({
+                    ...supportVal,
+                    last_name: e.target.value,
+                  });
+                }}
               />
               <InputText
                 label={""}
                 placeholder={"mark@work-email.com"}
                 name={"workemail"}
                 id={"workemail"}
-                onChange={function (): void {}}
+                value={supportVal.email}
+                onChange={(e) => {
+                  setSupportVal({
+                    ...supportVal,
+                    email: e.target.value,
+                  });
+                }}
               />
 
-              <textarea placeholder="Comments" />
+              <textarea placeholder="Comments" 
+              value={supportVal.comment}   
+              onChange={(e) => {
+                  setSupportVal({
+                    ...supportVal,
+                    comment: e.target.value,
+                  });
+                }} 
+                />
+
+
               <InputButton
                 name={"Send message"}
-                onClick={() => setshowSuccessful(true)}
+                onClick={() => {
+                
+                  handleSubmit({
+                    name: `${supportVal.first_name} ${supportVal.last_name}`,
+                    comment: supportVal.comment,
+                    email: supportVal.email,
+                  });
+                }}
               />
               {showSuccessful && (
                 <WaitListModal
-                  heading={"doow"}
-                  content={`
-                You are now on the waitlist.
-                We can't wait to show you what Cross-border business banking should feel like.
-              `}
+                  heading={"Doow"}
+                  content={`Someone will be in touch with you soon.`}
                   onClose={() => setshowSuccessful(false)}
-                  name={"Joe"}
+                  name={supportVal.first_name}
                 />
               )}
             </form>
