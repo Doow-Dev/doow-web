@@ -119,7 +119,7 @@ console.log(data)
               {showSuccessful && (
                 <WaitListModal
                   heading={"Doow"}
-                  content={`Someone will be in touch with you soon.`}
+                  content={`Someone will get in touch with you shortly.`}
                   onClose={() => setshowSuccessful(false)}
                   name={supportVal.first_name}
                 />
