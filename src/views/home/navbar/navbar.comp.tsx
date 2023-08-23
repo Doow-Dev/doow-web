@@ -148,9 +148,7 @@ export default function LandingNavBar() {
 
           <li
             onClick={() => setShowNav(!showNav)}
-            className={
-              _path == `${GlobalLinks.auth.login}` ? styles.active : ""
-            }
+            className={_path == `${GlobalLinks.home.blog}` ? styles.active : ""}
           >
             <Link
               target="_blank"

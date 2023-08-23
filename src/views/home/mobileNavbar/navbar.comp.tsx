@@ -7,6 +7,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { motion } from "framer-motion";
 import NavFooter from "./NavFooter";
 import { GlobalLinks } from "../../../helper/links";
+import Link from "next/link";
 
 interface IProps {
   onClose: () => void;
@@ -39,6 +40,17 @@ export default function MobileSideBar(props: IProps) {
           <div onClick={() => setInnerSec({ activeTab: "SOLUTIONS" })}>
             Solutions
             <MdKeyboardArrowRight />
+          </div>
+
+          <div className={styles.sliderItem}>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href={GlobalLinks.home.blog}
+              style={{ color: "black" }}
+            >
+              Blog
+            </Link>
           </div>
           <div
             className={styles.sliderItem}
