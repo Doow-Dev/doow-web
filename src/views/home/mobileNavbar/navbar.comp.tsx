@@ -47,7 +47,8 @@ export default function MobileSideBar(props: IProps) {
               target="_blank"
               rel="noopener noreferrer"
               href={GlobalLinks.home.blog}
-              style={{ color: "black" }}
+              style={{ color: "black", width: "100%" }}
+              className={styles.sliderItem}
             >
               Blog
             </Link>
