@@ -5,7 +5,7 @@ import HomeView from "../src/views/home/home.view";
 export default function HomePage() {
   return (
     <>
-      <MetaHeader title={"Doow | Africa's #1 Business Bank for Startups"} />
+      <MetaHeader title={"Doow | All in one spend management for Businesses"} />
       <HomeView />
     </>
   );

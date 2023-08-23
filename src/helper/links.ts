@@ -5,6 +5,7 @@ export const GlobalLinks = {
     about_us: "/home/about_us",
     contact_us: "/home/contact_us",
     waitlist: "/home/waitlist",
+    blog: "https://medium.com/@Doow",
   },
   account: {
     dashboard: "/account/dashboard",
