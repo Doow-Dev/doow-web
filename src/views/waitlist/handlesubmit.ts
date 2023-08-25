@@ -60,7 +60,7 @@ export async function WaitlisthandleSubmit(props: IProps) {
       return;
     }
     axios
-      .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/waitlist`, waitlistDto)
+      .post(`https://tan-light-donkey.cyclic.app/waitlist`, waitlistDto)
       .then((e) => {
         setWaitlist({
           first_name: "",
