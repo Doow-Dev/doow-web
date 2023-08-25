@@ -11,7 +11,6 @@ import { TSupport } from "./contact";
 export function ContactUsView() {
   const [showSuccessful, setshowSuccessful] = useState(false);
 
-
   const [supportVal, setSupportVal] = useState({
     first_name: "",
     last_name: "",
@@ -19,25 +18,19 @@ export function ContactUsView() {
     comment: "",
   });
 
-
   const handleSubmit = async (data: TSupport) => {
-console.log(data)
     await axios
-    .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/support`, data)
-    .then((e) => {
-      // console.log(e)
-      setshowSuccessful(true);
-      setSupportVal({
-        first_name: "",
-        last_name: "",
-        email: "",
-        comment: "",
+      .post(`${process.env.NEXT_PUBLIC_SEVER_DOMAIN}/support`, data)
+      .then((e) => {
+        setshowSuccessful(true);
+        setSupportVal({
+          first_name: "",
+          last_name: "",
+          email: "",
+          comment: "",
+        });
       });
-
-  });
-
-
-  }
+  };
   return (
     <div>
       <LandingNavBar />
@@ -94,21 +87,20 @@ console.log(data)
                 }}
               />
 
-              <textarea placeholder="Comments" 
-              value={supportVal.comment}   
-              onChange={(e) => {
+              <textarea
+                placeholder="Comments"
+                value={supportVal.comment}
+                onChange={(e) => {
                   setSupportVal({
                     ...supportVal,
                     comment: e.target.value,
                   });
-                }} 
-                />
-
+                }}
+              />
 
               <InputButton
                 name={"Send message"}
                 onClick={() => {
-                
                   handleSubmit({
                     name: `${supportVal.first_name} ${supportVal.last_name}`,
                     comment: supportVal.comment,

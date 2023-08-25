@@ -85,7 +85,7 @@ export async function WaitlisthandleSubmit(props: IProps) {
       .catch((e) => {
         setLoader(false);
         const msg = e.response.data.message;
-        if (msg === "Email already exixts") {
+        if (msg === "Email already exists") {
           setEmailAlreadyExist(true);
           setTimeout(() => {
             setEmailAlreadyExist(false);
