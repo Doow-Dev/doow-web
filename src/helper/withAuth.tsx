@@ -20,7 +20,7 @@ const withAuth = (WrappedComponent: any) => {
       const path = router.pathname;
       const { accessToken, me } = localStorage; // update with the redux value
       if (!accessToken) {
-        router.replace("/login");
+        window.location.assign("https://dashboard.doow.co/");
         return null;
       }
       return <WrappedComponent {...props} />;

@@ -31,14 +31,8 @@ export default function WaitListModal(props: IModal) {
         <div className={styles.sectionContent}>
           <h1>{name}</h1>
           <p>
-            You are
-            <span
-              style={{ fontWeight: 700, color: "#07c524", padding: "0 5px" }}
-            >
-              {position}
-            </span>
-            in line. We can't wait to show you what cross-border business
-            banking should feel like.
+            We can't wait to show you what cross-border business banking should
+            feel like.
           </p>
         </div>
 

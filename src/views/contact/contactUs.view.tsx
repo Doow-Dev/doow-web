@@ -20,7 +20,7 @@ export function ContactUsView() {
 
   const handleSubmit = async (data: TSupport) => {
     await axios
-      .post(`https://tan-light-donkey.cyclic.app/support`, data)
+      .post(`https://api.doow.co/support`, data)
       .then((e) => {
         setshowSuccessful(true);
         setSupportVal({

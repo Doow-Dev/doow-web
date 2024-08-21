@@ -50,7 +50,7 @@ export function WaitList() {
       {emailAlreadyExist && (
         <ToastMessage
           message="Thanks, email is already on the waitlist"
-          type="info"
+          type="error"
         />
       )}
       {showLoader && <Loading />}

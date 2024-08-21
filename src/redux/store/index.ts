@@ -1,10 +1,7 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import vitualAccountReducer from "../features/virtual-account/virtualAccountSlice";
 
 const store = configureStore({
-  reducer: {
-    virtualAccountState: vitualAccountReducer,
-  },
+  reducer: {},
 });
 
 export type RootState = ReturnType<typeof store.getState>;
