@@ -31,7 +31,7 @@ export default function WaitListModal(props: IModal) {
         <div className={styles.sectionContent}>
           <h1>{name}</h1>
           <p>
-            We can't wait to show you what cross-border business banking should
+            We can't wait to show you what modern finance should
             feel like.
           </p>
         </div>
