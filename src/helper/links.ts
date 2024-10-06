@@ -14,9 +14,9 @@ export const GlobalLinks = {
     cards: "/account/cards",
   },
   auth: {
-    login: "https://dashboard.doow.co",
+    login: "https://app.doow.co",
     forgotPassword: "/auth/forgot_passoword",
-    signup: "https://dashboard.doow.co/signup",
+    signup: "https://app.doow.co/signup",
     kyb: "/auth/kyb",
     onboarding: "/auth/onboarding",
   },
