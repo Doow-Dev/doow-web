@@ -1,0 +1,50 @@
+import type { Metadata } from "next";
+import { Inter, Manrope } from "next/font/google";
+import "../styles/globals.css";
+
+// utils
+import { cn } from "@/lib/utils";
+import { Providers } from "./provider";
+
+const inter = Inter({
+  weight: ["100", "200", "300", "400", "900"],
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+const manrope = Manrope({
+  weight: ["500", "600", "700", "800"],
+  style: ["normal"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope",
+});
+
+export const metadata: Metadata = {
+  title: "Doow",
+  description: "Welcome to Doow SaaS spend management",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en"
+    className={cn(
+      "font-sans antialiased bg-background",
+      inter.variable,
+      manrope.variable
+    )}
+    suppressHydrationWarning
+    >
+      <body
+        className={`${inter.variable} ${manrope.variable} antialiased`}
+      >
+        <Providers>
+          {children}  
+        </Providers>
+      </body>
+    </html>
+  );
+}
