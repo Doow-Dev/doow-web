@@ -1,7 +1,7 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Check } from "lucide-react"
-import { NestedApplications } from "./OverlappingApplications"
+import { OverlappingApplications } from "./OverlappingApplications"
+import { ProductTile } from "@/components/common/ProductTile"
 
 export const SassIntelligenceSection = () => {
   return (
@@ -12,35 +12,24 @@ export const SassIntelligenceSection = () => {
           {/* main text */}
           <h2 className="text-sub-heading text-pretty text-doow_zinc capitalize">Still tracking everything manually? That&apos;s a nightmare.
           </h2>
-          {/* riding text */}
-          {/* <p className="text-riding text-doow_grey  w-[90%] mx-auto">Commodi praesentium autem vel! Natus neque officiis enim assumenda perspiciatis assumenda perspiciatis</p> */}
         </div>
         {/* tiles */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 w-full overflow-auto">
             {/* tile 1 */}
-            <div className="col-span-1 md:col-span-2 overflow-auto rounded-xl bg-gray-900/5 p-3 ring-1 ring-inset ring-gray-900/10 lg:rounded-3xl">
-              <Card className="rounded-xl md:rounded-3xl">
-                <CardHeader>
-                  <CardTitle className="text-caption text-doow_zinc text-pretty">No more chasing invoices.</CardTitle>
-                  <CardDescription className="text-body">
-                      Get a live dashboard of all software expenses, categorized by team, usage, and renewal dates.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <NestedApplications/>
-                </CardContent>
-              </Card>
-            </div>
+            <ProductTile
+              title="No more chasing invoices."
+              subtitle="Get a live dashboard of all software expenses, categorized by team, usage, and renewal dates."
+              className="col-span-1 md:col-span-2"
+            >
+              <OverlappingApplications/>
+            </ProductTile>
 
             {/* tile 2 */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Never get hit by an unexpected charge again. Get proactive alerts before renewals and cut wasteful subscriptions instantly.
-                </CardTitle>
-                {/* <CardDescription>Lorem ipsum dolor sit amet psum dolor sit amet</CardDescription> */}
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-3 gap-4">
+            <ProductTile
+              title="Never get hit by an unexpected charge again."
+              subtitle="Get proactive alerts before renewals and cut wasteful subscriptions instantly."
+            >
+              <div className="grid grid-cols-3 gap-4">
                   <div>
                     <h3 className="text-lg font-semibold mb-2">Lorem</h3>
                     <div className="space-y-2">
@@ -93,16 +82,13 @@ export const SassIntelligenceSection = () => {
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+            </ProductTile>
 
           {/* tile 3 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Spot duplicate and overlapping apps, unused seats, and overpriced subscriptions—then cut costs with a single click.</CardTitle>
-              {/* <CardDescription>Lorem ipsum dolor sit amet ipsum</CardDescription> */}
-            </CardHeader>
-            <CardContent>
+          <ProductTile
+             title="Spot duplicate and overlapping apps"
+             subtitle="Unused seats, and overpriced subscriptions—then cut costs with a single click."
+          >
               <div className="space-y-2">
                 <div className="flex items-center">
                   <Check className="w-5 h-5 text-green-500 mr-2" />
@@ -117,8 +103,7 @@ export const SassIntelligenceSection = () => {
                   <span>Disclaimer Read</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+          </ProductTile>
         </div>
       </div>
     </div>

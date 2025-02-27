@@ -1,4 +1,4 @@
-import { BankingTile } from "@/components/common/bankingTile"
+import { ProductTile } from "@/components/common/ProductTile"
 import { Progress } from "@/components/ui/progress"
 import { Check } from "lucide-react"
 import { AccountsCard } from "./AccountsCard"
@@ -16,12 +16,12 @@ export const BankingSection = () => {
           {/* tiles */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* tile 1 */}
-            <BankingTile title="No more chasing invoices." subtitle="Get a live dashboard of all software expenses, categorized by team, usage, and renewal dates.">
+            <ProductTile title="No more chasing invoices." subtitle="Get a live dashboard of all software expenses, categorized by team, usage, and renewal dates.">
               <AccountsCard/>
-            </BankingTile>
+            </ProductTile>
 
             {/* tile 2 */}
-            <BankingTile title="Never get hit by an unexpected charge again." subtitle="Get proactive alerts before renewals and cut wasteful subscriptions instantly.">
+            <ProductTile title="Never get hit by an unexpected charge again." subtitle="Get proactive alerts before renewals and cut wasteful subscriptions instantly.">
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Lorem</h3>
@@ -75,10 +75,10 @@ export const BankingSection = () => {
                   </div>
                 </div>
               </div>
-            </BankingTile>
+            </ProductTile>
   
             {/* tile 3 */}
-            <BankingTile title="Spot duplicate and overlapping apps" subtitle="Spot duplicate and overlapping apps, unused seats, and overpriced subscriptions—then cut costs with a single click.">
+            <ProductTile title="Spot duplicate and overlapping apps" subtitle="Spot duplicate and overlapping apps, unused seats, and overpriced subscriptions—then cut costs with a single click.">
               <div className="space-y-2">
                 <div className="flex items-center">
                   <Check className="w-5 h-5 text-green-500 mr-2" />
@@ -93,10 +93,10 @@ export const BankingSection = () => {
                   <span>Disclaimer Read</span>
                 </div>
               </div>
-            </BankingTile>
+            </ProductTile>
   
             {/* tile 4 */}
-            <BankingTile title="Prevent shadow IT." subtitle="Set approval policies and require manager sign-off before teams buy new software.">
+            <ProductTile title="Prevent shadow IT." subtitle="Set approval policies and require manager sign-off before teams buy new software.">
               <>
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
@@ -116,7 +116,7 @@ export const BankingSection = () => {
                   </div>
                 </div>
               </>
-            </BankingTile>
+            </ProductTile>
           </div>
         </div>
       </section>

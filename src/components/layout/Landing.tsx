@@ -4,7 +4,6 @@ import { FAQSection } from "../custom/faq/FAQSection";
 import { HeroSection } from "../custom/hero/HeroSection";
 import { IntegrationsSection } from "../custom/integrations/IntegrationsSection";
 import { SassIntelligenceSection } from "../custom/sassIntelligence/SaasIntelligence";
-import { WaitListBannerSection } from "../custom/waitlistBanner/WaitListBannerSection";
 
 export const Landing: React.FC = () => {
     return (
@@ -14,7 +13,6 @@ export const Landing: React.FC = () => {
             <IntegrationsSection/>
             <SassIntelligenceSection/>
             <BankingSection/>
-            <WaitListBannerSection/>
             <FAQSection/>
         </>
     )

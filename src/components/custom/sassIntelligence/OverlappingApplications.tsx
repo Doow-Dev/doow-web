@@ -4,12 +4,14 @@ import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronDown } from 'lucide-react';
 import { AppImages } from '@/lib/config/app-images';
+import Image from 'next/image';
 
 const ApplicationCard = ({ 
-  id, // Unique identifier for each card
+  id,
   apps, 
   spend, 
-  userCount, 
+  title,
+  users, 
   children,
   hoveredCardId,
   onHover 
@@ -17,7 +19,8 @@ const ApplicationCard = ({
   id: string;
   apps: {name: string, logo: string}[];
   spend: number;
-  userCount: number;
+  title: string;
+  users: string[];
   children?: React.ReactNode;
   hoveredCardId: string | null;
   onHover: (id: string | null) => void;
@@ -48,15 +51,6 @@ const ApplicationCard = ({
     };
   }, [id, onHover]);
 
-  const renderUserBlocks = () => {
-    return Array.from({ length: userCount }).map((_, i) => (
-      <Avatar key={i} className="w-4 h-4 bg-coral-100">
-        <AvatarImage src={AppImages.logos.zoom} />
-        <AvatarFallback>A</AvatarFallback>
-      </Avatar>
-    ));
-  };
-
   return (
     <Card 
       ref={cardRef}
@@ -65,12 +59,12 @@ const ApplicationCard = ({
       }`}
     >
       <div className="space-y-6 pr-4 my-auto">
-        <div className=' flex items-center justify-between'>
-          <div className=''>
-            <p className="text-sm text-gray-500">Overlapping spend</p>
+        <div className='flex items-center justify-between w-full gap-6'>
+          <div className='w-full '>
+            <p className="text-sm text-doow_grey">{title}</p>
             <p className="text-xl font-bold">${spend.toLocaleString()}</p>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center max-w-fit">
             <div className="flex -space-x-2">
               {apps.map((app, i) => 
                 <Avatar key={i} className="h-6 w-6 border-2 border-background">
@@ -79,17 +73,23 @@ const ApplicationCard = ({
                 </Avatar>
               )}
             </div>
-            <button className="inline-flex items-center rounded-md hover:bg-accent hover:text-accent-foreground p-1">
+            <div className="inline-flex items-center rounded-md">
               <ChevronDown className="h-4 w-4" />
-            </button>
+            </div>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-1">
-          {renderUserBlocks()}
+          {
+            users.map((user, i) => 
+            <Avatar key={i} className="w-7 h-7 border-2 border-background">
+              <AvatarImage src={user} className='object-cover' />
+              <AvatarFallback>A</AvatarFallback>
+            </Avatar>
+          )}
         </div>
 
-        <p className="text-sm text-gray-500">{userCount} users</p>
+        <p className="text-sm text-gray-500">{users.length} {hoveredCardId === id && title === 'Overlapping spend' && `Overlapping` } users</p>
       </div>
 
       {children && (
@@ -104,19 +104,52 @@ const ApplicationCard = ({
 export const OverlappingApplications = () => {
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
    const apps = [
+    {name: 'notion', logo: AppImages.logos.notion},
     {name: 'slack', logo: AppImages.logos.slack},
     {name: 'teams', logo: AppImages.logos.teams},
     {name: 'zoom', logo: AppImages.logos.zoom},
-    {name: 'notion', logo: AppImages.logos.notion},
    ]
 
+   const users = [
+    AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
+    AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
+    AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
+  ]
+
   return (
-    <div className="p-4 overflow-auto">
+    <div className="p-4 overflow-auto w-full max-w-full bg-white rounded-2xl">
+      {/* tabs */}
+      <div className="flex justify-between items-center gap-10 mb-4 w-full overflow-auto whitespace-nowrap">
+        {apps.map((app, idx) => 
+          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-4 py-2 flex-shrink-0 min-w-[200px]'>
+            <div className='flex justify-between items-center'>
+              <div
+                className="flex min-w-fit items-center justify-center mr-2 bg-white"
+              >
+                <Image 
+                  src={app.logo}
+                  alt={`${app.name} logo`}
+                  width={30}
+                  height={30}
+                  className="border border-white"
+                />
+              </div>
+              <p className='text-sm font-semibold capitalize'>{app.name}</p>
+            </div>
+            <div className="inline-flex items-center rounded-md">
+                  <ChevronDown className="h-4 w-4" />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Application cards */}
       <ApplicationCard 
         id="notion" 
         apps={apps}
         spend={9000} 
-        userCount={30} 
+        title='Overlapping spend'
+        users={users} 
         hoveredCardId={hoveredCardId} 
         onHover={setHoveredCardId}
       >
@@ -124,7 +157,8 @@ export const OverlappingApplications = () => {
           id="zoom" 
           apps={apps.slice(0, 3)}
           spend={9000} 
-          userCount={30} 
+          title='Overlapping spend'
+          users={users} 
           hoveredCardId={hoveredCardId} 
           onHover={setHoveredCardId}
         >
@@ -132,7 +166,8 @@ export const OverlappingApplications = () => {
             id="teams" 
             apps={apps.slice(0, 2)}
             spend={9000} 
-            userCount={30} 
+            title='Overlapping spend'
+            users={users} 
             hoveredCardId={hoveredCardId} 
             onHover={setHoveredCardId}
           >
@@ -140,7 +175,8 @@ export const OverlappingApplications = () => {
               id="slack" 
               apps={apps.slice(0, 1)} 
               spend={9000} 
-              userCount={30} 
+              title='Isolated spend'
+              users={users} 
               hoveredCardId={hoveredCardId} 
               onHover={setHoveredCardId}
             />
