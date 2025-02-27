@@ -1,14 +1,16 @@
 'use client'
+
 import { AppImages, INTEGRATION_ROWS, IntegrationKey } from "@/lib/config/app-images"
 import { motion } from "framer-motion"
-import Image from "next/image"
+// import Image from "next/image"
 
 export const IntegrationsSection = () => {
+  
   return (
-    <section className="w-full mx-auto section-spacing bg-black">
+    <section className="w-full mx-auto py-6 bg-white">
         {/* Section Title4*/}
-        <div className="text-center mb-6 max-w-xl md:max-w-2xl mx-auto">
-          <h3 className="text-caption text-doow_grey capitalize">
+        <div className="text-center mb-4 max-w-xl md:max-w-2xl mx-auto">
+          <h3 className="text-caption text-doow_zinc capitalize">
             We connect to all the tools within your financial stack
           </h3>
         </div>
@@ -24,35 +26,29 @@ export const IntegrationsSection = () => {
 }
 
 function ImageRow({ images, direction }: { images: readonly IntegrationKey[], direction: "left" | "right" }) {
-  const duplicatedImages = [...images, ...images, ...images, ...images]
+  const duplicatedImages = [...images, ...images]
 
   return (
-    <div className="my-6 w-full">
+    <div className="w-full">
       <motion.div
         initial={{ x: direction === "left" ? 0 : -2000 }}
         animate={{ x: direction === "left" ? -2000 : 0 }}
         transition={{
-          duration: 50,
+          duration: 100,
           repeat: Number.POSITIVE_INFINITY,
           repeatType: "loop",
           ease: "linear",
         }}
-        className="flex gap-10 "
+        className="flex gap-24 "
       >
         {duplicatedImages.map((imageKey, idx) => {
-          const imagePath = AppImages.integration[imageKey]
+          const SvgComp = AppImages.integration[imageKey]
           return (
             <div
               key={idx}
-              className="flex min-w-fit items-center justify-center rounded-xl space-y-4 transition-colors hover:bg-white-100"
+              className="flex min-w-fit items-center justify-center rounded-xl space-y-4 transition-colors"
             >
-              <Image 
-                src={imagePath}
-                alt={`${imageKey} logo`}
-                width={48}
-                height={48}
-                className="transition-opacity hover:opacity-70"
-              />
+              <SvgComp className=" text-doow_grey"/>
             </div>
           )
         })}

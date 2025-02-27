@@ -1,3 +1,4 @@
+'use client'
 import WaitListForm from "@/components/common/waitListForm"
 
 
