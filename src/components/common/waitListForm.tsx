@@ -1,4 +1,5 @@
 "use client"
+import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -18,8 +19,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export default function WaitListForm() {
-   // const dispatch = useAppDispatch()
-   // const { email, isModalOpen } = useAppSelector((state) => state)
    const [isSubmitting, setIsSubmitting] = useState(false);
    const [email, setEmail] = useState<string>("");
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,11 +47,9 @@ export default function WaitListForm() {
    const onEmailSubmit = async (data: EmailFormData) => {
       setIsSubmitting(true)
     try {
-      // dispatch(setEmail(data.email))
       setEmail(data.email)
       console.log("Submitted data:", {...data})
       await new Promise((resolve) => setTimeout(resolve, 500)) // Simulate API call
-      // dispatch(setModalOpen(true))
       setIsModalOpen(true)
     } catch (error) {
       console.error("Error:", error)
@@ -64,18 +61,25 @@ export default function WaitListForm() {
    const onWaitListSubmit = async (data: WaitListFormData) => {
       setIsSubmitting(true)
       try {
-         // Add your API call here
-         await new Promise((resolve) => setTimeout(resolve, 1000))
+          // Add your API call here
+          const response = await axios.post("https://apiu.doow.co/waitlist", 
+          data
+          ,{
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
          console.log("Submitted data:", {...data})
+         console.log("Success:", response.data);
          setIsModalOpen(true)
-         // dispatch(setModalOpen(false))
-         // dispatch(resetForm())
          emailForm.reset()
          waitListForm.reset()
       } catch (error) {
          console.error("Error submitting form:", error)
       } finally {
          setIsSubmitting(false)
+         emailForm.reset()
+         waitListForm.reset()
       }
    }
 
