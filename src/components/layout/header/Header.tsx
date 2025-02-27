@@ -23,7 +23,7 @@ export const HeaderItems: Array<HeaderItem> = [
   {
       title: "Blog",
       link: "/blog",
-    },
+  },
 ];
 
 export function Header() {
@@ -73,7 +73,7 @@ export function Header() {
             <Link
                 className={cn(
                     buttonVariants({ size: "sm" }),
-                    "rounded-full"
+                    "rounded-full bg-doow_primary"
                 )}
                 href="#">
                 Join Beta
@@ -117,10 +117,10 @@ export function Header() {
                   <Link
                       className={cn(
                           buttonVariants({ size: "lg" }),
-                          "rounded-full"
+                          "rounded-full bg-doow_primary"
                       )}
                       href="/signup">
-                      Book a demo
+                      Join Beta
                       <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
