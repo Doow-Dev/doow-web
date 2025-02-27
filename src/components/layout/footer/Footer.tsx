@@ -1,5 +1,5 @@
 "use client"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { GlobalLinks } from "@/lib/config/links"
 import { AppImages } from "@/lib/config/app-images"
@@ -24,31 +24,20 @@ const companyLinks = [
 ]
 
 export function Footer() {
-  const router = useRouter()
 
   return (
-    <footer className="md:flex md:flex-row-reverse justify-between space-y-10 w-full bg-[#003138] container py-10">
+    <footer className="md:flex md:flex-row-reverse gap-6  justify-between w-full bg-[#003138] container py-6">
       {/* waitlist banner */}
       <div className="flex flex-col justify-center items-center bg-[#024651] w-full section-spacing rounded-3xl">
-        <div className="max-w-sm md:max-w-lg text-center mb-8">
-          <h3 className="text-sub-heading text-white">Stop wasting money on unused SaaS. Start saving today.</h3>
+        <div className="max-w-sm md:max-w-lg text-center">
+          <h3 className="text-sub-heading text-white text-pretty">Stop wasting money on unused SaaS. Start saving today.</h3>
         </div>
         <WaitListForm/>
       </div>
       {/* foot nav */}
-      <div className="flex w-full flex-col items-center">
+      <div className="flex w-full flex-col items-center mt-6 md:mt-0">
         {/* Main Grid Section */}
-        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-4">
-          {/* Brand logo */}
-          {/* <div className="">
-            <Image
-              src={AppImages.logos.fullDoowLogo}
-              alt="Doow Logo"
-              width={120}
-              height={30}
-              className="h-[30px] w-auto"
-            />
-          </div> */}
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-4">
           {/* logo */}
           <Link href="#" className="" prefetch={false}>
             <Image
@@ -63,14 +52,14 @@ export function Footer() {
           </Link>
 
           {/* Products */}
-          <div>
+          <div className="">
             <h3 className="mb-4 font-bold text-white">Products</h3>
             <ul className="space-y-2">
               {productLinks.map((link) => (
                 <li key={link}>
-                  <button className="text-sm text-white transition-colors hover:text-gray-300">
+                  <Link href='#' className="text-body text-white transition-colors hover:text-gray-300">
                     {link}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -82,12 +71,9 @@ export function Footer() {
             <ul className="space-y-2">
               {companyLinks.map((link) => (
                 <li key={link.name}>
-                  <button
-                    onClick={() => router.push(link.href)}
-                    className="text-sm text-white transition-colors hover:text-gray-300"
-                  >
+                  <Link href='#' className="text-body text-white transition-colors hover:text-gray-300">
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -126,3 +112,5 @@ export function Footer() {
     </footer>
   )
 }
+
+
