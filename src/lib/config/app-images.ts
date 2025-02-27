@@ -1,18 +1,32 @@
+import BambooSVG from "@/assets/svgs/Bamboo"
+import DeelSVG from "@/assets/svgs/Deel"
+import GoogleSVG from "@/assets/svgs/Google"
+import GustoSVG from "@/assets/svgs/Gusto"
+import NetSuiteSVG from "@/assets/svgs/NetSuite"
+import OktaSVG from "@/assets/svgs/Okta"
+import OneLoginSVG from "@/assets/svgs/OneLogin"
+import PlaidSVG from "@/assets/svgs/Plaid"
+import QuickBooksSVG from "@/assets/svgs/QuickBooks"
+import SageSVG from "@/assets/svgs/Sage"
+import WindowsSVG from "@/assets/svgs/Windows"
+import YapilySVG from "@/assets/svgs/Yapily"
+import ZohoSVG from "@/assets/svgs/Zoho"
+
 export const AppImages = {
     integration: {
-      Bamboo: '/integrations/bamboo.svg',
-      Deel: '/integrations/deel.svg',
-      Google: '/integrations/google.svg',
-      Gusto: '/integrations/gusto.svg',
-      NetSuite: '/integrations/net-suite.svg',
-      Okta: '/integrations/okta.svg',
-      OneLogin: '/integrations/one-login.svg',
-      Plaid: '/integrations/plaid.svg',
-      QuickBooks: '/integrations/quick-books.svg',
-      Sage: '/integrations/sage.svg',
-      Windows: '/integrations/windows.svg',
-      Yapily: '/integrations/yapily.svg',
-      Zoho: '/integrations/zoho.svg',
+      Bamboo: BambooSVG,
+      Okta: OktaSVG,
+      Deel: DeelSVG,
+      Google: GoogleSVG,
+      Gusto: GustoSVG,
+      NetSuite: NetSuiteSVG,
+      Plaid: PlaidSVG,
+      QuickBooks: QuickBooksSVG,
+      Sage: SageSVG,
+      Windows: WindowsSVG,
+      Yapily: YapilySVG,
+      Zoho: ZohoSVG,
+      OneLogin: OneLoginSVG,
     },
     demos: {
         dashboard: '/demos/screenshot.png',
@@ -32,7 +46,7 @@ export const AppImages = {
       joseph: '/profiles/joseph.jpg',
       jurica: '/profiles/jurica.jpg',
       mathias: '/profiles/mathias.jpg',
-      micheal: '/profiles/micheal.jpg',
+      micheal: '/profiles/michael.jpg',
       prince: '/profiles/prince.jpg',
       lupita: '/profiles/russian-lady.jpg',
       lucas: '/profiles/headtie-man.jpeg',
@@ -47,7 +61,8 @@ export const AppImages = {
   } as const
 
   export const INTEGRATION_ROWS = {
-    row1: ["Bamboo", "Google", "NetSuite", "Plaid", "Sage", "Windows", "Zoho", "Deel", "Gusto", "Okta", "OneLogin", "QuickBooks", "Yapily"]
+    row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows", "Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]
   } as const
   
   export type IntegrationKey = keyof typeof AppImages.integration
+  
