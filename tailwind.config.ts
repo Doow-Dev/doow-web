@@ -147,10 +147,9 @@ export default {
 			'.text-sub-heading': {
 				fontSize: theme('fontSize.2xl'),
 				fontWeight: theme('fontWeight.bold'),
-				letterSpacing: theme('letterSpacing.wide'),
+				letterSpacing: theme('letterSpacing.tighter'),
 				'@screen md':{
 					fontSize: theme('fontSize.3xl'),
-					fontWeight: theme('fontWeight.bold'),
 				}
 			},
 			'.text-caption': {
