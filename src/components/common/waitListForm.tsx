@@ -15,7 +15,7 @@ import { EmailFormData, emailSchema, WaitListFormData, waitListSchema } from "@/
 import { useEffect, useState } from "react";
 import { ArrowRight, LoaderCircle } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export default function WaitListForm() {
    // const dispatch = useAppDispatch()
@@ -100,11 +100,11 @@ export default function WaitListForm() {
                         className="flex-1 border-0 bg-transparent rounded-full text-base placeholder:text-slate-600 focus-visible:ring-0 focus-visible:ring-offset-0"
                         />
                      </FormControl>
-                     {/* <FormMessage className="absolute mt-2 ml-4" /> */}
+                     <FormMessage className="absolute mt-4 ml-4" />
                   </FormItem>
                )}
             />
-            <Button type="submit" size={"lg"} className="rounded-full px-4 shadow-[0px_0px_41px_6px_rgba(34,_162,_98,_0.15)]" disabled={isSubmitting}>
+            <Button type="submit" size={"lg"} className="rounded-full px-4 bg-doow_primary shadow-[0px_0px_41px_6px_rgba(34,_162,_98,_0.15)]" disabled={isSubmitting}>
                {isSubmitting ? (
                "Please wait..."
                ) : (
@@ -258,7 +258,7 @@ export default function WaitListForm() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" size="lg" className="w-full rounded-full" disabled={isSubmitting}>
+              <Button type="submit" size="lg" className="w-full rounded-full bg-doow_primary" disabled={isSubmitting}>
                 {isSubmitting && <LoaderCircle className="w-4 h-4 mr-2 animate-spin" />}
                 Join WaitList
               </Button>
