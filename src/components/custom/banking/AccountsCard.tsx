@@ -34,7 +34,7 @@ const companies: CompanyData[] = [
     id: 2,
     name: "Doow LLC",
     alias: "Travel Budget",
-    balance: "R$5,500,000.00",
+    balance: "R$5.500.000,00",
     percentage: "-22%",
     avatars: [
         AppImages.profiles.lucas,
