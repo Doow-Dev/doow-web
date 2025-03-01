@@ -1,7 +1,7 @@
 import { Progress } from "@/components/ui/progress"
 import { Check } from "lucide-react"
-import { OverlappingApplications } from "./OverlappingApplications"
 import { ProductTile } from "@/components/common/ProductTile"
+import OverlappingApplications from "./OverlappingApplications"
 
 export const SassIntelligenceSection = () => {
   return (
