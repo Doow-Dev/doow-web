@@ -1,16 +1,16 @@
-import BambooSVG from "@/assets/svgs/Bamboo"
-import DeelSVG from "@/assets/svgs/Deel"
-import GoogleSVG from "@/assets/svgs/Google"
-import GustoSVG from "@/assets/svgs/Gusto"
-import NetSuiteSVG from "@/assets/svgs/NetSuite"
-import OktaSVG from "@/assets/svgs/Okta"
-import OneLoginSVG from "@/assets/svgs/OneLogin"
-import PlaidSVG from "@/assets/svgs/Plaid"
-import QuickBooksSVG from "@/assets/svgs/QuickBooks"
-import SageSVG from "@/assets/svgs/Sage"
-import WindowsSVG from "@/assets/svgs/Windows"
-import YapilySVG from "@/assets/svgs/Yapily"
-import ZohoSVG from "@/assets/svgs/Zoho"
+import BambooSVG from "@/assets/svg/Bamboo"
+import DeelSVG from "@/assets/svg/Deel"
+import GoogleSVG from "@/assets/svg/Google"
+import GustoSVG from "@/assets/svg/Gusto"
+import NetSuiteSVG from "@/assets/svg/NetSuite"
+import OktaSVG from "@/assets/svg/Okta"
+import OneLoginSVG from "@/assets/svg/OneLogin"
+import PlaidSVG from "@/assets/svg/Plaid"
+import QuickBooksSVG from "@/assets/svg/QuickBooks"
+import SageSVG from "@/assets/svg/Sage"
+import WindowsSVG from "@/assets/svg/Windows"
+import YapilySVG from "@/assets/svg/Yapily"
+import ZohoSVG from "@/assets/svg/Zoho"
 
 export const AppImages = {
     integration: {
@@ -54,9 +54,9 @@ export const AppImages = {
     },
     flags: {
       usa: '/flags/usa.svg',
-      nigeria: '/flags/nigeria.png',
+      brazil: '/flags/brazil.jpg',
       britain: '/flags/britain.png',
-      china: '/flags/kenya.jpg'
+      china: '/flags/china.jpg'
     }
   } as const
 
