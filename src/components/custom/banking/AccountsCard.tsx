@@ -21,7 +21,7 @@ const companies: CompanyData[] = [
     id: 1,
     name: "Doow Holdings Inc.",
     alias: "Q2 Budget",
-    balance: "N7,000,000.00",
+    balance: "$7,000,000.00",
     percentage: "-35%",
     avatars: [
       AppImages.profiles.lucas,
@@ -34,20 +34,20 @@ const companies: CompanyData[] = [
     id: 2,
     name: "Doow LLC",
     alias: "Travel Budget",
-    balance: "N5,500,000.00",
+    balance: "R$5,500,000.00",
     percentage: "-22%",
     avatars: [
         AppImages.profiles.lucas,
         AppImages.profiles.joseph,
         AppImages.profiles.lupita
     ],
-    flag: AppImages.flags.nigeria
+    flag: AppImages.flags.brazil
   },
   {
     id: 3,
     name: "Doow Holdings Inc.",
     alias: "Finance Budget",
-    balance: "N3,200,000.00",
+    balance: "¥3,200,000.00",
     percentage: "-15%",
     avatars: [
         AppImages.profiles.lucas,
@@ -59,7 +59,7 @@ const companies: CompanyData[] = [
     id: 4,
     name: "Doow Holdings Inc.",
     alias: "Q4 Budget",
-    balance: "N9,800,000.00",
+    balance: "£9,800,000.00",
     percentage: "-42%",
     avatars: [
         AppImages.profiles.lucas,
@@ -86,7 +86,7 @@ export function AccountsCard() {
         </div>
         <div className="flex justify-between gap-3">
              {/* left section */}
-            <div className="flex-1 h-full w-[50%] py-3 ring-1 ring-gray-300 shadow-[0px_4px_10px_rgba(0,0,0,0.15)] rounded-2xl">
+            <div className="flex-1 h-full w-[50%] py-3 px-2 ring-1 ring-gray-300 shadow-[0px_4px_10px_rgba(0,0,0,0.15)] rounded-2xl">
                 {companies.map((company) => (
                 <div
                     key={company.id}
