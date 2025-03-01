@@ -36,9 +36,9 @@ export default function WaitListForm() {
       resolver: zodResolver(waitListSchema),
       mode: "onSubmit",
       defaultValues: {
-         firstName: "",
-         lastName: "",
-         company: "",
+         first_name: "",
+         last_name: "",
+         company_name: "",
          email: email,
          role: "",
       }
@@ -48,37 +48,34 @@ export default function WaitListForm() {
       setIsSubmitting(true)
     try {
       setEmail(data.email)
-      console.log("Submitted data:", {...data})
-      await new Promise((resolve) => setTimeout(resolve, 500)) // Simulate API call
       setIsModalOpen(true)
     } catch (error) {
       console.error("Error:", error)
     } finally {
       setIsSubmitting(false)
+      emailForm.reset()
     }
-   }
+  }
 
    const onWaitListSubmit = async (data: WaitListFormData) => {
       setIsSubmitting(true)
       try {
           // Add your API call here
-          const response = await axios.post("https://apiu.doow.co/waitlist", 
-          data
+          console.log(data)
+          const response = await axios.post("https://api.doow.co/waitlist", {
+            data
+          }
           ,{
             headers: {
               "Content-Type": "application/json"
             }
           });
-         console.log("Submitted data:", {...data})
          console.log("Success:", response.data);
          setIsModalOpen(true)
-         emailForm.reset()
-         waitListForm.reset()
       } catch (error) {
          console.error("Error submitting form:", error)
       } finally {
          setIsSubmitting(false)
-         emailForm.reset()
          waitListForm.reset()
       }
    }
@@ -138,7 +135,7 @@ export default function WaitListForm() {
             <form onSubmit={waitListForm.handleSubmit(onWaitListSubmit)} className="space-y-4 flex flex-col gap-0 w-full">
               <FormField
                 control={waitListForm.control}
-                name="firstName"
+                name="first_name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>First Name</FormLabel>
@@ -158,7 +155,7 @@ export default function WaitListForm() {
               />
               <FormField
                 control={waitListForm.control}
-                name="lastName"
+                name="last_name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Last Name </FormLabel>
@@ -178,7 +175,7 @@ export default function WaitListForm() {
               />
               <FormField
                 control={waitListForm.control}
-                name="company"
+                name="company_name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Company</FormLabel>

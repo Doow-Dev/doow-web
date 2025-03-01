@@ -26,9 +26,9 @@ export const emailSchema = z.object({
 
 export const waitListSchema = z.object({
     email: workMailSchema,
-    firstName: z.string().min(2, "Name must be at least 2 characters"),
-    lastName: z.string().min(2, "Name must be at least 2 characters"),
-    company: z.string().min(1, "Company name is required"),
+    first_name: z.string().min(2, "Name must be at least 2 characters"),
+    last_name: z.string().min(2, "Name must be at least 2 characters"),
+    company_name: z.string().min(1, "Company name is required"),
     role: z.string().min(1, "Role is required"),
 })
 
