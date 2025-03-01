@@ -5,6 +5,7 @@ import "../styles/globals.css";
 // utils
 import { cn } from "@/lib/utils";
 import { Providers } from "./provider";
+import { siteDetails } from "@/data/siteDetails";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "900"],
@@ -20,9 +21,16 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Doow",
-  description: "Welcome to Doow SaaS spend management",
+  title: siteDetails.metadata.title,
+  description: siteDetails.metadata.description,
+  openGraph: {
+    title: siteDetails.metadata.title,
+    description: siteDetails.metadata.description,
+    url: siteDetails.siteUrl,
+    type: 'website',
+  },
 };
+
 
 export default function RootLayout({
   children,
