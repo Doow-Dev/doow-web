@@ -48,7 +48,7 @@ function ImageRow({ images, direction }: { images: readonly IntegrationKey[], di
               key={idx}
               className="flex min-w-fit items-center justify-center rounded-xl space-y-4 transition-colors"
             >
-              <SvgComp className=" text-doow_grey"/>
+              <SvgComp className=" text-doow_grey w-5/6"/>
             </div>
           )
         })}
