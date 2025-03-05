@@ -7,17 +7,10 @@ const WindowsSVG = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     {...props}
   >
-    <g clipPath="url(#a)">
-      <path
-        fill="currentColor"
-        d="m0 6.88 20.481-2.82v19.787H.001zm20.481 19.5v19.562L.003 43.128 0 26.381h20.48v-.001Zm2.266-22.63L50 0v23.848H22.747zM50 26.38V50l-27.253-3.747V26.38z"
-      />
-    </g>
-    <defs>
-      <clipPath id="a">
-        <path fill="currentColor" d="M0 0h50v50H0z" />
-      </clipPath>
-    </defs>
+    <path
+      fill="currentColor"
+      d="m0 6.88 20.481-2.82v19.787H.001zm20.481 19.5v19.562L.003 43.128 0 26.381h20.48v-.001Zm2.266-22.63L50 0v23.848H22.747zM50 26.38V50l-27.253-3.747V26.38z"
+    />
   </svg>
 );
 export default WindowsSVG;
