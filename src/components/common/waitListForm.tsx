@@ -62,12 +62,11 @@ export default function WaitListForm() {
       try {
           // Add your API call here
           console.log(data)
-          const response = await axios.post("https://api.doow.co/waitlist", {
-            data
-          }
+          const response = await axios.post("https://api.doow.co/waitlist", {"company_name" : "Doow", "email" : "samuel.ejeh@doow.co" ,"first_name": "Ejeh" ,"last_name": "daniel", "role" : "EMPLOYEE"}
           ,{
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+               "Accept": "application/json"
             }
           });
          console.log("Success:", response.data);
@@ -85,9 +84,14 @@ export default function WaitListForm() {
   }, [waitListForm, email]);
 
    return(
-    <div className="w-full max-w-md md:max-w-lg mx-auto px-4 mt-12">
+    <div className="w-full max-w-md md:max-w-lg mx-auto mt-8 md:mt-12">
       <Form {...emailForm}>
-         <form onSubmit={emailForm.handleSubmit(onEmailSubmit)}  className="flex items-center p-1.5 bg-white shadow-[0px_0px_41px_6px_rgba(34,_162,_98,_0.15)] rounded-full border">
+        <form
+          onSubmit={emailForm.handleSubmit(onEmailSubmit)}
+          className="sm:p-1.5 sm:bg-white sm:shadow-[0px_0px_41px_6px_rgba(34,_162,_98,_0.15)] sm:rounded-full sm:border rounded-xl sm:flex sm:flex-row"
+        >
+          
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 w-full relative">
             <FormField
                name="email"
                control={emailForm.control}
@@ -98,10 +102,10 @@ export default function WaitListForm() {
                         type="email"
                         placeholder="Enter a valid work email"
                         {...field}
-                        className="flex-1 border-0 bg-transparent rounded-full text-base placeholder:text-slate-600 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        className="h-14 w-full sm:h-auto bg-white sm:bg-transparent rounded-full text-base text-center sm:text-left placeholder:text-gray-500 sm:placeholder:text-slate-600 focus-visible:ring-0 focus-visible:ring-offset-0"
                         />
                      </FormControl>
-                     <FormMessage className="absolute mt-4 ml-4" />
+                     <FormMessage className="absolute text-[10px] sm:text-sm top-28 sm:top-12 ml-4" />
                   </FormItem>
                )}
             />
@@ -114,9 +118,10 @@ export default function WaitListForm() {
                </>
                )}
             </Button>
-         </form>
+          </div>
+        </form>
       </Form>
-      
+
       <Dialog
         open={isModalOpen}
         onOpenChange={(open) => {
