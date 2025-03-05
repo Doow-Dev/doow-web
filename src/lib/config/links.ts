@@ -1,7 +1,6 @@
 export const GlobalLinks = {
     home: {
       blog: "https://medium.com/@Doow",
-      placeHolder: "#"
     },
     auth: {
       login: "https://app.doow.co",
