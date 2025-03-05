@@ -2,11 +2,12 @@ import { Progress } from "@/components/ui/progress"
 import { Check } from "lucide-react"
 import { ProductTile } from "@/components/common/ProductTile"
 import OverlappingApplications from "./OverlappingApplications"
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 
 export const SassIntelligenceSection = () => {
   return (
-    <div className="relative section-spacing">
-      <div className="container">
+    <section className="relative">
+      <MaxWidthWrapper className="section-spacing flow-root ">
         {/* Section Title */}
         <div className="text-center mb-8 space-y-4 max-w-lg md:max-w-2xl mx-auto">
           {/* main text */}
@@ -105,7 +106,7 @@ export const SassIntelligenceSection = () => {
               </div>
           </ProductTile>
         </div>
-      </div>
-    </div>
+      </MaxWidthWrapper>
+    </section>
   )
 }
