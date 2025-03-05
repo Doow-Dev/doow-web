@@ -2,11 +2,12 @@ import { ProductTile } from "@/components/common/ProductTile"
 import { Progress } from "@/components/ui/progress"
 import { Check } from "lucide-react"
 import { AccountsCard } from "./AccountsCard"
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 
 export const BankingSection = () => {
     return (
-      <section className="relative section-spacing bg-white">
-        <div className="container">
+      <section className="relative bg-white">
+        <MaxWidthWrapper className="section-spacing">
           {/* Section Title */}
           <div className="text-center mb-8 max-w-xl md:max-w-2xl mx-auto">
             {/* main text */}
@@ -14,7 +15,7 @@ export const BankingSection = () => {
             </h2>
           </div>
           {/* tiles */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-2 gap-6">
             {/* tile 1 */}
             <ProductTile title="No more chasing invoices." subtitle="Get a live dashboard of all software expenses, categorized by team, usage, and renewal dates.">
               <AccountsCard/>
@@ -118,7 +119,7 @@ export const BankingSection = () => {
               </>
             </ProductTile>
           </div>
-        </div>
+        </MaxWidthWrapper>
       </section>
     )
   }
