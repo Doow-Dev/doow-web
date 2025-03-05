@@ -60,30 +60,33 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-doow_offwhite text-foreground;
+  /* *, body {
+    @apply p-0 m-0 box-border w-full overflow-x-hidden border border-red-500;
+  } */
+  /* html, body {
+    @apply bg-doow_offwhite text-foreground overflow-x-hidden w-full max-w-full p-0 m-0;
+  } */
+  html, body {
+    @apply bg-doow_offwhite text-foreground w-full max-w-full ;
   }
 }
 
 @layer utilities {
   .section-spacing{
-    @apply py-12;
+    @apply py-8 md:py-12;
   }
   .section-spacing-top{
-    @apply pt-12;
+    @apply py-8 md:pt-12;
   }
   .section-spacing-down{
-    @apply pb-12;
+    @apply py-8 md:pb-12;
   }
 }
 
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
-}
+} 
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -97,6 +100,6 @@
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+ ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }

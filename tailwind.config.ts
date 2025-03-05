@@ -18,6 +18,7 @@ export default {
   		},
   		padding: {
   			DEFAULT: '2rem'
+			// add different paddings for diff screens
   		}
   	},
   	extend: {
