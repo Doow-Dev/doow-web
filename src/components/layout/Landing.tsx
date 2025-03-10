@@ -10,9 +10,9 @@ export const Landing: React.FC = () => {
         <>
             <HeroSection/>
             <ProductDemoSection/>
+            <BankingSection/>
             <IntegrationsSection/>
             <SassIntelligenceSection/>
-            <BankingSection/>
             <FAQSection/>
         </>
     )

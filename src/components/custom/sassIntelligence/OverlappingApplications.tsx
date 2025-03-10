@@ -565,7 +565,7 @@ const OverlappingApplications = () => {
       {/* tabs */}
       <div className="flex justify-between items-center gap-10 mb-4 w-full overflow-auto whitespace-nowrap">
         {apps.map((app, idx) => 
-          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-4 py-2 flex-shrink-0 min-w-[200px]'>
+          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-4 py-2 flex-shrink-0 min-w-[250px]'>
             <div className='flex justify-between items-center'>
               <div
                 className="flex min-w-fit items-center justify-center mr-2 bg-white"

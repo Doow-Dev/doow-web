@@ -10,11 +10,11 @@ export  const HeroSection = () => {
           {/* <div className="absolute inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"></div> */}
           <div className="container section-spacing relative ">
               {/* hero text */}
-              <div className="text-center space-y-4 max-w-2xl md:max-w-3xl mx-auto">
+              <div className="text-center space-y-8 max-w-2xl md:max-w-3xl mx-auto">
                 {/* main text */}
-                <h1 className="text-heading text-doow_zinc capitalize">Manage your global spend from one place</h1>
+                <h1 className="text-heading text-doow_zinc">All your global spend in<br /> one place</h1>
                 {/* riding text */}
-                <p className="text-riding text-doow_grey  w-[90%] mx-auto">See where all your non-payroll spend goes, from SaaS subscriptions to AP/AR to employee spending—without the annoying spreadsheets!</p>
+                <p className="text-riding text-doow_grey  w-[90%] mx-auto">See where all your non-payroll spend goes, from SaaS subscriptions to AP/AR to employee spendings—without the annoying spreadsheets!</p>
               </div>
               {/* cta - waitlist form (modal) */}
               <WaitListForm/>

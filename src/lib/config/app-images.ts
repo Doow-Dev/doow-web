@@ -30,6 +30,12 @@ export const AppImages = {
     },
     demos: {
         dashboard: '/demos/screenshot.png',
+        bankingworkflows: '/demos/bankingworkflows.png',
+        sendmoney: '/demos/sendmoney.png',
+        budgeting: '/demos/budgetinghome.png',
+        bankingcards: '/demos/bankingcards.png',
+        contracthome: '/demos/contracthome.png',
+        allapplications: '/demos/allapplications.png',
     },
     logos: {
         fullDoowLogo: '/logos/doowFull.svg',

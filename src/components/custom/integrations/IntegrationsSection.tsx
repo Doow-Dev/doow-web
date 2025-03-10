@@ -7,11 +7,11 @@ import { motion } from "framer-motion"
 export const IntegrationsSection = () => {
   
   return (
-    <section className="w-full mx-auto py-6 bg-white">
+    <section className="w-full mx-auto py-6 bg-offwhite">
         {/* Section Title4*/}
         <div className="text-center mb-4 max-w-xl md:max-w-2xl mx-auto">
-          <h3 className="text-caption text-doow_zinc capitalize">
-            We connect to all the tools within your financial stack
+          <h3 className="text-caption text-doow_zinc">
+            We integrate with all the tools in your financial stack
           </h3>
         </div>
         <div className="relative w-full mt-6 overflow-hidden">
