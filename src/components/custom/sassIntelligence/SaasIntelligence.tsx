@@ -1,12 +1,13 @@
 import { ProductTile } from "@/components/common/ProductTile"
 import OverlappingApplications from "./OverlappingApplications"
-import { AppImages } from "@/lib/config/app-images";
-import Image from "next/image";
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
+import Image from "next/image"
+import { AppImages } from "@/lib/config/app-images"
 
 export const SassIntelligenceSection = () => {
   return (
-    <div className="relative section-spacing bg-white">
-      <div className="container">
+    <section className="bg-white">
+      <MaxWidthWrapper className="section-spacing">
         {/* Section Title */}
         <div className="text-center mb-8 space-y-4 max-w-lg md:max-w-2xl mx-auto">
           {/* main text */}
@@ -14,17 +15,17 @@ export const SassIntelligenceSection = () => {
           </h2>
         </div>
         {/* tiles */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 w-full overflow-auto">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* tile 1 */}
             <ProductTile
-              title="No more wasted SaaS subscriptions"
-              subtitle="Spot duplicate and overlapping apps, unused seats, or even overpriced subscriptions, and cut costs with a single click."
+              title="No more chasing invoices."
+              subtitle="Get a live dashboard of all software expenses, categorized by team, usage, and renewal dates."
               className="col-span-1 md:col-span-2"
             >
               <OverlappingApplications/>
             </ProductTile>
 
-            {/* tile 2 */}
+             {/* tile 2 */}
             <ProductTile
               title="All your SaaS licenses in one place"
               subtitle="Centralize your SaaS subscriptions and never get hit by an unexpected charge again. Get proactive alerts before renewals and cut wasteful subscriptions instantly."
@@ -39,8 +40,9 @@ export const SassIntelligenceSection = () => {
                 />
               </div>
             </ProductTile>
-          {/* tile 3 */}
-          <ProductTile
+
+            {/* tile 3 */}
+            <ProductTile
               title="All your SaaS licenses in one place"
               subtitle="Centralize your SaaS subscriptions and never get hit by an unexpected charge again. Get proactive alerts before renewals and cut wasteful subscriptions instantly."
             >
@@ -55,7 +57,7 @@ export const SassIntelligenceSection = () => {
               </div>
             </ProductTile>
         </div>
-      </div>
-    </div>
+      </MaxWidthWrapper>
+    </section>
   )
 }

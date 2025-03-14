@@ -1,469 +1,53 @@
-// 'use client'
-// import React, { useState, useRef, useEffect } from 'react';
-// import { Card } from '@/components/ui/card';
-// import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import { ChevronDown } from 'lucide-react';
-// import { AppImages } from '@/lib/config/app-images';
-// import Image from 'next/image';
-
-// const ApplicationCard = ({ 
-//   id,
-//   apps, 
-//   spend, 
-//   title,
-//   users, 
-//   children,
-//   hoveredCardId,
-//   onHover 
-// }: { 
-//   id: string;
-//   apps: {name: string, logo: string}[];
-//   spend: number;
-//   title: string;
-//   users: string[];
-//   children?: React.ReactNode;
-//   hoveredCardId: string | null;
-//   onHover: (id: string | null) => void;
-// }) => {
-//   const cardRef = useRef<HTMLDivElement>(null);
-
-//   useEffect(() => {
-//     const cardElement = cardRef.current;
-
-//     const handleMouseEnter = () => {
-//       onHover(id);
-//     };
-
-//     const handleMouseLeave = () => {
-//       onHover(null);
-//     };
-
-//     if (cardElement) {
-//       cardElement.addEventListener('mouseenter', handleMouseEnter);
-//       cardElement.addEventListener('mouseleave', handleMouseLeave);
-//     }
-
-//     return () => {
-//       if (cardElement) {
-//         cardElement.removeEventListener('mouseenter', handleMouseEnter);
-//         cardElement.removeEventListener('mouseleave', handleMouseLeave);
-//       }
-//     };
-//   }, [id, onHover]);
-
-//   return (
-//     <Card 
-//       ref={cardRef}
-//       className={`flex min-w-fit p-4 border rounded-3xl transition-all relative ${
-//         hoveredCardId === id ? 'ring-2 ring-doow_primary backdrop-blur shadow-doow_primary shadow-md' : ''
-//       }`}
-//     >
-//       <div className="space-y-6 pr-4 my-auto">
-//         <div className='flex items-center justify-between w-full gap-6'>
-//           <div className='w-full '>
-//             <p className="text-sm text-doow_grey">{title}</p>
-//             <p className="text-xl font-bold">${spend.toLocaleString()}</p>
-//           </div>
-//           <div className="flex items-center max-w-fit">
-//             <div className="flex -space-x-2">
-//               {apps.map((app, i) => 
-//                 <Avatar key={i} className="h-6 w-6 border-2 border-background">
-//                   <AvatarImage src={app.logo} />
-//                   <AvatarFallback>A</AvatarFallback>
-//                 </Avatar>
-//               )}
-//             </div>
-//             <div className="inline-flex items-center rounded-md">
-//               <ChevronDown className="h-4 w-4" />
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="flex flex-wrap gap-1">
-//           {
-//             users.map((user, i) => 
-//             <Avatar key={i} className="w-7 h-7 border-2 border-background">
-//               <AvatarImage src={user} className='object-cover' />
-//               <AvatarFallback>A</AvatarFallback>
-//             </Avatar>
-//           )}
-//         </div>
-
-//         <p className="text-sm text-gray-500">{users.length} {hoveredCardId === id && title === 'Overlapping spend' && `Overlapping` } users</p>
-//       </div>
-
-//       {children && (
-//         <div>
-//           {children}
-//         </div>
-//       )}
-//     </Card>
-//   );
-// };
-
-// export const OverlappingApplications = () => {
-//   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
-//    const apps = [
-//     {name: 'notion', logo: AppImages.logos.notion},
-//     {name: 'slack', logo: AppImages.logos.slack},
-//     {name: 'teams', logo: AppImages.logos.teams},
-//     {name: 'zoom', logo: AppImages.logos.zoom},
-//    ]
-
-//    const users = [
-//     AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
-//     AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
-//     AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
-//   ]
-
-//   return (
-//     <div className="p-4 overflow-auto w-full max-w-full bg-white rounded-2xl">
-//       {/* tabs */}
-//       <div className="flex justify-between items-center gap-10 mb-4 w-full overflow-auto whitespace-nowrap">
-//         {apps.map((app, idx) => 
-//           <div key={idx} className='flex justify-between items-center rounded-md border-2 px-4 py-2 flex-shrink-0 min-w-[200px]'>
-//             <div className='flex justify-between items-center'>
-//               <div
-//                 className="flex min-w-fit items-center justify-center mr-2 bg-white"
-//               >
-//                 <Image 
-//                   src={app.logo}
-//                   alt={`${app.name} logo`}
-//                   width={30}
-//                   height={30}
-//                   className="border border-white"
-//                 />
-//               </div>
-//               <p className='text-sm font-semibold capitalize'>{app.name}</p>
-//             </div>
-//             <div className="inline-flex items-center rounded-md">
-//                   <ChevronDown className="h-4 w-4" />
-//             </div>
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Application cards */}
-//       <ApplicationCard 
-//         id="notion" 
-//         apps={apps}
-//         spend={9000} 
-//         title='Overlapping spend'
-//         users={users} 
-//         hoveredCardId={hoveredCardId} 
-//         onHover={setHoveredCardId}
-//       >
-//         <ApplicationCard 
-//           id="zoom" 
-//           apps={apps.slice(0, 3)}
-//           spend={9000} 
-//           title='Overlapping spend'
-//           users={users} 
-//           hoveredCardId={hoveredCardId} 
-//           onHover={setHoveredCardId}
-//         >
-//           <ApplicationCard 
-//             id="teams" 
-//             apps={apps.slice(0, 2)}
-//             spend={9000} 
-//             title='Overlapping spend'
-//             users={users} 
-//             hoveredCardId={hoveredCardId} 
-//             onHover={setHoveredCardId}
-//           >
-//             <ApplicationCard 
-//               id="slack" 
-//               apps={apps.slice(0, 1)} 
-//               spend={9000} 
-//               title='Isolated spend'
-//               users={users} 
-//               hoveredCardId={hoveredCardId} 
-//               onHover={setHoveredCardId}
-//             />
-//           </ApplicationCard>
-//         </ApplicationCard>
-//       </ApplicationCard>
-//     </div>
-//   );
-// };
-
-
-// 'use client'
-// import React, { useState, useRef, useEffect } from 'react';
-// import { Card } from '@/components/ui/card';
-// import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import { ChevronDown } from 'lucide-react';
-// import { AppImages } from '@/lib/config/app-images';
-// import Image from 'next/image';
-
-// const ApplicationCard = ({ 
-//   id,
-//   apps, 
-//   spend, 
-//   title,
-//   users, 
-//   children,
-//   hoveredCardId,
-//   onHover 
-// }: { 
-//   id: string;
-//   apps: {name: string, logo: string}[];
-//   spend: number;
-//   title: string;
-//   users: string[];
-//   children?: React.ReactNode;
-//   hoveredCardId: string | null;
-//   onHover: (id: string | null) => void;
-// }) => {
-//   const cardRef = useRef<HTMLDivElement>(null);
-//   // Track whether this specific card is directly hovered (not just its children)
-//   const [isDirectlyHovered, setIsDirectlyHovered] = useState(false);
-
-//   useEffect(() => {
-//     const cardElement = cardRef.current;
-
-//     const handleMouseEnter = (e: MouseEvent) => {
-//       // First check if the current target contains the event target
-//       // This ensures we're handling events that belong to this card
-//       if (e.target === cardElement || cardElement?.contains(e.target as Node)) {
-//         // relatedTarget is the element the mouse came FROM before entering this element
-//         // If relatedTarget is null, mouse came from outside the window
-//         // If relatedTarget is not a child of this card, mouse entered from outside this card
-//         if (e.relatedTarget === null || !cardElement?.contains(e.relatedTarget as Node)) {
-//           setIsDirectlyHovered(true);
-//           onHover(id);
-//         }
-//       }
-//     };
-
-//     const handleMouseLeave = (e: MouseEvent) => {
-//       // relatedTarget is the element the mouse is going TO after leaving this element
-//       // If relatedTarget is null, mouse is leaving the window
-//       // If relatedTarget is not a child of this card, mouse is truly leaving this card
-//       if (e.relatedTarget === null || !cardElement?.contains(e.relatedTarget as Node)) {
-//         setIsDirectlyHovered(false);
-//         // Only clear hover if this card is the currently hovered one
-//         if (hoveredCardId === id) {
-//           onHover(null);
-//         }
-//       }
-//       // If relatedTarget IS a child of this card, we're just moving to a child element
-//       // In that case, do nothing - we want the mouse to still be considered "hovering" the parent
-//     };
-
-//     if (cardElement) {
-//       cardElement.addEventListener('mouseenter', handleMouseEnter);
-//       cardElement.addEventListener('mouseleave', handleMouseLeave);
-//     }
-
-//     // Clean up event listeners on unmount
-//     return () => {
-//       if (cardElement) {
-//         cardElement.removeEventListener('mouseenter', handleMouseEnter);
-//         cardElement.removeEventListener('mouseleave', handleMouseLeave);
-//       }
-//     };
-//   }, [id, onHover, hoveredCardId]);
-
-//   return (
-//     <Card 
-//       ref={cardRef}
-//       className={`flex min-w-fit p-4 border rounded-3xl transition-all relative ${
-//         hoveredCardId === id ? 'ring-2 ring-doow_primary backdrop-blur shadow-doow_primary shadow-md' : ''
-//       }`}
-//       // Add a data attribute for debugging - helps visualize the hover state in dev tools
-//       data-hovered={isDirectlyHovered ? "true" : "false"}
-//     >
-//       <div className="space-y-6 pr-4 my-auto">
-//         <div className='flex items-center justify-between w-full gap-6'>
-//           <div className='w-full '>
-//             <p className="text-sm text-doow_grey">{title}</p>
-//             <p className="text-xl font-bold">${spend.toLocaleString()}</p>
-//           </div>
-//           <div className="flex items-center max-w-fit">
-//             <div className="flex -space-x-2">
-//               {apps.map((app, i) => 
-//                 <Avatar key={i} className="h-6 w-6 border-2 border-background">
-//                   <AvatarImage src={app.logo} />
-//                   <AvatarFallback>A</AvatarFallback>
-//                 </Avatar>
-//               )}
-//             </div>
-//             <div className="inline-flex items-center rounded-md">
-//               <ChevronDown className="h-4 w-4" />
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="flex flex-wrap gap-1">
-//           {
-//             users.map((user, i) => 
-//             <Avatar key={i} className="w-7 h-7 border-2 border-background">
-//               <AvatarImage src={user} className='object-cover' />
-//               <AvatarFallback>A</AvatarFallback>
-//             </Avatar>
-//           )}
-//         </div>
-
-//         <p className="text-sm text-gray-500">{users.length} {hoveredCardId === id && title === 'Overlapping spend' && `Overlapping` } users</p>
-//       </div>
-
-//       {/* Separate container for nested cards helps with clearer DOM structure */}
-//       {children && (
-//         <div className="nested-card-container">
-//           {children}
-//         </div>
-//       )}
-//     </Card>
-//   );
-// };
-
-// export const OverlappingApplications = () => {
-//   // Single source of truth for which card is currently hovered
-//   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
-  
-//   // Handler function to update the hovered card state
-//   const handleCardHover = (id: string | null) => {
-//     setHoveredCardId(id);
-//   };
-  
-//    const apps = [
-//     {name: 'notion', logo: AppImages.logos.notion},
-//     {name: 'slack', logo: AppImages.logos.slack},
-//     {name: 'teams', logo: AppImages.logos.teams},
-//     {name: 'zoom', logo: AppImages.logos.zoom},
-//    ]
-
-//    const users = [
-//     AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
-//     AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
-//     AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
-//   ]
-
-//   return (
-//     <div className="p-4 overflow-auto w-full max-w-full bg-white rounded-2xl">
-//       {/* tabs */}
-//       <div className="flex justify-between items-center gap-10 mb-4 w-full overflow-auto whitespace-nowrap">
-//         {apps.map((app, idx) => 
-//           <div key={idx} className='flex justify-between items-center rounded-md border-2 px-4 py-2 flex-shrink-0 min-w-[200px]'>
-//             <div className='flex justify-between items-center'>
-//               <div
-//                 className="flex min-w-fit items-center justify-center mr-2 bg-white"
-//               >
-//                 <Image 
-//                   src={app.logo}
-//                   alt={`${app.name} logo`}
-//                   width={30}
-//                   height={30}
-//                   className="border border-white"
-//                 />
-//               </div>
-//               <p className='text-sm font-semibold capitalize'>{app.name}</p>
-//             </div>
-//             <div className="inline-flex items-center rounded-md">
-//                   <ChevronDown className="h-4 w-4" />
-//             </div>
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Application cards - nested structure with shared hover state handler */}
-//       <ApplicationCard 
-//         id="notion" 
-//         apps={apps}
-//         spend={9000} 
-//         title='Overlapping spend'
-//         users={users} 
-//         hoveredCardId={hoveredCardId} 
-//         onHover={handleCardHover}
-//       >
-//         <ApplicationCard 
-//           id="zoom" 
-//           apps={apps.slice(0, 3)}
-//           spend={9000} 
-//           title='Overlapping spend'
-//           users={users} 
-//           hoveredCardId={hoveredCardId} 
-//           onHover={handleCardHover}
-//         >
-//           <ApplicationCard 
-//             id="teams" 
-//             apps={apps.slice(0, 2)}
-//             spend={9000} 
-//             title='Overlapping spend'
-//             users={users} 
-//             hoveredCardId={hoveredCardId} 
-//             onHover={handleCardHover}
-//           >
-//             <ApplicationCard 
-//               id="slack" 
-//               apps={apps.slice(0, 1)} 
-//               spend={9000} 
-//               title='Isolated spend'
-//               users={users} 
-//               hoveredCardId={hoveredCardId} 
-//               onHover={handleCardHover}
-//             />
-//           </ApplicationCard>
-//         </ApplicationCard>
-//       </ApplicationCard>
-//     </div>
-//   );
-// };
-
-
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronDown } from 'lucide-react';
-import { AppImages } from '@/lib/config/app-images';
 import Image from 'next/image';
+import { AppImages } from '@/lib/config/app-images';
+import { cn } from '@/lib/utils';
 
-const ApplicationCard = ({ 
-  id,
-  apps, 
-  spend, 
-  title,
-  users, 
-  children,
-  hoveredCardId,
-  onHover 
-}: { 
-  id: string;
-  apps: {name: string, logo: string}[];
+interface Application{
+  name: string;
+  logo: string
   spend: number;
-  title: string;
   users: string[];
-  children?: React.ReactNode;
+}
+interface ApplicationCardProps {
+  id: string;
+  depth: number;
+  maxDepth: number;
+  apps: Application[];
   hoveredCardId: string | null;
   onHover: (id: string | null) => void;
+}
+
+const RecursiveApplicationCard: React.FC<ApplicationCardProps> = ({ 
+  id,
+  depth,
+  maxDepth, 
+  apps,
+  hoveredCardId,
+  onHover 
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   
+  // Mouse event handling logic 
   useEffect(() => {
     const cardElement = cardRef.current;
     
-    // Track if mouse is over this card (including its non-card children)
     const handleMouseOver = (e: MouseEvent) => {
-      // Stop propagation to prevent parent cards from detecting this event
       e.stopPropagation();
       
-      // Check if the event target is this card or one of its non-card children
       if (e.target === cardElement || (cardElement?.contains(e.target as Node))) {
-        // Only trigger if we're not already the hovered card
         if (hoveredCardId !== id) {
           onHover(id);
         }
       }
     };
     
-    // Track when mouse completely leaves this card (and its children)
     const handleMouseOut = (e: MouseEvent) => {
-      // We only care about the event if we're the currently hovered card
       if (hoveredCardId === id) {
-        // Check if we're actually leaving this card's boundary (not just moving to a child)
-        // relatedTarget is where the mouse is going
         if (e.relatedTarget === null || !cardElement?.contains(e.relatedTarget as Node)) {
           onHover(null);
         }
@@ -471,7 +55,6 @@ const ApplicationCard = ({
     };
 
     if (cardElement) {
-      // Using mouseover/mouseout instead of mouseenter/mouseleave for better nested element handling
       cardElement.addEventListener('mouseover', handleMouseOver);
       cardElement.addEventListener('mouseout', handleMouseOut);
     }
@@ -484,62 +67,94 @@ const ApplicationCard = ({
     };
   }, [id, onHover, hoveredCardId]);
 
+  // Base case: Stop recursion at maximum depth
+  if (depth > maxDepth) return null;
+
+  // Map depth to corresponding class names
+  const baseDepthClassMap: { [key: number]: string } = {
+    1: "lg:col-span-4 lg:grid-cols-4",
+    2: "lg:col-span-3 lg:grid-cols-3",
+    3: "lg:col-span-2 lg:grid-cols-2",
+    4: "lg:col-span-1 lg:grid-cols-1",
+  }
+
+  // Adjust the depthClassMap based on maxDepth
+  const adjustedDepthClassMap: { [key: number]: string } = {};
+  for (let i = 1; i <= maxDepth; i++) {
+      adjustedDepthClassMap[i] = baseDepthClassMap[i + (4 - maxDepth)];
+  }
+
+  // Get a progressively smaller subset of apps based on depth
+  const appsForThisLevel = apps.slice(0, apps.length - depth + 1)
+  const currentApp = apps[0]
+  
+  // Title changes based on depth
+  const cardTitle = depth === maxDepth ? 'Isolated spend' : 'Overlapping spend';
+
   return (
     <Card 
       ref={cardRef}
-      className={`flex min-w-fit p-4 border rounded-3xl transition-all relative ${
-        hoveredCardId === id ? 'ring-2 ring-doow_primary backdrop-blur shadow-doow_primary shadow-md' : ''
-      }`}
+      className={cn("lg:flex gap-2 lg:gap-4 items-center p-3 lg:p-4 duration-300 transform max-w-full border-2 rounded-2xl transition-all",hoveredCardId === id ? "shadow-[0px_4px_10px_rgba(0,0,0,0.15)]" : ""
+      )}
       data-id={id}
     >
-      <div className="space-y-6 pr-4 my-auto">
-        <div className='flex items-center justify-between w-full gap-6'>
-          <div className='w-full '>
-            <p className="text-sm text-doow_grey">{title}</p>
-            <p className="text-xl font-bold">${spend.toLocaleString()}</p>
-          </div>
-          <div className="flex items-center max-w-fit">
-            <div className="flex -space-x-2">
-              {apps.map((app, i) => 
-                <Avatar key={i} className="h-6 w-6 border-2 border-background">
-                  <AvatarImage src={app.logo} />
-                  <AvatarFallback>A</AvatarFallback>
-                </Avatar>
-              )}
+       <CardContent className="p-2 flex flex-col gap-2">
+          <div className='flex items-center justify-between w-full gap-6'>
+            <div className='w-full'>
+              <p className=" text-xs sm:text-sm text-doow_grey">{cardTitle}</p>
+              <p className="text-base sm:text-xl font-bold">${currentApp.spend.toLocaleString()}</p>
             </div>
-            <div className="inline-flex items-center rounded-md">
-              <ChevronDown className="h-4 w-4" />
+            <div className="flex items-center max-w-fit">
+              <div className="flex -space-x-2">
+                {appsForThisLevel.map((app, i) => 
+                  <Avatar key={i} className="h-5 w-5 sm:h-6 sm:w-6 border-2 border-background">
+                    <AvatarImage src={app.logo} />
+                    <AvatarFallback>A</AvatarFallback>
+                  </Avatar>
+                )}
+              </div>
+              <div className="inline-flex items-center rounded-md">
+                <ChevronDown className="h-4 w-4" />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-wrap gap-1">
-          {
-            users.map((user, i) => 
-            <Avatar key={i} className="w-7 h-7 border-2 border-background">
-              <AvatarImage src={user} className='object-cover' />
-              <AvatarFallback>A</AvatarFallback>
-            </Avatar>
-          )}
-        </div>
+          <div className="flex flex-wrap gap-1">
+            {
+              currentApp.users.map((user, i) => 
+              <Avatar key={i} className="w-5 h-5 sm:w-7 sm:h-7 border-2 border-background">
+                <AvatarImage src={user} className='object-cover' />
+                <AvatarFallback>A</AvatarFallback>
+              </Avatar>
+            )}
+          </div>
 
-        <p className="text-sm text-gray-500">{users.length} {hoveredCardId === id && title === 'Overlapping spend' && `Overlapping` } users</p>
-      </div>
+          <p className="text-xs sm:text-sm text-gray-500">
+            {currentApp.users.length} {hoveredCardId === id && (cardTitle === 'Overlapping spend' ? 'overlapping' : 'unique' )} users
+          </p>
+       </CardContent>
 
-      {children && (
+      {/* Recursive child - only render if haven't reached maxDepth */}
+      {depth < maxDepth && (
         <div 
           className="nested-card-container"
-          // Add a special handler for direct interaction with the container
           onClick={e => e.stopPropagation()}
         >
-          {children}
+          <RecursiveApplicationCard
+            id={appsForThisLevel[appsForThisLevel.length - 1]?.name || `level-${depth + 1}`}
+            depth={depth + 1}
+            maxDepth={maxDepth}
+            apps={apps}
+            hoveredCardId={hoveredCardId}
+            onHover={onHover}
+          />
         </div>
       )}
     </Card>
   );
 };
 
-const OverlappingApplications = () => {
+const OverlappingApplications: React.FC = () => {
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
   
   // Handler to update which card is currently hovered
@@ -547,25 +162,58 @@ const OverlappingApplications = () => {
     setHoveredCardId(id);
   };
   
-   const apps = [
-    {name: 'notion', logo: AppImages.logos.notion},
-    {name: 'slack', logo: AppImages.logos.slack},
-    {name: 'teams', logo: AppImages.logos.teams},
-    {name: 'zoom', logo: AppImages.logos.zoom},
-   ]
+  const apps: Application[] = [
+    {
+      name: 'Notion',
+      logo: AppImages.logos.notion,
+      spend: 9000,
+      users: [
+        AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
+        AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
+        AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
+      ]
+    },
+    {
+      name: 'Slack',
+      logo: AppImages.logos.slack,
+      spend: 7500,
+      users: [
+        AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
+        AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
+        AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
+      ]
+    },
+    {
+      name: 'Teams',
+      logo: AppImages.logos.teams,
+      spend: 5000,
+      users: [
+        AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
+        AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
+        AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
+      ]
+    },
+    {
+      name: 'Zoom',
+      logo: AppImages.logos.zoom,
+      spend: 3000,
+      users: [
+        AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
+        AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
+        AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
+      ]
+    }
+  ];
 
-   const users = [
-    AppImages.profiles.afro, AppImages.profiles.aiony, AppImages.profiles.anthony,
-    AppImages.profiles.ayo, AppImages.profiles.joseph, AppImages.profiles.jurica, AppImages.profiles.lucas,
-    AppImages.profiles.lupita, AppImages.profiles.mathias, AppImages.profiles.micheal, AppImages.profiles.prince,
-  ]
+  // Calculate max depth based on number of apps (with a maximum of 4)
+  const maxDepth = Math.min(apps.length, 4);
 
   return (
-    <div className="p-4 overflow-auto w-full max-w-full bg-white rounded-2xl">
+    <div className="flex flex-col p-3 sm:p-4 w-full max-w-full bg-white/80 rounded-2xl shadow-lg">
       {/* tabs */}
-      <div className="flex justify-between items-center gap-10 mb-4 w-full overflow-auto whitespace-nowrap">
+      <div className="flex justify-between items-center p-4 overflow-x-auto gap-4 sm:gap-10 mb-4 whitespace-nowrap ">
         {apps.map((app, idx) => 
-          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-4 py-2 flex-shrink-0 min-w-[250px]'>
+          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-2 sm:px-4 py-1 sm:py-2 flex-shrink-0 min-w-[150px] sm:min-w-[200px] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.09)]'>
             <div className='flex justify-between items-center'>
               <div
                 className="flex min-w-fit items-center justify-center mr-2 bg-white"
@@ -573,62 +221,31 @@ const OverlappingApplications = () => {
                 <Image 
                   src={app.logo}
                   alt={`${app.name} logo`}
-                  width={30}
-                  height={30}
-                  className="border border-white"
+                  width={20}
+                  height={20}
+                  className="border border-white sm:w-[30px] sm:h-[30px] w-[20px] h-[20px]"
                 />
               </div>
-              <p className='text-sm font-semibold capitalize'>{app.name}</p>
+              <p className='text-xs sm:text-sm font-semibold capitalize'>{app.name}</p>
             </div>
             <div className="inline-flex items-center rounded-md">
-                  <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-4 w-4" />
             </div>
           </div>
         )}
       </div>
 
-      {/* Application cards */}
-      <ApplicationCard 
-        id="notion" 
+      {/* Start recursive rendering with the top-level card */}
+      <RecursiveApplicationCard 
+        id={apps[0].name}
+        depth={1}
+        maxDepth={maxDepth}
         apps={apps}
-        spend={9000} 
-        title='Overlapping spend'
-        users={users} 
         hoveredCardId={hoveredCardId} 
         onHover={handleCardHover}
-      >
-        <ApplicationCard 
-          id="zoom" 
-          apps={apps.slice(0, 3)}
-          spend={9000} 
-          title='Overlapping spend'
-          users={users} 
-          hoveredCardId={hoveredCardId} 
-          onHover={handleCardHover}
-        >
-          <ApplicationCard 
-            id="teams" 
-            apps={apps.slice(0, 2)}
-            spend={9000} 
-            title='Overlapping spend'
-            users={users} 
-            hoveredCardId={hoveredCardId} 
-            onHover={handleCardHover}
-          >
-            <ApplicationCard 
-              id="slack" 
-              apps={apps.slice(0, 1)} 
-              spend={9000} 
-              title='Isolated spend'
-              users={users} 
-              hoveredCardId={hoveredCardId} 
-              onHover={handleCardHover}
-            />
-          </ApplicationCard>
-        </ApplicationCard>
-      </ApplicationCard>
+      />
     </div>
   );
 };
 
-export default  OverlappingApplications;
+export default OverlappingApplications;
