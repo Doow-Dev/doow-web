@@ -22,14 +22,18 @@ export default {
   	},
   	extend: {
   		fontFamily: {
-  			sans: [
+  			manrope: [
   				'Manrope',
   				'sans-serif'
   			],
   			inter: [
   				'Inter',
   				'sans-serif'
-  			]
+  			],
+			lato: [
+				'Lato',
+				'sans-serif'
+			]
   		},
   		spacing: {},
   		colors: {

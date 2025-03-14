@@ -64,7 +64,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-doow_offwhite text-foreground;
+    @apply bg-doow_offwhite text-foreground font-manrope;
   }
 }
 
