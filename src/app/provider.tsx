@@ -9,7 +9,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 // Define the context value type
 interface WaitListContextType {
-  isHighlighted: boolean;
   highlightForm: () => void;
   inputRefs: RefObject<HTMLInputElement[] | null>;
 }
@@ -18,7 +17,6 @@ const WaitListContext = createContext<WaitListContextType | null>(null);
 
 // Context provider component
 export const WaitListProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isHighlighted, setIsHighlighted] = useState(false);
   const inputRefs = useRef<HTMLInputElement[]>([]);
 
   const highlightForm = () => {
@@ -26,19 +24,12 @@ export const WaitListProvider = ({ children }: { children: React.ReactNode }) =>
       // Bring the form into view
       // inputRef.current.scrollIntoView({ block: 'start' });
       inputRefs.current[0]?.focus();
-
-      // Set highlight state to true
-      setIsHighlighted(true);
-
       // Remove highlight after 2 seconds
-      setTimeout(() => {
-        setIsHighlighted(false);
-      }, 2000);
     }
   };
 
   return (
-    <WaitListContext.Provider value={{ isHighlighted, highlightForm, inputRefs }}>
+    <WaitListContext.Provider value={{ highlightForm, inputRefs }}>
       {children}
     </WaitListContext.Provider>
   );
