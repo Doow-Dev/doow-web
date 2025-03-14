@@ -123,7 +123,7 @@ const RecursiveApplicationCard: React.FC<ApplicationCardProps> = ({
             {
               currentApp.users.map((user, i) => 
               <Avatar key={i} className="w-5 h-5 sm:w-7 sm:h-7 border-2 border-background">
-                <AvatarImage src={user} className='object-cover' />
+                <AvatarImage loading='lazy' src={user} width={100} height={'auto'} className='object-cover' />
                 <AvatarFallback>A</AvatarFallback>
               </Avatar>
             )}

@@ -20,8 +20,8 @@ export const IntegrationsSection = () => {
           </div>
           <div className="relative w-full mt-6 overflow-hidden py-2">
             {/* Gradient overlays */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-doow_offwhite to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-doow_offwhite to-transparent" />
             <ImageRow images={INTEGRATION_ROWS.row1} direction="right" />
             <ImageRow images={INTEGRATION_ROWS.row2} direction="left"/>
           </div>
