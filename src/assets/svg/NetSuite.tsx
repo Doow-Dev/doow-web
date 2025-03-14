@@ -5,6 +5,7 @@ const NetSuiteSVG = (props: React.SVGProps<SVGSVGElement>) => (
     width={75}
     height={19}
     fill="none"
+    preserveAspectRatio="none"
     {...props}
   >
     <path
