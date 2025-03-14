@@ -1,87 +1,115 @@
-"use client";
 
+'use client'
+import * as React from "react"
 import Link from "next/link"
 import { Button, buttonVariants } from "@/components/ui/button"
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
-import { ArrowRight, ChevronDown } from "lucide-react"
+import { ArrowRight, CreditCard, Landmark, ArrowDownUp, CircleDollarSign, UserCog, Unplug, Network, Users, UserPlus } from "lucide-react"
 import { AppImages } from "@/lib/config/app-images"
-import { useState, useEffect, useRef } from "react"
-import { BiCreditCard } from "react-icons/bi";
-import { RiBankLine } from "react-icons/ri";
-import { IoSwapVerticalOutline } from "react-icons/io5";
-import { HiOutlineCurrencyDollar } from "react-icons/hi";
-import { MdOutlineManageAccounts } from "react-icons/md";
-import { VscDebugDisconnect } from "react-icons/vsc";
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
+import { MobileNav } from "./Mobile-Nav"
+import { useWaitListRefs } from "@/app/provider"
 
 interface HeaderItem {
   title: string;
   link: string;
-  hasDropdown?: boolean;
-  dropdownItems?: Array<{ title: string; href: string; subtitle: string; icon: JSX.Element }>;
+  dropdownItems?: Array<{ title: string; href: string; subtitle: string; icon: React.JSX.Element }>;
 }
 
-export const HeaderItems: Array<HeaderItem> = [
+const HeaderItems: Array<HeaderItem> = [
   {
     title: "Products",
     link: "/#",
-    hasDropdown: true,
     dropdownItems: [
       {
         title: "Corporate Cards",
         href: "#",
-        subtitle: "Unlimited corporate & employee cards available everywhere",
-        icon: <BiCreditCard />,
+        subtitle:
+          "Unlimited corporate & employee cards available everywhere",
+        icon: <CreditCard className="w-3 h-3" />
       },
       {
         title: "Foreign Business Accounts",
         href: "#",
         subtitle: "Checking, HYSA, and other local and global business accounts without paperwork",
-        icon: <RiBankLine />,
+        icon: <Landmark className="w-3 h-3" />
       },
       {
         title: "Fx & Conversions",
         href: "#",
-        subtitle: "Hold 40+ currencies and access 24/7 competitive rates, convert easily",
-        icon: <IoSwapVerticalOutline />,
+        subtitle: "Hold 40+ currencies and access 24/7 rates, convert easily",
+        icon: <ArrowDownUp className="w-3 h-3" />
       },
       {
         title: "Global Payments",
         href: "#",
         subtitle: "ACH, Wires, SWIFT, SEPA, MoMo, Bacs, and other global payment methods",
-        icon: <HiOutlineCurrencyDollar />,
+        icon: <CircleDollarSign className="w-3 h-3" />
       },
       {
         title: "Spend Management",
         href: "#",
         subtitle: "Approve, automate and manage all company spend in one place",
-        icon: <MdOutlineManageAccounts />,
+        icon: <UserCog className="w-3 h-3"/>
       },
       {
         title: "Connections",
         href: "#",
         subtitle: "Integrate with your existing banks, card providers and finance tools",
-        icon: <VscDebugDisconnect />,
+        icon: <Unplug className="w-3 h-3"/>
       },
     ],
   },
   {
     title: "Built For",
     link: "/#",
-    hasDropdown: true,
     dropdownItems: [
       {
         title: "Startups",
         href: "#",
         subtitle: "Financial solutions for growing businesses",
-        icon: <MdOutlineManageAccounts />,
+        icon: <UserCog className="w-3 h-3"/>,
       },
       {
         title: "Enterprises",
         href: "#",
         subtitle: "Comprehensive financial management for large organizations",
-        icon: <HiOutlineCurrencyDollar />,
+        icon: <CircleDollarSign className="w-3 h-3" />,
+      },
+      {
+        title: "For CEOs",
+        href: "#",
+        subtitle: "Complete picture of your global finance lifecycle.",
+        icon: <Network className="w-3 h-3"/>
+      },
+      {
+        title: "For CFOs & Controllers",
+        href: "#",
+        subtitle: "Boost financial growth with real-time data and automated approvals.",
+        icon: <Unplug className="w-3 h-3" />
+      },
+      {
+        title: "For Managers",
+        href: "#",
+        subtitle:
+          "Manage team-level spend, policies and permissions.",
+        icon: <UserPlus className="w-3 h-3" />
+      },
+      {
+        title: "For Employees",
+        href: "#",
+        subtitle: "Spend within set company limits, policies and be accountable.",
+        icon: <Users className="w-3 h-3"/>
       },
     ],
   },
@@ -89,38 +117,60 @@ export const HeaderItems: Array<HeaderItem> = [
     title: "Blog",
     link: "https://medium.com/@Doow",
   },
-];
+]
 
 export function Header() {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-
+  const {highlightForm} = useWaitListRefs();
   return (
     <header className="sticky top-0 z-50 w-full bg-white/0 backdrop-blur-lg">
-      <div className="container flex h-20 items-center justify-between gap-2 ">
-        <Link href="#" className="flex items-center gap-2 " prefetch={false}>
-          <Image
-              className="cursor-pointer mr-auto"
-              src={AppImages.logos.fullDoowLogo}
-              alt="Doow logo"
-              width={100}
-              height={50}
-              priority
-          />
-          <span className="sr-only">Doow</span>
+      {/* header */}
+      <MaxWidthWrapper className="flex items-center justify-between h-20">
+        {/* logo */}
+        <Link href="#" className="flex items-center gap-2" prefetch={false}>
+            <Image
+                className="cursor-pointer mr-auto"
+                src={AppImages.logos.fullDoowLogo}
+                alt="Doow logo"
+                width={100}
+                height={50}
+                priority
+            />
+            <span className="sr-only">Doow</span>
         </Link>
 
-        <div className="hidden items-center gap-8 justify-between md:flex ">
-          {HeaderItems.map((item, index) => (
-            <NavItem 
-              key={index} 
-              item={item} 
-              openDropdown={openDropdown}
-              setOpenDropdown={setOpenDropdown}
-            />
-          ))}
-        </div>
-        
+        {/* new nav menu */}
+        <div className="hidden md:flex">
+        <NavigationMenu>
+          <NavigationMenuList>
+            {HeaderItems.map((item) =>
+              item.dropdownItems ? (
+                <NavigationMenuItem key={item.title}>
+                  <NavigationMenuTrigger className="text-base">{item.title}</NavigationMenuTrigger>
+                  <NavigationMenuContent className="bg-doow_offwhite">
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {item.dropdownItems.map((subItem) => (
+                        <ListItem key={subItem.title} title={subItem.title} icon={subItem.icon} href={subItem.href}>
+                          {subItem.subtitle}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ) : (
+                <NavigationMenuItem key={item.title}>
+                  <Link href={item.link || "#"} legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()} >{item.title}</NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              ),
+            )}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+          
+        {/* button groups */}
         <div className="flex items-center gap-4">
+          {/* desktop */}
           <div className="hidden md:flex items-center gap-3 text-button">
             <Link
                 className={cn(
@@ -130,177 +180,61 @@ export function Header() {
                 href="#">
                 Sign In
             </Link>
-            <Link
-                className={cn(
-                    buttonVariants({ size: "sm" }),
-                    "rounded-full bg-doow_primary"
-                )}
-                href="#">
-                Join Beta
-                <ArrowRight className=" h-4 w-4" />
-            </Link>
+            <Button size={"sm"} onClick={highlightForm} className="rounded-full bg-doow_primary">
+              Join Beta
+              <ArrowRight className=" h-4 w-4" />
+            </Button>
           </div>
 
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full md:hidden">
-                <MenuIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="top" className="md:hidden">
-              <div className="grid gap-8 p-6">
-                <div className="flex flex-col items-center gap-4 text-body font-medium">
-                  {HeaderItems.map((item, index) => (
-                    <NavItem key={index} item={item} mobile />
-                  ))}
-                </div>
-                <div className="flex flex-col gap-3">
-                  <Link
-                      className={cn(
-                          buttonVariants({ size: "lg", variant: "outline" }),
-                          "rounded-full bg-transparent text-gray-500 hover:text-gray-900"
-                      )}
-                      href="#">
-                      Sign In
-                  </Link>
-                  <Link
-                      className={cn(
-                          buttonVariants({ size: "lg" }),
-                          "rounded-full bg-doow_primary"
-                      )}
-                      href="/signup">
-                      Join Beta
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+                {/* new mobile navigation menu */}
+          <div className="md:hidden">
+            <MobileNav mainNavItems={HeaderItems} />
+          </div>
         </div>
-      </div>
+      </MaxWidthWrapper>
     </header>
   )
 }
 
-function NavItem({ 
-  item, 
-  mobile, 
-  openDropdown, 
-  setOpenDropdown 
-}: { 
-  item: HeaderItem; 
-  mobile?: boolean; 
-  openDropdown?: string | null; 
-  setOpenDropdown?: (title: string | null) => void;
-}) {
-  const [isMounted, setIsMounted] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsMounted(true);
-
-    // Handle clicks outside of dropdown
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        if (setOpenDropdown) setOpenDropdown(null);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [setOpenDropdown]);
-
-  // If not a dropdown item or on mobile, render a simple link
-  if (!item.hasDropdown || mobile) {
-    return (
-      <Link
-        href={item.link}
-        className="text-body text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-        prefetch={false}
-        target={item.title === "Blog" ? "_blank" : "_self"}
-        rel={item.title === "Blog" ? "noopener noreferrer" : ""}
-      >
-        {item.title}
-      </Link>
-    );
+interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
+    title: string;
+    icon: React.ReactNode;
   }
-
-  if (!isMounted) {
-    return (
-      <div className="flex items-center gap-1 text-body text-gray-500">
-        {item.title}
-      </div>
-    );
-  }
-
-  const isOpen = openDropdown === item.title;
-
-  return (
-    <div 
-      className="relative group"
-      onMouseEnter={() => setOpenDropdown && setOpenDropdown(item.title)}
-    >
-      <div 
-        className="flex items-center gap-1 text-body text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50 cursor-pointer"
-      >
-        {item.title}
-        <ChevronDown 
-          className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} 
-        />
-      </div>
-      
-      {isOpen && item.dropdownItems && (
-        <div 
-          ref={dropdownRef}
-          onMouseLeave={() => setOpenDropdown && setOpenDropdown(null)}
-          className="absolute left-0 top-full mt-2 w-64 bg-white shadow-lg rounded-lg z-50 overflow-hidden"
-        >
-          <div className="py-2">
-            {item.dropdownItems.map((dropdownItem, index) => (
-              <Link 
-                key={index}
-                href={dropdownItem.href} 
-                className="block"
-              >
-                <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition-colors">
-                  <span className="text-xl text-gray-600">{dropdownItem.icon}</span>
-                  <div>
-                    <div className="font-semibold text-gray-800">{dropdownItem.title}</div>
-                    <div className="text-xs text-gray-500">{dropdownItem.subtitle}</div>
-                  </div>
+  
+const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
+    ({ className, title, icon, children, ...props }, ref) => {
+      return (
+        <li>
+          <NavigationMenuLink asChild>
+            <a
+              ref={ref}
+              className={cn(
+                "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-doow_card hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                className,
+              )}
+              {...props}
+            >
+              <div className="flex gap-3 items-start">
+                <div className="border rounded-lg p-2">
+                  {icon}
                 </div>
-                {index < item.dropdownItems.length - 1 && (
-                  <div className="border-t border-gray-200 w-full"></div>
-                )}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
+                <div>
+                  <div className="text-sm font-semibold leading-none text-doow_zinc">{title}</div>
+                  <div className="text-xs leading-snug text-muted-foreground mt-1">{children}</div>
+                </div>
+              </div>
+              {/* <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition-colors border border-gray-200">
+                <span className="text-xl text-gray-600">{icon}</span>
+                <div>
+                  <div className="font-semibold text-gray-800">{title}</div>
+                  <div className="text-xs text-gray-500">{children}</div>
+                </div>
+              </div> */}
+              {/* <div className="border-t border-gray-200 w-full"></div> */}
+            </a>
+          </NavigationMenuLink>
+        </li>
+      )
+    },
   )
-}
+  ListItem.displayName = "ListItem"
