@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 
 interface IFaqItem {
   title: string
@@ -29,27 +30,27 @@ const faqItems: IFaqItem[] = [
 
 export const FAQSection = () => {
   return (
-    <section className="container flex flex-col items-center justify-around section-spacing">
-      <div className="flex flex-col items-center justify-center text-center w-[80%] md:w-[70%] sm:w-full">
-        <div className="mb-12 space-y-4 max-w-1xl md:max-w-2xl">
-          <h2 className="text-sub-heading text-doow_zinc capitalize">Frequently asked questions</h2>
+    <section className="relative w-full bg-[#003138]">
+      <MaxWidthWrapper className="flex flex-col items-center justify-center text-center w-full md:w-[70%] section-spacing ">
+        <div className="mb-8 max-w-60 md:max-w-2xl mx-auto">
+            <h2 className="text-sub-heading capitalize text-white">Frequently asked questions</h2>
         </div>
 
-        <div className="w-full flex flex-col items-center">
-          <Accordion type="single" collapsible className="w-[80%] sm:w-full">
-            {faqItems.map((item, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left text-xl font-normal sm:text-lg hover:no-underline">
-                  {item.title}
-                </AccordionTrigger>
-                <AccordionContent>
-                  <p className="text-base text-justify leading-relaxed">{item.content}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </div>
+          <div className="w-full flex flex-col items-center text-white">
+            <Accordion type="single" collapsible className="w-[80%] sm:w-full">
+              {faqItems.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left text-lg sm:text-xl font-medium hover:no-underline">
+                    {item.title}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm sm:text-base text-start leading-normal">
+                    {item.content}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+      </MaxWidthWrapper>
     </section>
   )
 }
