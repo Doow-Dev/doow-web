@@ -34,7 +34,7 @@ export const AppImages = {
         sendmoney: '/demos/sendmoney.png',
         budgeting: '/demos/budgetinghome.png',
         bankingcards: '/demos/bankingcards.png',
-        contracthome: '/demos/contracthome.png',
+        contracthome: '/demos/contracthome.jpg',
         allapplications: '/demos/allapplications.png',
     },
     logos: {
@@ -62,12 +62,14 @@ export const AppImages = {
       usa: '/flags/usa.svg',
       brazil: '/flags/brazil.jpg',
       britain: '/flags/britain.png',
-      china: '/flags/china.jpg'
+      china: '/flags/china.jpg',
+      australia: '/flags/australia.jpg',
     }
   } as const
 
   export const INTEGRATION_ROWS = {
-    row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows", "Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]
+    row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows", "Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"],
+    row2: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows", "Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]
   } as const
   
   export type IntegrationKey = keyof typeof AppImages.integration
