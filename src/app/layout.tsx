@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Lato } from "next/font/google";
 import "../styles/globals.css";
 
 // utils
 import { cn } from "@/lib/utils";
-import { Providers } from "./provider";
+import { Providers, WaitListProvider } from "./provider";
 import { siteDetails } from "@/data/siteDetails";
 
 const inter = Inter({
@@ -19,6 +19,14 @@ const manrope = Manrope({
   display: "swap",
   variable: "--font-manrope",
 });
+
+const lato = Lato({
+  weight: ["100", "300", "400", "700", "900"],
+  style: ["normal"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lato",
+})
 
 export const metadata: Metadata = {
   title: siteDetails.metadata.title,
@@ -42,7 +50,8 @@ export default function RootLayout({
     className={cn(
       "font-sans antialiased bg-background",
       inter.variable,
-      manrope.variable
+      manrope.variable,
+      lato.variable
     )}
     suppressHydrationWarning
     >
@@ -50,7 +59,9 @@ export default function RootLayout({
         className={`${inter.variable} ${manrope.variable} antialiased`}
       >
         <Providers>
-          {children}  
+          <WaitListProvider>
+            {children}
+          </WaitListProvider>  
         </Providers>
       </body>
     </html>
