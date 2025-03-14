@@ -11,7 +11,7 @@ interface BankingTileProps{
 
 export const ProductTile = ({title, subtitle, children, className}: BankingTileProps) => {
   return (
-    <Card className={cn("bg-doow_card hover:shadow-lg", className)}>
+    <Card className={cn("bg-doow_card hover:shadow-lg z-10 font-lato", className)}>
         <CardHeader>
             <CardTitle>{title}</CardTitle>
             {subtitle && 
