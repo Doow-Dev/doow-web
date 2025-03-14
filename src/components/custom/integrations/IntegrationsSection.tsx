@@ -1,5 +1,6 @@
 'use client'
 
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 import { AppImages, INTEGRATION_ROWS, IntegrationKey } from "@/lib/config/app-images"
 import { motion } from "framer-motion"
 // import Image from "next/image"
@@ -7,48 +8,55 @@ import { motion } from "framer-motion"
 export const IntegrationsSection = () => {
   
   return (
-    <section className="w-full mx-auto py-6 bg-offwhite">
-        {/* Section Title4*/}
-        <div className="text-center mb-4 max-w-xl md:max-w-2xl mx-auto">
-          <h3 className="text-caption text-doow_zinc">
-            We integrate with all the tools in your financial stack
-          </h3>
+    <section className="w-full bg-offwhite">
+      <MaxWidthWrapper className="section-spacing">
+        <div className=" border-2 section-spacing rounded-lg shadow-[0px_1px_7px_2px_rgba(0,0,0,0.075)] ">
+          {/* Section Title4*/}
+          <div className="text-center mb-4 max-w-xl md:max-w-2xl mx-auto">
+            <h3 className="text-caption text-doow_zinc">
+              Integrations
+            </h3>
+            <p className="text-base text-doow_grey">We integrate with all the tools in your financial stack</p>
+          </div>
+          <div className="relative w-full mt-6 overflow-hidden py-2">
+            {/* Gradient overlays */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+            <ImageRow images={INTEGRATION_ROWS.row1} direction="right" />
+            <ImageRow images={INTEGRATION_ROWS.row2} direction="left"/>
+          </div>
         </div>
-        <div className="relative w-full mt-6 overflow-hidden">
-          {/* Gradient overlays */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
-    
-          <ImageRow images={INTEGRATION_ROWS.row1} direction="right" />
-        </div>
-      </section>
+      </MaxWidthWrapper>
+    </section>
   )
 }
+
 
 function ImageRow({ images, direction }: { images: readonly IntegrationKey[], direction: "left" | "right" }) {
   const duplicatedImages = [...images, ...images]
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-6">
       <motion.div
         initial={{ x: direction === "left" ? 0 : -2000 }}
         animate={{ x: direction === "left" ? -2000 : 0 }}
         transition={{
-          duration: 100,
-          repeat: Number.POSITIVE_INFINITY,
+          duration: 80,
+          repeat: Infinity,
           repeatType: "loop",
           ease: "linear",
         }}
-        className="flex gap-24 "
+        className="flex gap-6 "
       >
         {duplicatedImages.map((imageKey, idx) => {
           const SvgComp = AppImages.integration[imageKey]
           return (
             <div
               key={idx}
-              className="flex min-w-fit items-center justify-center rounded-xl space-y-4 transition-colors"
+              className="flex flex-col min-w-48 h-40 items-center justify-center space-y-4 transition-colors rounded-xl border bg-white/5 p-4  hover:bg-white/10 shadow-[0px_1px_5px_2px_rgba(0,0,0,0.05)]"
             >
-              <SvgComp className=" text-doow_grey w-5/6"/>
+              <SvgComp className="text-doow_grey h-fit"/>
+              <div className="text-caption text-black">{imageKey}</div>
             </div>
           )
         })}
@@ -56,5 +64,3 @@ function ImageRow({ images, direction }: { images: readonly IntegrationKey[], di
     </div>
   )
 }
-
-
