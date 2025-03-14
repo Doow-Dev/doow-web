@@ -68,8 +68,8 @@ export const AppImages = {
   } as const
 
   export const INTEGRATION_ROWS = {
-    row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows", "Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"],
-    row2: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows", "Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]
+    row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows"],
+    row2: ["Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]
   } as const
   
   export type IntegrationKey = keyof typeof AppImages.integration

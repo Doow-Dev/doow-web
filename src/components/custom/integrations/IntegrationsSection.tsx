@@ -53,9 +53,9 @@ function ImageRow({ images, direction }: { images: readonly IntegrationKey[], di
           return (
             <div
               key={idx}
-              className="flex flex-col min-w-48 h-40 items-center justify-center space-y-4 transition-colors rounded-xl border bg-white/5 p-4  hover:bg-white/10 shadow-[0px_1px_5px_2px_rgba(0,0,0,0.05)]"
+              className="flex flex-col min-w-48 h-40 group items-center justify-center space-y-4 transition-colors rounded-xl border bg-white/5 p-4  hover:bg-white/10 shadow-[0px_1px_5px_2px_rgba(0,0,0,0.05)]"
             >
-              <SvgComp className="text-doow_grey h-fit"/>
+              <SvgComp className="text-doow_grey group-hover:text-doow_primary h-fit"/>
               <div className="text-caption text-black">{imageKey}</div>
             </div>
           )
