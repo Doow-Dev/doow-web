@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 export const IntegrationsSection = () => {
   
   return (
-    <section className="w-full bg-offwhite">
+    <section className="w-full bg-doow_offwhite">
       <MaxWidthWrapper className="section-spacing">
         <div className=" border-2 section-spacing rounded-lg shadow-[0px_1px_7px_2px_rgba(0,0,0,0.075)] ">
           {/* Section Title4*/}
