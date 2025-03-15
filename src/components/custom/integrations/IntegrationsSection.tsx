@@ -1,8 +1,8 @@
 'use client'
-
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 import { AppImages, INTEGRATION_ROWS, IntegrationKey } from "@/lib/config/app-images"
-import { motion } from "framer-motion"
+import { AnimationPlaybackControls, motion, useAnimate } from "framer-motion"
+import { useEffect, useRef } from "react"
 // import Image from "next/image"
 
 export const IntegrationsSection = () => {
@@ -34,18 +34,33 @@ export const IntegrationsSection = () => {
 
 function ImageRow({ images, direction }: { images: readonly IntegrationKey[], direction: "left" | "right" }) {
   const duplicatedImages = [...images, ...images]
+  const [scope, animate] = useAnimate()
+  const controlsRef = useRef<AnimationPlaybackControls | null>(null);
+
+  useEffect(() => {
+    if(!scope.current) return
+    controlsRef.current = animate(
+      scope.current,
+      {
+        x: direction === "left" ? -2000 : 0
+      },
+      {
+        duration: 80,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "linear",
+      }
+    )
+    return () => controlsRef.current?.stop()
+  }, [])
 
   return (
     <div className="w-full mt-6">
       <motion.div
+        ref={scope}
         initial={{ x: direction === "left" ? 0 : -2000 }}
-        animate={{ x: direction === "left" ? -2000 : 0 }}
-        transition={{
-          duration: 80,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-        }}
+        onHoverStart={() => controlsRef.current?.pause()}
+        onHoverEnd={() => controlsRef.current?.play()}
         className="flex gap-6 "
       >
         {duplicatedImages.map((imageKey, idx) => {
