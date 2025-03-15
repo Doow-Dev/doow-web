@@ -208,7 +208,7 @@ export function Header() {
                     textColor, textColor === 'text-white' ? 'hover:text-white/80 hover:bg-white/15' : ''
                 )}
                 style={{ color: textColor }}
-                href="#">
+                href="/signin">
                 Sign In
             </Link>
             <Button size={"sm"} onClick={highlightForm} className="rounded-full bg-doow_primary">
