@@ -1,6 +1,6 @@
 
 'use client'
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -19,6 +19,7 @@ import { AppImages } from "@/lib/config/app-images"
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 import { MobileNav } from "./Mobile-Nav"
 import { useWaitListRefs } from "@/app/provider"
+import { isDarkBg } from "@/lib/helpers/isDarkBg"
 
 interface HeaderItem {
   title: string;
@@ -121,8 +122,36 @@ const HeaderItems: Array<HeaderItem> = [
 
 export function Header() {
   const {highlightForm} = useWaitListRefs();
+  const [textColor, setTextColor] = useState("text-gray-500");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector("header");
+      const headerHeight = header?.offsetHeight || 80; 
+      const sections = document.querySelectorAll("section");
+      let activeColor = "text-gray-500";
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top;
+
+        // When the section is exactly under the header
+        if (sectionTop <= headerHeight && sectionTop + rect.height >= headerHeight) {
+          const bgColor = window.getComputedStyle(section).backgroundColor;
+          activeColor = isDarkBg(bgColor) ? "text-white" : "text-gray-500";
+        }
+      })
+      setTextColor(activeColor);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+    
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/0 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full bg-white/0 backdrop-blur-xl">
       {/* header */}
       <MaxWidthWrapper className="flex items-center justify-between h-20">
         {/* logo */}
@@ -145,7 +174,7 @@ export function Header() {
             {HeaderItems.map((item) =>
               item.dropdownItems ? (
                 <NavigationMenuItem key={item.title}>
-                  <NavigationMenuTrigger className="text-base">{item.title}</NavigationMenuTrigger>
+                <NavigationMenuTrigger className={cn("text-base", textColor, textColor === 'text-white' ? 'hover:text-white/80 data-[state=open]:text-white/80' : '')} >{item.title}</NavigationMenuTrigger>
                   <NavigationMenuContent className="bg-doow_offwhite">
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       {item.dropdownItems.map((subItem) => (
@@ -159,7 +188,7 @@ export function Header() {
               ) : (
                 <NavigationMenuItem key={item.title}>
                   <Link href={item.link || "#"} legacyBehavior passHref>
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()} >{item.title}</NavigationMenuLink>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), textColor, textColor === 'text-white' ? 'hover:text-white/80' : '')} >{item.title}</NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
               ),
@@ -175,8 +204,10 @@ export function Header() {
             <Link
                 className={cn(
                     buttonVariants({ size: "sm", variant: "outline" }),
-                    "rounded-full bg-transparent text-gray-500 hover:text-gray-900"
+                    "rounded-full bg-transparent text-gray-500 hover:text-doow_zinc",
+                    textColor, textColor === 'text-white' ? 'hover:text-white/80 hover:bg-white/15' : ''
                 )}
+                style={{ color: textColor }}
                 href="#">
                 Sign In
             </Link>
