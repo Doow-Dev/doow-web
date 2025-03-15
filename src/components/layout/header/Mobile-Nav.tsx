@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { ArrowRight, Menu } from "lucide-react"
+import {  Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface MobileNavProps {
@@ -83,13 +83,9 @@ export function MobileNav({ mainNavItems }: MobileNavProps) {
                         buttonVariants({ size: "lg", variant: "outline" }),
                         "rounded-full bg-transparent text-gray-500 hover:text-gray-900"
                     )}
-                    href="#">
+                    href="/signin">
                     Sign In
                 </Link>
-                <Button size={"lg"}  className="rounded-full bg-doow_primary">
-                    Join Beta
-                    <ArrowRight className=" h-4 w-4" />
-                </Button>
             </div>
         </div>
       </SheetContent>
