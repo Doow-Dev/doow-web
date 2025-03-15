@@ -4,7 +4,6 @@ import { useState } from "react";
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { toast } from "react-hot-toast"; // Use react-hot-toast
 
 export default function SignInPage() {
