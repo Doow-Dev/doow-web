@@ -82,7 +82,7 @@ export const MobileNav = ({ mainNavItems }: { mainNavItems: any }) => {
                           transition={{ duration: 0.2 }}
                           className="mt-2 space-y-3 overflow-hidden pl-2"
                         >
-                          {/* eslint-disable-next-line */}]
+                          {/* eslint-disable-next-line */}
                           {item.dropdownItems.map((subItem:any, subIndex:number) => (
                             <Link
                               key={subIndex}
