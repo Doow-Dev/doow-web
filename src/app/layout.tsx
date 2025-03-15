@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Manrope, Lato } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 
 // utils
@@ -61,6 +62,7 @@ export default function RootLayout({
         <Providers>
           <WaitListProvider>
             {children}
+            <Toaster containerClassName="mt-4" position="top-center" />
           </WaitListProvider>  
         </Providers>
       </body>
