@@ -11,7 +11,7 @@ interface BankingTileProps{
 
 export const ProductTile = ({title, subtitle, children, className}: BankingTileProps) => {
   return (
-    <Card className={cn("bg-doow_card hover:shadow-lg z-10 font-lato", className)}>
+    <Card className={cn("bg-doow_card hover:shadow-lg z-10 font-lato flex flex-col justify-between ", className)}>
         <CardHeader>
             <CardTitle>{title}</CardTitle>
             {subtitle && 
@@ -20,7 +20,7 @@ export const ProductTile = ({title, subtitle, children, className}: BankingTileP
             </CardDescription>
             }
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-1 relative">
             {children}
         </CardContent>
     </Card>

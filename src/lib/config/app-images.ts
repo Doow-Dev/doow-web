@@ -34,6 +34,7 @@ export const AppImages = {
         sendmoney: '/demos/sendmoney.png',
         budgeting: '/demos/budgetinghome.png',
         bankingcards: '/demos/bankingcards.png',
+        bankingCardsMobile: '/demos/Banking_Cards.png',
         contracthome: '/demos/contracthome.jpg',
         allapplications: '/demos/allapplications.png',
     },

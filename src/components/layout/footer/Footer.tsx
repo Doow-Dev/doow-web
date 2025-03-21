@@ -1,25 +1,23 @@
 "use client"
-import Image from "next/image"
-import { AppImages } from "@/lib/config/app-images"
 import WaitListForm from "@/components/common/waitListForm"
 import Link from "next/link"
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 
 const productLinks = [
-  "Foreign Business Accounts",
+  "Multi-currency Accounts",
   "Corporate Cards",
   "Global Payments",
   "Fx & Conversions",
-  "Multi-currency Reimbursements",
+  "SaaS Intelligence",
   "Spend Management",
-  "Connections"
+  "Finance Connections"
 ]
 
 const companyLinks = [
-  { name: "About Us", href: '#' },
-  { name: "Contact Us", href: '#' },
-  { name: "Privacy Policy", href: '#' },
-  { name: "Terms of Use", href: '#' }
+  { name: "About Us", href: '/about_us' },
+  { name: "Contact Us", href: '/contact_us' },
+  { name: "Privacy Policy", href: '/privacy_policy' },
+  { name: "Terms of Use", href: '/terms_of_use' }
 ]
 
 export function Footer() {
@@ -39,22 +37,9 @@ export function Footer() {
             </div>
           </div>
           {/* foot nav */}
-          <nav className="flex w-full flex-col items-center mt-6 lg:mt-0">
+          <nav className="flex w-full flex-col mt-6 lg:mt-0">
             {/* Main Grid Section */}
-            <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-4">
-              {/* logo */}
-              <Link href="#" className="" prefetch={false}>
-                <Image
-                    className="cursor-pointer mr-auto"
-                    src={AppImages.logos.fullDoowLogo}
-                    alt="Doow logo"
-                    width={100}
-                    height={50}
-                    priority
-                />
-                <span className="sr-only">Doow</span>
-              </Link>
-
+            <div className="grid w-full grid-cols-1 md:grid-cols-3 gap-4 justify-center">
               {/* Products */}
               <div className="">
                 <h3 className="mb-4 font-bold text-white">Products</h3>
@@ -75,7 +60,7 @@ export function Footer() {
                 <ul className="space-y-2">
                   {companyLinks.map((link) => (
                     <li key={link.name}>
-                      <Link href='#' className="text-body text-white transition-colors hover:text-gray-300">
+                      <Link href={link.href} className="text-body text-white transition-colors hover:text-gray-300">
                         {link.name}
                       </Link>
                     </li>

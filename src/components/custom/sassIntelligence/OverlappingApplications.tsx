@@ -108,7 +108,7 @@ const RecursiveApplicationCard: React.FC<ApplicationCardProps> = ({
               <div className="flex -space-x-2">
                 {appsForThisLevel.map((app, i) => 
                   <Avatar key={i} className="h-5 w-5 sm:h-6 sm:w-6 border-2 border-background">
-                    <AvatarImage src={app.logo} />
+                    <AvatarImage src={app.logo} loading='lazy' width={100} height={'auto'} className='object-contain' />
                     <AvatarFallback>A</AvatarFallback>
                   </Avatar>
                 )}
@@ -209,11 +209,11 @@ const OverlappingApplications: React.FC = () => {
   const maxDepth = Math.min(apps.length, 4);
 
   return (
-    <div className="flex flex-col p-3 sm:p-4 w-full max-w-full bg-white/80 rounded-2xl shadow-lg">
+    <div className="flex flex-col p-3 sm:p-4 w-full max-w-full bg-white/80 rounded-xl shadow-lg">
       {/* tabs */}
-      <div className="flex justify-between items-center p-4 overflow-x-auto gap-4 sm:gap-10 mb-4 whitespace-nowrap ">
+      <div className="flex justify-between items-center py-4 overflow-x-auto gap-4 mb-4 whitespace-nowrap">
         {apps.map((app, idx) => 
-          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-2 sm:px-4 py-1 sm:py-2 flex-shrink-0 min-w-[150px] sm:min-w-[200px] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.09)]'>
+          <div key={idx} className='flex justify-between items-center rounded-md border-2 px-2 sm:px-4 py-1 sm:py-2 flex-shrink-0 min-w-[200px] sm:min-w-[250px] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.09)]'>
             <div className='flex justify-between items-center'>
               <div
                 className="flex min-w-fit items-center justify-center mr-2 bg-white"

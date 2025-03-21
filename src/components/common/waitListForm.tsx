@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button, } from "@/components/ui/button";
 import { EmailFormData, emailSchema, WaitListFormData, waitListSchema } from "@/lib/schema";
 import { useEffect, useRef, useState } from "react";
+<<<<<<< Updated upstream
 import { ArrowRight, LoaderCircle } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -54,6 +55,60 @@ export default function WaitListForm() {
     try {
       setEmail(data.email)
       setIsModalOpen(true)
+=======
+import { ArrowRight, BadgeCheck, LoaderCircle } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import customToast from "./customToast";
+import { useWaitListContext } from "@/lib/contexts/WaitlistContext";
+
+export default function WaitListForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { isWaitListOpen, setIsWaitListOpen, email, setEmail} = useWaitListContext();
+  const localRef = useRef<HTMLInputElement | null>(null);
+  //Email form
+  const emailForm = useForm<EmailFormData>({
+    resolver: zodResolver(emailSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  // Final waitlist form
+  const waitListForm = useForm<WaitListFormData>({
+    resolver: zodResolver(waitListSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      company_name: "",
+      email: email ? email : "",
+      position: "",
+    },
+  });
+
+  const position = waitListForm.watch("company_name") || 'your company';
+
+  const onEmailSubmit = async (data: EmailFormData) => {
+    setIsSubmitting(true);
+    try {
+      setEmail(data.email);
+      setIsWaitListOpen(true);
+>>>>>>> Stashed changes
     } catch (error) {
       console.error("Error:", error)
     } finally {
@@ -70,10 +125,11 @@ export default function WaitListForm() {
       last_name: data.last_name,
       company_name: data.company_name,
       email: email,
-      role: data.role,
+      role: data.position,
     };
 
     try {
+<<<<<<< Updated upstream
       await axios.post(
         "https://api.doow.co/waitlist",
         payload,
@@ -85,16 +141,28 @@ export default function WaitListForm() {
         }
       );
       customToast.success({ title: 'Successfully registered!' });
+=======
+      const response = await axios.post("https://api.doow.co/waitlist", payload, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      console.log(response.data)
+      customToast.success({ title: "Successfully registered!" });
+>>>>>>> Stashed changes
       setIsSubmitting(false);
-      setIsModalOpen(false);
+      setIsWaitListOpen(false);
       waitListForm.reset();
     } catch (error: unknown) {
       customToast.error({ title: error.response?.data.message });
+      console.log(error.response.data)
     } finally {
       setIsSubmitting(false);
     }
   };
 
+<<<<<<< Updated upstream
    useEffect(() => {
     const localRefCurrent = localRef.current
     if(localRefCurrent) {
@@ -108,6 +176,11 @@ export default function WaitListForm() {
       }
     }
   }, [waitListForm, email, inputRefs]);
+=======
+  useEffect(() => {
+    waitListForm.setValue("email", email);
+  }, [waitListForm, email]);
+>>>>>>> Stashed changes
 
    return(
     <div className="w-full max-w-md md:max-w-lg mx-auto mt-8 md:mt-12">
@@ -118,6 +191,7 @@ export default function WaitListForm() {
         >
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 w-full relative">
             <FormField
+<<<<<<< Updated upstream
                name="email"
                control={emailForm.control}
                render={({field})=>(
@@ -134,6 +208,24 @@ export default function WaitListForm() {
                      <FormMessage className="absolute text-[10px] sm:text-sm top-28 sm:top-12 ml-4" />
                   </FormItem>
                )}
+=======
+              name="email"
+              control={emailForm.control}
+              render={({ field }) => (
+                <FormItem className="sm:flex-1">
+                  <FormControl>
+                    <Input
+                      type="email"
+                      placeholder="Enter a valid work email"
+                      {...field}
+                      ref={localRef}
+                      className=" w-full bg-white sm:bg-transparent rounded-full text-base text-center sm:text-left focus-visible:ring-0 focus-visible:bg-muted"
+                    />
+                  </FormControl>
+                  <FormMessage className="absolute text-[10px] sm:text-sm top-28 sm:top-12 ml-4" />
+                </FormItem>
+              )}
+>>>>>>> Stashed changes
             />
             <Button type="submit" size={"lg"} className="rounded-full px-4 bg-doow_primary shadow-[0px_0px_41px_6px_rgba(34,_162,_98,_0.15)] ml-0 sm:ml-4" disabled={isSubmitting}>
                {isSubmitting ? (
@@ -149,9 +241,10 @@ export default function WaitListForm() {
       </Form>
       
       <Dialog
-        open={isModalOpen}
+        open={isWaitListOpen}
         onOpenChange={(open) => {
           if (!open) {
+<<<<<<< Updated upstream
             // dispatch(setModalOpen(false))
             setIsModalOpen(false)
           }
@@ -161,6 +254,21 @@ export default function WaitListForm() {
           <DialogHeader>
             <DialogTitle>Complete your waitlist registration</DialogTitle>
             <DialogDescription>Please provide additional information to join our waitlist.</DialogDescription>
+=======
+            setIsWaitListOpen(false)
+          }
+        }}
+      >
+        <DialogContent className="overflow-y-auto scrollbar-hidden hover:scrollbar-default max-h-[95vh] p-11 space-y-4">
+          <DialogHeader className="space-y-1">
+            <div className="opacity-70 bg-doow_card text-doow_primary p-2 rounded-full w-fit-content mx-auto">
+              <BadgeCheck className="h-8 w-8"/>
+            </div>
+            <DialogTitle className="text-xl text-center text-doow_zinc mt-8">Join our waitlist</DialogTitle>
+            <DialogDescription >
+              Please provide additional information to join our waitlist.
+            </DialogDescription>
+>>>>>>> Stashed changes
           </DialogHeader>
           <Form {...waitListForm}>
             <form onSubmit={waitListForm.handleSubmit(onWaitListSubmit)} className="space-y-4 flex flex-col gap-0 w-full">
@@ -174,9 +282,14 @@ export default function WaitListForm() {
                       <Input
                         className="bg-muted"
                         {...field}
+                        placeholder="Enter your first name"
                         onChange={(e) => {
+<<<<<<< Updated upstream
                           field.onChange(e)
                         //   dispatch(updateForm({ name: e.target.value }))
+=======
+                          field.onChange(e);
+>>>>>>> Stashed changes
                         }}
                       />
                     </FormControl>
@@ -194,9 +307,14 @@ export default function WaitListForm() {
                       <Input
                         className="bg-muted"
                         {...field}
+                        placeholder="Enter your last name"
                         onChange={(e) => {
+<<<<<<< Updated upstream
                           field.onChange(e)
                         //   dispatch(updateForm({ company: e.target.value }))
+=======
+                          field.onChange(e);
+>>>>>>> Stashed changes
                         }}
                       />
                     </FormControl>
@@ -209,14 +327,19 @@ export default function WaitListForm() {
                 name="company_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Company</FormLabel>
+                    <FormLabel>Company Name</FormLabel>
                     <FormControl>
                       <Input
                         className="bg-muted"
                         {...field}
+                        placeholder="Enter a company name"
                         onChange={(e) => {
+<<<<<<< Updated upstream
                           field.onChange(e)
                         //   dispatch(updateForm({ role: e.target.value }))
+=======
+                          field.onChange(e);
+>>>>>>> Stashed changes
                         }}
                       />
                     </FormControl>
@@ -234,10 +357,15 @@ export default function WaitListForm() {
                       <Input
                         className="bg-muted"
                         {...field}
+                        placeholder="Enter a valid work email"
                         value={field.value}
                         onChange={(e) => {
+<<<<<<< Updated upstream
                           field.onChange(e)
                         //   dispatch(updateForm({ name: e.target.value }))
+=======
+                          field.onChange(e);
+>>>>>>> Stashed changes
                         }}
 
                       />
@@ -248,10 +376,10 @@ export default function WaitListForm() {
               />
               <FormField
                 control={waitListForm.control}
-                name="role"
+                name="position"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel className="transition-all">{`What do you do at ${position}?`}</FormLabel>
                     <FormControl>
                       <Select
                         {...field}
@@ -263,8 +391,8 @@ export default function WaitListForm() {
                         }
                       >
                         <FormControl>
-                          <SelectTrigger autoFocus={true}>
-                            <SelectValue placeholder="Select a role" />
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a position" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -290,8 +418,22 @@ export default function WaitListForm() {
                   </FormItem>
                 )}
               />
+<<<<<<< Updated upstream
               <Button type="submit" size="lg" className="w-full rounded-full bg-doow_primary" disabled={isSubmitting || !waitListForm.formState.isValid}>
                 {isSubmitting ? <LoaderCircle className="w-4 h-4 mr-2 animate-spin" /> : 'Join WaitList'}
+=======
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full rounded-full bg-doow_primary"
+                disabled={isSubmitting || !waitListForm.formState.isValid}
+              >
+                {isSubmitting ? (
+                  <LoaderCircle className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  "I'm in 🤝"
+                )}
+>>>>>>> Stashed changes
               </Button>
             </form>
           </Form>
