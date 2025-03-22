@@ -3,7 +3,6 @@ import { useState } from "react";
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { toast } from "react-hot-toast"; // Use react-hot-toast
 import { Eye, EyeOff } from "lucide-react"
 import { DoowLogo } from "@/components/layout/components/doow_logo";
@@ -35,7 +34,7 @@ export default function SignInPage() {
       <MaxWidthWrapper className="relative">
         <div className="items-start top-0">
           <h2 className="relative text-sub-heading text-center text-gray-600 whitespace-nowrap">
-                Welcome back! 👋
+                Welcome back 👋
               </h2>
         </div>
         <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg mx-auto items-center mt-6">
