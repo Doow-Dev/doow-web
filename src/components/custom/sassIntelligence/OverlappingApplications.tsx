@@ -235,7 +235,7 @@ const OverlappingApplications: React.FC = () => {
         )}
       </div>
 
-      {/* Start recursive rendering with the top-level card */}
+      {/* Start recursive rendering with the top-level card again */}
       <RecursiveApplicationCard 
         id={apps[0].name}
         depth={1}
