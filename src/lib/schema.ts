@@ -8,7 +8,7 @@ const workMailSchema = z
       const foundDomain = personalEmailDomains.find((domain) =>
         email.toLowerCase().endsWith(domain)
       );
-      return !foundDomain; // Returns false if a personal domain is found
+      return !foundDomain;
     },
     (email) => {
       const foundDomain = personalEmailDomains.find((domain) =>
