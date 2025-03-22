@@ -57,7 +57,7 @@ function ImageRow({ images, direction }: { images: readonly IntegrationKey[]; di
       },
     )
     return () => controlsRef.current?.stop()
-  }, [animate, direction])
+  }, [animate, direction, scope])
 
   // Track mouse position
   const handleMouseMove = (e: React.MouseEvent) => {
