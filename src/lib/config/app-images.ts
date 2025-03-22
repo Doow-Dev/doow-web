@@ -68,6 +68,7 @@ export const AppImages = {
     }
   } as const
 
+  // keys for integration images
   export const INTEGRATION_ROWS = {
     row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows"],
     row2: ["Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]
