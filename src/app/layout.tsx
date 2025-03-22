@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Manrope, Lato } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
-
-// utils
 import { cn } from "@/lib/utils";
 import { WaitListProvider } from "./provider";
 import { siteDetails } from "@/data/siteDetails";

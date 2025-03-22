@@ -2,8 +2,6 @@
 import { useState } from 'react'
 import { WaitListContext } from "@/lib/contexts/WaitlistContext"
 
-
-// Context provider component
 export const WaitListProvider = ({ children }: { children: React.ReactNode }) => {
   const [isWaitListOpen, setIsWaitListOpen] = useState(false);
   const [email, setEmail] = useState<string>("");
@@ -14,3 +12,4 @@ export const WaitListProvider = ({ children }: { children: React.ReactNode }) =>
     </WaitListContext.Provider>
   );
 };
+
