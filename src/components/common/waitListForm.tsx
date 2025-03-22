@@ -2,16 +2,6 @@
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-   Form,
-   FormItem,
-   FormField,
-   FormLabel,
-   FormControl,
-   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button, } from "@/components/ui/button";
 import { EmailFormData, emailSchema, WaitListFormData, waitListSchema } from "@/lib/schema";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, BadgeCheck, LoaderCircle } from "lucide-react";
@@ -29,6 +19,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import {
+  Form,
+  FormItem,
+  FormField,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button, } from "@/components/ui/button";
 import customToast from "./customToast";
 import { useWaitListContext } from "@/lib/contexts/WaitlistContext";
 

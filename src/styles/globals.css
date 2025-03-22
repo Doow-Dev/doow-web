@@ -79,8 +79,6 @@
     @apply pb-12;
   }
 
-
-  /* Hide scrollbar by default but allow scrolling */
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
