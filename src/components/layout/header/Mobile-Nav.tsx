@@ -1,3 +1,4 @@
+
 "use client"
 import React from "react"
 import Link from "next/link"
@@ -5,9 +6,9 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ArrowRight, Menu } from "lucide-react"
-import { cn } from "@/lib/utils"
 import { HeaderItem } from "./Header"
 import { useWaitListContext } from "@/lib/contexts/WaitlistContext"
+import { cn } from "@/lib/utils"
 
 interface MobileNavProps {
   mainNavItems: Array<HeaderItem>
