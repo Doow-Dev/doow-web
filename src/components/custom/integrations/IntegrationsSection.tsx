@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-'use client'
-import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
-import { AppImages, INTEGRATION_ROWS, IntegrationKey } from "@/lib/config/app-images"
-import { AnimationPlaybackControls, motion, useAnimate } from "framer-motion"
-import { useEffect, useRef } from "react"
-// import Image from "next/image"
-=======
 "use client"
 
 import type React from "react"
@@ -15,7 +7,6 @@ import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 import { AppImages, INTEGRATION_ROWS, type IntegrationKey } from "@/lib/config/app-images"
 import { type AnimationPlaybackControls, motion, useAnimate } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
->>>>>>> Stashed changes
 
 export const IntegrationsSection = () => {
   return (
@@ -50,39 +41,6 @@ function ImageRow({ images, direction }: { images: readonly IntegrationKey[]; di
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null)
   const animationFrameRef = useRef<number | null>(null)
 
-<<<<<<< Updated upstream
-function ImageRow({ images, direction }: { images: readonly IntegrationKey[], direction: "left" | "right" }) {
-  const duplicatedImages = [...images, ...images]
-  const [scope, animate] = useAnimate()
-  const controlsRef = useRef<AnimationPlaybackControls | null>(null);
-
-  useEffect(() => {
-    if(!scope.current) return
-    controlsRef.current = animate(
-      scope.current,
-      {
-        x: direction === "left" ? -2000 : 0
-      },
-      {
-        duration: 80,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "linear",
-      }
-    )
-    return () => controlsRef.current?.stop()
-  }, [])
-
-  return (
-    <div className="w-full mt-6">
-      <motion.div
-        ref={scope}
-        initial={{ x: direction === "left" ? 0 : -2000 }}
-        onHoverStart={() => controlsRef.current?.pause()}
-        onHoverEnd={() => controlsRef.current?.play()}
-        className="flex gap-6 "
-      >
-=======
   // Set up animation
   useEffect(() => {
     if (!scope.current) return
@@ -181,7 +139,6 @@ function ImageRow({ images, direction }: { images: readonly IntegrationKey[], di
       onMouseEnter={handleMouseEnter}
     >
       <motion.div ref={scope} initial={{ x: direction === "left" ? 0 : -2000 }} className="flex gap-6">
->>>>>>> Stashed changes
         {duplicatedImages.map((imageKey, idx) => {
           const SvgComp = AppImages.integration[imageKey]
           const isHovered = hoveredCardIndex === idx
