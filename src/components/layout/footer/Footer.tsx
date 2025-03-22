@@ -21,7 +21,6 @@ const companyLinks = [
 ]
 
 export function Footer() {
-
   return (
     <footer>
       <section className="w-full bg-[#003138]">
