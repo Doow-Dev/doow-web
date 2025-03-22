@@ -10,12 +10,9 @@ export  const HeroSection = () => {
           <MaxWidthWrapper className="relative section-spacing">
             {/* hero text */}
             <div className="text-center space-y-8 max-w-2xl md:max-w-3xl mx-auto">
-              {/* main text */}
               <h1 className="text-heading text-doow_zinc">All your global spend in<br /> one place</h1>
-              {/* riding text */}
               <p className="text-riding text-doow_grey  w-[90%] mx-auto">See where all your non-payroll spend goes, from SaaS subscriptions to AP/AR to employee spendings—without the annoying spreadsheets!</p>
             </div>
-            {/* cta - waitlist form (modal) */}
             <WaitListForm/>
           </MaxWidthWrapper>
     </section>
