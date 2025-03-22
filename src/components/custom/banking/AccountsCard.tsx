@@ -1,11 +1,10 @@
 "use client"
-
 import { useState } from "react"
 import { Send, FileText, CreditCard, Wallet, Settings } from "lucide-react"
 import Image from "next/image"
 import { AppImages } from "@/lib/config/app-images"
-import { cn } from "@/lib/utils"
 import { Card } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 
 interface CompanyData {
   id: number
