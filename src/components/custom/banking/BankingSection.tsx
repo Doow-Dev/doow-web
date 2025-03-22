@@ -1,8 +1,8 @@
-import { ProductTile } from "@/components/common/ProductTile";
 import { AccountsCard } from "./AccountsCard";
 import { AppImages } from "@/lib/config/app-images";
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 import { ResponsiveImage } from "@/components/ui/responsive-image";
+import { ProductTile } from "@/components/common/ProductTile";
 
 export const BankingSection = () => {
   return (
