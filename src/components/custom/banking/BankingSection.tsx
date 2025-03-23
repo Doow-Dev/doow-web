@@ -15,7 +15,7 @@ export const BankingSection = () => {
           </h2>
         </div>
         {/* tiles */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* tile 1 */}
           <ProductTile
             title="Multi-currency corporate accounts in USD, EUR, & GBP"
@@ -28,19 +28,19 @@ export const BankingSection = () => {
             title="Pay any vendor or business, globally"
             subtitle="Settle all your vendor contracts and payments (same-day) with zero manual work. You can send money to local accounts and wallets in USD, NGN, EUR, KES, GBP, and 140 more currencies to come."
           >
-            <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[400px] md:h-[300px]">
+            <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px]">
               <ResponsiveImage
                 sources={[
                   {
-                    src: AppImages.demos.sendmoney,
-                    width: 1695,
-                    height: 1330,
+                    src: AppImages.demos.sendMoneyMobile,
+                    width: 1255,
+                    height: 831,
                     media: "(max-width: 640px)",
                   },
                   {
-                    src: AppImages.demos.sendmoney,
-                    width: 1695,
-                    height: 1330,
+                    src: AppImages.demos.sendMoneyMobile,
+                    width: 1255,
+                    height: 831,
                     media: "(min-width: 641px) and (max-width: 1024px)",
                   },
                 ]}
@@ -48,7 +48,7 @@ export const BankingSection = () => {
                 fallbackWidth={1695}
                 fallbackHeight={1330}
                 alt="Send money globally"
-                className="w-full h-full object-cover object-center sm:object-top inset-0 transition-transform duration-300 hover:scale-105"
+                className="w-full h-full object-cover object-top sm:object-top inset-0 transition-transform duration-300 hover:scale-105"
               />
             </div>
           </ProductTile>
@@ -57,19 +57,19 @@ export const BankingSection = () => {
             title="Customizable corporate & employee debit cards"
             subtitle="Issue employee debit cards and tailor permissions to each team member. You can lock cards to specific merchants and set company-wide or department-specific spend policies in minutes."
           >
-            <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[300px] md:h-[300px]" >
+            <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px]" >
               <ResponsiveImage
                 sources={[
                   {
                     src: AppImages.demos.bankingCardsMobile,
-                    width: 1695,
-                    height: 1330,
+                    width: 1255,
+                    height: 831,
                     media: "(max-width: 640px)",
                   },
                   {
-                    src: AppImages.demos.bankingcards,
-                    width: 1695,
-                    height: 1330,
+                    src: AppImages.demos.bankingCardsMobile,
+                    width: 1255,
+                    height: 831,
                     media: "(min-width: 641px) and (max-width: 1024px)",
                   },
                 ]}
@@ -86,19 +86,19 @@ export const BankingSection = () => {
             title="Centralized budgets & policies"
             subtitle="With Doow, every spend can be managed from a budget! You can create parent budgets for teams and vendors, and also create nested sub-budgets for one-time spendings like projects and trips."
           >
-            <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[800px] md:h-[300px]" >
+            <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px]" >
               <ResponsiveImage
                 sources={[
                   {
-                    src: AppImages.demos.budgeting,
-                    width: 1695,
-                    height: 1330,
+                    src: AppImages.demos.budgetingMobile,
+                    width: 1255,
+                    height: 831,
                     media: "(max-width: 640px)",
                   },
                   {
-                    src: AppImages.demos.budgeting,
-                    width: 1695,
-                    height: 1330,
+                    src: AppImages.demos.budgetingMobile,
+                    width: 1255,
+                    height: 831,
                     media: "(min-width: 641px) and (max-width: 1024px)",
                   },
                 ]}
@@ -106,7 +106,7 @@ export const BankingSection = () => {
                 fallbackWidth={1695}
                 fallbackHeight={1330}
                 alt="centralized budgets"
-                className="w-full h-full object-cover object-center sm:object-top inset-0 transition-transform duration-300 hover:scale-105"
+                className="w-full h-full object-cover object-top inset-0 transition-transform duration-300 hover:scale-105"
               />
             </div>
           </ProductTile>
