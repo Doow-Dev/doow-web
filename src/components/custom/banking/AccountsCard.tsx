@@ -1,10 +1,9 @@
 "use client"
-
 import { useState } from "react"
-import { Card } from "@/components/ui/card"
 import { Send, FileText, CreditCard, Wallet, Settings } from "lucide-react"
 import Image from "next/image"
 import { AppImages } from "@/lib/config/app-images"
+import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 interface CompanyData {
@@ -84,88 +83,84 @@ const companies: CompanyData[] = [
   }
 ]
 
+
 export function AccountsCard() {
-  const [activeCompany, setActiveCompany] = useState<CompanyData>(companies[0])
-
-  return (
-    <Card className="w-full p-5 space-y-2 rounded-lg flex-1 bg-white/80">
-        <div className="flex justify-between gap-4 w-full">
-             {/* left section */}
-            <div className="h-full py-3 px-2 rounded-2xl w-[49%]">
-                {companies.map((company) => (
-                <div
-                    key={company.id}
-                    className={cn("flex items-center p-2 sm:p-3 rounded-lg transition-colors duration-200 hover:bg-doow_card", activeCompany.id === company.id ? "bg-doow_card" : "" )}
-                    onMouseEnter={() => setActiveCompany(company)}
-                >
-                    <div className="min-w-fit mr-2 sm:mr-3">
-                        <Image
-                            src={company.flag}
-                            alt="US Flag"
-                            width={48}
-                            height={48}
-                            className="w-6 h-4 sm:w-8 sm:h-6 object-cover rounded"
-                        />
-                    </div>
-                    <span className="text-[8px] sm:text-body">{company.name}</span>
-                </div>
-                ))}
+    const [activeCompany, setActiveCompany] = useState<CompanyData>(companies[0])
+  
+    return (
+      <Card className="flex bg-white/80 rounded-lg w-full h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px] p-3 lg:px-5">
+        {/* Left section */}
+        <div className="flex flex-col justify-center w-1/2 min-w-[90px]  py-2 md:py-0 lg:py-2 px-3 md:px-0 lg:px-3">
+          {companies.map((company) => (
+            <div
+              key={company.id}
+              className={cn(
+                "flex items-center p-2 sm:p-3 md:p-2 lg:p-3 rounded-lg transition-colors duration-200 hover:bg-doow_card",
+                activeCompany.id === company.id ? "bg-doow_card" : ""
+              )}
+              onMouseEnter={() => setActiveCompany(company)}
+            >
+              <div className="min-w-fit">
+                <Image
+                  src={company.flag}
+                  alt="Flag"
+                  width={48}
+                  height={48}
+                  className="w-6 h-4 sm:w-8 sm:h-6 md:w-7 md:h-5 lg:h-6 lg:w-9  object-cover rounded"
+                />
+              </div>
+              <span className="text-[7px] sm:text-body md:text-[10px] lg:text-body ml-2 sm:ml-3 overflow-hidden text-ellipsis whitespace-nowrap">{company.name}</span>
             </div>
-            {/* centrer */}
-            <div className="min-h-full bg-doow_card border-l-2"></div>
-            {/* right section */}
-            <div className="flex flex-col justify-between p-3 w-[49%]">
-                <div className="flex justify-between items-center">
-                    {/* account alias */}
-                    <p className="text-[9px] sm:text-sm">{activeCompany.alias}</p>
-                    {/* user avatars */}
-                    <div className="flex -space-x-2 w-fit ml-auto">
-                        {activeCompany.avatars.map((avatar, index) => (
-                            <div
-                                key={index}
-                                className="min-w-fit rounded-full border-2 border-white overflow-hidden duration-300 ease-in-out"
-                            >
-                                <Image
-                                    src={avatar}
-                                    alt={`Avatar ${index + 1}`}
-                                    width={20}
-                                    height={20}
-                                    className="w-5 h-5 sm:w-7 sm:h-7 object-cover rounded-full"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* account details */}
-                <div className="space-y-2">
-                    <p className="text-xs sm:text-sm text-doow_grey">BALANCE</p>
-                    <div className="transition-all duration-300 ease-in-out transform">
-                        <h2 className="text-sm sm:text-2xl font-bold">{activeCompany.balance}</h2>
-                        <p className="text-[8px] sm:text-sm text-doow_grey"><span className="text-red-500">{activeCompany.percentage}</span> in the last 7 days</p>
-                    </div>
-                </div>
-
-                {/* button group */}
-                <div className="flex justify-between gap-1 w-full">
-                    <div className="flex items-center p-[4px] sm:p-2 rounded-sm sm:rounded-lg bg-muted">
-                        <Send className="w-2 h-2 sm:w-4 sm:h-4" />
-                    </div>
-                    <div className="flex items-center p-[4px] sm:p-2 rounded-sm sm:rounded-lg bg-muted">
-                        <FileText className="w-2 h-2 sm:w-4 sm:h-4" />
-                    </div>
-                    <div className="flex items-center p-[4px] sm:p-2 rounded-sm sm:rounded-lg bg-muted">
-                        <CreditCard className="w-2 h-2 sm:w-4 sm:h-4" />
-                    </div>
-                    <div className="flex items-center p-[4px] sm:p-2 rounded-sm sm:rounded-lg bg-muted">
-                        <Wallet className="w-2 h-2 sm:w-4 sm:h-4" />
-                    </div>
-                    <div className="flex items-center p-[4px] sm:p-2 rounded-sm sm:rounded-lg bg-muted">
-                        <Settings className="w-2 h-2 sm:w-4 sm:h-4" />
-                    </div>
-                </div>
-            </div>
+          ))}
         </div>
-    </Card>
-  )
-}
+  
+        {/* Divider */}
+        <div className="flex-1 min-h-full w-[2px] border-l-2 bg-doow_card mx-2"></div>
+  
+        {/* Right section */}
+        <div className="flex flex-col justify-between md:justify-evenly lg:justify-between w-1/2 space-y-1 py-3 sm:py-3 md:py-0 px-3 md:px-0 lg:py-3 lg:px-3 ">
+          <div className="flex justify-between items-center text-[8px] md:text-[10px] lg:text-sm ">
+            <p>{activeCompany.alias}</p>
+            <div className="flex -space-x-2">
+              {activeCompany.avatars.map((avatar, index) => (
+                <div
+                key={index}
+                className="min-w-fit rounded-full border-2 border-white overflow-hidden duration-300 ease-in-out"
+                >
+                  <Image
+                    src={avatar}
+                    alt={`Avatar ${index + 1}`}
+                    width={500}
+                    height={500}
+                    layout="intrisic"
+                    quality={80}
+                    className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-7 lg:h-7 rounded-full object-cover border border-white"
+                  />
+            </div>
+              ))}
+            </div>
+          </div>
+  
+          {/* Balance */}
+          <div >
+            <p className="text-[9px] sm:text-[11px] lg:text-sm text-doow_grey">BALANCE</p>
+            <div className="transition-all duration-300 ease-in-out transform">
+              <h2 className="text-sm sm:text-sm md:text-lg lg:text-2xl font-bold mt-2">{activeCompany.balance}</h2>
+              <p className="text-[6px] md:text-[8px] lg:text-sm text-doow_grey">
+                <span className="text-red-500">{activeCompany.percentage}</span> in the last 7 days
+              </p>
+            </div>
+          </div>
+  
+          {/* Buttons */}
+          <div className="flex justify-between gap-1 w-full">
+            {[Send, FileText, CreditCard, Wallet, Settings].map((Icon, index) => (
+              <div key={index} className="p-1 sm:p-2 bg-muted rounded-sm sm:rounded-lg">
+                <Icon className="w-2 h-2 sm:w-4 sm:h-4 md:w-2 md:h-2 lg:w-4 lg:h-4" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </Card>
+    )
+  }

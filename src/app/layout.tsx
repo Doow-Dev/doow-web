@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Manrope, Lato } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
-
-// utils
 import { cn } from "@/lib/utils";
-import { Providers, WaitListProvider } from "./provider";
+import { WaitListProvider } from "./provider";
 import { siteDetails } from "@/data/siteDetails";
 
 const inter = Inter({
@@ -59,12 +57,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${manrope.variable} antialiased`}
       >
-        <Providers>
-          <WaitListProvider>
-            {children}
-            <Toaster containerClassName="mt-4" position="top-center" />
-          </WaitListProvider>  
-        </Providers>
+        <WaitListProvider>
+          {children}
+          <Toaster containerClassName="mt-4" position="top-center" />
+        </WaitListProvider>  
       </body>
     </html>
   );

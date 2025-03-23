@@ -32,8 +32,11 @@ export const AppImages = {
         dashboard: '/demos/screenshot.png',
         bankingworkflows: '/demos/bankingworkflows.png',
         sendmoney: '/demos/sendmoney.png',
+        sendMoneyMobile: '/demos/sendmoneyMobile.png',
         budgeting: '/demos/budgetinghome.png',
+        budgetingMobile: '/demos/budgetinghomeMobile.png',
         bankingcards: '/demos/bankingcards.png',
+        bankingCardsMobile: '/demos/BankingCardsMobile.png',
         contracthome: '/demos/contracthome.jpg',
         allapplications: '/demos/allapplications.png',
     },
@@ -67,6 +70,7 @@ export const AppImages = {
     }
   } as const
 
+  // keys for integration images
   export const INTEGRATION_ROWS = {
     row1: ["Bamboo", "Gusto", "NetSuite", "QuickBooks", "Plaid", "Sage", "Windows"],
     row2: ["Okta", "Zoho", "OneLogin", "Deel", "Google",  "Yapily"]

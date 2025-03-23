@@ -8,7 +8,7 @@ const workMailSchema = z
       const foundDomain = personalEmailDomains.find((domain) =>
         email.toLowerCase().endsWith(domain)
       );
-      return !foundDomain; // Returns false if a personal domain is found
+      return !foundDomain;
     },
     (email) => {
       const foundDomain = personalEmailDomains.find((domain) =>
@@ -29,7 +29,7 @@ export const waitListSchema = z.object({
     first_name: z.string().min(2, "Name must be at least 2 characters"),
     last_name: z.string().min(2, "Name must be at least 2 characters"),
     company_name: z.string().min(1, "Company name is required"),
-    role: z.string().min(1, "Role is required"),
+    position: z.string().min(1, "Position is required"),
 })
 
 export type EmailFormData = z.infer<typeof emailSchema>
@@ -59,3 +59,13 @@ const personalEmailDomains = [
   "@yandex.ru",
   "@googlemail.com",
 ];
+
+export const contactUsSchema = z.object({
+  first_name: z.string().min(2, "Name must be at least 2 characters"),
+  last_name: z.string().min(2, "Name must be at least 2 characters"),
+  email: workMailSchema,
+  comments: z.string().min(1, "Comment is required"),
+})
+
+export type ContactUsFormData = z.infer<typeof contactUsSchema>
+
