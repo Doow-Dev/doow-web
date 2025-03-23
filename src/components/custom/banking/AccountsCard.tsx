@@ -88,14 +88,14 @@ export function AccountsCard() {
     const [activeCompany, setActiveCompany] = useState<CompanyData>(companies[0])
   
     return (
-      <Card className="w-full h-full p-3 md:px-5 flex bg-white/80 rounded-lg">
+      <Card className="flex bg-white/80 rounded-lg w-full h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px] p-3 lg:px-5">
         {/* Left section */}
-        <div className="flex flex-col justify-center w-1/2 min-w-[90px]  py-2 px-3">
+        <div className="flex flex-col justify-center w-1/2 min-w-[90px]  py-2 md:py-0 lg:py-2 px-3 md:px-0 lg:px-3">
           {companies.map((company) => (
             <div
               key={company.id}
               className={cn(
-                "flex items-center p-2 sm:p-3 rounded-lg transition-colors duration-200 hover:bg-doow_card",
+                "flex items-center p-2 sm:p-3 md:p-2 lg:p-3 rounded-lg transition-colors duration-200 hover:bg-doow_card",
                 activeCompany.id === company.id ? "bg-doow_card" : ""
               )}
               onMouseEnter={() => setActiveCompany(company)}
@@ -106,10 +106,10 @@ export function AccountsCard() {
                   alt="Flag"
                   width={48}
                   height={48}
-                  className="w-6 h-4 sm:w-8 sm:h-6 lg:h-6 lg:w-9  object-cover rounded"
+                  className="w-6 h-4 sm:w-8 sm:h-6 md:w-7 md:h-5 lg:h-6 lg:w-9  object-cover rounded"
                 />
               </div>
-              <span className="text-[7px] sm:text-body md:text-xs lg:text-body ml-2 sm:ml-3">{company.name}</span>
+              <span className="text-[7px] sm:text-body md:text-[10px] lg:text-body ml-2 sm:ml-3 overflow-hidden text-ellipsis whitespace-nowrap">{company.name}</span>
             </div>
           ))}
         </div>
@@ -118,8 +118,8 @@ export function AccountsCard() {
         <div className="flex-1 min-h-full w-[2px] border-l-2 bg-doow_card mx-2"></div>
   
         {/* Right section */}
-        <div className="flex flex-col justify-between w-1/2 space-y-1 py-3 px-3 sm:py-3">
-          <div className="flex justify-between items-center text-[8px] md:text-sm lg:text-sm ">
+        <div className="flex flex-col justify-between md:justify-evenly lg:justify-between w-1/2 space-y-1 py-3 sm:py-3 md:py-0 px-3 md:px-0 lg:py-3 lg:px-3 ">
+          <div className="flex justify-between items-center text-[8px] md:text-[10px] lg:text-sm ">
             <p>{activeCompany.alias}</p>
             <div className="flex -space-x-2">
               {activeCompany.avatars.map((avatar, index) => (
@@ -134,7 +134,7 @@ export function AccountsCard() {
                     height={500}
                     layout="intrisic"
                     quality={80}
-                    className="w-5 h-5 sm:w-7 sm:h-7 rounded-full object-cover border border-white"
+                    className="w-5 h-5 sm:w-7 sm:h-7 md:w-5 md:h-5 lg:w-7 lg:h-7 rounded-full object-cover border border-white"
                   />
             </div>
               ))}
@@ -143,10 +143,10 @@ export function AccountsCard() {
   
           {/* Balance */}
           <div >
-            <p className="text-[9px] sm:text-[12px] md:text-sm text-doow_grey">BALANCE</p>
+            <p className="text-[9px] sm:text-[11px] lg:text-sm text-doow_grey">BALANCE</p>
             <div className="transition-all duration-300 ease-in-out transform">
-              <h2 className="text-sm sm:text-sm lg:text-2xl font-bold mt-2">{activeCompany.balance}</h2>
-              <p className="text-[6px] md:text-[9px] lg:text-sm text-doow_grey">
+              <h2 className="text-sm sm:text-sm md:text-lg lg:text-2xl font-bold mt-2">{activeCompany.balance}</h2>
+              <p className="text-[6px] md:text-[8px] lg:text-sm text-doow_grey">
                 <span className="text-red-500">{activeCompany.percentage}</span> in the last 7 days
               </p>
             </div>
@@ -156,7 +156,7 @@ export function AccountsCard() {
           <div className="flex justify-between gap-1 w-full">
             {[Send, FileText, CreditCard, Wallet, Settings].map((Icon, index) => (
               <div key={index} className="p-1 sm:p-2 bg-muted rounded-sm sm:rounded-lg">
-                <Icon className="w-2 h-2 sm:w-4 sm:h-4" />
+                <Icon className="w-2 h-2 sm:w-4 sm:h-4 md:w-2 md:h-2 lg:w-4 lg:h-4" />
               </div>
             ))}
           </div>
