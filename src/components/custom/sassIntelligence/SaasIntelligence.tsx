@@ -31,7 +31,7 @@ export const SassIntelligenceSection = () => {
                 subtitle=" Uncover all the apps employees are signing up for and see how they’re wasting or utilizing your SaaS spend.
 "
               >
-                <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[400px] md:h-[300px]">
+                <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px]">
                   <ResponsiveImage
                     sources={[
                       {
@@ -51,7 +51,7 @@ export const SassIntelligenceSection = () => {
                     fallbackWidth={1695}
                     fallbackHeight={1330}
                       alt="centralized SaaS spend"
-                    className="w-full h-full object-cover object-center sm:object-top inset-0 transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover object-top inset-0 transition-transform duration-300 hover:scale-105"
                   />
                 </div>
               </ProductTile>
@@ -60,7 +60,7 @@ export const SassIntelligenceSection = () => {
                 title="All your SaaS licenses in one place"
                 subtitle="Centralize your SaaS subscriptions and never get hit by an unexpected charge again. Get proactive alerts before renewals and cut wasteful subscriptions instantly."
               >
-                <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[400px] md:h-[300px]">
+                <div className="relative rounded-lg overflow-hidden h-[200px] sm:h-[300px] md:h-[250px] lg:h-[300px]">
                   <ResponsiveImage
                     sources={[
                       {
@@ -80,7 +80,7 @@ export const SassIntelligenceSection = () => {
                     fallbackWidth={1695}
                     fallbackHeight={1330}
                       alt="centralized SaaS subscriptions"
-                    className="w-full h-full object-cover object-center sm:object-top inset-0 transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover object-top inset-0 transition-transform duration-300 hover:scale-105"
                   />
                 </div>
               </ProductTile>
