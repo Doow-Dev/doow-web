@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
         />
 
         <MaxWidthWrapper className="relative py-28">
-            <div className="w-full md:w-9/12 text-left bg-white p-6 md:p-12 mx-auto rounded-xl">
+            <div className="w-full md:w-8/12 mx-auto">
                 <AboutSection>
                     <AboutTitle>Introduction</AboutTitle>
                     <AboutBody>

@@ -16,7 +16,7 @@ export default function AboutUs() {
       />
 
       <MaxWidthWrapper className="relative py-28">
-        <div className="w-full md:w-9/12 text-left bg-white p-12 md:p-6 mx-auto rounded-xl">
+        <div className="w-full md:w-8/12 mx-auto">
           <AboutSection>
               <AboutTitle>The nightmare of company spend</AboutTitle>
               <AboutBody>
