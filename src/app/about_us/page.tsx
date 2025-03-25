@@ -2,33 +2,39 @@ import React from "react";
 import { AboutBody, AboutSection, AboutTitle, TopSection } from "../_components/terms-privacy";
 import { Header } from "@/components/layout/header/Header";
 import { Footer } from "@/components/layout/footer/Footer";
+import { BriefcaseBusiness } from "lucide-react";
+import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 
 export default function AboutUs() {
   return (
     <div className="w-full bg-doow_offwhite">
         <Header/>
-      <TopSection title="Manage all your business finance in one place 💼" subtitle="Be the first to get early access when we launch beta!" />
+      <TopSection 
+        title="Manage all your business finance in one place" 
+        subtitle="Be the first to get early access when we launch beta!" 
+        icon={<BriefcaseBusiness className="h-8 w-8" />}
+      />
 
-      <div className="flex flex-col items-center">
-        <div className="my-10 w-4/5 md:w-11/12 text-left bg-white p-12 md:p-6 rounded-xl">
+      <MaxWidthWrapper className="relative py-28">
+        <div className="w-full md:w-9/12 text-left bg-white p-12 md:p-6 mx-auto rounded-xl">
           <AboutSection>
-            <AboutTitle>The nightmare of company spend</AboutTitle>
-            <AboutBody>
-                Managing company spend is a nightmare!.
-            </AboutBody>
-            <AboutBody>
-                Banking accounts, corporate cards, reconciliation, accounting, and
-                payroll are all siloed within disconnected systems that don&apos;t talk
-                to each other.
-            </AboutBody>
-            <AboutBody>
-                We wouldn’t be surprised if your finance team is constantly busy
-                across 10ish tools trying to keep track of where money is coming
-                from and going. This is where Doow comes in.
-            </AboutBody>
-            <AboutBody>
-              Doow connects all your financial dots and platforms!
-            </AboutBody>
+              <AboutTitle>The nightmare of company spend</AboutTitle>
+              <AboutBody>
+                  Managing company spend is a nightmare!.
+              </AboutBody>
+              <AboutBody>
+                  Banking accounts, corporate cards, reconciliation, accounting, and
+                  payroll are all siloed within disconnected systems that don&apos;t talk
+                  to each other.
+              </AboutBody>
+              <AboutBody>
+                  We wouldn’t be surprised if your finance team is constantly busy
+                  across 10ish tools trying to keep track of where money is coming
+                  from and going. This is where Doow comes in.
+              </AboutBody>
+              <AboutBody>
+                Doow connects all your financial dots and platforms!
+              </AboutBody>
           </AboutSection>
 
           <AboutSection>
@@ -69,7 +75,7 @@ export default function AboutUs() {
             </AboutBody>
           </AboutSection>
         </div>
-      </div>
+      </MaxWidthWrapper>
       <Footer/>
     </div>
   );

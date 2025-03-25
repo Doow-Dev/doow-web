@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, Mail } from "lucide-react";
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 
 export default function ContactUs() {
@@ -41,16 +41,17 @@ export default function ContactUs() {
     <div className="w-full bg-doow_offwhite">
         <Header/>
         <TopSection
-            title={"Contact Us 📞"}
+            title={"Contact Us"}
             subtitle={" Send us a message and someone will be in touch shortly."}
+            icon={<Mail className="h-8 w-8"/>}
         />
 
         <MaxWidthWrapper className="relative section-spacing">
-            <div className="my-10 text-left w-full max-w-md md:max-w-lg mx-auto mt-8 md:mt-12 bg-white p-12 rounded-2xl">
-                <p className="text-center font-semibold text-base text-doow_zinc">
+            <div className="my-10 text-left w-full max-w-md md:max-w-lg mx-auto mt-8 md:mt-12 bg-white p-12 rounded-2xl shadow-lg">
+                <p className="text-center font-normal font-inter text-[20px] text-black">
                     Provide your additional details and drop <br /> us a message anytime
                 </p>
-                <div className="mt-6">
+                <div className="mt-7">
                     <Form {...contactUsForm}>
                         <form
                                 onSubmit={contactUsForm.handleSubmit(onContactUsSubmit)}
@@ -64,12 +65,12 @@ export default function ContactUs() {
                                             <FormLabel>First Name</FormLabel>
                                             <FormControl>
                                                 <Input
-                                                className="bg-muted"
-                                                {...field}
-                                                placeholder="Enter your first name"
-                                                onChange={(e) => {
-                                                    field.onChange(e);
-                                                }}
+                                                    className="bg-muted"
+                                                    {...field}
+                                                    placeholder="Enter your first name"
+                                                    onChange={(e) => {
+                                                        field.onChange(e);
+                                                    }}
                                                 />
                                             </FormControl>
                                             <FormMessage />

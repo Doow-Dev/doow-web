@@ -42,7 +42,7 @@ export default function SignInPage() {
             <div className="text-center">
               <p className="text-center font-normal font-inter text-[20px] text-black">
                   Sign in with your registered email <br/> and password
-                </p>
+              </p>
             </div>
             <form className="mt-6" onSubmit={handleSubmit}>
               <div className="mb-6">
