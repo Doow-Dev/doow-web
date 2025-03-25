@@ -28,75 +28,77 @@ export default function SignInPage() {
   return (
     <section className="relative isolation h-full min-h-screen  bg-doow_offwhite">
       <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#e5e7eb_1.2px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-       <div className="relative w-full p-4">
+      <MaxWidthWrapper className=" flex items-center h-16 sticky top-0 z-50 w-full bg-white/0 backdrop-blur-xl ">
         <DoowLogo/>
-        </div>
-      <MaxWidthWrapper className="relative">
-        <div className="items-start top-0">
-          <h2 className="relative text-sub-heading text-center text-gray-600 whitespace-nowrap">
-                Welcome back 👋
-              </h2>
-        </div>
-        <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg mx-auto items-center mt-6">
-          <div className="text-center">
-            <p className="text-center font-semibold text-base text-doow_zinc">
-                Sign in with your registered email <br/> and password
-              </p>
+      </MaxWidthWrapper>
+      <MaxWidthWrapper className="relative h-full section-spacing">
+        <div className="flex flex-col items-center justify-center h-full">
+          <div className="items-start top-0">
+            <h2 className="relative text-sub-heading text-center text-gray-600 whitespace-nowrap">
+              Welcome back 👋
+            </h2>
           </div>
-          <form className="mt-6" onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <label className="block text-sm text-doow_zinc mb-1">Email</label>
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+          <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg mx-auto items-center mt-6">
+            <div className="text-center">
+              <p className="text-center font-normal font-inter text-[20px] text-black">
+                  Sign in with your registered email <br/> and password
+                </p>
             </div>
-
-            <div className="mb-6">
-              <label className="block text-sm text-doow_zinc mb-1">
-                Password
-              </label>
-              <div className="relative">
+            <form className="mt-6" onSubmit={handleSubmit}>
+              <div className="mb-6">
+                <label className="block text-sm text-doow_zinc mb-1">Email</label>
                 <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="w-full pr-10"
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full"
                   required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
-                </button>
               </div>
-            </div>
 
-            <Button
-              type="submit"
-              disabled={loading || !isFormValid}
-              size={"lg"}
-              className="mt-4 py-6 w-full bg-doow_primary text-white hover:bg-doow_dark_green/90"
-            >
-              {loading ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                  <span>Signing in...</span>
+              <div className="mb-6">
+                <label className="block text-sm text-doow_zinc mb-1">
+                  Password
+                </label>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    className="w-full pr-10"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    <span className="sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                  </button>
                 </div>
-              ) : (
-                "Sign In"
-              )}
-            </Button>
-          </form>
+              </div>
+
+              <Button
+                type="submit"
+                disabled={loading || !isFormValid}
+                size={"lg"}
+                className="mt-4 py-6 w-full bg-doow_primary text-white hover:bg-doow_dark_green/90"
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <span className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    <span>Signing in...</span>
+                  </div>
+                ) : (
+                  "Sign In"
+                )}
+              </Button>
+            </form>
+          </div>
         </div>
       </MaxWidthWrapper>
     </section>

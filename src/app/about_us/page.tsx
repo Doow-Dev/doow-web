@@ -7,7 +7,7 @@ export default function AboutUs() {
   return (
     <div className="w-full bg-doow_offwhite">
         <Header/>
-      <TopSection title="Manage all your business' finance in one place" subtitle="Be the first to get early access when we launch beta!" />
+      <TopSection title="Manage all your business finance in one place 💼" subtitle="Be the first to get early access when we launch beta!" />
 
       <div className="flex flex-col items-center">
         <div className="my-10 w-4/5 md:w-11/12 text-left bg-white p-12 md:p-6 rounded-xl">
