@@ -1,5 +1,5 @@
 import React from "react";
-import { AboutBody, AboutSection, AboutSubHeading, AboutTitle, TopSection } from "../_components/terms-privacy";
+import { AboutBody, AboutSection, AboutSubHeading, AboutTitle, AboutWrapper, TopSection } from "../_components/terms-privacy";
 import { Header } from "@/components/layout/header/Header";
 import { Footer } from "@/components/layout/footer/Footer";
 import { ShieldCheck } from "lucide-react";
@@ -15,8 +15,8 @@ export default function PrivacyPolicy() {
             icon={ <ShieldCheck className="h-8 w-8"/>} 
         />
 
-        <MaxWidthWrapper className="relative py-28">
-            <div className="w-full md:w-8/12 mx-auto">
+        <MaxWidthWrapper className="relative py-20">
+            <AboutWrapper>
                 <AboutSection>
                     <AboutTitle>Introduction</AboutTitle>
                     <AboutBody>
@@ -152,7 +152,7 @@ export default function PrivacyPolicy() {
                     will place a prominent banner on our site or send you an email.
                     </AboutBody>
                 </AboutSection>
-            </div>
+            </AboutWrapper>
         </MaxWidthWrapper>
 
         {/* <div className="flex flex-col items-center">

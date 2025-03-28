@@ -13,6 +13,15 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BadgeCheck, Mail } from "lucide-react";
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal"],
+  variable: "--font-poppins",
+})
 
 export default function ContactUs() {
     const [showSuccessfull, setshowSuccessfull] = useState(false);
@@ -46,12 +55,12 @@ export default function ContactUs() {
             icon={<Mail className="h-8 w-8"/>}
         />
 
-        <MaxWidthWrapper className="relative section-spacing">
-            <div className="my-10 text-left w-full max-w-md md:max-w-lg mx-auto mt-8 md:mt-12 bg-white p-12 rounded-2xl shadow-lg">
-                <p className="text-center font-normal font-inter text-[20px] text-black">
+        <MaxWidthWrapper className="relative py-20">
+            <div className="text-left w-full max-w-md md:max-w-lg mx-auto  bg-white p-12 rounded-2xl shadow-lg">
+                <h2 className={`${poppins.className} text-center font-semibold  text-xl text-black`}>
                     Provide your additional details and drop <br /> us a message anytime
-                </p>
-                <div className="mt-7">
+                </h2>
+                <div className="mt-6">
                     <Form {...contactUsForm}>
                         <form
                                 onSubmit={contactUsForm.handleSubmit(onContactUsSubmit)}

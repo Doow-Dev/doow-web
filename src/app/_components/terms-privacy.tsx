@@ -25,21 +25,21 @@ export function TopSection({ title, subtitle, icon }: { title: string; subtitle:
 }
 
 export function AboutTitle({ children }: { children: React.ReactNode }) {
-  return <div className="text-center text-[20px] md:text-[24px] font-bold mb-6">{children}</div>;
+  return <div className="text-left text-[20px] md:text-[24px] font-bold mb-4">{children}</div>;
 }
 
 export function AboutSubHeading({ children }: { children: React.ReactNode }) {
-  return <div className="text-center font-bold text-sm md:text-lg mb-2 leading-8 md:leading-6 text-doow_zinc">{children}</div>;
+  return <div className="text-left font-bold text-sm md:text-lg mb-2 leading-8 md:leading-6 text-doow_zinc">{children}</div>;
 }
 
 export function AboutBody({ children }: { children: React.ReactNode }) {
-  return <div className="text-left text-xs md:text-sm font-medium leading-8 md:leading-6 mb-2 tracking-normal text-wrap">{children}</div>;
+  return <div className="text-justify text-xs md:text-sm font-medium leading-8 md:leading-6 mb-2 tracking-normal whitespace-pre-wrap">{children}</div>;
 }
 
 export function AboutSection({ children }: { children: React.ReactNode }) {
-  return <div className="bg-white p-6 md:p-12 my-11 text-center rounded-3xl shadow-lg">{children}</div>;
+  return <div className="">{children}</div>;
 }
 
-// export function AboutSubtitle({ children }: { children: React.ReactNode }) {
-//   return <div className="text-center text-3xl md:text-2xl font-medium mb-2 text-doow_zinc border">{children}</div>;
-// }
+export function AboutWrapper({ children }: { children: React.ReactNode }) {
+  return <div className="w-full space-y-4 p-6 md:p-10 md:w-8/12 mx-auto text-center rounded-3xl shadow-lg bg-white">{children}</div>
+}
