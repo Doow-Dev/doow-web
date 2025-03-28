@@ -6,6 +6,15 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast"; // Use react-hot-toast
 import { Eye, EyeOff } from "lucide-react"
 import { DoowLogo } from "@/components/layout/components/doow_logo";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal"],
+  variable: "--font-poppins",
+})
 
 export default function SignInPage() {
   const [loading, setLoading] = useState(false);
@@ -40,7 +49,7 @@ export default function SignInPage() {
           </div>
           <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg mx-auto items-center mt-6">
             <div className="text-center">
-              <p className="text-center font-normal font-inter text-[20px] text-black">
+              <p className={`${poppins.className} text-center font-semibold font-inter text-xl text-black`}>
                   Sign in with your registered email <br/> and password
               </p>
             </div>
