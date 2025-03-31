@@ -17,15 +17,6 @@ export const SassIntelligenceSection = () => {
         {/* tiles */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* tile 1 */}
-            <ProductTile
-              title="Wasted subscriptions? Not anymore!"
-              subtitle=" Spot duplicate and overlapping apps, unused seats, or even overpriced subscriptions, and take intelligent cut-costing actions with a single click."
-              className="col-span-1 md:col-span-2"
-            >
-              <OverlappingApplications/>
-            </ProductTile>
-
-             {/* tile 2 */}
              <ProductTile
                 title="Consolidate your SaaS subscriptions from multiple sources"
                 subtitle=" Uncover all the apps employees are signing up for and see how they’re wasting or utilizing your SaaS spend.
@@ -54,8 +45,8 @@ export const SassIntelligenceSection = () => {
                     className="w-full h-full object-cover object-top inset-0 transition-transform duration-300 hover:scale-105"
                   />
                 </div>
-              </ProductTile>
-            {/* tile 3 */}
+            </ProductTile>
+            {/* tile 2 */}
             <ProductTile
                 title="All your SaaS licenses in one place"
                 subtitle="Centralize your SaaS subscriptions and never get hit by an unexpected charge again. Get proactive alerts before renewals and cut wasteful subscriptions instantly."
@@ -83,7 +74,15 @@ export const SassIntelligenceSection = () => {
                     className="w-full h-full object-cover object-top inset-0 transition-transform duration-300 hover:scale-105"
                   />
                 </div>
-              </ProductTile>
+            </ProductTile>
+            {/* tile 3 */}
+            <ProductTile
+              title="Wasted subscriptions? Not anymore!"
+              subtitle=" Spot duplicate and overlapping apps, unused seats, or even overpriced subscriptions, and take intelligent cut-costing actions with a single click."
+              className="col-span-1 md:col-span-2"
+            >
+              <OverlappingApplications/>
+            </ProductTile>
         </div>
       </MaxWidthWrapper>
     </section>

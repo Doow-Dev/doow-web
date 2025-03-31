@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Lato } from "next/font/google";
+import { Inter, Manrope, Lato, Montserrat, Playfair_Display, Raleway, Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "../styles/globals.css";
 import { cn } from "@/lib/utils";
@@ -27,6 +27,36 @@ const lato = Lato({
   variable: "--font-lato",
 })
 
+const montserrat = Montserrat({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal"],
+  variable: "--font-montserrat",
+})
+
+const playfair = Playfair_Display({
+  weight: ["600"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
+})
+
+const raleway = Raleway({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-raleway",
+})
+
+const poppins = Poppins({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal"],
+  variable: "--font-poppins",
+})
+
 export const metadata: Metadata = {
   title: siteDetails.metadata.title,
   description: siteDetails.metadata.description,
@@ -50,12 +80,16 @@ export default function RootLayout({
       "font-sans antialiased bg-background",
       inter.variable,
       manrope.variable,
-      lato.variable
+      lato.variable,
+      montserrat.variable,
+      playfair.variable,
+      raleway.variable,
+      poppins.variable
     )}
     suppressHydrationWarning
     >
       <body
-        className={`${inter.variable} ${manrope.variable} antialiased`}
+        className={`${inter.variable} ${manrope.variable} ${montserrat.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}  antialiased`}
       >
         <WaitListProvider>
           {children}
