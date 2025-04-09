@@ -18,21 +18,17 @@ export default function AboutUs() {
       <MaxWidthWrapper className="relative py-20">
         <AboutWrapper>
           <AboutSection>
-              <AboutTitle>The nightmare of company spend</AboutTitle>
-              <AboutBody>
-                  Managing company spend is a nightmare!.
-                  Banking accounts, corporate cards, reconciliation, accounting, and
-                  payroll are all siloed within disconnected systems that don&apos;t talk
-                  to each other.
-                  We wouldn’t be surprised if your finance team is constantly busy
-                  across 10ish tools trying to keep track of where money is coming
-                  from and going. This is where Doow comes in.
-                  Doow connects all your financial dots and platforms!
-              </AboutBody>
-          </AboutSection>
-
-          <AboutSection>
-            <AboutTitle>Doow is here!</AboutTitle>
+            <AboutTitle>Who is building Doow?</AboutTitle>
+            <AboutBody>
+              Managing company spend is a nightmare!.
+              Banking accounts, corporate cards, reconciliation, accounting, and
+              payroll are all siloed within disconnected systems that don&apos;t talk
+              to each other.
+              We wouldn’t be surprised if your finance team is constantly busy
+              across 10ish tools trying to keep track of where money is coming
+              from and going. This is where Doow comes in.
+              Doow connects all your financial dots and platforms!
+            </AboutBody>
             <AboutBody>
               At Doow, we’re renovating the way companies receive and spend
               money globally.
@@ -43,10 +39,6 @@ export default function AboutUs() {
               decision makers can easily analyze patterns and make data informed
               decisions in real time.
             </AboutBody>
-          </AboutSection>
-
-          <AboutSection>
-            <AboutTitle>Who is building Doow?</AboutTitle>
             <AboutBody>
               We are a team of dreamers, doers and professionals with an
               outstanding record of building software in financial services and

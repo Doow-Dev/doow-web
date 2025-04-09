@@ -4,7 +4,7 @@ import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast"; // Use react-hot-toast
-import { Eye, EyeOff } from "lucide-react"
+import { DoorOpen, Eye, EyeOff } from "lucide-react"
 import { DoowLogo } from "@/components/layout/components/doow_logo";
 import { Poppins } from "next/font/google";
 
@@ -49,8 +49,14 @@ export default function SignInPage() {
           </div>
           <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg mx-auto items-center mt-6">
             <div className="text-center">
-              <p className={`${poppins.className} text-center font-semibold font-inter text-xl text-black`}>
+              {/* <p className={`${poppins.className} text-center font-semibold font-inter text-xl text-black`}>
                   Sign in with your registered email <br/> and password
+              </p> */}
+              <div className="opacity-70 bg-doow_card text-doow_primary p-2 rounded-full w-fit mx-auto ">
+                <DoorOpen className="h-8 w-8"/>
+              </div>
+              <p className={`${poppins.className} text-sm text-muted-foreground mt-3`}>
+                Sign in with your registered email <br/> and password
               </p>
             </div>
             <form className="mt-6" onSubmit={handleSubmit}>

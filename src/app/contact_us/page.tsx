@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { BadgeCheck, Mail } from "lucide-react";
+import { BadgeCheck, Mail, Phone } from "lucide-react";
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper";
 import { Poppins } from "next/font/google";
 
@@ -57,9 +57,15 @@ export default function ContactUs() {
 
         <MaxWidthWrapper className="relative py-20">
             <div className="text-left w-full max-w-md md:max-w-lg mx-auto  bg-white p-12 rounded-2xl shadow-lg">
-                <h2 className={`${poppins.className} text-center font-semibold  text-xl text-black`}>
+                {/* <h2 className={`${poppins.className} text-center font-semibold  text-xl text-black`}>
                     Provide your additional details and drop <br /> us a message anytime
-                </h2>
+                </h2> */}
+                <div className="opacity-70 bg-doow_card text-doow_primary p-2 rounded-full w-fit mx-auto">
+                    <Phone className="h-8 w-8"/>
+                </div>
+                <p className={`${poppins.className} text-center text-sm text-muted-foreground mt-3`}>
+                    Provide your additional details and drop <br /> us a message anytime
+                </p>
                 <div className="mt-6">
                     <Form {...contactUsForm}>
                         <form
