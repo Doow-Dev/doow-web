@@ -4,9 +4,6 @@ import Link from "next/link"
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 
 const productLinks = [
-  "Global Banking",
-  "Corporate Cards",
-  "SaaS Intelligence",
   "Spend Management",
   "Finance Connections"
 ]

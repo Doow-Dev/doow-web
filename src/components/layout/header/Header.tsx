@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { ArrowRight, CreditCard, Landmark, ArrowDownUp, CircleDollarSign, UserCog, Unplug, Network, Users, UserPlus } from "lucide-react"
+import { ArrowRight, CircleDollarSign, UserCog, Unplug, Network, Users, UserPlus } from "lucide-react"
 import { MaxWidthWrapper } from "@/components/ui/max-width-wrapper"
 import { MobileNav } from "./Mobile-Nav"
 import { isDarkBg } from "@/lib/helpers/isDarkBg"
@@ -30,31 +30,6 @@ const HeaderItems: Array<HeaderItem> = [
     title: "Products",
     link: "/#",
     dropdownItems: [
-      {
-        title: "Corporate Cards",
-        href: "#",
-        subtitle:
-          "Unlimited corporate & employee cards available everywhere",
-        icon: <CreditCard className="w-3 h-3" />
-      },
-      {
-        title: "Multi-currency Accounts",
-        href: "#",
-        subtitle: "Local and global corporate accounts without paperwork or bank visits",
-        icon: <Landmark className="w-3 h-3" />
-      },
-      {
-        title: "Fx & Global Payments",
-        href: "#",
-        subtitle: "Hold 40+ currencies and access 24/7 rates. ACH, Wires, SWIFT, SEPA, MoMo, Bacs, and other global payment methods all available",
-        icon: <ArrowDownUp className="w-3 h-3" />
-      },
-      {
-        title: "Saas Intelligence",
-        href: "#",
-        subtitle: "Real-time view of all software expenses, intelligently categorized by team usage, spend, and renewal dates",
-        icon: <CircleDollarSign className="w-3 h-3" />
-      },
       {
         title: "Spend Management",
         href: "#",
