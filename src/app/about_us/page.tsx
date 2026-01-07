@@ -1,5 +1,5 @@
 import React from "react";
-import { AboutBody, AboutSection, AboutTitle, AboutWrapper, TopSection } from "../_components/terms-privacy";
+import { AboutBody, AboutSection, AboutWrapper, TopSection } from "../_components/terms-privacy";
 import { Header } from "@/components/layout/header/Header";
 import { Footer } from "@/components/layout/footer/Footer";
 import { BriefcaseBusiness } from "lucide-react";
@@ -10,7 +10,7 @@ export default function AboutUs() {
     <div className="w-full bg-doow_offwhite">
         <Header/>
       <TopSection 
-        title="Manage all your business finance in one place" 
+        title="See and manage every SaaS dollar from one place" 
         subtitle="Be the first to get early access when we launch beta!" 
         icon={<BriefcaseBusiness className="h-8 w-8" />}
       />
@@ -18,47 +18,21 @@ export default function AboutUs() {
       <MaxWidthWrapper className="relative py-20">
         <AboutWrapper>
           <AboutSection>
-              <AboutTitle>The nightmare of company spend</AboutTitle>
               <AboutBody>
-                  Managing company spend is a nightmare!.
-                  Banking accounts, corporate cards, reconciliation, accounting, and
-                  payroll are all siloed within disconnected systems that don&apos;t talk
-                  to each other.
-                  We wouldn’t be surprised if your finance team is constantly busy
-                  across 10ish tools trying to keep track of where money is coming
-                  from and going. This is where Doow comes in.
-                  Doow connects all your financial dots and platforms!
+                Managing SaaS spend and subscription complexity shouldn’t feel like a guessing game. Today’s businesses run on dozens, if not hundreds, of cloud tools, each with its own billing, owners, renewals, usage patterns, and contracts. Without a central source of truth, teams struggle to understand what they’re paying for, who’s using what, and where opportunities to optimize actually are.
               </AboutBody>
-          </AboutSection>
-
-          <AboutSection>
-            <AboutTitle>Doow is here!</AboutTitle>
-            <AboutBody>
-              At Doow, we’re renovating the way companies receive and spend
-              money globally.
-              Doow is an all-in-one business banking solution that integrates
-              cross-border banking, corporate cards, FX, global payments, and
-              spend management into a single platform.
-              Our platform helps companies streamline their finance workflow so
-              decision makers can easily analyze patterns and make data informed
-              decisions in real time.
-            </AboutBody>
-          </AboutSection>
-
-          <AboutSection>
-            <AboutTitle>Who is building Doow?</AboutTitle>
-            <AboutBody>
-              We are a team of dreamers, doers and professionals with an
-              outstanding record of building software in financial services and
-              other leading industries.
-              Our team members have a unique set of skills, experience and
-              expertise across different fields, including finance, product,
-              engineering, and design.
-              We truly understand the challenges of building software solutions
-              in financial services and we have the experience to navigate them
-              successfully. Let&apos;s work together to meet the unique financial
-              needs of your business.
-            </AboutBody>
+              <AboutBody>
+                That ends with Doow.
+              </AboutBody>
+              <AboutBody>
+                Doow is building the first SaaS Intelligence platform that unifies every subscription, usage signal, owner, and renewal into one living system of insight. Instead of reconciling disconnected spreadsheets, card statements, and invoices every month, teams get a real-time view of what’s happening across the entire SaaS landscape. This means you not only see spend, you understand it, act on it, and make strategic decisions with confidence.
+              </AboutBody>
+              <AboutBody>
+                We believe software should create visibility, not confusion. By combining automated discovery, usage insights, spend data, and renewal tracking, Doow empowers business leaders, from CEOs to finance and operations teams, to eliminate wasted spend, forecast with clarity, and drive smarter SaaS investments.
+              </AboutBody>
+              <AboutBody>
+              Doow is built by a team with deep experience in finance, data, product, and engineering who’ve lived the pain of fragmented systems and unclear subscriptions. We’re here to replace manual guesswork with actionable intelligence, so your business can spend smarter, scale faster, and unlock the full value of every SaaS dollar.
+              </AboutBody>
           </AboutSection>
         </AboutWrapper>
       </MaxWidthWrapper>

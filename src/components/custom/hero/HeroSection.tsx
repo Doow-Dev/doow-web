@@ -10,8 +10,8 @@ export  const HeroSection = () => {
           <MaxWidthWrapper className="relative section-spacing">
             {/* hero text */}
             <div className="text-center space-y-8 max-w-2xl md:max-w-3xl mx-auto">
-              <h1 className="text-heading text-doow_zinc">All your global spend in<br className="hidden sm:flex"/> one place</h1>
-              <p className="text-riding text-doow_grey  w-[90%] mx-auto">See where all your non-payroll spend goes, from SaaS subscriptions to AP/AR to employee spendings—without the annoying spreadsheets!</p>
+              <h1 className="text-heading text-doow_zinc">You&apos;re overpaying for SaaS You just can&apos;t see it!<br className="hidden sm:flex"/> </h1>
+              <p className="text-riding text-doow_grey  w-[90%] mx-auto">See every SaaS subscription, who owns it, and how much you&apos;re paying—so teams can cut waste, prevent surpises, and stay ahead of renewals.</p>
             </div>
             <WaitListForm/>
           </MaxWidthWrapper>
