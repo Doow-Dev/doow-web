@@ -33,7 +33,7 @@ export function AboutSubHeading({ children }: { children: React.ReactNode }) {
 }
 
 export function AboutBody({ children }: { children: React.ReactNode }) {
-  return <div className="text-justify text-xs md:text-sm font-medium leading-8 md:leading-6 mb-2 tracking-normal whitespace-pre-wrap">{children}</div>;
+  return <div className="text-justify text-xs md:text-sm font-medium leading-8 md:leading-6 mb-4 tracking-tighter whitespace-pre-wrap">{children}</div>;
 }
 
 export function AboutSection({ children }: { children: React.ReactNode }) {
@@ -41,5 +41,5 @@ export function AboutSection({ children }: { children: React.ReactNode }) {
 }
 
 export function AboutWrapper({ children }: { children: React.ReactNode }) {
-  return <div className="w-full space-y-4 p-6 md:p-10 md:w-8/12 mx-auto text-center rounded-3xl shadow-lg bg-white">{children}</div>
+  return <div className="w-full space-y-4 p-6 md:p-10 md:w-6/12 mx-auto text-center rounded-3xl shadow-lg bg-white">{children}</div>
 }

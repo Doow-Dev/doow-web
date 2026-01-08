@@ -31,10 +31,10 @@ const HeaderItems: Array<HeaderItem> = [
     link: "/#",
     dropdownItems: [
       {
-        title: "Spend Management",
+        title: "Saas Intelligence",
         href: "#",
-        subtitle: "Consolidate and manage all non-payroll spend from one place, including AP/AR and employee spendings",
-        icon: <UserCog className="w-3 h-3"/>
+        subtitle: "Real-time view of all software expenses, intelligently categorized by team usage, spend, and renewal dates",
+        icon: <CircleDollarSign className="w-3 h-3" />
       },
       {
         title: "Finance Connections",
