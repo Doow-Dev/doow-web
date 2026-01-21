@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { WaitListProvider } from "./provider";
 import { siteDetails } from "@/data/siteDetails";
 import { PostHogProvider } from "@/lib/providers/PostHogProvider";
+import { GoogleAnalytics } from "@/lib/components/GoogleAnalytics";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "900"],
@@ -92,6 +93,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${manrope.variable} ${montserrat.variable} ${playfair.variable} ${poppins.variable} ${raleway.variable}  antialiased`}
       >
+        <GoogleAnalytics />
         <PostHogProvider>
           <WaitListProvider>
             {children}
