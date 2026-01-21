@@ -41,7 +41,24 @@ jobs:
         env:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
-        run: npm run build
+        run: |
+          echo "Building with PostHog environment variables..."
+          echo "NEXT_PUBLIC_POSTHOG_KEY is set: $([ -n "${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}" ] && echo 'yes' || echo 'no')"
+          echo "NEXT_PUBLIC_POSTHOG_HOST is set: $([ -n "${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}" ] && echo 'yes' || echo 'no')"
+          npm run build
+      - name: Verify PostHog env vars in build
+        run: |
+          echo "Checking if PostHog key is embedded in build..."
+          echo "Searching in .next/static for PostHog references..."
+          if find .next/static -name "*.js" -type f -exec grep -l "phc_" {} \; 2>/dev/null | head -1; then
+            echo "✅ PostHog key found in static build files"
+          elif find .next/static -name "*.js" -type f -exec grep -l "NEXT_PUBLIC_POSTHOG" {} \; 2>/dev/null | head -1; then
+            echo "⚠️  Found NEXT_PUBLIC_POSTHOG reference but key might not be embedded"
+          else
+            echo "⚠️  PostHog key not found in .next/static - checking other locations..."
+            find .next -name "*.js" -type f -exec grep -l "POSTHOG" {} \; 2>/dev/null | head -3 || echo "Could not find PostHog references in build files"
+            echo "Note: Next.js embeds env vars at build time. If not found, Azure might be rebuilding."
+          fi
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
