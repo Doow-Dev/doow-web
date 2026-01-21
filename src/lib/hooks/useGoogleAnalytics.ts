@@ -1,25 +1,27 @@
 'use client'
 
+type GoogleAnalyticsEventParams = {
+  event_category?: string
+  event_label?: string
+  value?: number
+  [key: string]: string | number | boolean | undefined
+}
+
 declare global {
   interface Window {
     gtag: (
       command: 'config' | 'event' | 'js' | 'set',
       targetId: string | Date,
-      config?: Record<string, any>
+      config?: GoogleAnalyticsEventParams
     ) => void
-    dataLayer: any[]
+    dataLayer: unknown[]
   }
 }
 
 export function useGoogleAnalytics() {
   const trackEvent = (
     eventName: string,
-    parameters?: {
-      event_category?: string
-      event_label?: string
-      value?: number
-      [key: string]: any
-    }
+    parameters?: GoogleAnalyticsEventParams
   ) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', eventName, parameters)
