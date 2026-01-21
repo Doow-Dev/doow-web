@@ -29,6 +29,45 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## PostHog Analytics Setup
+
+This project includes PostHog for tracking user activities and visits. To set it up:
+
+1. Get your PostHog project API key from [PostHog Settings](https://posthog.com/settings/project)
+2. Create a `.env.local` file in the root directory (if it doesn't exist)
+3. Add the following environment variables:
+
+```bash
+NEXT_PUBLIC_POSTHOG_KEY=your_posthog_project_api_key_here
+# Optional: Custom PostHog host (defaults to https://us.i.posthog.com)
+# NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
+4. Restart your development server
+
+### Usage
+
+Use the `usePostHogTracking` hook in any client component to track events:
+
+```tsx
+'use client'
+import { usePostHogTracking } from '@/lib/hooks/usePostHog'
+
+export function MyComponent() {
+  const { trackEvent, identifyUser } = usePostHogTracking()
+
+  const handleButtonClick = () => {
+    trackEvent('button_clicked', { button_name: 'signup' })
+  }
+
+  const handleLogin = (userId: string) => {
+    identifyUser(userId, { email: 'user@example.com' })
+  }
+
+  return <button onClick={handleButtonClick}>Click me</button>
+}
+```
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
