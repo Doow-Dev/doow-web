@@ -9,8 +9,9 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // Next.js replaces process.env.NEXT_PUBLIC_* at build time
-      const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+      // TEMPORARY: Hardcoded values for debugging
+      // TODO: Replace with environment variables after confirming this works
+      const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY || 'phc_V6I6bimhG3mzVQpzbmFtiqSaoLuFuTvrASUDNYNJXnC'
       const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com'
 
       // Debug logging (only in production to help troubleshoot)
@@ -18,6 +19,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         console.log('[PostHog Debug] Key exists:', !!posthogKey)
         console.log('[PostHog Debug] Key length:', posthogKey?.length || 0)
         console.log('[PostHog Debug] Host:', posthogHost)
+        console.log('[PostHog Debug] Using hardcoded fallback:', !process.env.NEXT_PUBLIC_POSTHOG_KEY)
       }
 
       if (posthogKey && !posthogClient) {
@@ -28,9 +30,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
           capture_pageview: true,
           capture_pageleave: true,
           loaded: () => {
-            if (process.env.NODE_ENV === 'development') {
-              console.log('PostHog initialized')
-            }
+            console.log('✅ PostHog initialized successfully')
             setPosthogClient(posthog)
           },
         })
