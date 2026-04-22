@@ -1,0 +1,45 @@
+@layer components {
+  .landing-scroll-rail {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #f3f4f6;
+    border-radius: 999px;
+    background: #f9fafb;
+  }
+
+  .landing-scroll-rail[data-hidden="true"] .landing-scroll-rail__thumb {
+    opacity: 0;
+  }
+
+  .landing-scroll-rail--horizontal {
+    height: 10px;
+  }
+
+  .landing-scroll-rail--vertical {
+    width: 10px;
+    height: 100%;
+  }
+
+  .landing-scroll-rail__thumb {
+    position: absolute;
+    left: 0;
+    border-radius: 999px;
+    background: #e5e7eb;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease,
+      width 180ms ease,
+      height 180ms ease;
+  }
+
+  .landing-scroll-rail--horizontal .landing-scroll-rail__thumb {
+    top: 1px;
+    bottom: 1px;
+  }
+
+  .landing-scroll-rail--vertical .landing-scroll-rail__thumb {
+    top: 0;
+    left: 1px;
+    right: 1px;
+  }
+}

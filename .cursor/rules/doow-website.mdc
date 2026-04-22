@@ -1,0 +1,25 @@
+---
+description: Doow website rebuild rules
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Doow Website Rebuild
+
+Use `AGENTS.md` and `docs/rebuild/` as the source of truth.
+
+## Rules
+
+- Work one batch at a time.
+- Work one section at a time.
+- Stop after each batch or section for review.
+- Build mobile-first.
+- Use Figma as the design source of truth.
+- Use shared tokens and primitives before section-level UI.
+- Avoid legacy assets and legacy marketing structure unless explicitly retained.
+
+## Current public route policy
+
+- Keep `/`, `/signin`, `/privacy_policy`, `/terms_of_use`
+- Prune `/about_us` and `/contact_us` with redirects

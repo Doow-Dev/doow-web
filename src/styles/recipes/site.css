@@ -1,0 +1,31 @@
+@layer components {
+  .landing-page {
+    min-height: 100vh;
+    background: var(--surface-card);
+    color: var(--ink-strong);
+  }
+
+  .landing-page__main {
+    background: inherit;
+  }
+
+  @keyframes landing-navbar-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes landing-navbar-fade-out {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+}

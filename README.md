@@ -1,75 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Doow Web
 
-## Getting Started
+This repository is being rebuilt as the new Doow landing page, with a small set of supporting routes.
 
-First, run the development server:
+The current codebase still contains legacy UI, assets, and routes, but the rebuild is now guided by a staged, review-first workflow rather than a one-shot implementation.
+
+## Start Here
+
+Read these in order:
+
+1. `docs/rebuild/README.md`
+2. `docs/rebuild/roadmap.md`
+3. `docs/rebuild/acceptance-gates.md`
+4. `AGENTS.md`
+5. `SKILL.md`
+
+## Current Rebuild Model
+
+- Batch-driven implementation
+- Review after every batch
+- Review after every section
+- Figma as design source of truth
+- Mobile-first implementation
+- Azure Blob Storage plus Front Door for production landing-page assets
+
+## Active Route Policy
+
+Keep:
+
+- `/`
+- `/signin`
+- `/privacy_policy`
+- `/terms_of_use`
+
+Prune:
+
+- `/about_us`
+- `/contact_us`
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## PostHog Analytics Setup
-
-This project includes PostHog for tracking user activities and visits. To set it up:
-
-1. Get your PostHog project API key from [PostHog Settings](https://posthog.com/settings/project)
-2. Create a `.env.local` file in the root directory (if it doesn't exist)
-3. Add the following environment variables:
+Quality checks:
 
 ```bash
-NEXT_PUBLIC_POSTHOG_KEY=your_posthog_project_api_key_here
-# Optional: Custom PostHog host (defaults to https://us.i.posthog.com)
-# NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+npm run lint
+npm run typecheck
+npm run build
 ```
 
-4. Restart your development server
+## Notes
 
-### Usage
-
-Use the `usePostHogTracking` hook in any client component to track events:
-
-```tsx
-'use client'
-import { usePostHogTracking } from '@/lib/hooks/usePostHog'
-
-export function MyComponent() {
-  const { trackEvent, identifyUser } = usePostHogTracking()
-
-  const handleButtonClick = () => {
-    trackEvent('button_clicked', { button_name: 'signup' })
-  }
-
-  const handleLogin = (userId: string) => {
-    identifyUser(userId, { email: 'user@example.com' })
-  }
-
-  return <button onClick={handleButtonClick}>Click me</button>
-}
-```
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The current Figma connection works, but the active seat has hit tool-call limits during deeper inspections. Keep Figma extraction targeted.
+- Marketing assets are moving to a CDN-backed manifest model. Do not assume `public/` is the long-term production home for site media.
