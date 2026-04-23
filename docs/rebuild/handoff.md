@@ -5,18 +5,23 @@
 - Batch 0 completed
 - Batch 1 completed
 - Batch 2 completed and ready for review
-- Batch 3 is active under the section-first extraction and implementation flow
+- Batch 3 foundation landed and is now refined in place during section work
+- Batch 4 CDN and asset-pipeline migration is in progress
+- Batch 5 shared shells, metadata, and quality-harness work is in progress
+- Batch 6 section implementation is active
 
 ## What Changed Most Recently
 
 - The local `figma_desktop` bridge was rechecked from Codex.
 - The bridge can complete MCP `initialize`, but it still hangs on `tools/list`.
 - Targeted direct `tools/call` extraction now works through the local desktop bridge.
-- Header, hero text, hero CTA, variables, and screenshot evidence were extracted from the local bridge.
 - Hosted Figma tool calls are currently blocked by the View-seat tool-call limit.
-- Batch 3 foundation files were added for tokens, recipes, and shared system primitives.
-- The home route now renders the first real hero section implementation instead of the temporary rebuild placeholder.
-- A typed local asset manifest has been introduced so temporary local media can be swapped to Azure Blob or Front Door URLs later without hardcoded component changes.
+- The landing route now composes the implemented hero, demo, feature split, finance control, alternative apps, pricing, FAQ, integrations, and footer sections.
+- Shared non-landing chrome now lives in `app/(site-pages)/layout.tsx`, with the global navbar plus the invariant footer body owned by the route-group layout.
+- `/applications` and `/doow-ai` both live under `app/(site-pages)`.
+- The Doow AI spotlight implementation exists under `src/app/(landing)/_components/doow-ai`, but the home route currently comments it out.
+- The typed asset manifest now mixes CDN-backed assets with a few temporary local fallbacks that still need canonical blob or Front Door replacements.
+- The current quality checks are mixed: `npm run typecheck` passes, `npm run test:unit` passes, `npm run lint` passes with warnings, and `npm run build` depends on live Google Fonts access because `src/app/layout.tsx` uses `next/font/google`.
 
 ## Figma MCP Status
 
@@ -38,7 +43,7 @@ url = 'http://127.0.0.1:3845/mcp'
 
 ## Next Action
 
-Resume from the current section-first Batch 3 flow:
+Resume from the current section-review and stabilization flow:
 
 1. `AGENTS.md`
 2. `docs/rebuild/README.md`
@@ -47,15 +52,15 @@ Resume from the current section-first Batch 3 flow:
 
 Then continue with:
 
-- review the implemented hero section first
-- if changes are requested, iterate on the hero section only
-- once hero is approved, continue using targeted direct node extraction for the next section
-- keep media references flowing through the typed asset manifest until Azure Blob or Front Door URLs are available
+- decide whether the Doow AI spotlight should be mounted on `/` now or remain disabled and have the landing tests updated to match
+- continue replacing the remaining local fallback assets with canonical blob or Front Door URLs
+- keep the shared shell and validation docs accurate as build, lint, and test behavior changes
+- continue section review and polish in Figma order only after the landing route and the quality harness agree on the active section set
 
 ## Recommended Restart Prompt
 
 Use this to reopen cleanly:
 
 ```text
-Read AGENTS.md, docs/rebuild/README.md, docs/rebuild/handoff.md, and docs/rebuild/implementation-plan.md first. Batches 0-2 are complete. Continue the section-first Batch 3 flow from the implemented hero section, review or refine it as needed, and then move to the next Figma section only after hero sign-off.
+Read AGENTS.md, docs/rebuild/README.md, docs/rebuild/handoff.md, and docs/rebuild/implementation-plan.md first. The landing page and shared site-page shell are already implemented across multiple sections. Confirm whether the Doow AI spotlight should be active on `/`, keep the rebuild docs synced to the live route and validation state, and only continue section polish after the landing route and tests agree on the active section set.
 ```

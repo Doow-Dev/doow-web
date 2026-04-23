@@ -85,7 +85,7 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
   - footer list
   - media frame
 - Capture only section-critical Figma nodes when tool-call limits are a concern.
-- Status: in progress
+- Status: foundation landed, with ongoing refinements as sections continue to ship
 - Current note:
   - the local desktop bridge can complete MCP `initialize` but currently hangs on `tools/list`
   - targeted direct extraction for exact nodes is now working through the local desktop bridge
@@ -100,11 +100,11 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
 - Define the typed asset manifest layer.
 - Stop treating `public/` as the long-term home of landing-page media.
 - Prepare `next/image` and media delivery for the Front Door hostname.
-- Status: pending
+- Status: in progress
 
 ### Batch 5. Shared app shell, metadata, and quality harness
 
-- Build the new shared shell before section work begins.
+- Build and harden the new shared shell while section work continues.
 - Set up global styles, token wiring, metadata, and route structure.
 - Add quality gates:
   - lint
@@ -114,7 +114,7 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
   - visual screenshot checks
 - Add a component review surface such as Storybook for shared system work.
 - Lock container and spacing rules before section implementation begins.
-- Status: pending
+- Status: in progress
 
 ### Batch 6 onward. Section-by-section implementation
 
@@ -126,9 +126,14 @@ Initial section order:
 2. Hero
 3. Demo or video section
 4. Feature split
-5. Remaining product-story sections in Figma order
-6. Integrations
-7. Footer
+5. Finance control feature section
+6. Alternative apps comparison
+7. Doow AI spotlight
+8. Pricing
+9. FAQ
+10. Remaining product-story sections in Figma order
+11. Integrations
+12. Footer
 
 Each section follows this loop:
 
@@ -155,6 +160,8 @@ If a section fails review, iterate on that section only.
 Keep:
 
 - `/`
+- `/applications`
+- `/doow-ai`
 - `/signin`
 - `/privacy_policy`
 - `/terms_of_use`
@@ -187,11 +194,21 @@ Known section anchors:
 - Hero: `580:1111`
 - Demo or video: `580:1167`
 - Feature split: `580:2094`
+- Finance control feature section: `580:2482`
+- Alternative apps comparison: `581:2611`
+- Doow AI spotlight: `1056:1823`
+- Pricing: `582:3087`
+- FAQ: `583:3321`
 - Integrations: `583:3592`
 - Footer: `583:3998`
 
 ## Current Status Snapshot
 
 - Batches 0 to 2 are complete.
-- Batch 3 is the next implementation batch.
-- The local desktop-backed Figma MCP bridge has been configured for Codex and requires a fresh session to be picked up.
+- Batch 3 foundation is landed and is now refined alongside section work.
+- Batch 4 asset-pipeline work is in progress, with several sections still using temporary local fallbacks.
+- Batch 5 shared shell and quality-harness work is in progress.
+- Batch 6 section implementation is active across the landing page.
+- The Doow AI spotlight implementation exists in code, but it is currently commented out on the home route.
+- `npm run typecheck` passes, `npm run test:unit` passes, `npm run lint` passes with warnings, and `npm run build` currently depends on live Google Fonts access because `src/app/layout.tsx` uses `next/font/google`.
+- The local desktop-backed Figma MCP bridge is configured for Codex and remains useful for targeted node extraction even though `tools/list` still hangs.

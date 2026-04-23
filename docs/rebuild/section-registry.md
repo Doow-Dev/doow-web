@@ -16,7 +16,7 @@ This file tracks the source Figma nodes and status for each major landing-page s
 | 4 | Feature split | `580:2094` | Implemented as dedicated site component, review pending |
 | 5 | Finance control feature section | `580:2482` | Implemented as dedicated site component, review pending |
 | 6 | Alternative apps comparison | `581:2611` | Implemented as dedicated site component, review pending |
-| 7 | Doow AI spotlight | `1056:1823` | Implemented as dedicated site component, review pending |
+| 7 | Doow AI spotlight | `1056:1823` | Implemented in codebase, currently not mounted on `/`, review pending |
 | 8 | Pricing | `582:3087` | Implemented as dedicated site component, review pending |
 | 9 | FAQ | `583:3321` | Implemented as dedicated site component, review pending |
 | 10 | Additional product-story sections | To be mapped from later frames under `580:2289` | Pending |
@@ -36,6 +36,7 @@ This file tracks the source Figma nodes and status for each major landing-page s
 - The finance control section implementation uses `580:2482` as the section root with targeted card-level extraction for exact copy, alternating fills, icon mapping, and spacing values.
 - The alternative apps section implementation uses `581:2611` as the section root, with targeted extraction for the app pills, current-app summary, alternative cards, CTA, and the custom horizontal scrollbar rail.
 - The Doow AI section implementation uses `1056:1823` as the section root, with the CTA and centered copy rebuilt from live primitives while the combined Derek and Mina composition currently ships as a typed local fallback asset pending a canonical CDN export.
+- The home route currently comments out `DoowAiSection`, so the spotlight exists in code but is not part of the live landing-section order yet.
 - The pricing section implementation uses `582:3087` as the section root, `582:3088` for the background art reference, and `1056:1977` for the gradient overlay plus centered copy lock while sourcing production looped backgrounds from `siteAssetManifest.pricingBackgrounds`.
 - The FAQ section implementation uses `583:3321` as the section root and now lives under `src/components/layout/faq` as a shared site layout component with page-owned conversation content, while preserving the fixed CTA shell and shared custom scroll rail behavior.
 - The integrations section implementation now uses `583:3592` as the section root and renders directly below FAQ.
@@ -50,6 +51,7 @@ This file tracks the source Figma nodes and status for each major landing-page s
 Keep:
 
 - `/`
+- `/applications`
 - `/doow-ai`
 - `/signin`
 - `/privacy_policy`

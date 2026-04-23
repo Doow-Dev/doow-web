@@ -29,25 +29,31 @@
 ### Batch 3. Figma extraction and design-system foundation
 - Snapshot the Figma variables and key component instances needed for the rebuild.
 - Create token layers and the first shared primitives.
-- Status: in progress
+- Status: foundation landed, now refined in place as sections ship
 
 ### Batch 4. CDN and asset pipeline
 - Introduce the CDN asset contract, manifest layer, and environment variables.
 - Remove the assumption that `public/` is the home for landing-page media.
-- Status: pending
+- Status: in progress
 
 ### Batch 5. Shared app shell, metadata, and quality harness
-- Build the new shell, metadata, global styles, test harness, and visual review surface.
-- Status: pending
+- Build and harden the new shell, metadata, global styles, test harness, and visual review surface.
+- Status: in progress
 
 ### Batch 6 onward. Section implementation
 - Navbar or header
 - Hero
 - Demo or video section
-- Feature split and remaining product-story sections in Figma order
+- Feature split
+- Finance control feature section
+- Alternative apps comparison
+- Doow AI spotlight
+- Pricing
+- FAQ
+- Remaining product-story sections in Figma order
 - Integrations
 - Footer
-- Status: pending
+- Status: in progress
 
 ### Final batch. Cross-page polish and launch prep
 - Run final validation on metadata, routing, CDN behavior, image handling, analytics, and launch readiness.

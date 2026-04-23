@@ -4,8 +4,8 @@ This folder is the source of truth for the Doow landing-page rebuild.
 
 ## Current Status
 
-- Active stage: Batch 5 shared app-shell slice in progress for retained non-landing routes
-- Latest update: shared non-landing chrome now includes the global navbar plus the invariant site-pages footer body; page-level product routes own only their optional promo surface and section stack, with `/doow-ai` now reserved as a stable CTA destination during the landing rebuild
+- Active stage: Batch 6 landing-section implementation and review, with Batch 4 asset migration and Batch 5 quality-harness follow-up still open
+- Latest update: the landing page and retained site-page shells are both live, `/applications` and `/doow-ai` now resolve through the shared site-pages chrome, and the Doow AI spotlight implementation exists in code but is currently commented out on `/`
 - Delivery model: gated batch implementation with explicit review after each batch and section
 - Design source: Figma landing page `580:1110`
 - Responsive rule: mobile-first implementation inferred from desktop design
@@ -14,17 +14,20 @@ This folder is the source of truth for the Doow landing-page rebuild.
 
 ## Current Repo State
 
-- Current source file count under `src/`: `156`
+- Current source file count under `src/`: `159`
 - Current public asset file count: `33`
-- Current app routes in the build:
+- Current app routes defined under `src/app/`:
   - `/`
   - `/applications`
   - `/doow-ai`
   - `/privacy_policy`
   - `/signin`
   - `/terms_of_use`
-- Current production build status: passes and prerenders the route set above as static content
-- Current lint status: passes
+- Current typecheck status: passes
+- Current unit test status: passes via `npm run test:unit`, with a Node module-type warning from `src/lib/site/integrations.js`
+- Current lint status: passes with 2 warnings in `src/app/(landing)/page.tsx` because the Doow AI landing import and shell are currently unused
+- Current production build status: `next build` currently fails in restricted environments because `src/app/layout.tsx` fetches `Inter` through `next/font/google` at build time
+- Current e2e note: `tests/e2e/layout-regression.spec.ts` still assumes `#doow-ai` is rendered on `/`, but the section is currently commented out in `src/app/(landing)/page.tsx`
 
 ## Baseline Snapshot
 
