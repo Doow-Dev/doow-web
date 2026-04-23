@@ -25,7 +25,7 @@ export function IntegrationsSection({ Shell }: IntegrationsSectionProps) {
             headingTag="h2"
             stackClassName="integrations__heading-stack"
             title={<span id="integrations-heading">{integrations.title}</span>}
-            titleClassName="integrations__heading-title"
+            titleClassName="text-shadow-none"
           />
 
           <div className="integrations__cta">

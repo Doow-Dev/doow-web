@@ -30,11 +30,6 @@
     margin-inline: auto;
   }
 
-  .demo-section__title,
-  .demo-section__description {
-    max-width: 100%;
-  }
-
   .demo-section__footer {
     min-height: 2rem;
   }

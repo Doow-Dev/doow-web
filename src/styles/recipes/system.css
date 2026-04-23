@@ -376,6 +376,15 @@
   text-wrap: pretty;
 }
 
+@utility text-section-description-md {
+  color: var(--section-heading-description-color, var(--fg-subtle));
+  font-size: var(--type-section-description-size);
+  font-weight: var(--type-section-description-weight);
+  letter-spacing: var(--type-section-description-letter-spacing);
+  line-height: var(--type-section-description-line-height);
+  text-wrap: pretty;
+}
+
 @utility text-shadow-none {
   text-shadow: none;
 }

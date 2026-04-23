@@ -44,6 +44,8 @@ src/
 - Site pages under `app/(site-pages)` should share the global navbar and invariant footer body through their route-group layout, while each page layout owns its optional promo surface and section stack.
 - `Container` owns outer width and horizontal gutters.
 - Section components own only section-specific visuals and internal composition.
+- Shared primitives should absorb repeated visual patterns through explicit variants before sections introduce local duplicate styling.
+- For heading copy specifically, sections should use `components/system/SectionHeading` as the typography source of truth and only keep section-owned heading CSS when the visuals truly diverge from the shared title system or the shared description variants.
 
 ## Rendering Strategy
 

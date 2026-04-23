@@ -33,7 +33,7 @@ export async function AlternativeAppsSection({ Shell }: AlternativeAppsSectionPr
                 {alternativeApps.descriptionLines[1]}
               </>
             }
-            descriptionClassName="alternative-apps__heading-description"
+            descriptionClassName="max-w-full"
             eyebrow={alternativeApps.eyebrow}
             eyebrowVariant="saasIntelligence"
             headingTag="h2"
@@ -45,7 +45,7 @@ export async function AlternativeAppsSection({ Shell }: AlternativeAppsSectionPr
                 {alternativeApps.titleLines[1]}
               </span>
             }
-            titleClassName="alternative-apps__heading-title"
+            titleClassName="max-w-full"
           />
 
           <AlternativeAppsTool initialData={initialData} />

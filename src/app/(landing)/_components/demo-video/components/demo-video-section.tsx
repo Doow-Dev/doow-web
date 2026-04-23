@@ -19,10 +19,10 @@ export function DemoVideoSection({ Shell }: DemoVideoSectionProps) {
             align="center"
             className="demo-section__heading"
             description={demo.description}
-            descriptionClassName="demo-section__description"
+            descriptionClassName="max-w-full"
             headingTag="h2"
             title={<span id="demo-heading">{demo.title}</span>}
-            titleClassName="demo-section__title"
+            titleClassName="max-w-full"
           />
         </div>
 

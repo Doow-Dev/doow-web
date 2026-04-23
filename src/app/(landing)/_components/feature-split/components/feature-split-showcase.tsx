@@ -150,10 +150,10 @@ export function FeatureSplitShowcase({ content }: FeatureSplitShowcaseProps) {
           <SectionHeading
             className="feature-split__heading"
             description={content.description}
-            descriptionClassName="feature-split__heading-description text-body-sm-normal"
+            descriptionClassName="max-w-full"
             headingTag="h2"
             title={<span id="feature-split-heading">{content.title}</span>}
-            titleClassName="feature-split__heading-title"
+            titleClassName="max-w-full text-shadow-none"
           />
 
           <ol className="feature-split__point-list">

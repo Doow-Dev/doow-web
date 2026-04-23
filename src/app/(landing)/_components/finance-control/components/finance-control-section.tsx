@@ -31,11 +31,11 @@ export function FinanceControlSection({ Shell }: FinanceControlSectionProps) {
           <SectionHeading
             className="finance-control__heading"
             description={financeControl.description}
-            descriptionClassName="finance-control__heading-description text-body-sm-normal"
+            descriptionClassName="max-w-full"
             headingTag="h2"
             stackClassName="finance-control__heading-stack"
             title={<span id="finance-control-heading">{financeControl.title}</span>}
-            titleClassName="finance-control__heading-title"
+            titleClassName="max-w-full"
           />
 
           <ul className="finance-control__grid">

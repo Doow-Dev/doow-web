@@ -28,23 +28,6 @@
     gap: 0.8125rem;
   }
 
-  .doow-ai__heading-title {
-    color: #00140a;
-    font-size: clamp(2.25rem, 8vw, 2.875rem);
-    font-weight: 600;
-    letter-spacing: -0.055em;
-    line-height: clamp(2.625rem, 9vw, 3rem);
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  }
-
-  .doow-ai__heading-description {
-    color: #666b69;
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: -0.0496px;
-    line-height: 1.3125rem;
-  }
-
   .doow-ai__cta {
     min-height: 2.1875rem;
     padding-inline: 0.875rem;
@@ -98,11 +81,6 @@
 
     .doow-ai__heading {
       width: 28.625rem;
-    }
-
-    .doow-ai__heading-title {
-      font-size: 2.25rem;
-      line-height: 2.625rem;
     }
 
     .doow-ai__visual-shell {

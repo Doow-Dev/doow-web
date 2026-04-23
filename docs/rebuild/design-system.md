@@ -70,7 +70,15 @@ These are enough to begin the token and primitive layer before section implement
   - default landing-section styling based on the demo-section typography tokens
 - The default landing section-heading typography is now:
   - title: `34/38` on mobile, `36/42` on desktop, `600`, `-2px`
-  - description: `16/21`, `400`, `-0.05px`
+  - description `sm`: `13/21`, `400`, `-0.14px`
+  - description `md`: `16/21`, `400`, `-0.05px`
+- `SectionHeading` is now the source of truth for repeated heading typography patterns:
+  - use the default title styling unless the section genuinely departs from the shared title system
+  - use `descriptionVariant="sm"` or `descriptionVariant="md"` for the standard landing description sizes instead of restating those values in section CSS
+  - keep `titleClassName` and `descriptionClassName` as escape hatches for one-off visual differences, not as the primary way to restate shared typography
+- Do not add section-specific selectors such as `__heading-title` or `__heading-description` when they only duplicate the shared `SectionHeading` default title or one of the shared description variants.
+- If a new heading treatment repeats across more than one section, promote it into `SectionHeading` or shared typography utilities first, then consume it from callers.
+- If a section only needs layout-level adjustments for a heading, prefer caller-side utility classes such as width, max-width, or `text-shadow-none` rather than re-declaring a full typography block in the section stylesheet.
 - The subtle dashed treatment used in the demo section heading band is now modeled as reusable system utilities:
   - `surface-subtle`
   - `border-dashed-sides`

@@ -140,6 +140,7 @@ Each section follows this loop:
 1. Pull the exact Figma node context and screenshot.
 2. Pull only the variables, component instances, and assets needed for that section.
 3. Promote any repeatable values or variants into shared tokens and primitives.
+   - Do not leave repeated heading typography differences in section styles when they can be represented by a shared `SectionHeading` variant.
 4. Implement the section using shared tokens and primitives only.
 5. Validate at all target breakpoints.
 6. Run accessibility, SEO, and performance checks.

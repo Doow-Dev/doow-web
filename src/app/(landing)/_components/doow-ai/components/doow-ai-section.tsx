@@ -21,13 +21,12 @@ export function DoowAiSection({ Shell }: DoowAiSectionProps) {
             align="center"
             className="doow-ai__heading"
             description={doowAi.description}
-            descriptionClassName="doow-ai__heading-description"
+            descriptionVariant="md"
             eyebrow={doowAi.eyebrow}
             eyebrowVariant="muted"
             headingTag="h2"
             stackClassName="doow-ai__heading-stack"
             title={<span id="doow-ai-heading">{doowAi.title}</span>}
-            titleClassName="doow-ai__heading-title"
           />
 
           <Button asChild className="doow-ai__cta" size="base">
