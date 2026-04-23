@@ -15,6 +15,7 @@ const badgeVariants = cva(
         overlay: "badge-overlay",
         faq: "badge-muted",
         saasIntelligence: "badge-saas-intelligence",
+        appLogoPill: "badge-app-logo-pill",
         current: "badge-comparison-current",
         bestFit: "badge-comparison-best-fit",
       },

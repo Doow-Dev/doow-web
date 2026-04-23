@@ -16,7 +16,7 @@
     display: grid;
     justify-items: center;
     gap: 1rem;
-    padding-top: 4rem;
+    padding-top: 0;
   }
 
   .doow-ai__heading {
@@ -55,7 +55,8 @@
     position: relative;
     z-index: 0;
     width: 100%;
-    margin-top: 1.75rem;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
   }
 
   .doow-ai__visual-wrap {
@@ -74,12 +75,8 @@
   }
 
   @media (min-width: 40rem) {
-    .doow-ai__layout {
-      padding-top: 5rem;
-    }
-
     .doow-ai__visual-shell {
-      margin-top: 2.25rem;
+      margin-bottom: 1.5rem;
     }
 
     .doow-ai__visual-wrap {
@@ -87,10 +84,16 @@
     }
   }
 
+  @media (min-width: 48rem) {
+    .doow-ai__visual-shell {
+      margin-bottom: 1.25rem;
+    }
+  }
+
   @media (min-width: 64rem) {
     .doow-ai__layout {
       gap: 1.1875rem;
-      padding-top: 7.875rem;
+      padding-top: 0rem;
     }
 
     .doow-ai__heading {
@@ -103,7 +106,7 @@
     }
 
     .doow-ai__visual-shell {
-      margin-top: 2.875rem;
+      margin-bottom: 6.3125rem;
     }
 
     .doow-ai__visual-wrap {

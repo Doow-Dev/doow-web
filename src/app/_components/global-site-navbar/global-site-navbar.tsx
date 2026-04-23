@@ -28,7 +28,6 @@ import {
 } from "./content";
 import { DoowLogo } from "@/components/custom/icons/doow_logo";
 import { Button, Container } from "@/components/system";
-import { cn } from "@/lib/utils";
 
 const productMenuIcons: Record<GlobalSiteNavIcon, LucideIcon> = {
   ceos: Briefcase,
@@ -289,7 +288,10 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
       </header>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="global-site-navbar__mobile-overlay" />
+        <Dialog.Overlay
+          className="global-site-navbar__mobile-overlay"
+          data-global-site-navbar-mobile-overlay="true"
+        />
 
         <Dialog.Content
           className="global-site-navbar__mobile-content"
@@ -346,21 +348,6 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
               </nav>
 
               <div className="global-site-navbar__mobile-footer">
-                <Button
-                  asChild
-                  className={cn(
-                    "global-site-navbar__action-button global-site-navbar__action-button--stacked",
-                    loginIsActive && "global-site-navbar__action-button--stacked-active",
-                  )}
-                  data-active={loginIsActive ? "true" : "false"}
-                  size="base"
-                  variant="secondary"
-                >
-                  <Link href={content.login.href} onClick={closeMobileMenu}>
-                    {content.login.label}
-                  </Link>
-                </Button>
-
                 <Button
                   asChild
                   className="global-site-navbar__action-button global-site-navbar__action-button--stacked"

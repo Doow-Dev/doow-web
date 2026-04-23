@@ -1,7 +1,7 @@
 @layer components {
   .integrations {
     overflow-x: clip;
-    background: #ffffff;
+    background: var(--button-neutral);
   }
 
   .integrations__shell {
@@ -27,7 +27,7 @@
   }
 
   .integrations__heading-title {
-    color: #00140a;
+    color: var(--fg-base);
     font-size: 34px;
     font-weight: 600;
     letter-spacing: -2px;
@@ -37,7 +37,7 @@
 
   .integrations__heading-description {
     max-width: 38rem;
-    color: #666b69;
+    color: var(--fg-subtle);
     font-size: 14px;
     font-weight: 400;
     letter-spacing: -0.14px;
@@ -60,7 +60,7 @@
     padding: 1rem;
     overflow: clip;
     border-radius: 2.5rem;
-    background: #fafafa;
+    background: var(--bg-subtle);
   }
 
   .integrations__grid {
@@ -74,9 +74,9 @@
     aspect-ratio: 523 / 382;
     width: 100%;
     overflow: hidden;
-    border: 1px solid #e5e6e5;
+    border: 1px solid var(--border-base);
     border-radius: 2.75rem;
-    background: #ffffff;
+    background: var(--button-neutral);
     isolation: isolate;
     outline: none;
   }
@@ -127,7 +127,7 @@
     width: var(--integration-orbit-chip-surface-width, 73.79%);
     height: var(--integration-orbit-chip-surface-height, 73.4%);
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--button-neutral);
     box-shadow:
       inset 0 1.984px 7.934px rgba(211, 211, 211, 0.16),
       inset 0 -7.934px 11.108px rgba(186, 186, 186, 0.24);
@@ -150,7 +150,7 @@
     height: 34px;
     min-width: 34px;
     min-height: 34px;
-    color: #111827;
+    color: var(--fg-base);
     pointer-events: auto;
     z-index: 1;
   }
@@ -192,7 +192,7 @@
     align-items: center;
     justify-content: center;
     max-width: 100%;
-    color: #00140a;
+    color: var(--fg-base);
     line-height: 0;
   }
 
@@ -225,7 +225,7 @@
 
   .integration-orbit-card__title {
     margin: 0;
-    color: #111827;
+    color: var(--fg-base);
     font-size: 15px;
     font-weight: 500;
     letter-spacing: -0.43px;
@@ -235,7 +235,7 @@
 
   .integration-orbit-card__description {
     margin: 0;
-    color: #666b69;
+    color: var(--fg-subtle);
     font-size: 13px;
     font-weight: 400;
     letter-spacing: -0.14px;
@@ -245,7 +245,7 @@
   }
 
   .integration-orbit-card__description-emphasis {
-    color: #00140a;
+    color: var(--fg-base);
   }
 
   .integration-orbit-card__tabs {
@@ -256,7 +256,7 @@
     justify-content: center;
     z-index: 4;
     border-radius: 8px;
-    background: #fafafa;
+    background: var(--bg-subtle);
     transform: translateX(-50%);
   }
 
@@ -270,7 +270,7 @@
     border: 0;
     border-radius: 6px;
     background: transparent;
-    color: #666b69;
+    color: var(--fg-subtle);
     font-size: 13px;
     font-weight: 400;
     letter-spacing: -0.0104px;
@@ -285,8 +285,8 @@
   }
 
   .integration-orbit-card__tab--active {
-    background: #ffffff;
-    color: #00140a;
+    background: var(--button-neutral);
+    color: var(--fg-base);
     box-shadow:
       0 0 0 1px rgba(0, 20, 10, 0.08),
       0 1px 2px -1px rgba(0, 20, 10, 0.08),
@@ -311,7 +311,7 @@
     border-radius: 999px;
     background:
       radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.98) 58%, rgba(245, 246, 245, 0.96) 100%),
-      #ffffff;
+      var(--button-neutral);
     box-shadow:
       0 1px 2px rgba(0, 20, 10, 0.08),
       0 14px 28px -22px rgba(0, 20, 10, 0.16),
@@ -337,7 +337,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    color: #272c30;
+    color: var(--fg-base);
   }
 
   .integration-logo-graphic__image {
@@ -382,7 +382,7 @@
     display: block;
     width: 68%;
     height: 68%;
-    color: #272c30;
+    color: var(--fg-base);
   }
 
   .integration-logo--provider .integration-logo__image,
@@ -392,7 +392,7 @@
   }
 
   .integration-logo__fallback {
-    color: #272c30;
+    color: var(--fg-base);
     font-size: clamp(1.05rem, 2vw, 1.375rem);
     font-weight: 500;
     letter-spacing: -0.35px;
@@ -406,8 +406,8 @@
     bottom: calc(100% + 0.5rem);
     padding: 0.35rem 0.55rem;
     border-radius: 999px;
-    background: rgba(0, 20, 10, 0.92);
-    color: #ffffff;
+    background: rgba(1, 19, 19, 0.92);
+    color: var(--fg-on-color);
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0;
@@ -429,7 +429,7 @@
     bottom: calc(100% + 0.125rem);
     width: 0.5rem;
     height: 0.5rem;
-    background: rgba(0, 20, 10, 0.92);
+    background: rgba(1, 19, 19, 0.92);
     pointer-events: none;
     opacity: 0;
     transform: translate(-50%, 0.25rem) rotate(45deg);
@@ -596,7 +596,7 @@
     }
 
     .integration-orbit-card__tab:not(.integration-orbit-card__tab--active):hover {
-      color: #00140a;
+      color: var(--fg-base);
     }
   }
 

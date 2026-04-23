@@ -133,13 +133,56 @@ test.describe("global navbar interactions", () => {
 
     const trigger = page.locator('[data-global-site-navbar-mobile-trigger="true"]');
     const dialog = page.locator('[data-global-site-navbar-mobile-content="true"]');
+    const overlay = page.locator('[data-global-site-navbar-mobile-overlay="true"]');
     const productTrigger = page.locator('[data-global-site-navbar-mobile-product-trigger="true"]');
+    const stickyShell = page.locator('[data-global-site-navbar-shell="true"]');
 
     await expect(trigger).toBeVisible();
     await expect(page.getByRole("link", { name: "Blog" })).toHaveCount(0);
 
     await trigger.click();
     await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("link", { name: "Login" })).toHaveCount(0);
+
+    const layerOrder = await page.evaluate(() => {
+      const overlayElement = document.querySelector('[data-global-site-navbar-mobile-overlay="true"]');
+      const shellElement = document.querySelector('[data-global-site-navbar-shell="true"]');
+
+      if (!(overlayElement instanceof HTMLElement) || !(shellElement instanceof HTMLElement)) {
+        throw new Error("Mobile overlay or sticky navbar shell was not found.");
+      }
+
+      const overlayZIndex = Number.parseInt(getComputedStyle(overlayElement).zIndex, 10);
+      const shellZIndex = Number.parseInt(getComputedStyle(shellElement).zIndex, 10);
+
+      return {
+        overlayZIndex,
+        shellZIndex,
+      };
+    });
+
+    expect(layerOrder.overlayZIndex).toBeLessThan(layerOrder.shellZIndex);
+
+    const overlayGeometry = await page.evaluate(() => {
+      const overlayElement = document.querySelector('[data-global-site-navbar-mobile-overlay="true"]');
+      const stickyShellElement = document.querySelector('[data-global-site-navbar-shell="true"]');
+
+      if (!(overlayElement instanceof HTMLElement) || !(stickyShellElement instanceof HTMLElement)) {
+        throw new Error("Mobile overlay or sticky navbar shell was not found.");
+      }
+
+      const overlayRect = overlayElement.getBoundingClientRect();
+      const shellRect = stickyShellElement.getBoundingClientRect();
+
+      return {
+        overlayTop: overlayRect.top,
+        shellBottom: shellRect.bottom,
+      };
+    });
+
+    expect(overlayGeometry.overlayTop).toBeGreaterThanOrEqual(overlayGeometry.shellBottom - 2);
+    await expect(overlay).toBeVisible();
+    await expect(stickyShell).toBeVisible();
 
     await productTrigger.focus();
     await expect(productTrigger).toBeFocused();

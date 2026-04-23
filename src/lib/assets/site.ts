@@ -59,6 +59,21 @@ export const siteAssetManifest = {
     width: 1821,
     height: 1451,
   },
+  applicationsHeroBackground: {
+    id: "applications-hero-background",
+    src: "/assets/illustrations/applications-hero-bg.svg",
+    alt: "",
+    width: 1440,
+    height: 664,
+  },
+  // TODO: Swap this local fallback to assetUrl(...) from blob.ts once the canonical blob image is published.
+  applicationsHeroForeground: {
+    id: "applications-hero-foreground",
+    src: "/assets/person-holding-camera.png",
+    alt: "",
+    width: 918,
+    height: 557,
+  },
   faqUserAvatar: {
     id: "faq-user-avatar",
     src: "/assets/icons/user4.svg",
@@ -138,6 +153,8 @@ export const siteAssetManifest = {
   demoVideo: SiteVideoEntry;
   doowAiComposite: SiteAssetEntry;
   faqBackgroundIllustration: SiteAssetEntry;
+  applicationsHeroBackground: SiteAssetEntry;
+  applicationsHeroForeground: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;
   integrationsUpwardChipBackplate: SiteAssetEntry;

@@ -9,9 +9,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "button-brand hover:brightness-[0.97]",
-        secondary: "button-secondary hover:brightness-[0.99]",
-        ghost: "button-ghost",
+        primary: "button-primary",
+        neutral: "button-neutral",
+        secondary: "button-neutral",
+        danger: "button-danger",
+        transparent: "button-transparent",
+        ghost: "button-transparent",
         link: "button-link",
       },
       size: {

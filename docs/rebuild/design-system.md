@@ -43,10 +43,27 @@ The connected Figma file already exposes:
 - radius tokens
 - elevation and shadow values
 - button instance styling with the primary green surface
+- color-system token groups for backgrounds, foregrounds, borders, buttons, badges, and supporting palette values from Figma node `6:128`
 
 These are enough to begin the token and primitive layer before section implementation starts.
 
 ## Current Implementation Notes
+
+- `src/styles/tokens/foundation.css` now keeps the audited color system in two layers:
+  - normalized Figma tokens such as `--bg-*`, `--fg-*`, `--border-*`, `--button-*`, and `--tag-*`
+  - repo-compatibility aliases such as `--surface-*`, `--ink-*`, `--stroke-*`, `--action-*`, and `--status-*`
+- The Tailwind `@theme` layer now points directly at the normalized Figma token groups instead of routing through compatibility aliases first.
+- Section and layout styles no longer consume the legacy alias variables directly. Active section files now bind to the normalized Figma token groups, while section-specific overlays use explicit semantic tokens such as `--header-*` and `--global-site-navbar-*`.
+- Shared primitives now resolve through the audited Figma color groups instead of provisional values:
+  - `Button` primary uses the Figma `button-base` state set
+  - `Button` neutral and `Button` secondary both use the Figma neutral button state set
+  - `Button` transparent and `Button` ghost now use the audited transparent-button hover and pressed states
+  - `Input` uses the Figma field and border tokens
+  - `Badge` now exposes the Figma tag families directly through `neutral`, `violet`, `blue`, `green`, `orange`, and `red`
+  - `Badge` `current` maps to the neutral tag tokens
+  - `Badge` `bestFit` maps to the green tag tokens
+- The batch-4 consolidation pass keeps compatibility aliases in place only as a shim for section and route code that has not yet been renamed. Shared theme exposure, primitives, and recipes should prefer the normalized Figma vocabulary directly.
+- The section-by-section alias cleanup pass leaves the compatibility aliases in `foundation.css` only as a transitional shim. They are no longer part of the active section or layout styling path and can be retired later without changing rendered values.
 
 - `SectionHeading` now has two intended modes:
   - `scale="hero"` for hero-only display styling

@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import "@/app/(site-pages)/applications/styles/index.css";
+
 import { SiteFooterPromoSection } from "@/components/layout/footer";
 
 import { applicationsPageContent } from "./content";

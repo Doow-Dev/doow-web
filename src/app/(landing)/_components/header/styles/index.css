@@ -36,7 +36,7 @@
   }
 
   .landing-navbar__open-surface {
-    background: var(--surface-header-open-solid);
+    background: var(--header-surface-open);
     box-shadow: var(--elevation-header-sticky);
     opacity: 0;
     transition: opacity 220ms ease;
@@ -47,14 +47,14 @@
   }
 
   .landing-navbar__blend-surface {
-    background: var(--surface-header-scrolled);
+    background: var(--header-surface-scrolled);
   }
 
   .landing-navbar__blend-border {
     inset-inline: 0;
     bottom: 0;
     height: 1px;
-    background: var(--stroke-header-scrolled);
+    background: var(--header-border-scrolled);
   }
 
   .landing-navbar__blend-shadow {
@@ -102,7 +102,7 @@
     border-radius: var(--shape-radius-control);
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.06);
-    color: var(--header-nav-foreground);
+    color: var(--fg-on-color);
     transition:
       background-color 180ms ease,
       border-color 180ms ease,
@@ -141,7 +141,7 @@
   }
 
   .landing-navbar-shell[data-open="true"] .landing-navbar__dialog-content {
-    background: var(--surface-header-open-solid);
+    background: var(--header-surface-open);
     backdrop-filter: blur(18px);
     box-shadow: var(--elevation-header-panel);
   }
@@ -152,7 +152,7 @@
     gap: 1.25rem;
     border: 0;
     border-radius: 0;
-    background: var(--surface-header-scrolled);
+    background: var(--header-surface-scrolled);
     backdrop-filter: blur(18px);
     box-shadow: var(--elevation-header-panel);
     padding-top: 1.5rem;
@@ -162,7 +162,7 @@
   }
 
   .landing-navbar-shell[data-open="true"] .landing-navbar__menu-panel {
-    background: var(--surface-header-open-solid);
+    background: var(--header-surface-open);
     backdrop-filter: blur(18px);
     box-shadow: none;
   }

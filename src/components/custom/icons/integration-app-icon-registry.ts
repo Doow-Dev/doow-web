@@ -48,13 +48,17 @@ function assetEntry(asset: IntegrationAppStaticAsset): IntegrationAppGraphicSour
 }
 
 const integrationAppIconRegistry: Record<string, IntegrationAppGraphicSource> = {
+  asana: assetEntry(integrationLogoAssetManifest.asana),
   allycom: assetEntry(integrationLogoAssetManifest.plaidBanking.ally),
+  authress: assetEntry(integrationLogoAssetManifest.authress),
   bamboo: componentEntry(BambooAppIcon),
   bamboohr: assetEntry(integrationLogoAssetManifest.bambooHr),
   bankofamericacom: assetEntry(integrationLogoAssetManifest.plaidBanking.bankOfAmerica),
   capitalonecom: assetEntry(integrationLogoAssetManifest.plaidBanking.capitalOne),
   chasecom: assetEntry(integrationLogoAssetManifest.plaidBanking.chase),
   citicom: assetEntry(integrationLogoAssetManifest.plaidBanking.citi),
+  claude: assetEntry(integrationLogoAssetManifest.claude),
+  codex: assetEntry(integrationLogoAssetManifest.codex),
   deel: componentEntry(DeelAppIcon),
   google: componentEntry(GoogleAppIcon),
   googleworkspace: componentEntry(GoogleAppIcon),
@@ -71,6 +75,7 @@ const integrationAppIconRegistry: Record<string, IntegrationAppGraphicSource> = 
   sage: componentEntry(SageAppIcon),
   slack: componentEntry(SlackAppIcon),
   tdcom: assetEntry(integrationLogoAssetManifest.plaidBanking.td),
+  tiptap: assetEntry(integrationLogoAssetManifest.tiptap),
   truistcom: assetEntry(integrationLogoAssetManifest.plaidBanking.truist),
   usbankcom: assetEntry(integrationLogoAssetManifest.plaidBanking.usBank),
   wellsfargocom: assetEntry(integrationLogoAssetManifest.plaidBanking.wellsFargo),

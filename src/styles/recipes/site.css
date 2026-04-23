@@ -1,8 +1,8 @@
 @layer components {
   .landing-page {
     min-height: 100vh;
-    background: var(--surface-card);
-    color: var(--ink-strong);
+    background: var(--button-neutral);
+    color: var(--fg-base);
   }
 
   .landing-page__main {

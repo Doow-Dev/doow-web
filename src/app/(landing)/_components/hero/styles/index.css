@@ -5,7 +5,7 @@
     min-height: 50svh;
     overflow: clip;
     background: #0b1110;
-    color: var(--action-primary-foreground);
+    color: var(--fg-on-color);
   }
 
   .hero-overlay {
@@ -57,7 +57,7 @@
   }
 
   .hero-title {
-    color: var(--header-nav-foreground);
+    color: var(--fg-on-color);
     font-size: var(--hero-title-size-mobile);
     font-weight: var(--type-weight-semibold);
     letter-spacing: var(--hero-title-letter-spacing-mobile);
@@ -73,7 +73,7 @@
     position: relative;
     display: block;
     margin-top: -2px;
-    color: var(--header-nav-foreground);
+    color: var(--fg-on-color);
     white-space: nowrap;
   }
 
@@ -155,7 +155,7 @@
     margin-top: var(--hero-copy-gap);
     margin-inline: auto;
     max-width: var(--copy-measure-hero);
-    color: var(--header-nav-foreground);
+    color: var(--fg-on-color);
   }
 
   .hero-copy__actions {

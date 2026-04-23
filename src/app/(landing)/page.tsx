@@ -144,7 +144,7 @@ export default function Home() {
       <FeatureSplitSection Shell={FeatureSplitShell} />
       <FinanceControlSection Shell={FinanceControlShell} />
       <AlternativeAppsSection Shell={AlternativeAppsShell} />
-      {/* <DoowAiSection Shell={DoowAiShell} /> */}
+      <DoowAiSection Shell={DoowAiShell} />
       <PricingSection Shell={PricingShell} />
       <SiteFaqSection Shell={FaqShell} content={landingPageContent.faq} />
       <IntegrationsSection Shell={IntegrationsShell} />

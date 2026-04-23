@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Sometype_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 
 import "../styles/globals.css";
@@ -12,6 +12,13 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter-variable",
+});
+
+const sometypeMono = Sometype_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: "500",
+  variable: "--font-sometype-mono-variable",
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
@@ -40,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("font-sans antialiased bg-background", inter.variable)}
+      className={cn("font-sans antialiased bg-background", inter.variable, sometypeMono.variable)}
       suppressHydrationWarning
     >
       <head>

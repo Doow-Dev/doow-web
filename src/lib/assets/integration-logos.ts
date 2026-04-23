@@ -7,10 +7,30 @@ export interface IntegrationLogoAssetEntry {
 }
 
 export const integrationLogoAssetManifest = {
+  asana: {
+    format: "vector",
+    id: "integration-logo-asana",
+    src: "/assets/icons/asana-app-icon.svg",
+  },
+  authress: {
+    format: "vector",
+    id: "integration-logo-authress",
+    src: "/assets/icons/authress.svg",
+  },
   bambooHr: {
     format: "vector",
     id: "integration-logo-bamboohr",
     src: "/assets/icons/bamboo.svg",
+  },
+  claude: {
+    format: "vector",
+    id: "integration-logo-claude",
+    src: "/assets/icons/claude.svg",
+  },
+  codex: {
+    format: "vector",
+    id: "integration-logo-codex",
+    src: "/assets/icons/codex.svg",
   },
   microsoftEntraId: {
     format: "vector",
@@ -79,8 +99,17 @@ export const integrationLogoAssetManifest = {
     id: "integration-logo-zohopeople",
     src: "/assets/icons/zohopeople.svg",
   },
+  tiptap: {
+    format: "vector",
+    id: "integration-logo-tiptap",
+    src: "/assets/icons/tiptap.svg",
+  },
 } as const satisfies {
+  asana: IntegrationLogoAssetEntry;
+  authress: IntegrationLogoAssetEntry;
   bambooHr: IntegrationLogoAssetEntry;
+  claude: IntegrationLogoAssetEntry;
+  codex: IntegrationLogoAssetEntry;
   microsoftEntraId: IntegrationLogoAssetEntry;
   obsidian: IntegrationLogoAssetEntry;
   plaidBanking: {
@@ -94,6 +123,7 @@ export const integrationLogoAssetManifest = {
     usBank: IntegrationLogoAssetEntry;
     wellsFargo: IntegrationLogoAssetEntry;
   };
+  tiptap: IntegrationLogoAssetEntry;
   zohoBooks: IntegrationLogoAssetEntry;
   zohoPeople: IntegrationLogoAssetEntry;
 };
