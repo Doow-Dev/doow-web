@@ -45,6 +45,9 @@ This file tracks the source Figma nodes and status for each major landing-page s
 - The footer slice implementation uses the combined `583:3998` frame as the landing convenience wrapper reference, with the landing promo extracted from `583:3999` and the footer body extracted from `583:4655`.
 - The additional promo variants now use `605:126341` for the compact headline-only preset and `605:26463` for the compact-with-description preset.
 - The shared footer promo uses a dedicated `1314px` shell because it does not match the shared landing `1005px` container used by FAQ and several earlier sections.
+- The `/applications` route now includes a Problems section sourced from `604:15094`, with the outer heading extracted from `604:15097`, the dotted selector shell extracted from `657:3553`, the duplicate-tools illustration implemented from `661:4298` using the user-approved horizontal screenshot orientation, the visibility illustration implemented from `660:10746`, and the cost illustration implemented from `660:10964`.
+- The `/applications` route now includes a Features and Solutions section sourced from `604:19476`, with the centered intro lockup extracted from `604:19866`, the desktop two-column grid wrapper extracted from `604:19869`, and the four production card references extracted from `604:19870`, `604:19942`, `604:20001`, and `604:20044`.
+- The `/integrations` route now composes the hero sourced from `652:1958` plus the shared FAQ section, with the copy lockup rebuilt from the shared site-page shell, the headline gradient promoted into shared utilities, the section-bottom gradient sourced from `605:59383`, the background rebuilt from the masked `652:1960` illustration composition, and page-owned integrations FAQ conversations passed into the shared FAQ layout before the promo footer.
 
 ## Route Policy
 
@@ -53,6 +56,7 @@ Keep:
 - `/`
 - `/applications`
 - `/doow-ai`
+- `/integrations`
 - `/signin`
 - `/privacy_policy`
 - `/terms_of_use`

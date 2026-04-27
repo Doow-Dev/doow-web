@@ -17,7 +17,7 @@ export const doowAiSectionContent = {
   description: "CFOs best buddies. Built for modern finance.",
   cta: {
     href: "/doow-ai",
-    label: "Learn more Doow AI",
+    label: "Learn more",
   } satisfies LandingActionLink,
   illustration: siteAssetManifest.doowAiComposite,
 } as const satisfies DoowAiSectionContent;

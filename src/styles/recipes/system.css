@@ -389,6 +389,22 @@
   text-shadow: none;
 }
 
+@utility text-gradient-site-page-hero {
+  background-image: var(--gradient-site-page-title-accent);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility surface-gradient-integrations-bottom {
+  background-image: var(--gradient-integrations-section-bottom);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 @utility text-title {
   font-size: clamp(1.85rem, 5vw, 3rem);
   font-weight: 700;
@@ -400,6 +416,114 @@
   color: var(--fg-subtle);
   font-size: clamp(1rem, 2vw, 1.125rem);
   line-height: 1.7;
+}
+
+@utility text-weight-regular {
+  font-weight: var(--type-weight-regular);
+}
+
+@utility text-weight-medium {
+  font-weight: var(--type-weight-medium);
+}
+
+@utility text-weight-semibold {
+  font-weight: var(--type-weight-semibold);
+}
+
+@utility text-doow-title-xl {
+  font-size: var(--type-doow-title-xl-size);
+  letter-spacing: var(--type-doow-title-xl-letter-spacing);
+  line-height: var(--type-doow-title-xl-line-height);
+}
+
+@utility text-doow-large-title {
+  font-size: var(--type-doow-large-title-size);
+  letter-spacing: var(--type-doow-large-title-letter-spacing);
+  line-height: var(--type-doow-large-title-line-height);
+}
+
+@utility text-doow-title-lg {
+  font-size: var(--type-doow-title-lg-size);
+  letter-spacing: var(--type-doow-title-lg-letter-spacing);
+  line-height: var(--type-doow-title-lg-line-height);
+}
+
+@utility text-doow-title-md {
+  font-size: var(--type-doow-title-md-size);
+  letter-spacing: var(--type-doow-title-md-letter-spacing);
+  line-height: var(--type-doow-title-md-line-height);
+}
+
+@utility text-doow-title-sm {
+  font-size: var(--type-doow-title-sm-size);
+  letter-spacing: var(--type-doow-title-sm-letter-spacing);
+  line-height: var(--type-doow-title-sm-line-height);
+}
+
+@utility text-doow-headline-md {
+  font-size: var(--type-doow-headline-md-size);
+  letter-spacing: var(--type-doow-headline-md-letter-spacing);
+  line-height: var(--type-doow-headline-md-line-height);
+}
+
+@utility text-doow-headline-sm {
+  font-size: var(--type-doow-headline-sm-size);
+  letter-spacing: var(--type-doow-headline-sm-letter-spacing);
+  line-height: var(--type-doow-headline-sm-line-height);
+}
+
+@utility text-doow-body-lg {
+  font-size: var(--type-doow-body-lg-size);
+  letter-spacing: var(--type-doow-body-lg-letter-spacing);
+  line-height: var(--type-doow-body-lg-line-height);
+}
+
+@utility text-doow-body-md {
+  font-size: var(--type-doow-body-md-size);
+  letter-spacing: var(--type-doow-body-md-letter-spacing);
+  line-height: var(--type-doow-body-md-line-height);
+}
+
+@utility text-doow-body-sm {
+  font-size: var(--type-doow-body-sm-size);
+  letter-spacing: var(--type-doow-body-sm-letter-spacing);
+  line-height: var(--type-doow-body-sm-line-height);
+}
+
+@utility text-doow-label-lg {
+  font-size: var(--type-doow-label-lg-size);
+  letter-spacing: var(--type-doow-label-lg-letter-spacing);
+  line-height: var(--type-doow-label-lg-line-height);
+}
+
+@utility text-doow-label-base {
+  font-size: var(--type-doow-label-base-size);
+  letter-spacing: var(--type-doow-label-base-letter-spacing);
+  line-height: var(--type-doow-label-base-line-height);
+}
+
+@utility text-doow-label-md {
+  font-size: var(--type-doow-label-md-size);
+  letter-spacing: var(--type-doow-label-md-letter-spacing);
+  line-height: var(--type-doow-label-md-line-height);
+}
+
+@utility text-doow-label-sm {
+  font-size: var(--type-doow-label-sm-size);
+  letter-spacing: var(--type-doow-label-sm-letter-spacing);
+  line-height: var(--type-doow-label-sm-line-height);
+}
+
+@utility text-doow-caption-md {
+  font-size: var(--type-doow-caption-md-size);
+  letter-spacing: var(--type-doow-caption-md-letter-spacing);
+  line-height: var(--type-doow-caption-md-line-height);
+}
+
+@utility text-doow-caption-sm {
+  font-size: var(--type-doow-caption-sm-size);
+  letter-spacing: var(--type-doow-caption-sm-letter-spacing);
+  line-height: var(--type-doow-caption-sm-line-height);
 }
 
 @utility text-body-sm-medium {

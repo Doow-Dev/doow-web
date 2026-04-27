@@ -188,24 +188,8 @@ for (const viewport of viewports) {
         "/doow-ai"
       );
 
-      const splitLayout = await page.evaluate(() => {
-        const content = document.querySelector(".feature-split__content-column");
-        const stage = document.querySelector(".feature-split__stage-column");
-
-        if (!(content instanceof HTMLElement) || !(stage instanceof HTMLElement)) {
-          throw new Error("Feature split columns were not found.");
-        }
-
-        const contentRect = content.getBoundingClientRect();
-        const stageRect = stage.getBoundingClientRect();
-
-        return {
-          contentLeft: contentRect.left,
-          contentTop: contentRect.top,
-          stageLeft: stageRect.left,
-          stageTop: stageRect.top,
-        };
-      });
+      const featureContentRect = await getRect(page, ".feature-split__content-column");
+      const featureStageRect = await getRect(page, ".feature-split__stage");
 
       const integrationsLayout = await page.evaluate(() => {
         const grid = document.querySelector('[data-integration-grid="true"]');
@@ -254,9 +238,10 @@ for (const viewport of viewports) {
         expect(featureBorderOwnership.contentBottomWidth).toBeLessThanOrEqual(0.5);
         expect(featureBorderOwnership.stageLeftWidth).toBeLessThanOrEqual(0.5);
         expect(featureBorderOwnership.stageBottomWidth).toBeLessThanOrEqual(0.5);
+        await expect(featureStagePanel).toBeVisible();
         await expect(featureContentPanel).toHaveCSS("background-color", "rgb(250, 250, 250)");
         await expect(featureStagePanel).toHaveCSS("background-color", "rgb(255, 255, 255)");
-        expect(splitLayout.stageLeft).toBeGreaterThan(splitLayout.contentLeft + 1);
+        expect(featureStageRect.left).toBeGreaterThan(featureContentRect.left + 1);
       } else {
         expect(featureBorderOwnership.shellBackground).toBe("rgb(255, 255, 255)");
         expect(featureBorderOwnership.surfaceBackground).toBe("rgb(250, 250, 250)");
@@ -266,10 +251,9 @@ for (const viewport of viewports) {
         expect(featureBorderOwnership.contentBottomWidth).toBeLessThanOrEqual(0.5);
         expect(featureBorderOwnership.stageLeftWidth).toBeLessThanOrEqual(0.5);
         expect(featureBorderOwnership.stageBottomWidth).toBeLessThanOrEqual(0.5);
+        await expect(featureStagePanel).toBeHidden();
         expect(Math.abs(featureSurfaceRect.left - demoIntroRect.left)).toBeLessThanOrEqual(1);
         expect(Math.abs(featureSurfaceRect.right - demoIntroRect.right)).toBeLessThanOrEqual(1);
-        expect(Math.abs(splitLayout.stageLeft - splitLayout.contentLeft)).toBeLessThanOrEqual(1);
-        expect(splitLayout.stageTop).toBeGreaterThan(splitLayout.contentTop + 1);
       }
 
       if (viewport.width >= 1216) {
@@ -356,6 +340,88 @@ test("alternative apps updates the comparison panel and opens the analysis CTA i
   await popup.close();
 });
 
+test.describe("landing feature split interactions", () => {
+  test.use({ viewport: { width: 1280, height: 960 } });
+
+  test("renders four selectable items and swaps between the live point-one stage and placeholder stages", async ({ page }) => {
+    await page.goto("/");
+
+    const section = page.locator("#product");
+    const panel = section.getByRole("tabpanel");
+    const discoverTab = section.getByRole("tab", { name: /Discover every tool your team is using/i });
+    const eliminateTab = section.getByRole("tab", { name: /Eliminate licenses nobody is using/i });
+    const consolidateTab = section.getByRole("tab", { name: /Consolidate duplicate tools and cut overlap/i });
+
+    await expect(section.getByRole("tab")).toHaveCount(4);
+    await expect(discoverTab).toHaveAttribute("aria-selected", "true");
+    await expect(panel).toHaveAttribute("data-feature-active-point-id", "discover");
+    await expect(panel).toHaveAttribute("data-feature-stage-kind", "pointOne");
+    await expect(panel.locator('[data-feature-point-one-stage="true"]')).toBeVisible();
+
+    await discoverTab.focus();
+    await page.keyboard.press("ArrowDown");
+
+    await expect(eliminateTab).toHaveAttribute("aria-selected", "true");
+    await expect(panel).toHaveAttribute("data-feature-active-point-id", "eliminate");
+    await expect(panel).toHaveAttribute("data-feature-stage-kind", "placeholder");
+    await expect(panel.locator('[data-progressive-split-placeholder="true"]')).toBeVisible();
+
+    await consolidateTab.click();
+
+    await expect(consolidateTab).toHaveAttribute("aria-selected", "true");
+    await expect(panel).toHaveAttribute("data-feature-active-point-id", "consolidate");
+    await expect(panel).toHaveAttribute("data-feature-stage-kind", "placeholder");
+  });
+});
+
+test.describe("landing feature split shell", () => {
+  test("keeps the stage panel out of visual flow below desktop while preserving the shared shell markers", async ({ page }) => {
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await page.goto("/");
+
+    const section = page.locator("#product");
+    const layout = section.locator('[data-feature-split-surface="layout"]');
+    const contentPanel = section.locator('[data-feature-split-panel="content"]');
+    const stagePanel = section.locator('[data-feature-split-panel="stage"]');
+    const stagePanelStyles = await stagePanel.evaluate((element) => {
+      const styles = getComputedStyle(element);
+
+      return {
+        clipPath: styles.clipPath,
+        height: styles.height,
+        position: styles.position,
+        width: styles.width,
+      };
+    });
+
+    await expect(layout).toBeVisible();
+    await expect(contentPanel).toBeVisible();
+    await expect(section.getByRole("tabpanel")).toHaveCount(1);
+    expect(stagePanelStyles.position).toBe("absolute");
+    expect(stagePanelStyles.width).toBe("1px");
+    expect(stagePanelStyles.height).toBe("1px");
+    expect(stagePanelStyles.clipPath).not.toBe("none");
+  });
+
+  test("renders the content and stage panels as a desktop split from 1024px upward", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 960 });
+    await page.goto("/");
+
+    const section = page.locator("#product");
+    const contentPanel = section.locator('[data-feature-split-panel="content"]');
+    const stagePanel = section.locator('[data-feature-split-panel="stage"]');
+    const contentBox = await contentPanel.boundingBox();
+    const stageBox = await stagePanel.boundingBox();
+
+    await expect(contentPanel).toHaveCSS("background-color", "rgb(250, 250, 250)");
+    await expect(stagePanel).toBeVisible();
+    await expect(stagePanel).toHaveCSS("background-color", "rgb(255, 255, 255)");
+    expect(contentBox).not.toBeNull();
+    expect(stageBox).not.toBeNull();
+    expect(stageBox!.x - contentBox!.x).toBeGreaterThan(100);
+  });
+});
+
 test("pricing renders its content and resolves the in-page pricing plans anchor", async ({ page }) => {
   await page.goto("/");
 
@@ -405,7 +471,7 @@ test("footer renders the promo dashboard and mapped footer links", async ({ page
 
   await expect(footer.getByRole("link", { name: "Applications" })).toHaveAttribute("href", "/applications");
   await expect(footer.getByRole("link", { name: "Expenses" })).toHaveAttribute("href", /#finance-control$/);
-  await expect(footer.getByRole("link", { name: "Integrations" })).toHaveAttribute("href", /#integrations$/);
+  await expect(footer.getByRole("link", { name: "Integrations" })).toHaveAttribute("href", "/integrations");
   await expect(footer.getByRole("link", { name: "About Us" })).toHaveAttribute("href", "/");
   await expect(footer.getByRole("link", { name: "Contact Us" })).toHaveAttribute("href", /#faq$/);
   await expect(footer.getByRole("link", { name: "Privacy Policy" })).toHaveAttribute("href", "/privacy_policy");

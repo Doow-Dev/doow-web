@@ -20,7 +20,7 @@ export function ApplicationsHeroSection() {
           <div className="applications-hero__copy">
             <h1 className="applications-hero__title" id="applications-hero-heading">
               {hero.title.firstLine}{" "}
-              <span className="applications-hero__title-accent-line">
+              <span className="applications-hero__title-accent-line text-gradient-site-page-hero">
                 <span className="applications-hero__title-prefix">{hero.title.secondLinePrefix} </span>
                 <span className="applications-hero__title-accent">{hero.title.accent}</span>
               </span>

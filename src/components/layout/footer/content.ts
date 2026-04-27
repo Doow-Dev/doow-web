@@ -68,7 +68,7 @@ export const siteFooterBodyContent = {
       items: [
         { href: "/applications", label: "Applications" },
         { href: "#finance-control", label: "Expenses" },
-        { href: "#integrations", label: "Integrations" },
+        { href: "/integrations", label: "Integrations" },
         { href: "#pricing", label: "Subscriptions" },
         { href: "#faq", label: "Doow AI" },
       ],

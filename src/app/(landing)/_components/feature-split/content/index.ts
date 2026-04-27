@@ -1,6 +1,7 @@
 export type FeaturePointId = "discover" | "eliminate" | "renewals" | "consolidate";
 
 export type FeatureShowcaseFrame = "frame-1" | "frame-2" | "frame-3";
+export type FeaturePointStageKind = "placeholder" | "pointOne";
 
 export type FeatureShowcaseStatus = "active" | "inactive";
 
@@ -28,7 +29,7 @@ export interface FeaturePointContent {
   order: number;
   title: string;
   description: string;
-  enabled: boolean;
+  stageKind: FeaturePointStageKind;
 }
 
 export interface PointOneDepartmentRow {
@@ -103,7 +104,7 @@ export const featureSplitSectionContent = {
       title: "Discover every tool your team is using",
       description:
         "Uncover the apps employees are signing up for. Get a complete, real-time map of your SaaS stack, including the ones flying under the radar.",
-      enabled: true,
+      stageKind: "pointOne",
     },
     {
       id: "eliminate",
@@ -111,7 +112,7 @@ export const featureSplitSectionContent = {
       title: "Eliminate licenses nobody is using",
       description:
         "See exactly which seats are inactive and which tools are underused. Identify subscriptions that no longer justify their cost and cut waste instantly.",
-      enabled: false,
+      stageKind: "placeholder",
     },
     {
       id: "renewals",
@@ -119,7 +120,7 @@ export const featureSplitSectionContent = {
       title: "Never get blindsided by a renewal again",
       description:
         "Auto-renewals should not be a surprise. Get proactive alerts before charges hit, so you always have time to cancel, negotiate, or renew on your terms.",
-      enabled: false,
+      stageKind: "placeholder",
     },
     {
       id: "consolidate",
@@ -127,7 +128,7 @@ export const featureSplitSectionContent = {
       title: "Consolidate duplicate tools and cut overlap",
       description:
         "Three teams, three project management tools, all on your bill. Spot redundant apps across departments and make confident consolidation decisions in one click.",
-      enabled: false,
+      stageKind: "placeholder",
     },
   ] satisfies readonly FeaturePointContent[],
   defaultPointId: "discover",
