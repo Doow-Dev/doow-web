@@ -101,6 +101,11 @@ export const bankingAndAccountingIntegrationCard = {
               domain: "capitalone.com",
             },
             {
+              id: "pnc-bank",
+              name: "PNC Bank",
+              domain: "pnc.com",
+            },
+            {
               id: "td-bank",
               name: "TD Bank",
               domain: "td.com",
@@ -200,7 +205,7 @@ export const integrationsSectionContent = {
   description:
     "Seamlessly integrate with your existing stack — from finance and procurement to communication and workflows. Explore all available integrations in one place.",
   cta: {
-    href: "https://dev.doow.co/",
+    href: "/integrations",
     label: "See all integrations",
   } satisfies LandingActionLink,
   maxVisibleOrbitApps: 4,

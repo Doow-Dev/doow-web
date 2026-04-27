@@ -98,14 +98,14 @@ export const globalSiteNavContent = {
             {
               availability: "live",
               description: "Spend within set company limits, policies and be accountable",
-              href: "/#integrations",
+              href: "/integrations",
               icon: "employees",
               label: "For Employees",
             },
             {
               availability: "live",
               description: "Comprehensive financial management for large organizations",
-              href: "/#integrations",
+              href: "/integrations",
               icon: "enterprises",
               label: "Enterprises",
             },

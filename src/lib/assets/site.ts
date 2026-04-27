@@ -43,10 +43,9 @@ export const siteAssetManifest = {
     src: demoVideoSources.src,
     mimeType: "video/mp4",
   },
-  // Temporary local fallback until the canonical blob URL is published.
   doowAiComposite: {
     id: "doow-ai-composite",
-    src: "/assets/derek-and-mina.png",
+    src: assetUrl("derek-and-mina.png"),
     alt: "",
     width: 1398,
     height: 576,
@@ -66,15 +65,13 @@ export const siteAssetManifest = {
     width: 1440,
     height: 664,
   },
-  // TODO: Swap this local fallback to assetUrl(...) from blob.ts once the canonical blob image is published.
   applicationsHeroForeground: {
     id: "applications-hero-foreground",
-    src: "/assets/person-holding-camera.png",
+    src: assetUrl("person-holding-camera.png"),
     alt: "",
     width: 918,
     height: 557,
   },
-  // Temporary local fallback until the canonical blob URL is published.
   expensesHeroCard1: {
     id: "expenses-hero-card-1",
     src: assetUrl("expenses-hero-card-1.png"),
@@ -102,6 +99,22 @@ export const siteAssetManifest = {
     alt: "",
     width: 294,
     height: 441,
+  },
+  // Temporary local fallback until the canonical blob assets are published.
+  integrationsHeroIllustrationArt: {
+    id: "integrations-hero-illustration-art",
+    src: "/assets/illustrations/integrations-hero-art.svg",
+    alt: "",
+    width: 2182.29,
+    height: 917.278,
+  },
+  // Temporary local fallback until the canonical blob assets are published.
+  integrationsHeroIllustrationMask: {
+    id: "integrations-hero-illustration-mask",
+    src: "/assets/illustrations/integrations-hero-mask.svg",
+    alt: "",
+    width: 2311.64,
+    height: 781,
   },
   faqUserAvatar: {
     id: "faq-user-avatar",
@@ -188,6 +201,8 @@ export const siteAssetManifest = {
   expensesHeroCard2: SiteAssetEntry;
   expensesHeroCard3: SiteAssetEntry;
   expensesHeroCard4: SiteAssetEntry;
+  integrationsHeroIllustrationArt: SiteAssetEntry;
+  integrationsHeroIllustrationMask: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;
   integrationsUpwardChipBackplate: SiteAssetEntry;

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
+import type { CSSProperties, KeyboardEvent, PointerEvent, ReactNode } from "react";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { useReducedMotion } from "motion/react";
@@ -22,6 +22,8 @@ import { IntegrationOrbitChip } from "./integration-orbit-chip";
 function toPercent(value: number, base: number) {
   return (value / base) * 100;
 }
+
+const HOVER_INTENT_DELAY_MS = 120;
 
 function getVisibleOrbitSummary(apps: readonly IntegrationAppLogo[], maxVisibleOrbitApps: number) {
   return apps.slice(0, maxVisibleOrbitApps).map((app) => app.name);
@@ -214,6 +216,7 @@ export function IntegrationOrbitCard({
   }
 
   const cardRef = useRef<HTMLElement>(null);
+  const hoverIntentTimeoutRef = useRef<number | null>(null);
   const [uncontrolledActiveViewId, setUncontrolledActiveViewId] = useState(card.initialViewId);
   const [cardSize, setCardSize] = useState<{ height: number; width: number }>({
     height: FIGMA_INTEGRATION_CARD_FRAME.height,
@@ -286,6 +289,14 @@ export function IntegrationOrbitCard({
     };
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (hoverIntentTimeoutRef.current !== null) {
+        window.clearTimeout(hoverIntentTimeoutRef.current);
+      }
+    };
+  }, []);
+
   function handleViewSelect(nextViewId: string) {
     const nextView = card.views.find((view) => view.id === nextViewId) ?? card.views[0];
 
@@ -296,11 +307,30 @@ export function IntegrationOrbitCard({
     onViewChange?.(nextView.id);
   }
 
-  function handleHoverStart() {
-    setIsHovered(true);
+  function clearHoverIntentTimeout() {
+    if (hoverIntentTimeoutRef.current === null) {
+      return;
+    }
+
+    window.clearTimeout(hoverIntentTimeoutRef.current);
+    hoverIntentTimeoutRef.current = null;
   }
 
-  function handleHoverEnd() {
+  function handlePointerEnter(event: PointerEvent<HTMLElement>) {
+    if (event.pointerType !== "mouse" && event.pointerType !== "pen") {
+      return;
+    }
+
+    clearHoverIntentTimeout();
+
+    hoverIntentTimeoutRef.current = window.setTimeout(() => {
+      setIsHovered(true);
+      hoverIntentTimeoutRef.current = null;
+    }, HOVER_INTENT_DELAY_MS);
+  }
+
+  function handlePointerLeave() {
+    clearHoverIntentTimeout();
     setIsHovered(false);
   }
 
@@ -310,9 +340,8 @@ export function IntegrationOrbitCard({
       className={cn("integration-orbit-card", className)}
       data-card-variant={visualRecipe.cardVariant}
       data-integration-card-id={card.id}
-      onMouseEnter={enableHoverOrbitAnimation ? handleHoverStart : undefined}
-      onMouseLeave={enableHoverOrbitAnimation ? handleHoverEnd : undefined}
-      onMouseOver={enableHoverOrbitAnimation ? handleHoverStart : undefined}
+      onPointerEnter={enableHoverOrbitAnimation ? handlePointerEnter : undefined}
+      onPointerLeave={enableHoverOrbitAnimation ? handlePointerLeave : undefined}
       ref={cardRef}
     >
       <div aria-hidden="true" className="integration-orbit-card__arc-shell" style={getArcShellStyle(visualRecipe)}>

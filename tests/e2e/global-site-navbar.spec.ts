@@ -190,6 +190,12 @@ test.describe("global navbar interactions", () => {
     await expect(page.locator('[data-global-site-navbar-mobile-product-content="true"]')).toBeVisible();
     await expect(page.locator('[data-global-site-navbar-menu-item="For CEOs"]')).toBeVisible();
     await expect(page.locator('[data-global-site-navbar-menu-item="Enterprises"]')).toBeVisible();
+    await expect(
+      page.locator('[data-global-site-navbar-mobile-product-content="true"] [data-global-site-navbar-menu-item="For Employees"]'),
+    ).toHaveAttribute("href", "/integrations");
+    await expect(
+      page.locator('[data-global-site-navbar-mobile-product-content="true"] [data-global-site-navbar-menu-item="Enterprises"]'),
+    ).toHaveAttribute("href", "/integrations");
 
     await page.mouse.click(12, 832);
     await expect(dialog).toBeHidden();
@@ -215,6 +221,14 @@ test.describe("global navbar interactions", () => {
     await productTrigger.hover();
     await expect(productContent).toBeVisible();
     await expect(page.locator('[data-global-site-navbar-menu-item="For CFOs & Controllers"]')).toBeVisible();
+    await expect(productContent.locator('[data-global-site-navbar-menu-item="For Employees"]')).toHaveAttribute(
+      "href",
+      "/integrations",
+    );
+    await expect(productContent.locator('[data-global-site-navbar-menu-item="Enterprises"]')).toHaveAttribute(
+      "href",
+      "/integrations",
+    );
 
     await page.mouse.move(0, 0);
     await page.waitForTimeout(120);
