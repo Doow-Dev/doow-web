@@ -9,7 +9,7 @@ import { SiteFooterBody, siteFooterBodyContent } from "@/components/layout/foote
 
 export default function SitePagesLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground" data-layout-shell="utilityPageShell">
+    <div className="min-h-screen bg-white text-foreground" data-layout-shell="utilityPageShell">
       <GlobalSiteNavbar />
       {children}
       <SiteFooterBody body={siteFooterBodyContent} />

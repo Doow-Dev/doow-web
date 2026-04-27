@@ -1,9 +1,10 @@
 "use client";
 
 import type { KeyboardEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useReducedMotion } from "motion/react";
 
 import { ScrollThumbRail, useScrollThumb } from "@/components/layout/shared";
 import { AiIcon } from "@/components/custom/icons/ai-icon";
@@ -14,6 +15,19 @@ import type { FaqCategory, FaqCategoryId, FaqSectionContent } from "./types";
 
 export interface FaqToolProps {
   content: FaqSectionContent;
+}
+
+const DEFAULT_REVEAL_DELAY_MS = 420;
+const MIN_ASSISTANT_TYPING_MS = 900;
+const MAX_ASSISTANT_TYPING_MS = 1560;
+const USER_SEND_SETTLE_MS = 320;
+const ASSISTANT_REPLY_SETTLE_MS = 260;
+const MAX_THREAD_TOP_SPACER_PX = 120;
+
+function getAssistantTypingDuration(messageText: string, baseDelayMs: number) {
+  const textWeightedDelay = Math.round(messageText.length * 18);
+
+  return Math.max(MIN_ASSISTANT_TYPING_MS, Math.min(MAX_ASSISTANT_TYPING_MS, baseDelayMs + textWeightedDelay));
 }
 
 function getNextIndex(currentIndex: number, total: number, direction: "next" | "previous") {
@@ -110,26 +124,132 @@ export function FaqTool({ content }: FaqToolProps) {
   const defaultCategoryId = content.categories[0]?.id ?? "";
   const [selectedCategoryId, setSelectedCategoryId] = useState(content.initialSelectedCategoryId ?? defaultCategoryId);
   const selectedCategory = content.categories.find((category) => category.id === selectedCategoryId) ?? content.categories[0];
+  const selectedMessages = useMemo(() => selectedCategory?.messages ?? [], [selectedCategory]);
   const resolvedSelectedCategoryId = selectedCategory?.id ?? "";
+  const prefersReducedMotion = useReducedMotion() ?? false;
+  const shouldAnimateThread = content.interaction?.mode === "simulated" && !prefersReducedMotion;
+  const revealDelayMs = content.interaction?.revealDelayMs ?? DEFAULT_REVEAL_DELAY_MS;
   const { contentRef, thumbState, viewportRef } = useScrollThumb<HTMLDivElement, HTMLOListElement>({
     minSizePercentage: 18,
     orientation: "vertical",
   });
+  const animationSequenceRef = useRef(0);
+  const [revealedCount, setRevealedCount] = useState(shouldAnimateThread ? 0 : selectedMessages.length);
+  const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!shouldAnimateThread || selectedMessages.length === 0) {
+      return;
+    }
+
+    let elapsedMs = 0;
+    const timers: number[] = [];
+    const sequenceId = animationSequenceRef.current + 1;
+
+    animationSequenceRef.current = sequenceId;
+
+    selectedMessages.forEach((message, index) => {
+      if (message.speaker === "user") {
+        timers.push(
+          window.setTimeout(() => {
+            if (animationSequenceRef.current !== sequenceId) {
+              return;
+            }
+
+            setTypingMessageId(null);
+            setRevealedCount(index + 1);
+          }, elapsedMs),
+        );
+
+        elapsedMs += USER_SEND_SETTLE_MS;
+        return;
+      }
+
+      timers.push(
+        window.setTimeout(() => {
+          if (animationSequenceRef.current !== sequenceId) {
+            return;
+          }
+
+          setTypingMessageId(message.id);
+        }, elapsedMs),
+      );
+
+      elapsedMs += getAssistantTypingDuration(message.text, revealDelayMs);
+
+      timers.push(
+        window.setTimeout(() => {
+          if (animationSequenceRef.current !== sequenceId) {
+            return;
+          }
+
+          setTypingMessageId(null);
+          setRevealedCount(index + 1);
+        }, elapsedMs),
+      );
+
+      elapsedMs += ASSISTANT_REPLY_SETTLE_MS;
+    });
+
+    return () => {
+      animationSequenceRef.current += 1;
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [revealDelayMs, resolvedSelectedCategoryId, selectedMessages, shouldAnimateThread]);
+
+  useEffect(() => {
+    if (!shouldAnimateThread) {
+      return;
+    }
+
+    if (typeof window === "undefined" || window.matchMedia("(min-width: 64rem)").matches) {
+      return;
+    }
+
     const viewport = viewportRef.current;
 
     if (!viewport) {
       return;
     }
 
-    viewport.scrollTop = 0;
-    viewport.scrollLeft = 0;
-  }, [resolvedSelectedCategoryId, viewportRef]);
+    const scrollToLatest = window.setTimeout(() => {
+      viewport.scrollTo({
+        top: viewport.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 60);
+
+    return () => {
+      window.clearTimeout(scrollToLatest);
+    };
+  }, [revealedCount, shouldAnimateThread, typingMessageId, viewportRef]);
+
+  const visibleMessages = shouldAnimateThread ? selectedMessages.slice(0, revealedCount) : selectedMessages;
+  const typingMessage = useMemo(() => {
+    if (!typingMessageId) {
+      return null;
+    }
+
+    return selectedMessages.find((message) => message.id === typingMessageId && message.speaker === "assistant") ?? null;
+  }, [selectedMessages, typingMessageId]);
+  const visibleRenderableCount = visibleMessages.length + (typingMessage ? 1 : 0);
+  const totalRenderableCount = selectedMessages.length;
+  const threadProgress = totalRenderableCount > 0 ? visibleRenderableCount / totalRenderableCount : 1;
+  const shouldUseLiveSpacer = shouldAnimateThread && totalRenderableCount > 0;
+  const threadTopSpacerHeight = shouldUseLiveSpacer
+    ? Math.round((1 - Math.min(threadProgress, 1)) * MAX_THREAD_TOP_SPACER_PX)
+    : 0;
 
   if (!selectedCategory) {
     return null;
   }
+
+  const handleSelectCategory = (categoryId: FaqCategoryId) => {
+    animationSequenceRef.current += 1;
+    setTypingMessageId(null);
+    setRevealedCount(0);
+    setSelectedCategoryId(categoryId);
+  };
 
   return (
     <div className="faq-tool">
@@ -138,7 +258,7 @@ export function FaqTool({ content }: FaqToolProps) {
           <FaqCategoryTabs
             categories={content.categories}
             className="faq-tool__category-list faq-tool__category-list--mobile"
-            onSelect={setSelectedCategoryId}
+            onSelect={handleSelectCategory}
             panelId={panelId}
             selectedCategoryId={resolvedSelectedCategoryId}
           />
@@ -150,7 +270,7 @@ export function FaqTool({ content }: FaqToolProps) {
           <FaqCategoryTabs
             categories={content.categories}
             className="faq-tool__category-list faq-tool__category-list--desktop"
-            onSelect={setSelectedCategoryId}
+            onSelect={handleSelectCategory}
             panelId={panelId}
             selectedCategoryId={resolvedSelectedCategoryId}
           />
@@ -168,32 +288,73 @@ export function FaqTool({ content }: FaqToolProps) {
                 tabIndex={0}
               >
                 <ol className="faq-tool__thread-list" ref={contentRef}>
-                  {selectedCategory.messages.map((message) => (
-                    <li className="faq-tool__message-row" data-speaker={message.speaker} key={message.id}>
-                      {message.speaker === "user" ? (
-                        <>
-                          <Image
-                            alt=""
-                            aria-hidden="true"
-                            className="faq-tool__user-avatar"
-                            height={siteFaqChrome.userAvatar.height}
-                            src={siteFaqChrome.userAvatar.src}
-                            width={siteFaqChrome.userAvatar.width}
-                          />
+                  {threadTopSpacerHeight > 0 ? (
+                    <li
+                      aria-hidden="true"
+                      className="faq-tool__message-spacer"
+                      style={{ height: `${threadTopSpacerHeight}px` }}
+                    />
+                  ) : null}
 
-                          <div className="faq-tool__message-stack">
-                            <span className="faq-tool__message-role">{selectedCategory.roleLabel}</span>
-                            <p className="faq-tool__bubble faq-tool__bubble--user">{message.text}</p>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <p className="faq-tool__bubble faq-tool__bubble--assistant">{message.text}</p>
-                          <AiIcon className="faq-tool__assistant-avatar" />
-                        </>
-                      )}
+                  {visibleMessages.map((message) => {
+                    return (
+                      <li
+                        className="faq-tool__message-row"
+                        data-animate={shouldAnimateThread ? "true" : "false"}
+                        data-speaker={message.speaker}
+                        key={message.id}
+                      >
+                        {message.speaker === "user" ? (
+                          <>
+                            <Image
+                              alt=""
+                              aria-hidden="true"
+                              className="faq-tool__user-avatar"
+                              height={siteFaqChrome.userAvatar.height}
+                              src={siteFaqChrome.userAvatar.src}
+                              width={siteFaqChrome.userAvatar.width}
+                            />
+
+                            <div className="faq-tool__message-stack">
+                              <span className="faq-tool__message-role">{selectedCategory.roleLabel}</span>
+                              <p className="faq-tool__bubble faq-tool__bubble--user" data-animate={shouldAnimateThread ? "true" : "false"}>
+                                <span className="faq-tool__bubble-text">{message.text}</span>
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <p className="faq-tool__bubble faq-tool__bubble--assistant" data-animate={shouldAnimateThread ? "true" : "false"}>
+                              <span className="faq-tool__bubble-text">{message.text}</span>
+                            </p>
+                            <AiIcon className="faq-tool__assistant-avatar" />
+                          </>
+                        )}
+                      </li>
+                    );
+                  })}
+
+                  {typingMessage ? (
+                    <li
+                      className="faq-tool__message-row faq-tool__message-row--typing"
+                      data-animate={shouldAnimateThread ? "true" : "false"}
+                      data-speaker="assistant"
+                      key={`${typingMessage.id}-typing`}
+                    >
+                      <p
+                        aria-label="Doow AI is typing"
+                        className="faq-tool__bubble faq-tool__bubble--assistant faq-tool__bubble--typing"
+                        data-animate={shouldAnimateThread ? "true" : "false"}
+                      >
+                        <span aria-hidden="true" className="faq-tool__typing-dots">
+                          <span className="faq-tool__typing-dot" />
+                          <span className="faq-tool__typing-dot" />
+                          <span className="faq-tool__typing-dot" />
+                        </span>
+                      </p>
+                      <AiIcon className="faq-tool__assistant-avatar" />
                     </li>
-                  ))}
+                  ) : null}
                 </ol>
               </div>
 

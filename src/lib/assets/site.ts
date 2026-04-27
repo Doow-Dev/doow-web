@@ -72,6 +72,34 @@ export const siteAssetManifest = {
     width: 918,
     height: 557,
   },
+  expensesHeroCard1: {
+    id: "expenses-hero-card-1",
+    src: assetUrl("expenses-hero-card-1.png"),
+    alt: "",
+    width: 294,
+    height: 441,
+  },
+  expensesHeroCard2: {
+    id: "expenses-hero-card-2",
+    src: assetUrl("expenses-hero-card-2.png"),
+    alt: "",
+    width: 320,
+    height: 480,
+  },
+  expensesHeroCard3: {
+    id: "expenses-hero-card-3",
+    src: assetUrl("expenses-hero-card-3.png"),
+    alt: "",
+    width: 320,
+    height: 480,
+  },
+  expensesHeroCard4: {
+    id: "expenses-hero-card-4",
+    src: assetUrl("expenses-hero-card-4.png"),
+    alt: "",
+    width: 294,
+    height: 441,
+  },
   // Temporary local fallback until the canonical blob assets are published.
   integrationsHeroIllustrationArt: {
     id: "integrations-hero-illustration-art",
@@ -90,7 +118,7 @@ export const siteAssetManifest = {
   },
   faqUserAvatar: {
     id: "faq-user-avatar",
-    src: "/assets/icons/user4.svg",
+    src: "/assets/icons/faq-user-avatar.png",
     alt: "",
     width: 32,
     height: 32,
@@ -169,6 +197,10 @@ export const siteAssetManifest = {
   faqBackgroundIllustration: SiteAssetEntry;
   applicationsHeroBackground: SiteAssetEntry;
   applicationsHeroForeground: SiteAssetEntry;
+  expensesHeroCard1: SiteAssetEntry;
+  expensesHeroCard2: SiteAssetEntry;
+  expensesHeroCard3: SiteAssetEntry;
+  expensesHeroCard4: SiteAssetEntry;
   integrationsHeroIllustrationArt: SiteAssetEntry;
   integrationsHeroIllustrationMask: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
