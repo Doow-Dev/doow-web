@@ -88,6 +88,14 @@ export const siteAssetManifest = {
     width: 2311.64,
     height: 781,
   },
+  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsHeroDashboard: {
+    id: "subscriptions-hero-dashboard",
+    src: "/assets/illustrations/subscriptions-hero-dashboard.png",
+    alt: "",
+    width: 847,
+    height: 456,
+  },
   faqUserAvatar: {
     id: "faq-user-avatar",
     src: "/assets/icons/user4.svg",
@@ -171,6 +179,7 @@ export const siteAssetManifest = {
   applicationsHeroForeground: SiteAssetEntry;
   integrationsHeroIllustrationArt: SiteAssetEntry;
   integrationsHeroIllustrationMask: SiteAssetEntry;
+  subscriptionsHeroDashboard: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;
   integrationsUpwardChipBackplate: SiteAssetEntry;

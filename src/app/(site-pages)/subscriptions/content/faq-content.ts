@@ -19,10 +19,6 @@ function buildThreadMessages(categoryId: FaqCategoryId, exchanges: readonly FaqE
 
 export const subscriptionsFaqContent = {
   initialSelectedCategoryId: "renewal-tracking",
-  interaction: {
-    mode: "simulated",
-    revealDelayMs: 320,
-  },
   categories: [
     {
       id: "renewal-tracking",
