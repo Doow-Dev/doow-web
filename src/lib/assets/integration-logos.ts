@@ -68,6 +68,11 @@ export const integrationLogoAssetManifest = {
       id: "integration-logo-citi",
       src: assetUrl("citi.com.webp"),
     },
+    pnc: {
+      format: "raster",
+      id: "integration-logo-pnc-bank",
+      src: assetUrl("pnc.com.webp"),
+    },
     td: {
       format: "raster",
       id: "integration-logo-td-bank",
@@ -104,6 +109,12 @@ export const integrationLogoAssetManifest = {
     id: "integration-logo-tiptap",
     src: "/assets/icons/tiptap.svg",
   },
+  // Temporary local fallback exported from Figma node 605:59602 until the canonical blob URL is published.
+  yapily: {
+    format: "raster",
+    id: "integration-logo-yapily",
+    src: "/assets/icons/yapily.jpg",
+  },
 } as const satisfies {
   asana: IntegrationLogoAssetEntry;
   authress: IntegrationLogoAssetEntry;
@@ -118,12 +129,14 @@ export const integrationLogoAssetManifest = {
     capitalOne: IntegrationLogoAssetEntry;
     chase: IntegrationLogoAssetEntry;
     citi: IntegrationLogoAssetEntry;
+    pnc: IntegrationLogoAssetEntry;
     td: IntegrationLogoAssetEntry;
     truist: IntegrationLogoAssetEntry;
     usBank: IntegrationLogoAssetEntry;
     wellsFargo: IntegrationLogoAssetEntry;
   };
   tiptap: IntegrationLogoAssetEntry;
+  yapily: IntegrationLogoAssetEntry;
   zohoBooks: IntegrationLogoAssetEntry;
   zohoPeople: IntegrationLogoAssetEntry;
 };

@@ -3,7 +3,9 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import { SitePageSectionShell } from "@/app/(site-pages)/_components/site-page-section-shell";
+import { ApplicationsFeaturesSolutionsSection } from "@/app/(site-pages)/applications/components/applications-features-solutions-section";
 import { ApplicationsHeroSection } from "@/app/(site-pages)/applications/components/applications-hero-section";
+import { ApplicationsProblemsSection } from "@/app/(site-pages)/applications/components/applications-problems-section";
 import { SiteFaqSection } from "@/components/layout/faq";
 
 import { applicationsPageContent } from "./content";
@@ -31,6 +33,8 @@ export default function ApplicationsPage() {
   return (
     <>
       <ApplicationsHeroSection />
+      <ApplicationsProblemsSection />
+      <ApplicationsFeaturesSolutionsSection />
       <SiteFaqSection Shell={FaqShell} content={applicationsPageContent.faq} />
     </>
   );

@@ -83,6 +83,7 @@ function ApplicationsHeroAnimatedPill({
     <motion.div
       aria-hidden="true"
       className="applications-hero__pill-item"
+      data-mobile-hidden={pill.hideOnMobile ? "true" : "false"}
       initial={{ opacity: 0, scale: 0.985, y: 10 }}
       animate={{ opacity: pill.opacity, scale: 1, y: 0 }}
       style={getPillStyle(field, pill)}
