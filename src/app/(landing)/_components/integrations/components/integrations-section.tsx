@@ -30,9 +30,7 @@ export function IntegrationsSection({ Shell }: IntegrationsSectionProps) {
 
           <div className="integrations__cta">
             <Button asChild className="integrations__cta-button">
-              <Link href={integrations.cta.href} rel="noopener noreferrer" target="_blank">
-                {integrations.cta.label}
-              </Link>
+              <Link href={integrations.cta.href}>{integrations.cta.label}</Link>
             </Button>
           </div>
 

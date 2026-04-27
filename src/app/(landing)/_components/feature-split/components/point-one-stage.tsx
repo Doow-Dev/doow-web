@@ -328,34 +328,32 @@ export function PointOneStage({ frame, point, prefersReducedMotion }: PointOneSt
   const contentTransition = prefersReducedMotion ? { duration: 0 } : { duration: 0.32, ease: featureSplitEase };
 
   return (
-    <div aria-hidden="true" className="feature-split__stage">
-      <div className="feature-split__stage-backdrop">
-        <div className="feature-split__window">
-          <ShowcaseWindowChrome />
+    <div aria-hidden="true" className="feature-split__stage" data-feature-point-one-stage="true">
+      <div className="feature-split__window">
+        <ShowcaseWindowChrome />
 
-          <div className="feature-split__window-body">
-            <MockNavigationRail expanded={frame === "frame-1"} point={point} prefersReducedMotion={prefersReducedMotion} />
+        <div className="feature-split__window-body">
+          <MockNavigationRail expanded={frame === "frame-1"} point={point} prefersReducedMotion={prefersReducedMotion} />
 
-            <div className="feature-split__window-panel">
-              <AnimatePresence initial={false} mode="wait">
-                <motion.div
-                  animate="center"
-                  className="feature-split__window-panel-frame"
-                  exit="exit"
-                  initial="enter"
-                  key={frame}
-                  transition={contentTransition}
-                  variants={stageFrameVariants}
-                >
-                  {frame === "frame-1" ? <BlankPanel /> : null}
-                  {frame === "frame-2" ? <DepartmentsTable point={point} /> : null}
-                  {frame === "frame-3" ? <ApplicationsTable point={point} /> : null}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            <ShowcaseCursor frame={frame} prefersReducedMotion={prefersReducedMotion} />
+          <div className="feature-split__window-panel">
+            <AnimatePresence initial={false} mode="wait">
+              <motion.div
+                animate="center"
+                className="feature-split__window-panel-frame"
+                exit="exit"
+                initial="enter"
+                key={frame}
+                transition={contentTransition}
+                variants={stageFrameVariants}
+              >
+                {frame === "frame-1" ? <BlankPanel /> : null}
+                {frame === "frame-2" ? <DepartmentsTable point={point} /> : null}
+                {frame === "frame-3" ? <ApplicationsTable point={point} /> : null}
+              </motion.div>
+            </AnimatePresence>
           </div>
+
+          <ShowcaseCursor frame={frame} prefersReducedMotion={prefersReducedMotion} />
         </div>
       </div>
     </div>

@@ -21,6 +21,7 @@ interface ApplicationsHeroPillMotionProfile {
 }
 
 interface ApplicationsHeroPillBase extends ApplicationsHeroPillMotionProfile {
+  hideOnMobile: boolean;
   id: string;
   label: string;
   opacity: number;
@@ -54,6 +55,7 @@ export interface ApplicationsHeroPillFieldContent {
 interface BasePillConfig {
   id?: string;
   label: string;
+  showOnMobile?: boolean;
   width: number;
   x: number;
 }
@@ -139,6 +141,7 @@ function createPill(y: number, rowIndex: number, itemIndex: number, config: Pill
   if (config.kind === "brand") {
     return {
       ...motion,
+      hideOnMobile: config.showOnMobile !== true,
       id,
       kind: "brand",
       label: config.label,
@@ -155,6 +158,7 @@ function createPill(y: number, rowIndex: number, itemIndex: number, config: Pill
 
   return {
     ...motion,
+    hideOnMobile: config.showOnMobile !== true,
     id,
     kind: "text",
     label: config.label,
@@ -176,7 +180,7 @@ const applicationsHeroPillItems = [
     { label: "Cloudfare", width: 212.17, x: 279.80859375 },
     { label: "WorkOS", width: 201.73, x: 507.98046875 },
     { label: "Sully", width: 201.73, x: 725.71875 },
-    { label: "Figma", width: 201.73, x: 943.44921875 },
+    { label: "Figma", showOnMobile: true, width: 201.73, x: 943.44921875 },
     { label: "Plan Campaigns", width: 212.17, x: 1161.19140625 },
     { label: "Edit Copy", width: 159.97, x: 1389.359375 },
   ]),
@@ -184,8 +188,8 @@ const applicationsHeroPillItems = [
     { label: "Proofread Content", width: 243.48, x: -160.83999633789062 },
     { label: "Mixpanel", width: 212.17, x: 98.640625 },
     { kind: "brand", label: "Obsidian", logoGap: 4, logoHeight: 22, logoKey: "obsidian", logoWidth: 22, width: 201.73, x: 326.80859375 },
-    { label: "Antimetal", width: 243.48, x: 544.55078125 },
-    { kind: "brand", label: "Claude", logoGap: 5, logoHeight: 21, logoKey: "claude", logoWidth: 21, width: 212.17, x: 804.03125 },
+    { label: "Antimetal", showOnMobile: true, width: 243.48, x: 544.55078125 },
+    { kind: "brand", label: "Claude", logoGap: 5, logoHeight: 21, logoKey: "claude", logoWidth: 21, showOnMobile: true, width: 212.17, x: 804.03125 },
     { label: "Tensol", width: 170.41, x: 1032.19921875 },
     { label: "Review Docs", width: 180.84, x: 1218.609375 },
   ]),
@@ -193,14 +197,14 @@ const applicationsHeroPillItems = [
     { label: "Build Decks", width: 180.84, x: -87.75 },
     { label: "After Effects", width: 253.92, x: 109.08999633789062 },
     { label: "Check Links", width: 180.84, x: 586.30078125 },
-    { label: "Walkie", width: 170.41, x: 783.140625 },
+    { label: "Walkie", showOnMobile: true, width: 170.41, x: 783.140625 },
     { label: "Blocks", width: 191.28, x: 969.55078125 },
     { label: "Log Files", width: 159.97, x: 1176.828125 },
     { label: "Sync Data", width: 159.97, x: 1352.80078125 },
   ]),
   ...createRow(288, 3, [
     { label: "Edit Documents", width: 212.17, x: -93.75 },
-    { label: "Hotjar", width: 274.81, x: 134.421875 },
+    { label: "Hotjar", showOnMobile: true, width: 274.81, x: 134.421875 },
     { kind: "brand", label: "Slack", logoGap: 5, logoHeight: 14, logoKey: "slack", logoWidth: 14, width: 212.17, x: 425.23046875 },
     { label: "Create Logos", width: 191.28, x: 653.4099731445312 },
     { kind: "brand", label: "TipTap", logoGap: 0, logoHeight: 33, logoKey: "tiptap", logoWidth: 33, width: 233.05, x: 860.69140625 },
@@ -212,14 +216,14 @@ const applicationsHeroPillItems = [
     { id: "asana-text", label: "Asana", width: 222.61, x: 139.640625 },
     { kind: "brand", label: "Authress", logoGap: 4, logoHeight: 24, logoKey: "authress", logoWidth: 14, width: 191.28, x: 378.25 },
     { label: "Prepare Presentations", width: 285.25, x: 585.53125 },
-    { kind: "brand", label: "Google", logoGap: 5, logoHeight: 14, logoKey: "google", logoWidth: 14, width: 191.28, x: 886.78125 },
+    { kind: "brand", label: "Google", logoGap: 5, logoHeight: 14, logoKey: "google", logoWidth: 14, showOnMobile: true, width: 191.28, x: 886.78125 },
     { label: "Buypower", width: 201.73, x: 1094.05859375 },
     { label: "Archive Files", width: 201.73, x: 1311.80078125 },
   ]),
   ...createRow(432, 5, [
     { label: "Edit Videos", width: 180.84, x: -78.078125 },
     { label: "ClickUp", width: 212.17, x: 118.76953125 },
-    { kind: "brand", label: "Codex", logoGap: 1, logoHeight: 35, logoKey: "codex", logoWidth: 35, width: 222.61, x: 346.94140625 },
+    { kind: "brand", label: "Codex", logoGap: 1, logoHeight: 35, logoKey: "codex", logoWidth: 35, showOnMobile: true, width: 222.61, x: 346.94140625 },
     { label: "Create Summaries", width: 233.05, x: 585.55078125 },
     { id: "asana-brand", kind: "brand", label: "Asana", logoGap: 8, logoHeight: 20, logoKey: "asana", logoWidth: 20, width: 285.25, x: 834.5900268554688 },
     { label: "Parse Data", width: 170.41, x: 1135.8399658203125 },
@@ -227,10 +231,10 @@ const applicationsHeroPillItems = [
   ]),
   ...createRow(504, 6, [
     { label: "Curate Content", width: 212.17, x: -130.28125 },
-    { label: "Microsoft 365", width: 295.69, x: 97.890625 },
+    { label: "Microsoft 365", showOnMobile: true, width: 295.69, x: 97.890625 },
     { label: "Sila", width: 233.05, x: 409.578125 },
     { label: "Diagnose Problems", width: 243.48, x: 658.62890625 },
-    { label: "Polymorph", width: 212.17, x: 918.109375 },
+    { label: "Polymorph", showOnMobile: true, width: 212.17, x: 918.109375 },
     { label: "Write Proposals", width: 222.61, x: 1146.28125 },
     { label: "Clean Data", width: 170.41, x: 1384.890625 },
   ]),
@@ -239,7 +243,7 @@ const applicationsHeroPillItems = [
     { label: "Gather Insights", width: 222.61, x: 144.859375 },
     { label: "Zoho", width: 191.28, x: 383.46875 },
     { label: "Prepare Budgets", width: 222.61, x: 590.75 },
-    { label: "Azure", width: 233.05, x: 829.359375 },
+    { label: "Azure", showOnMobile: true, width: 233.05, x: 829.359375 },
     { label: "Onboard Users", width: 201.73, x: 1078.4100341796875 },
     { label: "Test Features", width: 201.73, x: 1296.140625 },
   ]),

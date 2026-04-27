@@ -5,7 +5,7 @@ This folder is the source of truth for the Doow landing-page rebuild.
 ## Current Status
 
 - Active stage: Batch 6 landing-section implementation and review, with Batch 4 asset migration and Batch 5 quality-harness follow-up still open
-- Latest update: the Figma color-system cleanup grounded in node `6:128` now extends through the remaining section and layout styles, with active routes and landing sections using normalized Figma tokens directly and header or navbar overlays renamed to section-scoped semantic tokens
+- Latest update: the normalized color-system cleanup from node `6:128` now sits alongside a compatibility-first typography policy, where existing codebase typography remains authoritative for current landing, header, and button consumers while additive `Doow` typography tokens cover missing Figma design-system rules
 - Delivery model: gated batch implementation with explicit review after each batch and section
 - Design source: Figma landing page `580:1110`
 - Responsive rule: mobile-first implementation inferred from desktop design
@@ -21,6 +21,7 @@ This folder is the source of truth for the Doow landing-page rebuild.
   - `/applications`
   - `/subscriptions`
   - `/doow-ai`
+  - `/integrations`
   - `/privacy_policy`
   - `/signin`
   - `/terms_of_use`

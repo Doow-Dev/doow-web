@@ -4,6 +4,12 @@
 
 The design system comes from Figma. The repo will hold the normalized implementation form of that design system.
 
+Typography follows a compatibility-first policy:
+
+- existing typography rules already shipping in the codebase remain the source of truth for their current consumers
+- new typography rules from the Figma design system should be added alongside the current implementation, not used to silently remap existing landing, header, or button styles
+- page-level typography values must stay section-scoped or utility-scoped unless they are intentionally part of the shared system
+
 ## Token Layers
 
 ### 1. Raw tokens
@@ -64,6 +70,12 @@ These are enough to begin the token and primitive layer before section implement
   - `Badge` `bestFit` maps to the green tag tokens
 - The batch-4 consolidation pass keeps compatibility aliases in place only as a shim for section and route code that has not yet been renamed. Shared theme exposure, primitives, and recipes should prefer the normalized Figma vocabulary directly.
 - The section-by-section alias cleanup pass leaves the compatibility aliases in `foundation.css` only as a transitional shim. They are no longer part of the active section or layout styling path and can be retired later without changing rendered values.
+- Typography now has two explicit tracks:
+  - implementation-owned `--type-*` tokens such as `--type-body-sm-*`, `--type-section-description-*`, and `--type-hero-lead-*` remain authoritative for current landing, header, and button styling
+  - additive Figma-native `--type-doow-*` tokens now capture the broader Doow typography system for future work and net-new components
+- Shared typography utilities follow the same split:
+  - existing utilities such as `text-section-title`, `text-section-description`, `text-body-sm-*`, `text-lead`, and the button sizing utilities keep their current values
+  - additive utilities such as `text-doow-*` and `text-weight-*` exist for new design-system rules without changing current consumers
 
 - `SectionHeading` now has two intended modes:
   - `scale="hero"` for hero-only display styling

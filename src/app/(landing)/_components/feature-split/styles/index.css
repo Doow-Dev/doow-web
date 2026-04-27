@@ -46,7 +46,6 @@
   }
 
   .feature-split__stage-panel {
-    display: none;
     padding: clamp(1.75rem, 6vw, 2.75rem) clamp(1.25rem, 5vw, 2rem);
   }
 
@@ -168,17 +167,15 @@
     justify-content: center;
   }
 
-  .feature-split__stage {
+  .feature-split__stage-surface {
     width: min(100%, 28.5rem);
+    aspect-ratio: 456 / 445;
   }
 
-  .feature-split__stage-backdrop {
+  .feature-split__stage {
     position: relative;
     width: 100%;
-    aspect-ratio: 456 / 445;
-    overflow: hidden;
-    border-radius: 1.5rem;
-    background: var(--showcase-backdrop);
+    height: 100%;
   }
 
   .feature-split__window {
@@ -583,7 +580,6 @@
     }
 
     .feature-split__stage-panel {
-      display: block;
       background: #ffffff;
       padding: 23.5625rem 1.875rem 12.625rem 1.9375rem;
     }
@@ -612,7 +608,7 @@
       justify-content: flex-start;
     }
 
-    .feature-split__stage {
+    .feature-split__stage-surface {
       width: 28.5rem;
     }
   }
