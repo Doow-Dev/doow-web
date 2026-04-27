@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 86400,
+    qualities: [70, 75, 80, 85, 90],
     remotePatterns: [
       {
         protocol: "https",
@@ -16,7 +18,58 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
-    ]
+      {
+        protocol: "https",
+        hostname: "landingpageassests.blob.core.windows.net",
+        port: "",
+        pathname: "/images/**",
+      },
+    ],
+  },
+  async headers() {
+    return [
+      {
+        source: "/_next/image(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=3600",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, s-maxage=300, stale-while-revalidate=60",
+          },
+        ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/about_us",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/contact_us",
+        destination: "/",
+        permanent: true,
+      },
+    ];
   },
 };
 

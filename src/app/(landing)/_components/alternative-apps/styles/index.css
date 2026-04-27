@@ -1,0 +1,679 @@
+@layer components {
+  .alternative-apps {
+    overflow-x: clip;
+    background: var(--button-neutral);
+  }
+
+  .alternative-apps__shell {
+    display: flex;
+  }
+
+  .alternative-apps__layout {
+    display: grid;
+    width: 100%;
+    gap: 1.5rem;
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .alternative-apps__heading {
+    width: 100%;
+    max-width: 33.375rem;
+    margin-inline: auto;
+  }
+
+  .alternative-apps__heading-stack {
+    gap: 0.5rem;
+  }
+
+  .alternative-apps__tool {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .alternative-apps__pill-strip {
+    min-width: 0;
+    overflow-x: auto;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .alternative-apps__tablist {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .alternative-apps__tab {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2rem;
+    border: 1px solid rgba(0, 20, 10, 0.08);
+    border-radius: 999px;
+    background: var(--button-neutral);
+    box-shadow:
+      0 1px 2px -1px rgba(0, 20, 10, 0.08),
+      0 2px 4px 0 rgba(0, 20, 10, 0.04);
+    color: var(--fg-subtle);
+    cursor: pointer;
+    padding: 0.375rem 0.5rem;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .alternative-apps__tab[data-state="active"] {
+    border-color: var(--fg-base);
+    background: var(--fg-base);
+    color: var(--fg-on-color);
+  }
+
+  .alternative-apps__tab:focus-visible {
+    outline: none;
+    box-shadow:
+      0 1px 2px -1px rgba(0, 20, 10, 0.08),
+      0 2px 4px 0 rgba(0, 20, 10, 0.04),
+      0 0 0 4px var(--focus-ring);
+  }
+
+  .alternative-apps__tab-label {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.08px;
+    line-height: 18px;
+    white-space: nowrap;
+  }
+
+  .alternative-apps-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--border-base);
+    border-radius: 999px;
+    background: var(--button-neutral);
+    flex-shrink: 0;
+  }
+
+  .alternative-apps-logo__inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--bg-subtle);
+  }
+
+  .alternative-apps-logo--pill {
+    width: 20px;
+    height: 20px;
+  }
+
+  .alternative-apps-logo--pill .alternative-apps-logo__inner {
+    width: 12px;
+    height: 12px;
+  }
+
+  .alternative-apps-logo--panel {
+    width: 54px;
+    height: 54px;
+  }
+
+  .alternative-apps-logo--panel .alternative-apps-logo__inner {
+    width: 36px;
+    height: 36px;
+  }
+
+  .alternative-apps-logo__icon {
+    width: auto;
+    height: 0.8125rem;
+    max-width: 100%;
+  }
+
+  .alternative-apps-logo--panel .alternative-apps-logo__icon {
+    height: 1.25rem;
+  }
+
+  .alternative-apps-logo[data-logo-key="google"] .alternative-apps-logo__inner {
+    background: #e8f0fe;
+  }
+
+  .alternative-apps-logo[data-logo-key="notion"] .alternative-apps-logo__inner {
+    background: var(--button-neutral-pressed);
+  }
+
+  .alternative-apps-logo[data-logo-key="salesforce"] .alternative-apps-logo__inner {
+    background: #e0f2fe;
+  }
+
+  .alternative-apps-logo[data-logo-key="slack"] .alternative-apps-logo__inner {
+    background: #fdf2f8;
+  }
+
+  .alternative-apps-comparison {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(2, 6, 23, 0.08);
+    background: var(--button-neutral);
+    box-shadow:
+      0 1px 1px 0 rgba(2, 6, 23, 0.08),
+      0 2px 2px -1px rgba(2, 6, 23, 0.02),
+      0 6px 6px -3px rgba(2, 6, 23, 0.08),
+      0 4px 4px -2px rgba(2, 6, 23, 0.04);
+  }
+
+  .alternative-apps-current {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border-base);
+  }
+
+  .alternative-apps-current__summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .alternative-apps-current__copy {
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .alternative-apps-current__title-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .alternative-apps-current__name {
+    margin: 0;
+    color: var(--fg-base);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.14px;
+    line-height: 24px;
+  }
+
+  .alternative-apps-current__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--fg-subtle);
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .alternative-apps-current__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--fg-base);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.14px;
+    line-height: 22px;
+  }
+
+  .alternative-apps-current__rating-star {
+    width: 1rem;
+    height: 1rem;
+    color: #f9c42d;
+  }
+
+  .alternative-apps-current__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .alternative-apps-current__metric {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .alternative-apps-current__metric-label {
+    color: var(--fg-subtle);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.08px;
+    line-height: 18px;
+  }
+
+  .alternative-apps-current__metric-value {
+    margin: 0;
+    color: var(--fg-base);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.13px;
+    line-height: 20px;
+  }
+
+  .alternative-apps-current__metric--danger .alternative-apps-current__metric-value {
+    color: var(--fg-error);
+  }
+
+  .alternative-apps-scroller {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+    padding: 1rem;
+  }
+
+  .alternative-apps-scroller__intro {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .alternative-apps-scroller__title {
+    margin: 0;
+    color: var(--fg-base);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.14px;
+    line-height: 24px;
+  }
+
+  .alternative-apps-scroller__description {
+    margin: 0;
+    color: var(--fg-subtle);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.14px;
+    line-height: 22px;
+  }
+
+  .alternative-apps-scroller__description strong {
+    color: var(--fg-base);
+    font-weight: 500;
+  }
+
+  .alternative-apps-scroller__viewport {
+    min-width: 0;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    outline: none;
+  }
+
+  .alternative-apps-scroller__viewport:focus-visible {
+    box-shadow: 0 0 0 4px var(--focus-ring);
+    border-radius: 1rem;
+  }
+
+  .alternative-apps-scroller__list {
+    --alternative-app-card-width: 18.5rem;
+
+    display: grid;
+    grid-auto-columns: var(--alternative-app-card-width);
+    grid-auto-flow: column;
+    gap: 0.75rem;
+    width: max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .alternative-apps-scroller__rail-shell {
+    padding-inline: 1rem;
+    border: 1px solid var(--border-base);
+    border-radius: 12px;
+    background: var(--button-neutral);
+  }
+
+  .alternative-apps-scroller__rail {
+    margin-block: 0.5rem;
+  }
+
+  .alternative-apps-card {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    height: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--bg-subtle);
+    box-shadow: inset 0 0 0 1px var(--border-base);
+    transition:
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .alternative-apps-card__header {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .alternative-apps-card__copy {
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .alternative-apps-card__title-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .alternative-apps-card__name {
+    margin: 0;
+    color: var(--fg-base);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.14px;
+    line-height: 24px;
+  }
+
+  .alternative-apps-card__pricing-row {
+    display: grid;
+    gap: 0.125rem;
+    color: var(--fg-subtle);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.14px;
+    line-height: 22px;
+  }
+
+  .alternative-apps-card__pricing-plan-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    width: fit-content;
+    min-width: 0;
+  }
+
+  .alternative-apps-card__pricing-plan {
+    min-width: 0;
+  }
+
+  .alternative-apps-card__metric-inline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    color: var(--fg-base);
+  }
+
+  .alternative-apps-card__metric-inline {
+    justify-content: flex-start;
+  }
+
+  .alternative-apps-card__metric-meta {
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .alternative-apps-card__metric-meta--monthly {
+    justify-self: end;
+  }
+
+  .alternative-apps-card__separator {
+    line-height: 1;
+  }
+
+  .alternative-apps-card__chevron {
+    width: 0.625rem;
+    height: 0.625rem;
+    color: currentColor;
+    flex-shrink: 0;
+  }
+
+  .alternative-apps-card__divider {
+    border-top: 1px dashed var(--border-base);
+  }
+
+  .alternative-apps-card__metrics {
+    display: grid;
+    gap: 0.5rem;
+    align-items: start;
+  }
+
+  .alternative-apps-card__metric-primary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .alternative-apps-card__metric-label {
+    color: var(--fg-subtle);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.14px;
+    line-height: 22px;
+  }
+
+  .alternative-apps-card__metric-value {
+    color: var(--fg-base);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.14px;
+    line-height: 22px;
+    white-space: nowrap;
+  }
+
+  .alternative-apps-card__metric-value[data-tone="positive"] {
+    color: var(--fg-success);
+  }
+
+  .alternative-apps-card__metric-value[data-tone="negative"] {
+    color: var(--fg-error);
+  }
+
+  .alternative-apps-card__insight {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: start;
+  }
+
+  .alternative-apps-card__insight-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.25rem;
+    color: #f9c42d;
+  }
+
+  .alternative-apps-card__insight-copy {
+    margin: 0;
+    color: var(--fg-subtle);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.14px;
+    line-height: 21.5px;
+  }
+
+  .alternative-apps-card__insight-segment[data-tone="positive"] {
+    color: var(--fg-success);
+    font-weight: 500;
+  }
+
+  .alternative-apps-card__insight-segment[data-tone="negative"] {
+    color: var(--fg-error);
+    font-weight: 500;
+  }
+
+  .alternative-apps-card__insight-segment[data-tone="strong"] {
+    color: var(--fg-base);
+    font-weight: 500;
+  }
+
+  .alternative-apps__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .alternative-apps__cta-button {
+    min-height: 2.125rem;
+  }
+
+  @media (min-width: 40rem) {
+    .alternative-apps__layout {
+      gap: 1.75rem;
+      padding-top: 5rem;
+      padding-bottom: 5.5rem;
+    }
+
+    .alternative-apps__tablist {
+      gap: 1rem;
+    }
+
+    .alternative-apps-scroller__list {
+      --alternative-app-card-width: 20rem;
+    }
+
+    .alternative-apps-card {
+      padding: 1rem 1.0625rem;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .alternative-apps__layout {
+      gap: 2rem;
+      padding-top: 5.75rem;
+      padding-bottom: 6rem;
+    }
+
+    .alternative-apps-current {
+      padding: 1.5rem;
+    }
+
+    .alternative-apps-scroller {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+
+    .alternative-apps-scroller__rail-shell {
+      padding-inline: 1rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .alternative-apps__layout {
+      gap: 2rem;
+      padding-top: 8rem;
+      padding-bottom: 7.5rem;
+    }
+
+    .alternative-apps__tool {
+      gap: 1.5rem;
+    }
+
+    .alternative-apps-current {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1.5rem;
+    }
+
+    .alternative-apps-current__metrics {
+      grid-template-columns: repeat(3, max-content);
+      justify-content: end;
+      width: auto;
+      gap: 1.875rem;
+    }
+
+    .alternative-apps-current__metric {
+      justify-items: end;
+    }
+
+    .alternative-apps-scroller {
+      gap: 0.875rem;
+      padding: 0.875rem 1.25rem 1.25rem;
+    }
+
+    .alternative-apps-scroller__list {
+      --alternative-app-card-width: 23.75rem;
+
+      gap: 11px;
+    }
+
+    .alternative-apps-card {
+      padding: 1rem;
+    }
+
+    .alternative-apps-card__header {
+      align-items: center;
+    }
+
+    .alternative-apps-card__pricing-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4375rem;
+    }
+
+    .alternative-apps-card__pricing-plan-row {
+      gap: 0.4375rem;
+      width: auto;
+    }
+
+    .alternative-apps-card__metric-inline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.4375rem;
+      width: auto;
+    }
+
+    .alternative-apps-card__metric-meta--monthly {
+      justify-self: auto;
+    }
+
+    .alternative-apps-card__metrics {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+
+    .alternative-apps-card__metric-primary {
+      display: grid;
+      gap: 0.375rem;
+      width: auto;
+    }
+
+    .alternative-apps-card__metric-value {
+      font-size: 1.0625rem;
+      line-height: 24px;
+    }
+  }
+
+  @media (max-width: 63.99875rem) {
+    .alternative-apps-card__separator--pricing,
+    .alternative-apps-card__separator--metric {
+      display: none;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .alternative-apps__tab[data-state="inactive"]:hover {
+      transform: translateY(-1px);
+    }
+
+    .alternative-apps-card:hover {
+      box-shadow: inset 0 0 0 1px var(--tag-green-border);
+    }
+  }
+}

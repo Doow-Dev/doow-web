@@ -1,0 +1,291 @@
+@layer components {
+  .landing-navbar-shell {
+    position: relative;
+    z-index: 80;
+  }
+
+  .landing-navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 80;
+    overflow: clip;
+    isolation: isolate;
+    padding-top: var(--header-offset-top);
+    padding-bottom: 0.75rem;
+  }
+
+  .landing-navbar__open-surface,
+  .landing-navbar__blend-surface,
+  .landing-navbar__blend-border,
+  .landing-navbar__blend-shadow {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .landing-navbar__open-surface,
+  .landing-navbar__blend-surface,
+  .landing-navbar__blend-shadow {
+    inset: 0;
+  }
+
+  .landing-navbar__open-surface,
+  .landing-navbar__blend-surface {
+    backdrop-filter: blur(18px);
+  }
+
+  .landing-navbar__open-surface {
+    background: var(--header-surface-open);
+    box-shadow: var(--elevation-header-sticky);
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+
+  .landing-navbar-shell[data-open="true"] .landing-navbar__open-surface {
+    opacity: 1;
+  }
+
+  .landing-navbar__blend-surface {
+    background: var(--header-surface-scrolled);
+  }
+
+  .landing-navbar__blend-border {
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--header-border-scrolled);
+  }
+
+  .landing-navbar__blend-shadow {
+    box-shadow: var(--elevation-header-sticky);
+  }
+
+  .landing-navbar__layout {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .landing-navbar__brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: var(--space-cluster);
+  }
+
+  .landing-navbar__logo {
+    width: 77px;
+    height: auto;
+  }
+
+  .landing-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--header-actions-gap);
+  }
+
+  .landing-navbar__actions--desktop {
+    display: none;
+  }
+
+  .landing-navbar__menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--shape-radius-control);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--fg-on-color);
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease,
+      opacity 180ms ease;
+  }
+
+  .landing-navbar__menu-trigger:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .landing-navbar__menu-trigger:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+  }
+
+  .landing-navbar__nav {
+    display: none;
+  }
+
+  .landing-navbar__dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 39;
+    background: rgba(7, 10, 12, 0.4);
+  }
+
+  .landing-navbar__dialog-content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--header-shell-height);
+    z-index: 41;
+    width: 100%;
+    outline: none;
+  }
+
+  .landing-navbar-shell[data-open="true"] .landing-navbar__dialog-content {
+    background: var(--header-surface-open);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--elevation-header-panel);
+  }
+
+  .landing-navbar__menu-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border: 0;
+    border-radius: 0;
+    background: var(--header-surface-scrolled);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--elevation-header-panel);
+    padding-top: 1.5rem;
+    padding-right: var(--space-shell);
+    padding-bottom: 1rem;
+    padding-left: var(--space-shell);
+  }
+
+  .landing-navbar-shell[data-open="true"] .landing-navbar__menu-panel {
+    background: var(--header-surface-open);
+    backdrop-filter: blur(18px);
+    box-shadow: none;
+  }
+
+  .landing-navbar__menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .landing-navbar__menu-link {
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 0;
+    padding-top: 1.125rem;
+    padding-right: 0;
+    padding-bottom: 1.125rem;
+    padding-left: 0;
+    background: transparent;
+  }
+
+  .landing-navbar__menu-link:hover {
+    opacity: 1;
+    background: transparent;
+  }
+
+  .landing-navbar__menu-cta {
+    width: 100%;
+    margin-top: 1rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .landing-navbar__dialog-overlay[data-state="open"] {
+    animation: landing-navbar-fade-in 180ms ease forwards;
+  }
+
+  .landing-navbar__dialog-overlay[data-state="closed"] {
+    animation: landing-navbar-fade-out 140ms ease forwards;
+  }
+
+  .landing-navbar__dialog-content[data-state="open"] {
+    animation: landing-navbar-panel-in 220ms ease forwards;
+  }
+
+  .landing-navbar__dialog-content[data-state="closed"] {
+    animation: landing-navbar-panel-out 160ms ease forwards;
+  }
+
+  @media (min-width: 40rem) {
+    .landing-navbar__logo {
+      width: 84px;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .landing-navbar__layout {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .landing-navbar__brand-row {
+      width: auto;
+    }
+
+    .landing-navbar__actions--mobile {
+      display: none;
+    }
+
+    .landing-navbar__actions--desktop {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .landing-navbar__nav {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+      column-gap: var(--header-nav-gap-desktop);
+    }
+
+    .landing-navbar__dialog-overlay,
+    .landing-navbar__dialog-content {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-navbar__open-surface,
+    .landing-navbar__menu-trigger {
+      transition: none;
+    }
+
+    .landing-navbar__dialog-content[data-state] {
+      animation: none;
+    }
+  }
+
+  @keyframes landing-navbar-panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes landing-navbar-panel-out {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.985);
+    }
+  }
+}

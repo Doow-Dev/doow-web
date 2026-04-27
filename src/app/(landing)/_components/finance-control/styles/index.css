@@ -1,0 +1,177 @@
+@layer components {
+  .finance-control {
+    background: var(--button-neutral);
+  }
+
+  .finance-control__shell {
+    display: flex;
+  }
+
+  .finance-control__layout {
+    display: grid;
+    width: 100%;
+    gap: 2rem;
+    padding-top: 5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .finance-control__heading {
+    width: 100%;
+  }
+
+  .finance-control__heading-stack {
+    gap: 0.375rem;
+  }
+
+  .finance-control__grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--showcase-border);
+    border-left: 1px solid var(--showcase-border);
+  }
+
+  .finance-control__card {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    gap: 0.75rem;
+    min-width: 0;
+    align-items: flex-start;
+    isolation: isolate;
+    border-right: 1px solid var(--showcase-border);
+    border-bottom: 1px solid var(--showcase-border);
+    background: transparent;
+    padding: 2rem;
+  }
+
+  .finance-control__card::before {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transform-origin: center center;
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 220ms ease;
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    content: "";
+    z-index: -2;
+    background: var(--finance-control-card-surface, var(--button-neutral));
+  }
+
+  .finance-control__card[data-tone="subtle"] {
+    --finance-control-card-surface: var(--bg-subtle);
+  }
+
+  .finance-control__icon-wrap {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  .finance-control__icon {
+    width: 100%;
+    height: 100%;
+    color: var(--fg-subtle);
+    transition: color 220ms ease;
+  }
+
+  .finance-control__card-copy {
+    display: grid;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .finance-control__card-title,
+  .finance-control__card-description {
+    margin: 0;
+    font-style: normal;
+  }
+
+  .finance-control__card-title {
+    color: var(--fg-base);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.14px;
+    line-height: 1.375rem;
+  }
+
+  .finance-control__card-description {
+    color: var(--fg-subtle);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.375rem;
+  }
+
+  @media (min-width: 40rem) {
+    .finance-control__layout {
+      gap: 2.25rem;
+      padding-top: 5.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .finance-control__layout {
+      gap: 2.375rem;
+      padding-top: 6rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .finance-control__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .finance-control__layout {
+      gap: 2.4375rem;
+      padding-top: 11.25rem;
+      padding-bottom: 3.25rem;
+    }
+
+    .finance-control__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .finance-control__card {
+      gap: 0.75rem;
+      padding: 2rem;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .finance-control__card:hover {
+      z-index: 1;
+    }
+
+    .finance-control__card:hover::before {
+      transform: translateY(-1px) scale(1.002);
+      box-shadow: 0 10px 20px rgba(0, 20, 10, 0.045);
+    }
+
+    .finance-control__card:hover .finance-control__icon {
+      color: var(--button-base);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .finance-control__card {
+      transition:
+        box-shadow 220ms ease,
+        background-color 220ms ease;
+    }
+
+    .finance-control__card:hover::before {
+      transform: none;
+    }
+  }
+}

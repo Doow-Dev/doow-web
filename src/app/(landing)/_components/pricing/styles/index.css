@@ -1,0 +1,174 @@
+@layer components {
+  .pricing {
+    --pricing-heading-color: #ffffff;
+    --pricing-description-color: rgba(235, 235, 235, 1);
+    --pricing-layout-offset-top-mobile: 4rem;
+    --pricing-layout-offset-top-tablet: 4.75rem;
+    --pricing-layout-offset-top-desktop: 79.2305px;
+
+    position: relative;
+    isolation: isolate;
+    min-height: 34rem;
+    overflow: clip;
+    background: #0b1110;
+    color: #ffffff;
+    scroll-margin-top: calc(var(--header-shell-height) + 1rem);
+  }
+
+  .pricing__backgrounds,
+  .pricing__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .pricing__backgrounds {
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .pricing__background-track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    width: calc(var(--pricing-background-count) * 100%);
+    height: 100%;
+  }
+
+  .pricing__background-track--animated {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.42, 0, 0.24, 1);
+    will-change: transform;
+  }
+
+  .pricing__background-slide {
+    position: relative;
+    flex: 0 0 calc(100% / var(--pricing-background-count));
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .pricing__background-image {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .pricing__overlay {
+    z-index: 1;
+    background-image: linear-gradient(180.476deg, rgba(0, 0, 0, 0.62) 36.849%, rgba(0, 0, 0, 0.043) 96.534%);
+  }
+
+  .pricing__shell {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    min-height: inherit;
+  }
+
+  .pricing__layout {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    gap: 1.5rem;
+    padding-top: var(--pricing-layout-offset-top-mobile);
+    padding-bottom: 4.5rem;
+  }
+
+  .pricing__heading {
+    --section-heading-title-color: var(--pricing-heading-color);
+    --section-heading-description-color: var(--pricing-description-color);
+
+    width: min(100%, 25.8701rem);
+    gap: 1.7527rem;
+  }
+
+  .pricing__heading-stack {
+    gap: 0.5609rem;
+  }
+
+  .pricing__heading-title {
+    max-width: 100%;
+    font-size: clamp(2.125rem, 7vw, 40.383px);
+    font-weight: 600;
+    letter-spacing: clamp(-1.35px, -0.24vw, -2.2435px);
+    line-height: clamp(2.5rem, 8vw, 47.113px);
+    text-shadow: 0 1.683px 3.365px rgba(0, 0, 0, 0.37);
+    text-wrap: balance;
+  }
+
+  .pricing__heading-description {
+    max-width: 100%;
+    font-size: clamp(1rem, 2.8vw, 17.948px);
+    font-weight: 400;
+    letter-spacing: -0.0556px;
+    line-height: clamp(1.375rem, 3.4vw, 23.557px);
+    text-wrap: pretty;
+  }
+
+  .pricing__heading-copy {
+    color: var(--pricing-heading-color);
+  }
+
+  .pricing__description-copy {
+    color: var(--pricing-description-color);
+  }
+
+  .pricing__cta {
+    width: min(100%, 20.2614rem);
+    min-height: 53.843px;
+    border-radius: 8.974px;
+    border-color: rgba(11, 19, 36, 0.07);
+    background: #ffffff;
+    box-shadow:
+      0 1.122px 3.365px 0 rgba(11, 19, 36, 0.1),
+      inset 0 -1.122px 0 0 rgba(0, 0, 0, 0.1);
+    color: #111827;
+    font-size: 14.583px;
+    font-weight: 500;
+    letter-spacing: -0.157px;
+    line-height: 23.557px;
+    padding: 6.73px 8.974px;
+  }
+
+  .pricing__plans-anchor {
+    display: block;
+    min-height: 1px;
+    scroll-margin-top: calc(var(--header-shell-height) + 1rem);
+  }
+
+  @media (min-width: 48rem) {
+    .pricing {
+      min-height: 42rem;
+    }
+
+    .pricing__layout {
+      gap: 1.75rem;
+      padding-top: var(--pricing-layout-offset-top-tablet);
+      padding-bottom: 5.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .pricing {
+      height: 80vh;
+      min-height: 80vh;
+    }
+
+    .pricing__layout {
+      gap: 1.7527rem;
+      padding-top: var(--pricing-layout-offset-top-desktop);
+      padding-bottom: 5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pricing__background-track--animated {
+      transition-duration: 0ms !important;
+      will-change: auto;
+    }
+  }
+}
