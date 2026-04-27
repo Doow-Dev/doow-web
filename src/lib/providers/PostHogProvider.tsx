@@ -29,6 +29,10 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
           autocapture: true,
           capture_pageview: true,
           capture_pageleave: true,
+          // Cookie configuration to prevent domain errors
+          persistence: 'localStorage', // Use localStorage only to avoid cookie domain issues
+          cross_subdomain_cookie: false, // Don't set cookies for subdomains
+          secure_cookie: window.location.protocol === 'https:', // Secure cookies only on HTTPS
           loaded: () => {
             console.log('✅ PostHog initialized successfully')
             setPosthogClient(posthog)
