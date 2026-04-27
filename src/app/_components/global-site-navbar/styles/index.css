@@ -42,8 +42,7 @@
   }
 
   .global-site-navbar__logo {
-    width: 77px;
-    height: auto;
+    display: block;
   }
 
   .global-site-navbar__mobile-actions {

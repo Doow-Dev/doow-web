@@ -67,19 +67,19 @@ export const siteFooterBodyContent = {
       title: "Solutions",
       items: [
         { href: "/applications", label: "Applications" },
-        { href: "#finance-control", label: "Expenses" },
+        { href: "/expenses", label: "Expenses" },
         { href: "#integrations", label: "Integrations" },
         { href: "#pricing", label: "Subscriptions" },
-        { href: "#faq", label: "Doow AI" },
+        { href: "/doow-ai", label: "Doow AI" },
       ],
     },
     {
       title: "Company",
       items: [
-        { href: "/", label: "About Us" },
-        { href: "#faq", label: "Contact Us" },
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
+        { href: "mailto:contact@doow.co", label: "Contact" },
+        { href: "/signin", label: "Login" },
       ],
     },
     {
@@ -120,6 +120,16 @@ export const siteFooterPromoPresets = {
     cta: {
       href: "/signin",
       label: "Start Exploring Applications",
+    },
+  } satisfies SiteFooterPromo,
+  expensesVisibility: {
+    kind: "compactWithDescription",
+    id: "site-footer-promo-expenses-visibility",
+    title: "See where your software budget is going",
+    description: "Track every SaaS payment across cards, banks, and accounting systems in one place.",
+    cta: {
+      href: "/signin",
+      label: "Track Expenses",
     },
   } satisfies SiteFooterPromo,
   compactHeadlineOnly: {
