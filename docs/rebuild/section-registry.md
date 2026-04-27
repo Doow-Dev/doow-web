@@ -52,6 +52,7 @@ Keep:
 
 - `/`
 - `/applications`
+- `/subscriptions`
 - `/doow-ai`
 - `/signin`
 - `/privacy_policy`

@@ -19,6 +19,7 @@ This folder is the source of truth for the Doow landing-page rebuild.
 - Current app routes defined under `src/app/`:
   - `/`
   - `/applications`
+  - `/subscriptions`
   - `/doow-ai`
   - `/privacy_policy`
   - `/signin`
