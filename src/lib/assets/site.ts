@@ -124,6 +124,22 @@ export const siteAssetManifest = {
     width: 847,
     height: 456,
   },
+  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsRenewalsVisual: {
+    id: "subscriptions-renewals-visual",
+    src: "/assets/illustrations/subscriptions-renewals-visual.png",
+    alt: "",
+    width: 368,
+    height: 310,
+  },
+  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsContractsVisual: {
+    id: "subscriptions-contracts-visual",
+    src: "/assets/illustrations/subscriptions-contracts-visual.png",
+    alt: "",
+    width: 456,
+    height: 353,
+  },
   faqUserAvatar: {
     id: "faq-user-avatar",
     src: "/assets/icons/faq-user-avatar.png",
@@ -212,6 +228,8 @@ export const siteAssetManifest = {
   integrationsHeroIllustrationArt: SiteAssetEntry;
   integrationsHeroIllustrationMask: SiteAssetEntry;
   subscriptionsHeroDashboard: SiteAssetEntry;
+  subscriptionsRenewalsVisual: SiteAssetEntry;
+  subscriptionsContractsVisual: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;
   integrationsUpwardChipBackplate: SiteAssetEntry;

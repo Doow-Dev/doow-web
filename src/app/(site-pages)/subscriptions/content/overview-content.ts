@@ -17,21 +17,21 @@ export const subscriptionsOverviewContent = {
   id: "subscriptions-overview",
   title: "All Subscriptions in one place",
   description:
-    "See every contract, license, and renewal in a single view so finance, procurement, and team leads are always working from the same subscription record.",
+    "instantly access the crucial details for every tool in your stack. From billing frequency to contract value, everything is clearly laid out so you never have to dig through emails again.",
   cards: [
     {
-      title: "Connect every team's stack",
+      title: "Know who actually uses licenses",
       description: "Map each subscription to the teams and owners who rely on it.",
       visual: "teams",
     },
     {
-      title: "Track how each app is used",
-      description: "Spot active and inactive contracts before renewal decisions get made.",
+      title: "Track tools that charge by usage",
+      description: "Monitor usage-based subscriptions before limits, storage, or API calls drive up costs.",
       visual: "status",
     },
     {
-      title: "Talk with renewal managers",
-      description: "Keep negotiation and ownership notes beside the contract itself.",
+      title: "Track add-on and overages",
+      description: "See add-ons, overages, mapped users, quantities, and total value in one compact table.",
       visual: "table",
     },
     {

@@ -1,26 +1,19 @@
+"use client";
+
+import Image from "next/image";
+
+import { SitePageCardIcon } from "@/app/(site-pages)/_components/site-page-card-icon";
 import { SitePageSectionShell } from "@/app/(site-pages)/_components/site-page-section-shell";
 import { subscriptionsPageContent } from "@/app/(site-pages)/subscriptions/content";
-import { Card, SectionHeading } from "@/components/system";
+import type {
+  SubscriptionsManualTrackingItem,
+  SubscriptionsManualTrackingVisualId,
+} from "@/app/(site-pages)/subscriptions/content/manual-tracking-content";
+import { ProgressiveSplitShell, type ProgressiveSplitItem } from "@/components/layout/shared";
+import { SectionHeading } from "@/components/system";
 
-function ManualTrackingIcon() {
-  return (
-    <svg
-      aria-hidden="true"
-      className="subscriptions-manual__item-icon-svg"
-      fill="none"
-      viewBox="0 0 18 18"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4.5 9.25L7.25 12L13.5 5.75"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.75"
-      />
-    </svg>
-  );
-}
+type SubscriptionsManualTrackingShellItem = SubscriptionsManualTrackingItem &
+  ProgressiveSplitItem<SubscriptionsManualTrackingVisualId>;
 
 function RenewalCalendar() {
   const weekLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -54,8 +47,43 @@ function RenewalCalendar() {
   );
 }
 
+function SubscriptionsManualVisual({ item }: { item: SubscriptionsManualTrackingShellItem }) {
+  return (
+    <div className="subscriptions-manual__visual-window">
+      {item.visualImage ? (
+        <Image
+          alt={item.visualImage.alt}
+          className="subscriptions-manual__visual-image"
+          height={item.visualImage.height}
+          src={item.visualImage.src}
+          unoptimized
+          width={item.visualImage.width}
+        />
+      ) : (
+        <>
+          <RenewalCalendar />
+          <div className="subscriptions-manual__visual-copy">
+            <h3 className="subscriptions-manual__visual-title">{item.visualTitle}</h3>
+            <p className="subscriptions-manual__visual-caption">{item.visualCaption}</p>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export function SubscriptionsManualTrackingSection() {
   const section = subscriptionsPageContent.manualTracking;
+  const items: SubscriptionsManualTrackingShellItem[] = section.items.map(
+    (item) =>
+      ({
+        ...item,
+        description: item.description,
+        id: item.visualId,
+        indicator: <SitePageCardIcon className="subscriptions-manual__item-icon-svg" />,
+        title: item.title,
+      }) satisfies SubscriptionsManualTrackingShellItem,
+  );
 
   return (
     <section
@@ -64,44 +92,38 @@ export function SubscriptionsManualTrackingSection() {
       id={section.id}
     >
       <SitePageSectionShell className="subscriptions-manual__shell" section={section.id}>
-        <div className="subscriptions-manual__layout">
-          <div className="subscriptions-manual__copy">
+        <ProgressiveSplitShell<SubscriptionsManualTrackingVisualId, SubscriptionsManualTrackingShellItem>
+          classNames={{
+            contentColumn: "subscriptions-manual__copy",
+            contentPanel: "subscriptions-manual__content-panel",
+            item: "subscriptions-manual__item",
+            itemButton: "subscriptions-manual__item-button",
+            itemCopy: "subscriptions-manual__item-copy",
+            itemDescription: "subscriptions-manual__item-description",
+            itemIndicator: "subscriptions-manual__item-icon",
+            itemList: "subscriptions-manual__items",
+            itemTitle: "subscriptions-manual__item-title",
+            layout: "subscriptions-manual__layout",
+            stageColumn: "subscriptions-manual__stage-column",
+            stageMotion: "subscriptions-manual__visual-motion",
+            stagePanel: "subscriptions-manual__stage-panel",
+            stageSurface: "subscriptions-manual__visual",
+          }}
+          defaultItemId={section.defaultSelectedVisualId}
+          header={
             <SectionHeading
               className="subscriptions-manual__heading"
               description={section.description}
-              descriptionClassName="subscriptions-manual__description"
               descriptionVariant="md"
               headingTag="h2"
               stackClassName="subscriptions-manual__heading-stack"
               title={<span id="subscriptions-manual-tracking-heading">{section.title}</span>}
-              titleClassName="subscriptions-manual__title"
             />
-
-            <div className="subscriptions-manual__items">
-              {section.items.map((item) => (
-                <Card className="subscriptions-manual__item" key={item.title} padding="md">
-                  <span aria-hidden="true" className="subscriptions-manual__item-icon">
-                    <ManualTrackingIcon />
-                  </span>
-                  <div className="subscriptions-manual__item-copy">
-                    <h3 className="subscriptions-manual__item-title">{item.title}</h3>
-                    <p className="subscriptions-manual__item-description">{item.description}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          <div className="subscriptions-manual__visual-wrap">
-            <div className="subscriptions-manual__visual">
-              <RenewalCalendar />
-            </div>
-            <div className="subscriptions-manual__visual-copy">
-              <h3 className="subscriptions-manual__visual-title">{section.visualTitle}</h3>
-              <p className="subscriptions-manual__visual-caption">{section.visualCaption}</p>
-            </div>
-          </div>
-        </div>
+          }
+          items={items}
+          listAriaLabel="Subscription tracking views"
+          renderStage={(item) => <SubscriptionsManualVisual item={item} />}
+        />
       </SitePageSectionShell>
     </section>
   );

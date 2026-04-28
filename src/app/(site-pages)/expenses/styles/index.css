@@ -160,6 +160,40 @@
   .expenses-spend__layout {
     display: grid;
     gap: 2rem;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+    isolation: auto !important;
+  }
+
+  .expenses-spend__layout::before {
+    content: none !important;
+  }
+
+  .expenses-spend__content-panel,
+  .expenses-spend__stage-panel {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    clip-path: none !important;
+    white-space: normal !important;
+    background: transparent !important;
+    min-width: 0;
+  }
+
+  .expenses-spend__content-panel::before,
+  .expenses-spend__stage-panel::before {
+    content: none !important;
+  }
+
+  .expenses-spend__stage-column {
+    display: grid;
+    place-items: center;
+    min-width: 0;
   }
 
   .expenses-spend__copy {
@@ -186,10 +220,12 @@
   .expenses-spend__cards {
     display: grid;
     gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .expenses-spend__card {
-    appearance: none;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
@@ -198,13 +234,13 @@
     padding: 2rem !important;
     position: relative;
     border: 0;
+    border-top: 1px solid #e5e6e5;
     border-left: 1px solid #e5e6e5;
     border-right: 1px solid #e5e6e5;
     border-bottom: 1px solid #e5e6e5;
     border-radius: 0 !important;
     box-shadow: none !important;
     background: #ffffff !important;
-    cursor: pointer;
     text-align: left;
     transition:
       box-shadow 180ms ease,
@@ -216,7 +252,7 @@
     background: #fafafa !important;
   }
 
-  .expenses-spend__card[data-state="active"] {
+  .expenses-spend__card[data-active="true"] {
     z-index: 1;
     border-color: transparent;
     box-shadow: inset 0 0 0 1px #00140a !important;
@@ -226,12 +262,29 @@
     margin-top: -1px;
   }
 
-  .expenses-spend__card:focus-visible {
+  .expenses-spend__card:has(.expenses-spend__card-button:focus-visible) {
     outline: none;
     z-index: 2;
     box-shadow:
       inset 0 0 0 1px #00140a,
       0 0 0 4px var(--focus-ring) !important;
+  }
+
+  .expenses-spend__card-button {
+    display: grid;
+    gap: 0.25rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .expenses-spend__card-button:focus-visible {
+    outline: none;
   }
 
   .expenses-spend__card-icon {
@@ -240,7 +293,20 @@
     justify-content: center;
     width: 1.375rem;
     height: 1.375rem;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
     color: var(--fg-base);
+    box-shadow: none !important;
+    font-size: inherit;
+    line-height: 1;
+  }
+
+  .expenses-spend__card[data-active="true"] .expenses-spend__card-icon {
+    border: 0 !important;
+    background: transparent !important;
+    color: var(--fg-base) !important;
+    box-shadow: none !important;
   }
 
   .expenses-spend__card-icon-svg {
@@ -301,6 +367,13 @@
 
   .expenses-spend__visual-window--orbit {
     padding: 0;
+  }
+
+  .expenses-spend__visual-motion {
+    position: relative !important;
+    inset: auto !important;
+    width: 100%;
+    height: 100%;
   }
 
   .expenses-spend__orbit-visual-card {
@@ -632,7 +705,10 @@
       row-gap: 0;
     }
 
-    .expenses-spend__copy {
+    .expenses-spend__content-panel,
+    .expenses-spend__copy,
+    .expenses-spend__stage-panel,
+    .expenses-spend__stage-column {
       display: contents;
     }
 

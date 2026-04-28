@@ -11,7 +11,9 @@ export default function SubscriptionsLayout({ children }: { children: ReactNode 
 
   return (
     <>
-      <main data-layout-shell="sitePageMain">{children}</main>
+      <main className="subscriptions-page-main" data-layout-shell="sitePageMain">
+        {children}
+      </main>
       <SiteFooterPromoSection promo={footerPromo} />
     </>
   );
