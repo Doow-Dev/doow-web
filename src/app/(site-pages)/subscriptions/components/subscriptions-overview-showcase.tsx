@@ -346,7 +346,7 @@ function ContractFigure({
             <motion.div
               animate={active ? { opacity: 1, x: 0 } : undefined}
               className="subscriptions-overview__overage-row"
-              data-total={row.total ? "true" : undefined}
+              data-total={row.id === "total" ? "true" : undefined}
               initial={prefersReducedMotion ? false : { opacity: 0, x: 10 }}
               key={row.id}
               transition={
@@ -415,21 +415,26 @@ function CalendarFigure({
               {day}
             </span>
           ))}
-          {calendarWeeks.flat().map((cell, cellIndex) => (
-            <motion.span
-              animate={active ? { opacity: 1, scale: 1 } : undefined}
-              className="subscriptions-overview__renewal-calendar-day"
-              data-event={cell.event ? "true" : undefined}
-              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96 }}
-              key={`${cell.day}-${cellIndex}`}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.26 + cellIndex * 0.012, duration: 0.32, ease: cardRevealEase }}
-            >
-              {cell.amount ? <strong>{cell.amount}</strong> : <span>{cell.day}</span>}
-              {cell.event === "google" ? <GoogleAppIcon className="subscriptions-overview__renewal-calendar-logo" /> : null}
-              {cell.event === "slack" ? <SlackAppIcon className="subscriptions-overview__renewal-calendar-logo" /> : null}
-              {cell.event === "notion" ? <NotionAppIcon className="subscriptions-overview__renewal-calendar-logo" /> : null}
-            </motion.span>
-          ))}
+          {calendarWeeks.flat().map((cell, cellIndex) => {
+            const event = "event" in cell ? cell.event : undefined;
+            const amount = "amount" in cell ? cell.amount : undefined;
+
+            return (
+              <motion.span
+                animate={active ? { opacity: 1, scale: 1 } : undefined}
+                className="subscriptions-overview__renewal-calendar-day"
+                data-event={event ? "true" : undefined}
+                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96 }}
+                key={`${cell.day}-${cellIndex}`}
+                transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.26 + cellIndex * 0.012, duration: 0.32, ease: cardRevealEase }}
+              >
+                {amount ? <strong>{amount}</strong> : <span>{cell.day}</span>}
+                {event === "google" ? <GoogleAppIcon className="subscriptions-overview__renewal-calendar-logo" /> : null}
+                {event === "slack" ? <SlackAppIcon className="subscriptions-overview__renewal-calendar-logo" /> : null}
+                {event === "notion" ? <NotionAppIcon className="subscriptions-overview__renewal-calendar-logo" /> : null}
+              </motion.span>
+            );
+          })}
         </div>
       </motion.div>
     </div>
