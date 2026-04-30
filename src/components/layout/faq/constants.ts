@@ -3,7 +3,7 @@ import { siteAssetManifest } from "@/lib/assets/site";
 export const siteFaqChrome = {
   backgroundIllustration: siteAssetManifest.faqBackgroundIllustration,
   categoryAriaLabel: "Browse frequently asked question categories",
-  contactEmail: "doowbusiness@gmail.com",
+  contactEmail: "support@doow.co",
   descriptionPrefix: "Didn't find what you were looking for? We're here to help! Drop us a message at ",
   descriptionSuffix: ", and we'll get back to you soon.",
   eyebrow: "FAQ",

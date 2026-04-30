@@ -115,7 +115,7 @@ export const globalSiteNavContent = {
     },
     {
       availability: "live",
-      href: "/#pricing",
+      href: "/pricing",
       label: "Pricing",
       type: "link",
     },
