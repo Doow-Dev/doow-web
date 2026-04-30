@@ -23,6 +23,7 @@ Read these in order before making changes:
 Keep:
 
 - `/`
+- `/subscriptions`
 - `/signin`
 - `/privacy_policy`
 - `/terms_of_use`
