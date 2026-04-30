@@ -141,4 +141,13 @@ export const siteFooterPromoPresets = {
       label: "Manage Subscriptions",
     },
   } satisfies SiteFooterPromo,
+  doowAiQuestions: {
+    kind: "compactHeadlineOnly",
+    id: "site-footer-promo-doow-ai-questions",
+    title: "Ask questions about your company\u2019s software",
+    cta: {
+      href: "/doow-ai",
+      label: "Open Doow AI",
+    },
+  } satisfies SiteFooterPromo,
 } as const satisfies Record<string, SiteFooterPromo>;
