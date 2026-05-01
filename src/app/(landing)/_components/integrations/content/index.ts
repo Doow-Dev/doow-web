@@ -339,3 +339,5 @@ export const integrationsSectionContent = {
     },
   ],
 } as const satisfies IntegrationsSectionContent;
+
+export const bankingAndAccountingIntegrationCard = integrationsSectionContent.cards[0];

@@ -116,7 +116,7 @@ export const siteFooterBodyContent = {
       target: "_blank",
     },
     {
-      href: "mailto:hello@doow.com",
+      href: "mailto:hello@doow.co",
       kind: "email",
       label: "Email Doow",
     },
