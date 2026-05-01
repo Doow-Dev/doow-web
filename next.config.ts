@@ -1,5 +1,30 @@
 import type { NextConfig } from "next";
 
+const DEFAULT_BLOB_BASE_URL = "https://landingpageassests.blob.core.windows.net/images";
+
+function getBlobRemotePattern() {
+  const blobBaseUrl = process.env.NEXT_PUBLIC_BLOB_BASE_URL || DEFAULT_BLOB_BASE_URL;
+
+  try {
+    const url = new URL(blobBaseUrl);
+    const pathname = url.pathname.replace(/\/+$/, "");
+
+    return {
+      protocol: url.protocol.replace(":", "") as "http" | "https",
+      hostname: url.hostname,
+      port: url.port,
+      pathname: `${pathname || ""}/**`,
+    };
+  } catch {
+    return {
+      protocol: "https" as const,
+      hostname: "landingpageassests.blob.core.windows.net",
+      port: "",
+      pathname: "/images/**",
+    };
+  }
+}
+
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
@@ -18,12 +43,7 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
-      {
-        protocol: "https",
-        hostname: "landingpageassests.blob.core.windows.net",
-        port: "",
-        pathname: "/images/**",
-      },
+      getBlobRemotePattern(),
     ],
   },
   async headers() {
