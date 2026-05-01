@@ -24,6 +24,7 @@ The long-term home for production landing-page assets is Azure Blob Storage behi
 - site URL
 - CDN base URL
 - analytics keys
+- server-only Doow API base URL and admin secrets
 - optional media service values if product demos use a streaming provider
 
 ## App-Level Rules
@@ -40,4 +41,5 @@ The current repo still contains `67` legacy public asset files across several fo
 
 - The hero background, demo frame, demo poster, demo video, and pricing background assets now resolve through the shared blob asset helper.
 - `.env.example` documents `NEXT_PUBLIC_BLOB_BASE_URL`, which is the single contract for blob-hosted landing assets until Front Door is introduced.
+- `.env.example` and `.env.local.example` document the server-only deployment variables `DOOW_API_BASE_URL`, `CATALOG_ADMIN_KEY`, and `X_ADMIN_SECRET`; the GitHub Actions Azure Static Web Apps workflows load them from repository secrets during deploy.
 - `next/image` remains responsible for optimizing the remote hero, frame, poster, and thumbnail images, while the demo MP4 stays a direct blob video source that only mounts after user intent.

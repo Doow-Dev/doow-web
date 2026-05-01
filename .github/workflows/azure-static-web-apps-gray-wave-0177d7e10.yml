@@ -35,6 +35,11 @@ jobs:
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
+        env:
+          NEXT_PUBLIC_BLOB_BASE_URL: ${{ secrets.NEXT_PUBLIC_BLOB_BASE_URL }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_WAVE_0177D7E10 }}
           action: "upload"

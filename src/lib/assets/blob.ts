@@ -1,7 +1,7 @@
 const DEFAULT_BLOB_BASE_URL = "https://landingpageassests.blob.core.windows.net/images";
 
 function getBlobBaseUrl() {
-  return (process.env.NEXT_PUBLIC_BLOB_BASE_URL ?? DEFAULT_BLOB_BASE_URL).replace(/\/+$/, "");
+  return (process.env.NEXT_PUBLIC_BLOB_BASE_URL || DEFAULT_BLOB_BASE_URL).replace(/\/+$/, "");
 }
 
 export function assetUrl(path: string) {
