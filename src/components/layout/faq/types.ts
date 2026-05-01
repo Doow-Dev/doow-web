@@ -6,6 +6,7 @@ export interface FaqThreadMessage {
   id: string;
   speaker: FaqMessageSpeaker;
   text: string;
+  assistantLabel?: string;
 }
 
 export interface FaqInteractionConfig {

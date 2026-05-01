@@ -343,6 +343,7 @@
   --header-actions-gap: 12px;
   --header-nav-gap-mobile: 20px;
   --header-nav-gap-desktop: 28px;
+  --landing-navbar-gutter: clamp(1.5rem, 4.45vw, 4rem);
   --header-surface-scrolled: rgba(31, 35, 38, 0.72);
   --header-surface-open: #1f2326;
   --header-surface-panel: rgba(17, 20, 24, 0.94);
@@ -394,10 +395,10 @@
   --hero-content-max: 46.8125rem;
   --hero-content-top-mobile: 3.5rem;
   --hero-content-top-tablet: 4rem;
-  --hero-content-top-desktop: 6.875rem;
+  --hero-content-top-desktop: clamp(5rem, 8svh, 7rem);
   --hero-media-position-y: 50%;
-  --hero-media-position-y-desktop: 47%;
-  --hero-media-position-y-wide: 38%;
+  --hero-media-position-y-desktop: 50%;
+  --hero-media-position-y-wide: 50%;
   --hero-title-max: 49.875rem;
   --hero-title-frame-offset-desktop: -1.53125rem;
   --hero-title-size-mobile: var(--type-title-lg-mobile-size);
@@ -415,7 +416,18 @@
   --ink-section-description: var(--fg-subtle);
   --hero-title-frame-overflow-mobile: 1rem;
   --hero-accent-gradient: linear-gradient(90deg, #fff 26%, #f2a800 60%, #fc8811 90%);
-  --hero-accent-suffix-gradient: linear-gradient(90deg, #f2a800 0%, #fc8811 72%);
+  --hero-accent-suffix-gradient: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #fce9bf 9%,
+    #f9d480 18%,
+    #f7c960 24%,
+    #f5be40 31%,
+    #f4b320 39%,
+    #f3ad10 45%,
+    #f2a800 52%,
+    #fc8811 78%
+  );
   --space-shell: clamp(1.25rem, 3vw, 2.5rem);
   --space-cluster: clamp(0.75rem, 2vw, 1.25rem);
   --space-stack: clamp(1rem, 2vw, 1.5rem);

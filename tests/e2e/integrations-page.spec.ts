@@ -122,7 +122,7 @@ for (const viewport of viewports) {
       await expect(connectionsShell.getByRole("heading", { level: 3, name: "Connect Doow’s Browser Extension" })).toBeVisible();
       await expect(connectionsShell.getByRole("heading", { level: 3, name: "Connect SSO Providers" })).toBeVisible();
       await expect(connectionsShell.getByRole("heading", { level: 3, name: "Connect Banking" })).toBeVisible();
-      await expect(connectionsShell.getByText("80,000")).toBeVisible();
+      await expect(connectionsShell.getByText("$118,400.00")).toBeVisible();
 
       const footerNavigation = page.getByRole("navigation", { name: "Footer navigation" });
       await expect(footerNavigation.getByRole("link", { name: "Integrations" })).toHaveAttribute("href", "/integrations");
@@ -221,7 +221,7 @@ test.describe("integrations connections section motion", () => {
 
     await section.scrollIntoViewIfNeeded();
     await expect(section.locator("[data-connections-active]")).toHaveAttribute("data-connections-active", "true");
-    await expect(section.getByText("80,000")).toBeVisible();
+    await expect(section.getByText("$118,400.00")).toBeVisible();
     await expect(section.locator(".integrations-connections-toggle__handle")).toBeVisible();
   });
 });
@@ -238,9 +238,9 @@ test.describe("integrations catalog interactions", () => {
     await expect(panel).toContainText("Okta");
     await expect(panel).toContainText("QuickBooks");
 
-    await section.getByRole("tab", { name: /Finance/ }).click();
+    await section.getByRole("tab", { name: /Accounting & Bookkeeping/ }).click();
     await expect(panel).toContainText("QuickBooks", { timeout: 10000 });
-    await expect(panel).toContainText("NetSuite");
+    await expect(panel).toContainText("Xero");
     await expect(panel).not.toContainText("Slack");
 
     await section.getByRole("tab", { name: /All Categories/ }).click();
@@ -263,10 +263,10 @@ test.describe("integrations catalog mobile category select", () => {
     const panel = section.getByRole("tabpanel");
 
     await expect(section.locator("[data-integration-list-hydrated='true']")).toHaveCount(1);
-    await section.getByLabel("Select integration category").selectOption("human-resources");
+    await section.getByLabel("Select integration category").selectOption("hr-people-and-payroll");
     await expect(panel).toContainText("Deel", { timeout: 10000 });
     await expect(panel).toContainText("BambooHR");
-    await expect(panel).not.toContainText("NetSuite");
+    await expect(panel).not.toContainText("QuickBooks");
   });
 });
 

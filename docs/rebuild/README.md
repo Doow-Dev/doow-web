@@ -67,6 +67,7 @@ Captured before structural rebuild work:
 16. `figma-workflow.md`
 17. `assets-cdn.md`
 18. `content-model.md`
+19. `integration-catalog-endpoint-expectations.md`
 
 ## Important Constraint
 

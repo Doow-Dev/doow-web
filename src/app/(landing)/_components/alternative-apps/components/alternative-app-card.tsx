@@ -27,7 +27,7 @@ export function AlternativeAppCard({ alternative }: AlternativeAppCardProps) {
   return (
     <li className="alternative-apps-card">
       <div className="alternative-apps-card__header">
-        <AppLogoAvatar logoKey={alternative.logoKey} />
+        <AppLogoAvatar logoKey={alternative.logoKey} logoUrl={alternative.logoUrl} name={alternative.name} />
 
         <div className="alternative-apps-card__copy">
           <div className="alternative-apps-card__title-row">

@@ -51,154 +51,6 @@ const plaidCenterLogo = {
   domain: "plaid.com",
 } as const satisfies IntegrationAppLogo;
 
-export const bankingAndAccountingIntegrationCard = {
-  id: "banking-and-accounting",
-  initialViewId: "banking",
-  orbitLayout: "topArc",
-  views: [
-    {
-      id: "banking",
-      label: "Banking",
-      title: "Connect Banking",
-      description: "We use Plaid to pull real-time SaaS transactions from USD corporate bank accounts",
-      showProviderBrand: true,
-      providers: [
-        {
-          id: "plaid",
-          name: "Plaid",
-          regionLabel: "USA",
-          centerLogo: plaidCenterLogo,
-          description: "We use Plaid to pull real-time SaaS transactions from USD corporate bank accounts",
-          orbitApps: [
-            {
-              id: "citibank",
-              name: "Citibank",
-              domain: "citi.com",
-            },
-            {
-              id: "wells-fargo",
-              name: "Wells Fargo",
-              domain: "wellsfargo.com",
-            },
-            {
-              id: "bank-of-america",
-              name: "Bank of America",
-              domain: "bankofamerica.com",
-            },
-            {
-              id: "chase",
-              name: "Chase",
-              domain: "chase.com",
-            },
-            {
-              id: "ally-bank",
-              name: "Ally",
-              domain: "ally.com",
-            },
-            {
-              id: "capital-one",
-              name: "Capital One",
-              domain: "capitalone.com",
-            },
-            {
-              id: "pnc-bank",
-              name: "PNC Bank",
-              domain: "pnc.com",
-            },
-            {
-              id: "td-bank",
-              name: "TD Bank",
-              domain: "td.com",
-            },
-            {
-              id: "truist",
-              name: "Truist",
-              domain: "truist.com",
-            },
-            {
-              id: "us-bank",
-              name: "US Bank",
-              domain: "usbank.com",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: "accounting",
-      label: "Accounting",
-      title: "Accounting",
-      description: "Connect your accounting software to pull transaction and expenses data.",
-      providers: [
-        {
-          id: "quickbooks-stack",
-          name: "QuickBooks",
-          centerLogo: {
-            id: "quickbooks-center",
-            name: "QuickBooks",
-            domain: "quickbooks.intuit.com",
-          },
-          orbitApps: [
-            {
-              id: "netsuite",
-              name: "NetSuite",
-              domain: "netsuite.com",
-            },
-            {
-              id: "quickbooks",
-              name: "QuickBooks",
-              domain: "quickbooks.intuit.com",
-            },
-            {
-              id: "sage-accounting",
-              name: "Sage",
-              domain: "sage.com",
-            },
-            {
-              id: "zoho-books-accounting",
-              name: "Zoho Books",
-              domain: "zoho.com",
-              brandNameFallback: "Zoho Books",
-            },
-          ],
-        },
-        {
-          id: "netsuite-stack",
-          name: "NetSuite",
-          centerLogo: {
-            id: "netsuite-center",
-            name: "NetSuite",
-            domain: "netsuite.com",
-          },
-          orbitApps: [
-            {
-              id: "sage",
-              name: "Sage",
-              domain: "sage.com",
-            },
-            {
-              id: "zoho-books",
-              name: "Zoho Books",
-              domain: "zoho.com",
-              brandNameFallback: "Zoho Books",
-            },
-            {
-              id: "netsuite-ledger",
-              name: "NetSuite",
-              domain: "netsuite.com",
-            },
-            {
-              id: "quickbooks-ledger",
-              name: "QuickBooks",
-              domain: "quickbooks.intuit.com",
-            },
-          ],
-        },
-      ],
-    },
-  ],
-} as const satisfies IntegrationCard;
-
 export const integrationsSectionContent = {
   id: "integrations",
   title: "Connect Doow to the tools you already use",
@@ -210,7 +62,153 @@ export const integrationsSectionContent = {
   } satisfies LandingActionLink,
   maxVisibleOrbitApps: 4,
   cards: [
-    bankingAndAccountingIntegrationCard,
+    {
+      id: "banking-and-accounting",
+      initialViewId: "banking",
+      orbitLayout: "topArc",
+      views: [
+        {
+          id: "banking",
+          label: "Banking",
+          title: "Connect Banking",
+          description: "We use Plaid to pull real-time SaaS transactions from USD corporate bank accounts",
+          showProviderBrand: true,
+          providers: [
+            {
+              id: "plaid",
+              name: "Plaid",
+              regionLabel: "USA",
+              centerLogo: plaidCenterLogo,
+              description: "We use Plaid to pull real-time SaaS transactions from USD corporate bank accounts",
+              orbitApps: [
+                {
+                  id: "citibank",
+                  name: "Citibank",
+                  domain: "citi.com",
+                },
+                {
+                  id: "wells-fargo",
+                  name: "Wells Fargo",
+                  domain: "wellsfargo.com",
+                },
+                {
+                  id: "bank-of-america",
+                  name: "Bank of America",
+                  domain: "bankofamerica.com",
+                },
+                {
+                  id: "chase",
+                  name: "Chase",
+                  domain: "chase.com",
+                },
+                {
+                  id: "ally-bank",
+                  name: "Ally",
+                  domain: "ally.com",
+                },
+                {
+                  id: "capital-one",
+                  name: "Capital One",
+                  domain: "capitalone.com",
+                },
+                {
+                  id: "pnc-bank",
+                  name: "PNC Bank",
+                  domain: "pnc.com",
+                },
+                {
+                  id: "td-bank",
+                  name: "TD Bank",
+                  domain: "td.com",
+                },
+                {
+                  id: "truist",
+                  name: "Truist",
+                  domain: "truist.com",
+                },
+                {
+                  id: "us-bank",
+                  name: "US Bank",
+                  domain: "usbank.com",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "accounting",
+          label: "Accounting",
+          title: "Accounting",
+          description: "Connect your accounting software to pull transaction and expenses data.",
+          providers: [
+            {
+              id: "quickbooks-stack",
+              name: "QuickBooks",
+              centerLogo: {
+                id: "quickbooks-center",
+                name: "QuickBooks",
+                domain: "quickbooks.intuit.com",
+              },
+              orbitApps: [
+                {
+                  id: "netsuite",
+                  name: "NetSuite",
+                  domain: "netsuite.com",
+                },
+                {
+                  id: "quickbooks",
+                  name: "QuickBooks",
+                  domain: "quickbooks.intuit.com",
+                },
+                {
+                  id: "sage-accounting",
+                  name: "Sage",
+                  domain: "sage.com",
+                },
+                {
+                  id: "zoho-books-accounting",
+                  name: "Zoho Books",
+                  domain: "zoho.com",
+                  brandNameFallback: "Zoho Books",
+                },
+              ],
+            },
+            {
+              id: "netsuite-stack",
+              name: "NetSuite",
+              centerLogo: {
+                id: "netsuite-center",
+                name: "NetSuite",
+                domain: "netsuite.com",
+              },
+              orbitApps: [
+                {
+                  id: "sage",
+                  name: "Sage",
+                  domain: "sage.com",
+                },
+                {
+                  id: "zoho-books",
+                  name: "Zoho Books",
+                  domain: "zoho.com",
+                  brandNameFallback: "Zoho Books",
+                },
+                {
+                  id: "netsuite-ledger",
+                  name: "NetSuite",
+                  domain: "netsuite.com",
+                },
+                {
+                  id: "quickbooks-ledger",
+                  name: "QuickBooks",
+                  domain: "quickbooks.intuit.com",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     {
       id: "sso",
       initialViewId: "sso",
@@ -333,11 +331,6 @@ export const integrationsSectionContent = {
                   domain: "microsoft.com",
                   brandNameFallback: "Microsoft Entra ID",
                 },
-                {
-                  id: "airtable",
-                  name: "Airtable",
-                  domain: "airtable.com",
-                },
               ],
             },
           ],
@@ -346,3 +339,5 @@ export const integrationsSectionContent = {
     },
   ],
 } as const satisfies IntegrationsSectionContent;
+
+export const bankingAndAccountingIntegrationCard = integrationsSectionContent.cards[0];

@@ -35,7 +35,7 @@ export const integrationsConnectionsContent = {
   metrics: [
     {
       label: "Total applications",
-      value: "80,000",
+      value: "$118,400.00",
     },
     {
       label: "Average user hours",

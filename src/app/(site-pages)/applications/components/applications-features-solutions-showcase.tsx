@@ -23,9 +23,9 @@ import { SlackAppIcon } from "@/components/custom/icons/slack-app-icon";
 
 const cardRevealEase = [0.22, 1, 0.36, 1] as const;
 const cardHoverEase = [0.16, 1, 0.3, 1] as const;
-const cardFadeDurationSeconds = 0.96;
-const figureEaseDurationSeconds = 0.72;
-const staggerStepSeconds = 0.12;
+const cardFadeDurationSeconds = 1.12;
+const figureEaseDurationSeconds = 0.98;
+const staggerStepSeconds = 0.16;
 const underutilizedChartWidth = 303;
 const underutilizedChartHeight = 123;
 const underutilizedBarPositions = [
@@ -60,8 +60,8 @@ const overlapAppNamesMap = {
   slack: ["slack", "Slack"],
 } as const;
 
-function useLatchedInView(threshold: number) {
-  const ref = useRef<HTMLDivElement>(null);
+function useLatchedInView<TElement extends Element>(threshold: number) {
+  const ref = useRef<TElement>(null);
   const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
@@ -122,7 +122,7 @@ function formatCountUpValue(value: number, format: ApplicationsFeaturesSolutions
 function ApplicationsCountUpValue({
   active,
   className,
-  durationMs = 900,
+  durationMs = 1400,
   format,
   value,
 }: {
@@ -236,7 +236,7 @@ function ApplicationsMetricSummaryCard({
         prefersReducedMotion
           ? { duration: 0 }
           : {
-            delay: 0.34 + cardIndex * staggerStepSeconds,
+            delay: 0.42 + cardIndex * staggerStepSeconds,
             duration: figureEaseDurationSeconds,
             ease: cardRevealEase,
           }
@@ -251,7 +251,7 @@ function ApplicationsMetricSummaryCard({
         <ApplicationsCountUpValue
           active={active}
           className="applications-features-solutions__metric-value"
-          durationMs={1100}
+          durationMs={1700}
           format={metric.format}
           key={`${metric.id}-${replayToken}-${active ? "active" : "idle"}`}
           value={metric.value}
@@ -314,8 +314,8 @@ function ApplicationsSpendVisibilityFigure({
                   prefersReducedMotion
                     ? { duration: 0 }
                     : {
-                      delay: 0.32 + rowIndex * 0.1,
-                      duration: 0.56,
+                      delay: 0.42 + rowIndex * 0.14,
+                      duration: 0.78,
                       ease: cardRevealEase,
                     }
                 }
@@ -343,11 +343,13 @@ function ApplicationsOverlapDetectionFigure({
   card,
   hovered,
   prefersReducedMotion,
+  replayToken,
 }: {
   active: boolean;
   card: Extract<ApplicationsFeaturesSolutionsCard, { kind: "overlapDetection" }>;
   hovered: boolean;
   prefersReducedMotion: boolean;
+  replayToken: number;
 }) {
   return (
     <div className="applications-features-solutions__figure-stage applications-features-solutions__figure-stage--overlap">
@@ -362,13 +364,15 @@ function ApplicationsOverlapDetectionFigure({
             : undefined
         }
         className="applications-features-solutions__overlap-figure-motion"
+        data-overlap-active={active ? "true" : "false"}
         initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+        key={`overlap-${replayToken}-${active ? "active" : "idle"}`}
         transition={
           prefersReducedMotion
             ? { duration: 0 }
             : {
-              delay: 0.2,
-              duration: hovered ? 0.42 : figureEaseDurationSeconds,
+              delay: 0.28,
+              duration: hovered ? 0.64 : figureEaseDurationSeconds,
               ease: hovered ? cardHoverEase : cardRevealEase,
             }
         }
@@ -379,7 +383,7 @@ function ApplicationsOverlapDetectionFigure({
             names: overlapAppNamesMap[app],
           }))}
           className="applications-features-solutions__duplicate-tools-surface"
-          classNamePrefix=""
+          classNamePrefix="applications-features-solutions"
           nodes={card.departments.map((department) => ({
             iconKey: department.icon,
             id: department.id,
@@ -440,8 +444,8 @@ function ApplicationsUnderutilizedSpendFigure({
           prefersReducedMotion
             ? { duration: 0 }
             : {
-              delay: 0.34,
-              duration: 0.82,
+              delay: 0.42,
+              duration: 1,
               ease: cardRevealEase,
             }
         }
@@ -467,8 +471,8 @@ function ApplicationsUnderutilizedSpendFigure({
                 prefersReducedMotion
                   ? { duration: 0 }
                   : {
-                    delay: 0.44 + barIndex * 0.12,
-                    duration: 0.72,
+                    delay: 0.54 + barIndex * 0.16,
+                    duration: 0.96,
                     ease: cardRevealEase,
                   }
               }
@@ -486,8 +490,8 @@ function ApplicationsUnderutilizedSpendFigure({
                   prefersReducedMotion
                     ? { duration: 0 }
                     : {
-                      delay: 0.58 + barIndex * 0.12,
-                      duration: 0.46,
+                      delay: 0.72 + barIndex * 0.16,
+                      duration: 0.68,
                       ease: cardRevealEase,
                     }
                 }
@@ -535,8 +539,8 @@ function ApplicationsAppDetailMetricsFigure({
           prefersReducedMotion
             ? { duration: 0 }
             : {
-              delay: 0.56,
-              duration: 0.9,
+              delay: 0.68,
+              duration: 1.08,
               ease: cardRevealEase,
             }
         }
@@ -553,8 +557,8 @@ function ApplicationsAppDetailMetricsFigure({
             prefersReducedMotion
               ? { duration: 0 }
               : {
-                delay: 0.62,
-                duration: 0.72,
+                delay: 0.76,
+                duration: 0.96,
                 ease: cardRevealEase,
               }
           }
@@ -569,8 +573,8 @@ function ApplicationsAppDetailMetricsFigure({
               prefersReducedMotion
                 ? { duration: 0 }
                 : {
-                  delay: 0.66,
-                  duration: 0.62,
+                  delay: 0.82,
+                  duration: 0.84,
                   ease: cardRevealEase,
                 }
             }
@@ -587,8 +591,8 @@ function ApplicationsAppDetailMetricsFigure({
               prefersReducedMotion
                 ? { duration: 0 }
                 : {
-                  delay: 0.7,
-                  duration: 1.02,
+                  delay: 0.88,
+                  duration: 1.28,
                   ease: cardRevealEase,
                 }
             }
@@ -643,6 +647,7 @@ function ApplicationsFeatureCardFigure({
         card={card}
         hovered={hovered}
         prefersReducedMotion={prefersReducedMotion}
+        replayToken={replayToken}
       />
     );
   }
@@ -669,21 +674,24 @@ function ApplicationsFeatureCardFigure({
 }
 
 function ApplicationsFeatureCardShell({
-  active,
   card,
   index,
   prefersReducedMotion,
 }: {
-  active: boolean;
   card: ApplicationsFeaturesSolutionsCard;
   index: number;
   prefersReducedMotion: boolean;
 }) {
   const [hoverReplayKey, setHoverReplayKey] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const { hasEntered, ref } = useLatchedInView<HTMLLIElement>(0.24);
+  const active = prefersReducedMotion || hasEntered;
 
   const shouldReplayOnHover =
-    card.kind === "spendVisibility" || card.kind === "underutilizedSpend" || card.kind === "appDetailMetrics";
+    card.kind === "spendVisibility" ||
+    card.kind === "overlapDetection" ||
+    card.kind === "underutilizedSpend" ||
+    card.kind === "appDetailMetrics";
 
   return (
     <motion.li
@@ -699,6 +707,7 @@ function ApplicationsFeatureCardShell({
       }
       className="applications-features-solutions__card"
       data-card-id={card.id}
+      ref={ref}
       onHoverStart={() => {
         setIsHovered(true);
 
@@ -732,6 +741,8 @@ function ApplicationsFeatureCardShell({
       }
     >
       <div className="applications-features-solutions__card-body">
+        <h3 className="applications-features-solutions__card-title">{card.title}</h3>
+
         <div aria-hidden="true" className="applications-features-solutions__card-figure">
           <ApplicationsFeatureCardFigure
             active={active}
@@ -741,8 +752,6 @@ function ApplicationsFeatureCardShell({
             replayToken={hoverReplayKey}
           />
         </div>
-
-        <h3 className="applications-features-solutions__card-title">{card.title}</h3>
       </div>
 
       <p className="sr-only">{card.accessibilitySummary}</p>
@@ -756,15 +765,12 @@ export interface ApplicationsFeaturesSolutionsShowcaseProps {
 
 export function ApplicationsFeaturesSolutionsShowcase({ cards }: ApplicationsFeaturesSolutionsShowcaseProps) {
   const prefersReducedMotion = useReducedMotion() ?? false;
-  const { hasEntered, ref } = useLatchedInView(0.35);
-  const isActive = prefersReducedMotion || hasEntered;
 
   return (
-    <div className="applications-features-solutions__showcase" ref={ref}>
+    <div className="applications-features-solutions__showcase">
       <ul className="applications-features-solutions__grid">
         {cards.map((card, index) => (
           <ApplicationsFeatureCardShell
-            active={isActive}
             card={card}
             index={index}
             key={card.id}

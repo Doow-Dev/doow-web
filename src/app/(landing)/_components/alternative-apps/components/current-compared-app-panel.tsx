@@ -2,7 +2,7 @@ import { Badge } from "@/components/system";
 
 import type { CurrentComparedApp } from "../content";
 import { AppLogoAvatar } from "./app-logo-avatar";
-import { formatCurrencyUsd, formatRating, formatSeatCount, formatAnnualUsd } from "./formatters";
+import { formatCurrencyUsd, formatRating, formatSeatCount } from "./formatters";
 
 export interface CurrentComparedAppPanelProps {
   currentApp: CurrentComparedApp;
@@ -26,7 +26,7 @@ export function CurrentComparedAppPanel({ currentApp }: CurrentComparedAppPanelP
   return (
     <div className="alternative-apps-current" data-alternative-apps-surface="current">
       <div className="alternative-apps-current__summary">
-        <AppLogoAvatar logoKey={currentApp.logoKey} />
+        <AppLogoAvatar logoKey={currentApp.logoKey} logoUrl={currentApp.logoUrl} name={currentApp.name} />
 
         <div className="alternative-apps-current__copy">
           <div className="alternative-apps-current__title-row">
@@ -46,14 +46,9 @@ export function CurrentComparedAppPanel({ currentApp }: CurrentComparedAppPanelP
       </div>
 
       <dl className="alternative-apps-current__metrics">
-        <div className="alternative-apps-current__metric">
+        <div className="alternative-apps-current__metric alternative-apps-current__metric--annual">
           <dt className="alternative-apps-current__metric-label">Annual Spend</dt>
           <dd className="alternative-apps-current__metric-value">{formatCurrencyUsd(currentApp.annualSpendUsd)}</dd>
-        </div>
-
-        <div className="alternative-apps-current__metric alternative-apps-current__metric--danger">
-          <dt className="alternative-apps-current__metric-label">Wasting</dt>
-          <dd className="alternative-apps-current__metric-value">{formatAnnualUsd(currentApp.wastedSpendUsd)}</dd>
         </div>
 
         <div className="alternative-apps-current__metric">

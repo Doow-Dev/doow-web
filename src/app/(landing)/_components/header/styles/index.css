@@ -13,7 +13,9 @@
     overflow: clip;
     isolation: isolate;
     padding-top: var(--header-offset-top);
+    padding-right: var(--landing-navbar-gutter);
     padding-bottom: 0.75rem;
+    padding-left: var(--landing-navbar-gutter);
   }
 
   .landing-navbar__open-surface,
@@ -65,9 +67,12 @@
     position: relative;
     z-index: 1;
     display: flex;
+    width: 100%;
+    max-width: var(--layout-shell-wide);
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    padding-inline: 0;
   }
 
   .landing-navbar__brand-row {
@@ -222,9 +227,11 @@
     .landing-navbar__layout {
       display: grid;
       width: 100%;
+      max-width: var(--layout-shell-wide);
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 1rem;
+      padding-inline: 0;
     }
 
     .landing-navbar__brand-row {

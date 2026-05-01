@@ -1,4 +1,9 @@
+import Link from "next/link";
+
 import { DoowLogo } from "@/components/custom/icons/doow_logo";
+import { EmailIcon } from "@/components/custom/icons/email-icon";
+import { LinkedInIcon } from "@/components/custom/icons/linkedin-icon";
+import { XIcon } from "@/components/custom/icons/x-icon";
 import { Container, FooterList } from "@/components/system";
 
 import type { SiteFooterBodyContent } from "./content";
@@ -8,7 +13,7 @@ export interface SiteFooterBodyProps {
 }
 
 export function SiteFooterBody({ body }: SiteFooterBodyProps) {
-  const [solutionsGroup, companyGroup, contactGroup] = body.groups;
+  const [productsGroup, companyGroup] = body.groups;
   const headingId = `${body.id}-heading`;
 
   return (
@@ -30,48 +35,77 @@ export function SiteFooterBody({ body }: SiteFooterBodyProps) {
 
           <div aria-hidden="true" className="site-footer__divider" />
 
-          <nav aria-label={body.navigationAriaLabel} className="site-footer__nav">
-            <FooterList
-              className="site-footer__group"
-              items={solutionsGroup.items}
-              linkClassName="site-footer__link"
-              listClassName="site-footer__list"
-              title={solutionsGroup.title}
-              titleClassName="site-footer__group-title"
-              titleTag="p"
-            />
-
-            <FooterList
-              className="site-footer__group"
-              items={companyGroup.items}
-              linkClassName="site-footer__link"
-              listClassName="site-footer__list"
-              title={companyGroup.title}
-              titleClassName="site-footer__group-title"
-              titleTag="p"
-            />
-
-            <div className="site-footer__group">
+          <div className="site-footer__main">
+            <nav aria-label={body.navigationAriaLabel} className="site-footer__nav">
               <FooterList
-                items={contactGroup.items}
+                className="site-footer__group"
+                items={productsGroup.items}
                 linkClassName="site-footer__link"
                 listClassName="site-footer__list"
-                title={contactGroup.title}
+                title={productsGroup.title}
                 titleClassName="site-footer__group-title"
                 titleTag="p"
               />
+
+              <FooterList
+                className="site-footer__group"
+                items={companyGroup.items}
+                linkClassName="site-footer__link"
+                listClassName="site-footer__list"
+                title={companyGroup.title}
+                titleClassName="site-footer__group-title"
+                titleTag="p"
+              />
+            </nav>
+
+            <section aria-labelledby={`${body.id}-contact-heading`} className="site-footer__contact">
+              <h3 className="site-footer__group-title" id={`${body.id}-contact-heading`}>
+                Contact
+              </h3>
 
               <address className="site-footer__address">
                 {body.addressLines.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
               </address>
-            </div>
-          </nav>
+            </section>
+
+            <section aria-labelledby={`${body.id}-disclaimer-heading`} className="site-footer__disclaimer">
+              <h3 className="site-footer__disclaimer-title" id={`${body.id}-disclaimer-heading`}>
+                {body.disclaimer.title}
+              </h3>
+
+              <div className="site-footer__disclaimer-copy">
+                {body.disclaimer.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </section>
+          </div>
 
           <div aria-hidden="true" className="site-footer__divider" />
 
-          <p className="site-footer__copyright">{body.copyright}</p>
+          <div className="site-footer__bottom">
+            <p className="site-footer__copyright">{body.copyright}</p>
+
+            <ul aria-label="Social links" className="site-footer__social-list">
+              {body.socialLinks.map((link) => (
+                <li key={link.kind}>
+                  <Link
+                    aria-label={link.label}
+                    className="site-footer__social-link"
+                    href={link.href}
+                    rel={link.rel}
+                    target={link.target}
+                  >
+                    {link.kind === "linkedin" ? <LinkedInIcon /> : null}
+                    {link.kind === "x" ? <XIcon /> : null}
+                    {link.kind === "email" ? <EmailIcon /> : null}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Container>
     </footer>

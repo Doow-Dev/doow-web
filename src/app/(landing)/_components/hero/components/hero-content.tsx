@@ -44,7 +44,7 @@ export function HeroContent({ content, Shell }: HeroContentProps) {
               </h1>
             </div>
 
-            <p className="hero-copy__lead text-body-sm-medium">{content.description}</p>
+            <p className="hero-copy__lead text-body-sm-normal">{content.description}</p>
 
             <CtaGroup align="center" className="hero-copy__actions">
               <Button asChild size="base" variant="primary">

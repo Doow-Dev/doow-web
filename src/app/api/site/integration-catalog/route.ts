@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getIntegrationCatalogResponse } from "@/lib/site/integration-catalog";
+import { getIntegrationCatalogResponse } from "@/lib/server/integration-catalog-service";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

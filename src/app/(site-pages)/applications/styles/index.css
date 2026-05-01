@@ -767,9 +767,10 @@
     --applications-features-solutions-card-radius: 24px;
     --applications-features-solutions-window-radius: 14px;
     --applications-features-solutions-window-shadow:
-      0 0 0 1px rgba(0, 20, 10, 0.08),
-      0 1px 2px -1px rgba(0, 20, 10, 0.08),
-      0 2px 8px rgba(0, 20, 10, 0.1);
+      0 12px 12px -3px rgba(0, 0, 0, 0.04),
+      0 6px 6px -3px rgba(0, 0, 0, 0.02),
+      0 3px 3px -1.5px rgba(0, 0, 0, 0.02),
+      0 1px 1px -0.5px rgba(0, 0, 0, 0.03);
     --applications-features-solutions-card-shadow: none;
     --applications-features-solutions-chart-orange: #fba61e;
     --applications-features-solutions-bar-shadow:
@@ -836,8 +837,9 @@
 
   .applications-features-solutions__card-body {
     display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
-    gap: 1.25rem;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-content: center;
+    gap: 1.5rem;
     height: 100%;
     padding: clamp(1.25rem, 4vw, 2rem);
   }
@@ -854,12 +856,11 @@
   .applications-features-solutions__card-title {
     margin: 0;
     margin-inline: auto;
-    color: var(--fg-base);
-    font-size: 1rem;
-    font-weight: var(--type-weight-medium);
-    letter-spacing: -0.01em;
-    line-height: 1.625rem;
-    /* max-width: 16.5rem; */
+    color: #141414;
+    font-size: 1.25rem;
+    font-weight: var(--type-weight-semibold);
+    letter-spacing: 0;
+    line-height: 1.5625rem;
     text-align: center;
     text-wrap: balance;
   }
@@ -874,36 +875,41 @@
   .applications-features-solutions__window {
     position: relative;
     width: min(100%, 20.4375rem);
-    min-height: 11rem;
+    height: 11rem;
     margin-inline: auto;
-    padding: 1.0625rem 1rem 1rem;
+    overflow: hidden;
+    padding: 0;
     border-radius: var(--applications-features-solutions-window-radius);
     background: var(--button-neutral);
     box-shadow: var(--applications-features-solutions-window-shadow);
   }
 
   .applications-features-solutions__window-chrome {
+    position: absolute;
+    inset: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 0.3125rem;
-    margin-inline: -1rem;
-    padding-inline: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0, 20, 10, 0.08);
+    gap: 0.5rem;
+    height: 1.8125rem;
+    padding-left: 0.625rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   }
 
   .applications-features-solutions__window-chrome span {
-    width: 0.375rem;
-    height: 0.375rem;
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 999px;
-    background: rgba(0, 20, 10, 0.18);
+    background: rgba(0, 0, 0, 0.12);
   }
 
   .applications-features-solutions__spend-rows {
+    position: absolute;
+    left: 0.9375rem;
+    top: 2.9375rem;
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
-    padding-top: 0.3rem;
+    gap: 1rem;
+    width: calc(100% - 1.875rem);
   }
 
   .applications-features-solutions__spend-row {
@@ -912,7 +918,7 @@
     justify-content: space-between;
     gap: 0.75rem;
     min-width: 0;
-    padding-block: 0.375rem;
+    min-height: 1.25rem;
     will-change: transform, opacity;
   }
 
@@ -989,9 +995,10 @@
 
   .applications-duplicate-tools-illustration {
     --applications-duplicate-tools-browser-shadow:
-      0 0 0 1px rgba(0, 20, 10, 0.08),
-      0 1px 2px -1px rgba(0, 20, 10, 0.08),
-      0 2px 8px rgba(0, 20, 10, 0.1);
+      0 12px 12px -3px rgba(0, 0, 0, 0.04),
+      0 6px 6px -3px rgba(0, 0, 0, 0.02),
+      0 3px 3px -1.5px rgba(0, 0, 0, 0.02),
+      0 1px 1px -0.5px rgba(0, 0, 0, 0.03);
     --applications-duplicate-tools-card-shadow:
       0 0 0 1px rgba(0, 20, 10, 0.08),
       0 1px 2px -1px rgba(0, 20, 10, 0.08),
@@ -1165,6 +1172,132 @@
     font-weight: var(--type-weight-medium);
     line-height: 1rem;
     white-space: nowrap;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="false"]
+    .applications-features-solutions__duplicate-app-chip,
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="false"]
+    .applications-features-solutions__duplicate-connectors,
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="false"]
+    .applications-features-solutions__duplicate-node {
+    opacity: 0;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-app-chip {
+    animation: applications-overlap-app-stack-in 0.92s var(--motion-ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+    transform-origin: center;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-app-chip[data-app-position="slack"] {
+    animation-delay: 0.24s;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-app-chip[data-app-position="notion"] {
+    animation-delay: 0.34s;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-app-chip[data-app-position="asana"] {
+    animation-delay: 0.44s;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-connectors {
+    animation: applications-overlap-lines-fade-in 0.28s ease-out 1.02s both;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-connectors path {
+    animation: applications-overlap-line-draw 1.45s cubic-bezier(0.16, 1, 0.3, 1) 1.02s both;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-node {
+    animation: applications-overlap-node-in 0.86s var(--motion-ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+    transform-origin: top center;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-node[data-node-id="design"] {
+    animation-delay: 2.24s;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-node[data-node-id="marketing"] {
+    animation-delay: 2.34s;
+  }
+
+  .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+    .applications-features-solutions__duplicate-node[data-node-id="engineering"] {
+    animation-delay: 2.44s;
+  }
+
+  @keyframes applications-overlap-app-stack-in {
+    from {
+      opacity: 0;
+      transform: translateY(-0.375rem) scale(0.86);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes applications-overlap-lines-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes applications-overlap-line-draw {
+    from {
+      stroke-dashoffset: 240;
+    }
+
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes applications-overlap-node-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.625rem) scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+      .applications-features-solutions__duplicate-app-chip,
+    .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+      .applications-features-solutions__duplicate-connectors,
+    .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+      .applications-features-solutions__duplicate-node {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .applications-features-solutions__overlap-figure-motion[data-overlap-active="true"]
+      .applications-features-solutions__duplicate-connectors path {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
   }
 
 
@@ -1450,7 +1583,7 @@
     }
 
     .applications-features-solutions__card-body {
-      padding: 2.6875rem 2.8125rem 2.3125rem;
+      padding: 2.6875rem 2.8125rem;
     }
 
     .applications-features-solutions__card-figure,

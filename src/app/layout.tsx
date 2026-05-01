@@ -48,6 +48,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("font-sans antialiased bg-background", inter.variable, sometypeMono.variable)}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>

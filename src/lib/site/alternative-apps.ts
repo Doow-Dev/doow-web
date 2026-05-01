@@ -1,8 +1,6 @@
 import { z } from "zod";
 
 import {
-  alternativeAppsResponseByAppId,
-  alternativeAppsSectionContent,
   type AlternativeAppsResponse,
   type AlternativeRecommendation,
   type AlternativeRecommendationInsightSegment,
@@ -12,14 +10,18 @@ import {
 
 const appSelectionOptionSchema: z.ZodType<AppSelectionOption> = z.object({
   id: z.string().min(1),
+  logoHints: z.array(z.string().min(1)).optional(),
   logoKey: z.enum(["google", "notion", "salesforce", "slack"]),
+  logoUrl: z.string().min(1).optional(),
   name: z.string().min(1),
 });
 
 const currentComparedAppSchema: z.ZodType<CurrentComparedApp> = z.object({
   annualSpendUsd: z.number().nonnegative(),
   id: z.string().min(1),
+  logoHints: z.array(z.string().min(1)).optional(),
   logoKey: z.enum(["google", "notion", "salesforce", "slack"]),
+  logoUrl: z.string().min(1).optional(),
   name: z.string().min(1),
   pricingModelLabel: z.string().min(1),
   rating: z.number().nonnegative(),
@@ -39,7 +41,9 @@ const alternativeRecommendationSchema: z.ZodType<AlternativeRecommendation> = z.
   badgeLabel: z.string().min(1).optional(),
   id: z.string().min(1),
   insight: z.array(alternativeRecommendationInsightSegmentSchema).min(1),
+  logoHints: z.array(z.string().min(1)).optional(),
   logoKey: z.enum(["google", "notion", "salesforce", "slack"]),
+  logoUrl: z.string().min(1).optional(),
   monthlySpendUsd: z.number().nonnegative(),
   name: z.string().min(1),
   planLabel: z.string().min(1),
@@ -63,15 +67,6 @@ export function getAlternativeAppsApiUrl(appId: string) {
   return `/api/site/alternative-apps?${params.toString()}`;
 }
 
-export function isAlternativeAppsAppId(
-  appId: string | undefined
-): appId is keyof typeof alternativeAppsResponseByAppId {
-  return typeof appId === "string" && appId in alternativeAppsResponseByAppId;
-}
-
-export async function getAlternativeAppsResponse(appId?: string) {
-  const selectedAppId = isAlternativeAppsAppId(appId) ? appId : alternativeAppsSectionContent.initialSelectedAppId;
-  const response = alternativeAppsResponseByAppId[selectedAppId];
-
-  return alternativeAppsResponseSchema.parse(response);
+export function getDefaultAlternativeAppsApiUrl() {
+  return "/api/site/alternative-apps";
 }

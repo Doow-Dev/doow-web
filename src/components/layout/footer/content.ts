@@ -48,8 +48,17 @@ export interface SiteFooterBodyContent {
   id: string;
   title: string;
   navigationAriaLabel: string;
-  groups: readonly [SiteFooterLinkGroup, SiteFooterLinkGroup, SiteFooterLinkGroup];
+  groups: readonly [SiteFooterLinkGroup, SiteFooterLinkGroup];
   addressLines: readonly [string, string, string];
+  disclaimer: {
+    title: string;
+    paragraphs: readonly [string, string];
+  };
+  socialLinks: readonly [
+    SiteFooterLink & { kind: "linkedin" },
+    SiteFooterLink & { kind: "x" },
+    SiteFooterLink & { kind: "email" },
+  ];
   copyright: string;
 }
 
@@ -64,7 +73,7 @@ export const siteFooterBodyContent = {
   navigationAriaLabel: "Footer navigation",
   groups: [
     {
-      title: "Solutions",
+      title: "Products",
       items: [
         { href: "/applications", label: "Applications" },
         { href: "/expenses", label: "Expenses" },
@@ -82,20 +91,36 @@ export const siteFooterBodyContent = {
         { href: "/signin", label: "Login" },
       ],
     },
-    {
-      title: "Company & Contact",
-      items: [
-        { href: "#pricing", label: "Contact Sales" },
-        {
-          href: "https://x.com",
-          label: "Twitter (X)",
-          rel: "noopener noreferrer",
-          target: "_blank",
-        },
-      ],
-    },
-  ] satisfies readonly [SiteFooterLinkGroup, SiteFooterLinkGroup, SiteFooterLinkGroup],
+  ] satisfies readonly [SiteFooterLinkGroup, SiteFooterLinkGroup],
   addressLines: ["1007 N Orange St. 4th Floor,", "Wilmington, DE,", "United States"],
+  disclaimer: {
+    title: "Disclaimer",
+    paragraphs: [
+      "Doow Inc. is a financial technology company duly incorporated under the laws of Delaware, United States of America. Doow is not a bank. Doow offers all of its services in partnership with licensed banking and financial partners in their respective jurisdictions worldwide.",
+      "All logos, trademarks and brand names belong to their respective owners. Using these brand items does not imply endorsement with Doow.",
+    ],
+  },
+  socialLinks: [
+    {
+      href: "https://www.linkedin.com/company/doowapp",
+      kind: "linkedin",
+      label: "LinkedIn",
+      rel: "noopener noreferrer",
+      target: "_blank",
+    },
+    {
+      href: "https://x.com",
+      kind: "x",
+      label: "X",
+      rel: "noopener noreferrer",
+      target: "_blank",
+    },
+    {
+      href: "mailto:hello@doow.co",
+      kind: "email",
+      label: "Email Doow",
+    },
+  ],
   copyright: "\u00a9 2026 Doow",
 } as const satisfies SiteFooterBodyContent;
 
