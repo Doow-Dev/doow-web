@@ -21,10 +21,7 @@ interface FetchDoowApiOptions<TData> {
 }
 
 function getDoowApiBaseUrl() {
-  return (process.env.DOOW_API_BASE_URL ?? process.env.ALTERNATIVE_APPS_API_BASE_URL ?? defaultDoowApiBaseUrl).replace(
-    /\/+$/,
-    "",
-  );
+  return (process.env.DOOW_API_BASE_URL ?? defaultDoowApiBaseUrl).replace(/\/+$/, "");
 }
 
 function getSecretHeader(secret: DoowApiSecret) {
