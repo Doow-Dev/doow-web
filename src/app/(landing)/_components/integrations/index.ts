@@ -1,4 +1,5 @@
 export {
+  bankingAndAccountingIntegrationCard,
   integrationsSectionContent,
   type IntegrationAppLogo,
   type IntegrationCard,

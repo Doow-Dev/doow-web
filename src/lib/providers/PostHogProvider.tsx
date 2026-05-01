@@ -17,6 +17,9 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       autocapture: true,
       capture_pageview: true,
       capture_pageleave: true,
+      persistence: 'localStorage',
+      cross_subdomain_cookie: false,
+      secure_cookie: window.location.protocol === 'https:',
     })
 
     hasInitialized.current = true

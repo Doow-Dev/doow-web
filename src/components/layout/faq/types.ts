@@ -9,6 +9,11 @@ export interface FaqThreadMessage {
   assistantLabel?: string;
 }
 
+export interface FaqInteractionConfig {
+  mode?: "static" | "simulated";
+  revealDelayMs?: number;
+}
+
 export interface FaqCategory {
   id: FaqCategoryId;
   label: string;
@@ -19,4 +24,5 @@ export interface FaqCategory {
 export interface FaqSectionContent {
   categories: readonly FaqCategory[];
   initialSelectedCategoryId?: FaqCategoryId;
+  interaction?: FaqInteractionConfig;
 }

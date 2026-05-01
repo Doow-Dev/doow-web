@@ -85,10 +85,10 @@ export const siteFooterBodyContent = {
     {
       title: "Company",
       items: [
-        { href: "/", label: "About Us" },
-        { href: "#faq", label: "Contact Us" },
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
+        { href: "mailto:contact@doow.co", label: "Contact" },
+        { href: "/signin", label: "Login" },
       ],
     },
   ] satisfies readonly [SiteFooterLinkGroup, SiteFooterLinkGroup],
@@ -147,6 +147,16 @@ export const siteFooterPromoPresets = {
       label: "Start Exploring Applications",
     },
   } satisfies SiteFooterPromo,
+  expensesVisibility: {
+    kind: "compactWithDescription",
+    id: "site-footer-promo-expenses-visibility",
+    title: "See where your software budget is going",
+    description: "Track every SaaS payment across cards, banks, and accounting systems in one place.",
+    cta: {
+      href: "/signin",
+      label: "Track Expenses",
+    },
+  } satisfies SiteFooterPromo,
   compactHeadlineOnly: {
     kind: "compactHeadlineOnly",
     id: "site-footer-promo-compact-headline-only",
@@ -154,6 +164,15 @@ export const siteFooterPromoPresets = {
     cta: {
       href: "/signin",
       label: "Manage Subscriptions",
+    },
+  } satisfies SiteFooterPromo,
+  doowAiQuestions: {
+    kind: "compactHeadlineOnly",
+    id: "site-footer-promo-doow-ai-questions",
+    title: "Ask questions about your company\u2019s software",
+    cta: {
+      href: "/doow-ai",
+      label: "Open Doow AI",
     },
   } satisfies SiteFooterPromo,
 } as const satisfies Record<string, SiteFooterPromo>;

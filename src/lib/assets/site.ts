@@ -123,9 +123,77 @@ export const siteAssetManifest = {
     width: 2311.64,
     height: 781,
   },
+  expensesHeroCard1: {
+    id: "expenses-hero-card-1",
+    src: assetUrl("expenses-hero-card-1.png"),
+    alt: "",
+    width: 294,
+    height: 441,
+  },
+  expensesHeroCard2: {
+    id: "expenses-hero-card-2",
+    src: assetUrl("expenses-hero-card-2.png"),
+    alt: "",
+    width: 320,
+    height: 480,
+  },
+  expensesHeroCard3: {
+    id: "expenses-hero-card-3",
+    src: assetUrl("expenses-hero-card-3.png"),
+    alt: "",
+    width: 320,
+    height: 480,
+  },
+  expensesHeroCard4: {
+    id: "expenses-hero-card-4",
+    src: assetUrl("expenses-hero-card-4.png"),
+    alt: "",
+    width: 294,
+    height: 441,
+  },
+  // Temporary local fallback until the canonical blob assets are published.
+  integrationsHeroIllustrationArt: {
+    id: "integrations-hero-illustration-art",
+    src: "/assets/illustrations/integrations-hero-art.svg",
+    alt: "",
+    width: 2182.29,
+    height: 917.278,
+  },
+  // Temporary local fallback until the canonical blob assets are published.
+  integrationsHeroIllustrationMask: {
+    id: "integrations-hero-illustration-mask",
+    src: "/assets/illustrations/integrations-hero-mask.svg",
+    alt: "",
+    width: 2311.64,
+    height: 781,
+  },
+  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsHeroDashboard: {
+    id: "subscriptions-hero-dashboard",
+    src: "/assets/illustrations/subscriptions-hero-dashboard.png",
+    alt: "",
+    width: 847,
+    height: 456,
+  },
+  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsRenewalsVisual: {
+    id: "subscriptions-renewals-visual",
+    src: "/assets/illustrations/subscriptions-renewals-visual.png",
+    alt: "",
+    width: 368,
+    height: 310,
+  },
+  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsContractsVisual: {
+    id: "subscriptions-contracts-visual",
+    src: "/assets/illustrations/subscriptions-contracts-visual.png",
+    alt: "",
+    width: 456,
+    height: 353,
+  },
   faqUserAvatar: {
     id: "faq-user-avatar",
-    src: "/assets/icons/user4.svg",
+    src: "/assets/icons/faq-user-avatar.png",
     alt: "",
     width: 32,
     height: 32,
@@ -209,8 +277,15 @@ export const siteAssetManifest = {
   faqBackgroundIllustration: SiteAssetEntry;
   applicationsHeroBackground: SiteAssetEntry;
   applicationsHeroForeground: SiteAssetEntry;
+  expensesHeroCard1: SiteAssetEntry;
+  expensesHeroCard2: SiteAssetEntry;
+  expensesHeroCard3: SiteAssetEntry;
+  expensesHeroCard4: SiteAssetEntry;
   integrationsHeroIllustrationArt: SiteAssetEntry;
   integrationsHeroIllustrationMask: SiteAssetEntry;
+  subscriptionsHeroDashboard: SiteAssetEntry;
+  subscriptionsRenewalsVisual: SiteAssetEntry;
+  subscriptionsContractsVisual: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;
   integrationsUpwardChipBackplate: SiteAssetEntry;

@@ -192,10 +192,23 @@ function getTabRailStyle(tabRail: IntegrationTabRailRecipe): CSSProperties {
 
 export interface IntegrationOrbitCardProps {
   card: IntegrationCard;
+  className?: string;
+  enableHoverOrbitAnimation?: boolean;
+  hideTabs?: boolean;
   maxVisibleOrbitApps: number;
+  onViewChange?: (viewId: string) => void;
+  viewId?: string;
 }
 
-export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationOrbitCardProps) {
+export function IntegrationOrbitCard({
+  card,
+  className,
+  enableHoverOrbitAnimation = true,
+  hideTabs = false,
+  maxVisibleOrbitApps,
+  onViewChange,
+  viewId,
+}: IntegrationOrbitCardProps) {
   const visualRecipe = getIntegrationCardVisualRecipe(card.id);
 
   if (!visualRecipe) {
@@ -204,7 +217,7 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
 
   const cardRef = useRef<HTMLElement>(null);
   const hoverIntentTimeoutRef = useRef<number | null>(null);
-  const [activeViewId, setActiveViewId] = useState(card.initialViewId);
+  const [uncontrolledActiveViewId, setUncontrolledActiveViewId] = useState(card.initialViewId);
   const [cardSize, setCardSize] = useState<{ height: number; width: number }>({
     height: FIGMA_INTEGRATION_CARD_FRAME.height,
     width: FIGMA_INTEGRATION_CARD_FRAME.width,
@@ -212,8 +225,10 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
   const [isHovered, setIsHovered] = useState(false);
   const contentId = useId();
   const prefersReducedMotion = useReducedMotion();
+  const activeViewId = viewId ?? uncontrolledActiveViewId;
   const activeView = card.views.find((view) => view.id === activeViewId) ?? card.views[0];
   const activeProvider = activeView.providers[0];
+  const shouldShowTabs = !hideTabs && card.views.length > 1 && Boolean(visualRecipe.tabRail);
 
   if (!activeProvider) {
     throw new Error(`Missing default provider for integration card "${card.id}".`);
@@ -222,8 +237,11 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
   const resolvedMaxVisibleOrbitApps = Math.min(maxVisibleOrbitApps, visualRecipe.visibleSlots.length);
   const visibleOrbitApps = activeProvider.orbitApps.slice(0, resolvedMaxVisibleOrbitApps);
   const canAnimateOrbit =
-    !prefersReducedMotion && isHovered && activeProvider.orbitApps.length > resolvedMaxVisibleOrbitApps;
-  const panelId = `${contentId.replace(/:/g, "")}-${card.id}-panel`;
+    enableHoverOrbitAnimation &&
+    !prefersReducedMotion &&
+    isHovered &&
+    activeProvider.orbitApps.length > resolvedMaxVisibleOrbitApps;
+  const panelId = shouldShowTabs ? `${contentId.replace(/:/g, "")}-${card.id}-panel` : undefined;
   const headingId = `${contentId.replace(/:/g, "")}-${card.id}-heading`;
   const activeTabId = `${contentId.replace(/:/g, "")}-${card.id}-tab-${activeView.id}`;
   const summary = `${activeView.title}${activeProvider.name ? ` via ${activeProvider.name}` : ""}: ${getVisibleOrbitSummary(
@@ -279,10 +297,14 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
     };
   }, []);
 
-  function handleViewSelect(viewId: string) {
-    const nextView = card.views.find((view) => view.id === viewId) ?? card.views[0];
+  function handleViewSelect(nextViewId: string) {
+    const nextView = card.views.find((view) => view.id === nextViewId) ?? card.views[0];
 
-    setActiveViewId(nextView.id);
+    if (viewId === undefined) {
+      setUncontrolledActiveViewId(nextView.id);
+    }
+
+    onViewChange?.(nextView.id);
   }
 
   function clearHoverIntentTimeout() {
@@ -315,11 +337,11 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
   return (
     <article
       aria-labelledby={headingId}
-      className="integration-orbit-card"
+      className={cn("integration-orbit-card", className)}
       data-card-variant={visualRecipe.cardVariant}
       data-integration-card-id={card.id}
-      onPointerEnter={handlePointerEnter}
-      onPointerLeave={handlePointerLeave}
+      onPointerEnter={enableHoverOrbitAnimation ? handlePointerEnter : undefined}
+      onPointerLeave={enableHoverOrbitAnimation ? handlePointerLeave : undefined}
       ref={cardRef}
     >
       <div aria-hidden="true" className="integration-orbit-card__arc-shell" style={getArcShellStyle(visualRecipe)}>
@@ -374,10 +396,10 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
         ) : null}
 
         <div
-          aria-labelledby={card.views.length > 1 ? activeTabId : headingId}
+          aria-labelledby={shouldShowTabs ? activeTabId : headingId}
           className="integration-orbit-card__copy"
-          id={card.views.length > 1 ? panelId : undefined}
-          role={card.views.length > 1 ? "tabpanel" : undefined}
+          id={panelId}
+          role={shouldShowTabs ? "tabpanel" : undefined}
           style={getCopyStyle(visualRecipe)}
         >
           <h3 className="integration-orbit-card__title" id={headingId}>
@@ -389,7 +411,7 @@ export function IntegrationOrbitCard({ card, maxVisibleOrbitApps }: IntegrationO
         </div>
       </div>
 
-      {card.views.length > 1 && visualRecipe.tabRail ? (
+      {shouldShowTabs && visualRecipe.tabRail ? (
         <div
           aria-label={`${activeView.title} views`}
           className="integration-orbit-card__tabs"

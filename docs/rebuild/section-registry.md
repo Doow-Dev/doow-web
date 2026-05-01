@@ -57,6 +57,7 @@ Keep:
 
 - `/`
 - `/applications`
+- `/subscriptions`
 - `/doow-ai`
 - `/integrations`
 - `/signin`
