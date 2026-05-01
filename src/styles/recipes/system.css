@@ -651,8 +651,10 @@
 }
 
 @utility button-size-base {
+  box-sizing: border-box;
   gap: var(--button-gap-base);
-  padding-inline: var(--button-padding-inline-base);
+  height: 2.125rem;
+  padding-inline: calc(var(--button-padding-inline-base) + 0.125rem);
   padding-block: var(--button-padding-block-base);
   font-size: var(--type-body-sm-size);
   font-weight: var(--type-weight-medium);

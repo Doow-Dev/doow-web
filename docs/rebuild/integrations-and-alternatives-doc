@@ -1,0 +1,261 @@
+@channel 
+
+Catalog Endpoints — API Reference
+
+  ---
+  Authentication
+
+  Both endpoints require a shared secret header on every request:
+
+  x-admin-key: <CATALOG_ADMIN_KEY>
+
+  Missing or incorrect key returns 401 Unauthorized.
+
+  ---
+  1. Integrations Catalog
+
+  GET /integrations/catalog
+
+  Returns all implemented integrations. Use this to power an integrations marketplace or settings page.
+
+  Query Parameters
+
+  ┌───────────┬────────┬──────────┬─────────┬──────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Parameter │  Type  │ Required │ Default │                                           Description                                            │
+  ├───────────┼────────┼──────────┼─────────┼──────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ take      │ number │ No       │ 10      │ Page size                                                                                        │
+  ├───────────┼────────┼──────────┼─────────┼──────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ skip      │ number │ No       │ 0       │ Offset (offset-based pagination)                                                                 │
+  ├───────────┼────────┼──────────┼─────────┼──────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ cursor    │ string │ No       │ —       │ ID of the last item from the previous page (cursor-based pagination — omit skip when using this) │
+  ├───────────┼────────┼──────────┼─────────┼──────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ category  │ string │ No       │ —       │ Filter by category (exact match)                                                                 │
+  ├───────────┼────────┼──────────┼─────────┼──────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ grouped   │ "true" │ No       │ —       │ When "true", returns results grouped by category instead of a flat array                         │
+  └───────────┴────────┴──────────┴─────────┴──────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  Flat response (default)
+
+  {
+    "data": [
+      {
+        "id": "clx1abc...",
+        "name": "QuickBooks",
+        "category": "Accounting & Bookkeeping",
+        "logo_url": "https://cdn.example.com/qb.png",
+        "description": "Cloud-based accounting software",
+        "website_url": "https://quickbooks.intuit.com",
+        "metered_vendor_id": "quickbooks"
+      }
+    ],
+    "total": 41,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "clx1abc..."
+  }
+
+  Grouped response (?grouped=true)
+
+  {
+    "data": {
+      "Accounting & Bookkeeping": [ { ...integration }, { ...integration } ],
+      "AI & LLM Providers": [ { ...integration } ],
+      "HR & People": [ { ...integration } ]
+    },
+    "total": 41,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "clx1abc..."
+  }
+
+  Integration object fields
+
+  ┌───────────────────┬───────────────┬──────────────────────────────────────────────────┐
+  │       Field       │     Type      │                      Notes                       │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ id                │ string        │ Unique integration ID                            │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ name              │ string        │ Integration name                                 │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ category          │ string        │ Category label                                   │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ logo_url          │ string | null │ Logo image URL                                   │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ description       │ string | null │ Short description                                │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ website_url       │ string | null │ Integration homepage                             │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ metered_vendor_id │ string | null │ Metered billing vendor identifier, if applicable │
+  └───────────────────┴───────────────┴──────────────────────────────────────────────────┘
+
+  ---
+  2. Alternatives Catalog
+
+  GET /alternatives/catalog
+
+  Returns SaaS applications with their enriched alternative recommendations nested inside. Use this to power an alternatives discovery page or comparison tool.
+
+  Only apps that have at least one fully enriched alternative are returned.
+
+  Query Parameters
+
+  ┌───────────────┬────────┬──────────┬─────────┬────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │   Parameter   │  Type  │ Required │ Default │                                              Description                                               │
+  ├───────────────┼────────┼──────────┼─────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ take          │ number │ No       │ 10      │ Page size                                                                                              │
+  ├───────────────┼────────┼──────────┼─────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ skip          │ number │ No       │ 0       │ Offset (offset-based pagination)                                                                       │
+  ├───────────────┼────────┼──────────┼─────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ cursor        │ string │ No       │ —       │ ID of the last source app from the previous page (cursor-based pagination — omit skip when using this) │
+  ├───────────────┼────────┼──────────┼─────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ category      │ string │ No       │ —       │ Filter by source app category (exact match)                                                            │
+  ├───────────────┼────────┼──────────┼─────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ source_app_id │ string │ No       │ —       │ Fetch alternatives for one specific app by its ID                                                      │
+  ├───────────────┼────────┼──────────┼─────────┼────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+  │ grouped       │ "true" │ No       │ —       │ When "true", returns results grouped by source app category                                            │
+  └───────────────┴────────┴──────────┴─────────┴────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+  Flat response (default)
+
+  {
+    "data": [
+      {
+        "id": "clx2xyz...",
+        "name": "Jira",
+        "logo_url": "https://cdn.example.com/jira.png",
+        "category": "Project Management",
+        "description": "Issue and project tracker",
+        "alternatives": [
+          {
+            "id": "alt-1abc...",
+            "alt_name": "Linear",
+            "alt_logo_url": "https://cdn.example.com/linear.png",
+            "category": "Project Management",
+            "migration_complexity": "low",
+            "feature_overlap_pct": 82,
+            "est_monthly_cost": 10.00,
+            "est_annual_cost": 96.00,
+            "est_cost_per_seat": 8.00,
+            "team_fit_headline": "Best for engineering-led teams that want speed",
+            "adoption_risk": "low",
+            "adoption_rate": 74,
+            "feature_risk_bullets": ["No built-in time tracking", "Limited portfolio reporting"],
+            "feature_gap_summary": "Lacks time tracking and advanced reporting",
+            "choose_if": "Your team values a clean, fast UX over deep customisation",
+            "avoid_if": "You rely heavily on Jira's marketplace plugins",
+            "benchmark_rate": 12.00
+          }
+        ]
+      }
+    ],
+    "total": 1240,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "clx2xyz..."
+  }
+
+  Grouped response (?grouped=true)
+
+  {
+    "data": {
+      "Project Management": [ { ...sourceApp }, { ...sourceApp } ],
+      "CRM": [ { ...sourceApp } ],
+      "Uncategorized": [ { ...sourceApp } ]
+    },
+    "total": 1240,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "clx2xyz..."
+  }
+
+  Source app object fields
+
+  ┌──────────────┬───────────────┬──────────────────────────────────────────────────┐
+  │    Field     │     Type      │                      Notes                       │
+  ├──────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ id           │ string        │ Source app ID                                    │
+  ├──────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ name         │ string        │ App name                                         │
+  ├──────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ logo_url     │ string | null │ Logo image URL                                   │
+  ├──────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ category     │ string | null │ App category                                     │
+  ├──────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ description  │ string | null │ Short description                                │
+  ├──────────────┼───────────────┼──────────────────────────────────────────────────┤
+  │ alternatives │ array         │ List of enriched alternative objects (see below) │
+  └──────────────┴───────────────┴──────────────────────────────────────────────────┘
+
+  Alternative object fields
+
+  ┌──────────────────────┬──────────────────────────────────┬──────────────────────────────────────────────────────────────────┐
+  │        Field         │               Type               │                              Notes                               │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ id                   │ string                           │ Alternative record ID                                            │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ alt_name             │ string                           │ Name of the alternative app                                      │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ alt_logo_url         │ string | null                    │ Logo image URL                                                   │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ category             │ string | null                    │ Category                                                         │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ migration_complexity │ "low" | "medium" | "high" | null │ Effort to migrate                                                │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ feature_overlap_pct  │ number | null                    │ % of source app features covered (0–100)                         │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ est_monthly_cost     │ number | null                    │ Estimated monthly cost (USD)                                     │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ est_annual_cost      │ number | null                    │ Estimated annual cost (USD)                                      │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ est_cost_per_seat    │ number | null                    │ Estimated per-seat cost (USD)                                    │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ team_fit_headline    │ string | null                    │ One-line team fit summary                                        │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ adoption_risk        │ "low" | "medium" | "high" | null │ Risk of adoption friction                                        │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ adoption_rate        │ number | null                    │ Adoption success rate benchmark (0–100)                          │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ feature_risk_bullets │ string[]                         │ Specific features the source app has that this alternative lacks │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ feature_gap_summary  │ string | null                    │ Prose summary of feature gaps                                    │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ choose_if            │ string | null                    │ When to prefer this alternative                                  │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ avoid_if             │ string | null                    │ When to avoid this alternative                                   │
+  ├──────────────────────┼──────────────────────────────────┼──────────────────────────────────────────────────────────────────┤
+  │ benchmark_rate       │ number | null                    │ Benchmark comparison rate                                        │
+  └──────────────────────┴──────────────────────────────────┴──────────────────────────────────────────────────────────────────┘
+
+  ---
+  Pagination Guide
+
+  Both endpoints support two pagination modes — pick one per request, don't mix them.
+
+  Offset-based (simple)
+  GET /integrations/catalog?take=10&skip=0   # page 1
+  GET /integrations/catalog?take=10&skip=10  # page 2
+  GET /integrations/catalog?take=10&skip=20  # page 3
+
+  Cursor-based (stable, recommended for large datasets)
+
+  Use nextCursor from each response as the cursor param for the next page. Stop when nextCursor is null.
+
+  GET /alternatives/catalog?take=10
+  → nextCursor: "clx2xyz..."
+
+  GET /alternatives/catalog?take=10&cursor=clx2xyz...
+  → nextCursor: "clxaabc..."
+
+  GET /alternatives/catalog?take=10&cursor=clxaabc...
+  → nextCursor: null   ← end of results
+
+  ---
+  Error Responses
+
+  ┌────────┬─────────────────────────────────────────┐
+  │ Status │                 Meaning                 │
+  ├────────┼─────────────────────────────────────────┤
+  │ 401    │ x-admin-key header missing or incorrect │
+  ├────────┼─────────────────────────────────────────┤
+  │ 500    │ Internal server error                   │
+  └────────┴─────────────────────────────────────────┘

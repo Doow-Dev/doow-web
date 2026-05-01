@@ -1,6 +1,6 @@
 import { integrationsPageContent } from "@/app/(site-pages)/integrations/content";
 import { Container } from "@/components/system";
-import { getIntegrationCatalogResponse } from "@/lib/site/integration-catalog";
+import { getIntegrationCatalogResponse } from "@/lib/server/integration-catalog-service";
 
 import { IntegrationListTool } from "./integration-list-tool";
 

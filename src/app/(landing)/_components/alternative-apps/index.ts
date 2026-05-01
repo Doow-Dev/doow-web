@@ -1,5 +1,4 @@
 export {
-  alternativeAppsResponseByAppId,
   alternativeAppsSectionContent,
   type AlternativeAppsResponse,
   type AlternativeAppsSectionContent,

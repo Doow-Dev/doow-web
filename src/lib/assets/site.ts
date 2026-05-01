@@ -19,10 +19,10 @@ const demoVideoSources = videoAsset("demo-placeholder-vid.mp4", "demo-poster.jpg
 export const siteAssetManifest = {
   heroBackground: {
     id: "hero-background",
-    src: assetUrl("sitting_with_laptop.png"),
+    src: "/assets/images/hero-bg.png",
     alt: "",
-    width: 1215,
-    height: 864,
+    width: 1352,
+    height: 902,
   },
   demoFrame: {
     id: "demo-frame",
@@ -49,6 +49,41 @@ export const siteAssetManifest = {
     alt: "",
     width: 1398,
     height: 576,
+  },
+  doowAiActionPlaceholder: {
+    id: "doow-ai-action-placeholder",
+    src: "/assets/images/doow-ai-placeholder.svg",
+    alt: "",
+    width: 821,
+    height: 546,
+  },
+  doowAiDerekActionBackground: {
+    id: "doow-ai-derek-action-background",
+    src: assetUrl("derek-bg.webp"),
+    alt: "",
+    width: 1440,
+    height: 959,
+  },
+  doowAiDerekCtaImage: {
+    id: "doow-ai-derek-cta-image",
+    src: assetUrl("derek.png"),
+    alt: "",
+    width: 22,
+    height: 20,
+  },
+  doowAiMinaActionBackground: {
+    id: "doow-ai-mina-action-background",
+    src: assetUrl("mina-bg.webp"),
+    alt: "",
+    width: 1440,
+    height: 959,
+  },
+  doowAiMinaCtaImage: {
+    id: "doow-ai-mina-cta-image",
+    src: assetUrl("mina.png"),
+    alt: "",
+    width: 22,
+    height: 20,
   },
   // Temporary local fallback until the canonical blob URL is published.
   faqBackgroundIllustration: {
@@ -166,6 +201,11 @@ export const siteAssetManifest = {
   demoPoster: SiteAssetEntry;
   demoVideo: SiteVideoEntry;
   doowAiComposite: SiteAssetEntry;
+  doowAiActionPlaceholder: SiteAssetEntry;
+  doowAiDerekActionBackground: SiteAssetEntry;
+  doowAiDerekCtaImage: SiteAssetEntry;
+  doowAiMinaActionBackground: SiteAssetEntry;
+  doowAiMinaCtaImage: SiteAssetEntry;
   faqBackgroundIllustration: SiteAssetEntry;
   applicationsHeroBackground: SiteAssetEntry;
   applicationsHeroForeground: SiteAssetEntry;

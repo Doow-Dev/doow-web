@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 
 import type {
   IntegrationsConnectionsCard,
@@ -19,9 +19,11 @@ import { cn } from "@/lib/utils";
 
 const cardEase = [0.22, 1, 0.36, 1] as const;
 const drawEase = [0.16, 1, 0.3, 1] as const;
+const revealDurationSeconds = 1.08;
+const figureDurationSeconds = 0.92;
 
-function useLatchedInView(threshold: number) {
-  const ref = useRef<HTMLDivElement>(null);
+function useLatchedInView<TElement extends Element>(threshold: number) {
+  const ref = useRef<TElement>(null);
   const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
@@ -101,22 +103,105 @@ function usePrefersReducedMotionMedia() {
   );
 }
 
+function parseMetricValue(value: string) {
+  const isCurrency = value.trim().startsWith("$");
+  const numericValue = Number.parseFloat(value.replace(/[^0-9.]/g, ""));
+
+  return {
+    isCurrency,
+    value: Number.isFinite(numericValue) ? numericValue : 0,
+  };
+}
+
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  currency: "USD",
+  maximumFractionDigits: 2,
+  minimumFractionDigits: 2,
+  style: "currency",
+});
+
+const integerFormatter = new Intl.NumberFormat("en-US", {
+  maximumFractionDigits: 0,
+});
+
+function formatMetricValue(value: number, isCurrency: boolean) {
+  return isCurrency ? currencyFormatter.format(value) : integerFormatter.format(Math.round(value));
+}
+
+function MetricCountUpValue({
+  active,
+  reducedMotion,
+  replayToken,
+  value,
+}: {
+  active: boolean;
+  reducedMotion: boolean;
+  replayToken: number;
+  value: string;
+}) {
+  const parsedMetric = parseMetricValue(value);
+  const [displayValue, setDisplayValue] = useState(() => (reducedMotion ? parsedMetric.value : 0));
+
+  useEffect(() => {
+    if (!active || reducedMotion) {
+      return;
+    }
+
+    const durationMs = parsedMetric.isCurrency ? 2400 : 2100;
+    const startTime = performance.now();
+    let isCancelled = false;
+    let frameId = 0;
+
+    const tick = (timestamp: number) => {
+      if (isCancelled) {
+        return;
+      }
+
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / durationMs, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 4);
+
+      setDisplayValue(parsedMetric.value * easedProgress);
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => {
+      isCancelled = true;
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [active, parsedMetric.isCurrency, parsedMetric.value, reducedMotion, replayToken]);
+
+  const resolvedValue = reducedMotion ? parsedMetric.value : displayValue;
+
+  return (
+    <>
+      <span aria-hidden="true">{formatMetricValue(resolvedValue, parsedMetric.isCurrency)}</span>
+      <span className="sr-only">{value}</span>
+    </>
+  );
+}
+
 function BrowserToggle({ active, replayToken, reducedMotion }: MotionFigureProps) {
   return (
     <span aria-hidden="true" className="integrations-connections-toggle">
       <motion.span
-        animate={active ? { opacity: 1 } : undefined}
+        animate={active ? { backgroundColor: "#10b981", opacity: 1 } : undefined}
         className="integrations-connections-toggle__track"
-        initial={reducedMotion ? false : { opacity: 0.48 }}
+        initial={reducedMotion ? false : { backgroundColor: "#e6e7e7", opacity: 1 }}
         key={`toggle-track-${replayToken}`}
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.72, duration: 0.28, ease: drawEase }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 1.05, duration: 0.56, ease: drawEase }}
       />
       <motion.span
         animate={active ? { x: 17 } : undefined}
         className="integrations-connections-toggle__handle"
         initial={reducedMotion ? false : { x: 0 }}
         key={`toggle-handle-${replayToken}`}
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.76, duration: 0.44, ease: drawEase }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 1.08, duration: 0.72, ease: drawEase }}
       />
     </span>
   );
@@ -143,7 +228,7 @@ function BrowserExtensionFigure({
         className="integrations-connections-pill integrations-connections-pill--tracking"
         initial={reducedMotion ? false : { opacity: 0, y: 7 }}
         key={`tracking-pill-${replayToken}`}
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.1, duration: 0.46, ease: cardEase }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 0.12, duration: figureDurationSeconds, ease: cardEase }}
       >
         {content.trackingPillLabel}
       </motion.div>
@@ -168,13 +253,20 @@ function BrowserExtensionFigure({
                 ? { duration: 0 }
                 : {
                     delay: 0.26 + index * 0.1,
-                    duration: 0.56,
+                    duration: 0.82,
                     ease: cardEase,
                   }
             }
           >
             <span className="integrations-connections__metric-label">{metric.label}</span>
-            <span className="integrations-connections__metric-value">{metric.value}</span>
+            <span className="integrations-connections__metric-value">
+              <MetricCountUpValue
+                active={active}
+                reducedMotion={reducedMotion}
+                replayToken={replayToken}
+                value={metric.value}
+              />
+            </span>
           </motion.div>
         ))}
       </div>
@@ -184,7 +276,7 @@ function BrowserExtensionFigure({
         className="integrations-connections__tracking-control"
         initial={reducedMotion ? false : { opacity: 0, y: 8 }}
         key={`tracking-control-${replayToken}`}
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.52, duration: 0.5, ease: cardEase }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 0.62, duration: figureDurationSeconds, ease: cardEase }}
       >
         <span>{content.trackingLabel}</span>
         <BrowserToggle active={active} reducedMotion={reducedMotion} replayToken={replayToken} />
@@ -213,7 +305,7 @@ function ProviderNode({
       initial={reducedMotion ? false : { opacity: 0, scale: 0.84, x: "var(--node-start-x)", y: "var(--node-start-y)" }}
       key={`${label}-${replayToken}`}
       role="img"
-      transition={reducedMotion ? { duration: 0 } : { delay: 0.46, duration: 0.62, ease: cardEase }}
+      transition={reducedMotion ? { duration: 0 } : { delay: 0.58, duration: 0.9, ease: cardEase }}
     >
       {children}
     </motion.span>
@@ -247,16 +339,16 @@ function SsoProvidersFigure({ active, reducedMotion, replayToken }: MotionFigure
             strokeDasharray="3 3"
             strokeLinecap="round"
             strokeWidth="1"
-            transition={reducedMotion ? { duration: 0 } : { delay: 0.18, duration: 0.86, ease: drawEase }}
+            transition={reducedMotion ? { duration: 0 } : { delay: 0.22, duration: 1.1, ease: drawEase }}
           />
           <motion.path
             animate={active ? { opacity: 1, pathLength: 1 } : undefined}
-            d="M56 18C35 18 18 35 18 56"
+            d="M18 56a38 38 0 1 1 76 0a38 38 0 1 1 -76 0"
             initial={reducedMotion ? false : { opacity: 0, pathLength: 0 }}
-            stroke="#B8C6C0"
+            stroke="#10B981"
             strokeLinecap="round"
-            strokeWidth="1.2"
-            transition={reducedMotion ? { duration: 0 } : { delay: 0.3, duration: 0.68, ease: drawEase }}
+            strokeWidth="1.35"
+            transition={reducedMotion ? { duration: 0 } : { delay: 0.46, duration: 2.8, ease: "easeInOut" }}
           />
         </motion.svg>
 
@@ -318,55 +410,27 @@ function BankingConnectorLines({ active, reducedMotion, replayToken }: MotionFig
       className="integrations-connections__banking-lines"
       fill="none"
       key={`banking-lines-${replayToken}`}
-      viewBox="0 0 200 95"
+      viewBox="0 0 371 135"
     >
       <motion.path
         animate={active ? { opacity: 1, pathLength: 1 } : undefined}
-        d="M100 0V20C100 23.3 97.3 26 94 26H40V50"
+        d="M185.5 0V20C185.5 23.3 182.8 26 179.5 26H58V77"
         initial={reducedMotion ? false : { opacity: 0, pathLength: 0 }}
         stroke="#D7DDDA"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1"
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.18, duration: 0.78, ease: drawEase }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 0.98, duration: 1.7, ease: drawEase }}
       />
       <motion.path
         animate={active ? { opacity: 1, pathLength: 1 } : undefined}
-        d="M100 0V20C100 23.3 102.7 26 106 26H160V50"
+        d="M185.5 0V20C185.5 23.3 188.2 26 191.5 26H313V77"
         initial={reducedMotion ? false : { opacity: 0, pathLength: 0 }}
         stroke="#D7DDDA"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1"
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.24, duration: 0.78, ease: drawEase }}
-      />
-      <motion.path
-        animate={active ? { opacity: 1, pathLength: 1 } : undefined}
-        d="M40 50C40 78 78 77 100 83C122 77 160 78 160 50"
-        initial={reducedMotion ? false : { opacity: 0, pathLength: 0 }}
-        stroke="#D7DDDA"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1"
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.56, duration: 0.72, ease: drawEase }}
-      />
-      <motion.circle
-        animate={active ? { cx: [40, 78, 100], cy: [50, 76, 83], opacity: [0, 1, 1, 0] } : undefined}
-        className="integrations-connections__banking-packet"
-        cx="100"
-        cy="83"
-        initial={reducedMotion ? false : { cx: 40, cy: 50, opacity: 0 }}
-        r="2.5"
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.74, duration: 1.16, ease: "easeInOut" }}
-      />
-      <motion.circle
-        animate={active ? { cx: [160, 122, 100], cy: [50, 76, 83], opacity: [0, 1, 1, 0] } : undefined}
-        className="integrations-connections__banking-packet"
-        cx="100"
-        cy="83"
-        initial={reducedMotion ? false : { cx: 160, cy: 50, opacity: 0 }}
-        r="2.5"
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.84, duration: 1.16, ease: "easeInOut" }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 1.04, duration: 1.7, ease: drawEase }}
       />
     </motion.svg>
   );
@@ -387,7 +451,7 @@ function BankingProvidersFigure({
         className="integrations-connections-pill integrations-connections-pill--banking"
         initial={reducedMotion ? false : { opacity: 0, y: 6 }}
         key={`banking-pill-${replayToken}`}
-        transition={reducedMotion ? { duration: 0 } : { delay: 0.08, duration: 0.44, ease: cardEase }}
+        transition={reducedMotion ? { duration: 0 } : { delay: 0.12, duration: 0.78, ease: cardEase }}
       >
         {content.bankingPillLabel}
       </motion.div>
@@ -400,7 +464,7 @@ function BankingProvidersFigure({
           className="integrations-connections__bank-source integrations-connections__bank-source--plaid"
           initial={reducedMotion ? false : { opacity: 0, x: -8, y: 8 }}
           key={`plaid-${replayToken}`}
-          transition={reducedMotion ? { duration: 0 } : { delay: 0.38, duration: 0.54, ease: cardEase }}
+          transition={reducedMotion ? { duration: 0 } : { delay: 2.72, duration: 0.86, ease: cardEase }}
         >
           <PlaidAppIcon className="integrations-connections__bank-icon" />
         </motion.div>
@@ -410,7 +474,7 @@ function BankingProvidersFigure({
           className="integrations-connections__bank-source integrations-connections__bank-source--yapily"
           initial={reducedMotion ? false : { opacity: 0, x: 8, y: 8 }}
           key={`yapily-${replayToken}`}
-          transition={reducedMotion ? { duration: 0 } : { delay: 0.44, duration: 0.54, ease: cardEase }}
+          transition={reducedMotion ? { duration: 0 } : { delay: 2.82, duration: 0.86, ease: cardEase }}
         >
           <Image
             alt=""
@@ -427,13 +491,13 @@ function BankingProvidersFigure({
           className="integrations-connections__to-doow"
           initial={reducedMotion ? false : { opacity: 0, y: 8 }}
           key={`to-doow-${replayToken}`}
-          transition={reducedMotion ? { duration: 0 } : { delay: 0.82, duration: 0.48, ease: cardEase }}
+          transition={reducedMotion ? { duration: 0 } : { delay: 3.56, duration: 0.84, ease: cardEase }}
         >
           <span>{content.toDoowLabel}</span>
           <div className="integrations-connections__to-doow-logo">
             <Image
               alt=""
-              className=""
+              className="integrations-connections__to-doow-image"
               height={15}
               src="/favicon.ico"
               unoptimized
@@ -482,26 +546,32 @@ function ConnectionsFigure({
 }
 
 function ConnectionsCard({
-  active,
   card,
   content,
   index,
   reducedMotion,
 }: {
-  active: boolean;
   card: IntegrationsConnectionsCard;
   content: IntegrationsConnectionsContent;
   index: number;
   reducedMotion: boolean;
 }) {
   const [replayToken, setReplayToken] = useState(0);
+  const isHoveringRef = useRef(false);
+  const { hasEntered, ref } = useLatchedInView<HTMLLIElement>(0.22);
+  const active = reducedMotion || hasEntered;
 
   function replayCard() {
-    if (!active || reducedMotion) {
+    if (!active || reducedMotion || isHoveringRef.current) {
       return;
     }
 
+    isHoveringRef.current = true;
     setReplayToken((value) => value + 1);
+  }
+
+  function resetReplayHover() {
+    isHoveringRef.current = false;
   }
 
   return (
@@ -511,17 +581,20 @@ function ConnectionsCard({
       data-connections-card={card.id}
       data-replay-token={replayToken}
       initial={reducedMotion ? false : { opacity: 0, y: 24 }}
+      onHoverEnd={resetReplayHover}
       onHoverStart={replayCard}
+      ref={ref}
       transition={
         reducedMotion
           ? { duration: 0 }
           : {
               delay: index * 0.12,
-              duration: 0.82,
+              duration: revealDurationSeconds,
               ease: cardEase,
             }
       }
     >
+      <h3 className="integrations-connections-card__title">{card.title}</h3>
       <div aria-hidden="true" className="integrations-connections-card__visual">
         <ConnectionsFigure
           active={active}
@@ -531,7 +604,6 @@ function ConnectionsCard({
           replayToken={replayToken}
         />
       </div>
-      <h3 className="integrations-connections-card__title">{card.title}</h3>
       <p className="sr-only">{card.accessibilitySummary}</p>
     </motion.li>
   );
@@ -542,18 +614,14 @@ export interface IntegrationsConnectionsShowcaseProps {
 }
 
 export function IntegrationsConnectionsShowcase({ content }: IntegrationsConnectionsShowcaseProps) {
-  const motionReducedPreference = useReducedMotion() ?? false;
   const mediaReducedPreference = usePrefersReducedMotionMedia();
-  const reducedMotion = mediaReducedPreference || (mediaReducedPreference && motionReducedPreference);
-  const { hasEntered, ref } = useLatchedInView(0.05);
-  const active = reducedMotion || hasEntered;
+  const reducedMotion = mediaReducedPreference;
 
   return (
-    <div className="integrations-connections__showcase" data-connections-active={active ? "true" : "false"} ref={ref}>
+    <div className="integrations-connections__showcase" data-connections-active="true">
       <ul className="integrations-connections__cards">
         {content.cards.map((card, index) => (
           <ConnectionsCard
-            active={active}
             card={card}
             content={content}
             index={index}

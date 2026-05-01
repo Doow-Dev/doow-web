@@ -331,11 +331,6 @@ export const integrationsSectionContent = {
                   domain: "microsoft.com",
                   brandNameFallback: "Microsoft Entra ID",
                 },
-                {
-                  id: "airtable",
-                  name: "Airtable",
-                  domain: "airtable.com",
-                },
               ],
             },
           ],

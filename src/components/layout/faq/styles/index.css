@@ -300,6 +300,33 @@
     flex-shrink: 0;
   }
 
+  .faq-tool__assistant-stack {
+    display: grid;
+    justify-items: end;
+    gap: 0.5625rem;
+    min-width: 0;
+    max-width: calc(100% - 3rem);
+  }
+
+  .faq-tool__assistant-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--fg-base);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.08px;
+    line-height: 18px;
+    text-align: right;
+  }
+
+  .faq-tool__assistant-label-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: #f644e4;
+    flex-shrink: 0;
+  }
+
   .faq-tool__message-stack {
     display: grid;
     gap: 0.5625rem;
@@ -521,6 +548,10 @@
     }
 
     .faq-tool__message-stack {
+      max-width: min(100%, 18.125rem);
+    }
+
+    .faq-tool__assistant-stack {
       max-width: min(100%, 18.125rem);
     }
 

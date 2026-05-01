@@ -98,24 +98,26 @@
 
   .hero-title__accent-word-sequence {
     position: relative;
-    display: inline-grid;
+    display: inline-block;
     align-items: baseline;
-    justify-items: start;
+    overflow: clip;
+    white-space: nowrap;
+  }
+
+  .hero-title__accent-word-sizer {
+    display: inline-block;
+    visibility: hidden;
     white-space: nowrap;
   }
 
   .hero-title__accent-word {
     display: inline-block;
-    grid-area: 1 / 1;
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
     white-space: nowrap;
     will-change: opacity;
-    background-image: var(--hero-accent-gradient);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-clip: text;
-    color: transparent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--fg-on-color);
   }
 
   .hero-title__accent-suffix {
@@ -129,9 +131,11 @@
     display: inline-block;
   }
 
-  .hero-title__accent-suffix-text,
-  .hero-title__accent-using-letter {
+  .hero-title__accent-gradient-phrase {
+    position: relative;
     display: inline-block;
+    overflow: visible;
+    white-space: nowrap;
     background-image: var(--hero-accent-suffix-gradient);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -141,9 +145,9 @@
     -webkit-text-fill-color: transparent;
   }
 
-  .hero-title__accent-using {
-    display: inline-flex;
-    align-items: baseline;
+  .hero-title__accent-suffix-text,
+  .hero-title__accent-using-letter {
+    display: inline-block;
   }
 
   .hero-title__accent-using-letter {
@@ -156,6 +160,7 @@
     margin-inline: auto;
     max-width: var(--copy-measure-hero);
     color: var(--fg-on-color);
+    font-weight: var(--type-weight-regular);
   }
 
   .hero-copy__actions {
@@ -178,7 +183,7 @@
   }
 
   .hero-accent-sparkle--using {
-    inset-inline-start: 0.46em;
+    inset-inline-start: 4.86em;
     inset-block-start: 0.58em;
     transform: translate(-50%, -50%);
     width: 0.38em;
@@ -275,8 +280,9 @@
     }
 
     .hero-title-frame {
-      width: var(--hero-title-max);
-      margin-left: var(--hero-title-frame-offset-desktop);
+      width: min(100%, var(--hero-title-max));
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-title {
@@ -286,9 +292,8 @@
     }
 
     .hero-title__line--accent {
-      width: var(--hero-second-line-max);
       margin-top: 2px;
-      margin-left: var(--hero-second-line-offset-desktop);
+      margin-left: 0;
     }
 
     .hero-copy__lead {
@@ -298,6 +303,23 @@
     .hero-accent-sparkle {
       width: 33px;
       height: 33px;
+    }
+  }
+
+  @media (min-width: 64rem) and (max-height: 47.5rem) {
+    .hero-content__frame {
+      padding-top: calc(var(--header-shell-height) + 4rem);
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 5vw, var(--type-title-xl-size));
+      line-height: 1.08;
+    }
+  }
+
+  @media (min-width: 90rem) and (min-height: 56.25rem) {
+    .hero-content__frame {
+      padding-top: calc(var(--header-shell-height) + 5.25rem);
     }
   }
 

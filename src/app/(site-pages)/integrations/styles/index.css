@@ -241,7 +241,7 @@
     display: grid;
     align-content: center;
     justify-items: center;
-    gap: 2.25rem;
+    gap: 1.5rem;
     min-width: 0;
     min-height: 19.625rem;
     overflow: hidden;
@@ -261,10 +261,10 @@
   .integrations-connections-card__title {
     margin: 0;
     color: #141414;
-    font-size: 1rem;
-    font-weight: var(--type-weight-medium);
+    font-size: 1.25rem;
+    font-weight: var(--type-weight-semibold);
     letter-spacing: 0;
-    line-height: 1.625rem;
+    line-height: 1.5625rem;
     text-align: center;
   }
 
@@ -363,7 +363,7 @@
     height: 1.0625rem;
     flex: none;
     border-radius: 99px;
-    background: #10b981;
+    background: #e6e7e7;
     box-shadow: inset 0 0.425px 1.275px rgba(0, 0, 0, 0.2);
   }
 
@@ -371,7 +371,7 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: #10b981;
+    background: #e6e7e7;
   }
 
   .integrations-connections-toggle__handle {
@@ -510,16 +510,12 @@
 
   .integrations-connections__banking-lines {
     position: absolute;
-    left: 50%;
+    left: 0;
     top: 0;
-    width: 12.5rem;
-    height: 5.9375rem;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 8.4375rem;
     overflow: visible;
-  }
-
-  .integrations-connections__banking-packet {
-    fill: #10b981;
+    pointer-events: none;
   }
 
   .integrations-connections__bank-source {
@@ -575,17 +571,22 @@
     white-space: nowrap;
   }
 
- .integrations-connections__to-doow-logo {
+  .integrations-connections__to-doow-logo {
+    display: flex;
+    align-items: flex-start;
+    gap: 7.149px;
+    padding: 3.575px;
+    border: 1px solid var(--border-base, #e5e6e5);
+    border-radius: 35.746px;
+    background: #ffffff;
+    backdrop-filter: blur(0.1814083456993103px);
+  }
 
-  display: flex;
-  padding: 3.575px;
-  align-items: flex-start;
-  gap: 7.149px;
-  border-radius: 35.746px;
-  border: 1px solid var(--Border-border-base, #E5E6E5);
-  background: #FFF;
-  backdrop-filter: blur(0.1814083456993103px);
- }
+  .integrations-connections__to-doow-image {
+    display: block;
+    width: 0.9375rem;
+    height: 0.9375rem;
+  }
 
   .integrations-connections__doow-mark {
     display: inline-grid;
@@ -603,7 +604,7 @@
 
   @media (max-width: 30rem) {
     .integrations-connections-card {
-      gap: 1.75rem;
+      gap: 1.25rem;
       min-height: 18.5rem;
       padding-inline: 0.875rem;
     }
@@ -939,6 +940,13 @@
     height: 1.5rem;
   }
 
+  .integration-list-card__logo-image {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+  }
+
   .integration-list-card__logo-fallback {
     color: var(--fg-base);
     font-size: 0.6875rem;
@@ -963,12 +971,17 @@
   }
 
   .integration-list-card__description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
     margin: 0;
     color: #6b7280;
     font-size: 0.8125rem;
     font-weight: var(--type-weight-regular);
     letter-spacing: -0.14px;
     line-height: 1.3125rem;
+    text-overflow: ellipsis;
     text-wrap: pretty;
   }
 
@@ -1076,9 +1089,9 @@
     }
 
     .integration-list__category-button {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 3rem;
       align-items: center;
-      justify-content: space-between;
       gap: 0.75rem;
       width: 100%;
       min-height: 2rem;
@@ -1123,7 +1136,7 @@
 
     .integration-list__category-count {
       color: var(--fg-component);
-      flex: none;
+      justify-self: end;
       font-size: 0.8125rem;
       font-weight: var(--type-weight-medium);
       letter-spacing: -0.0104px;
@@ -1150,6 +1163,12 @@
 
     .integration-list-card {
       min-height: 5.75rem;
+    }
+  }
+
+  @media (min-width: 64rem) and (max-width: 79.999rem) {
+    .integration-list__mobile-category {
+      display: block;
     }
   }
 

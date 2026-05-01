@@ -1,13 +1,14 @@
 "use client";
 
 import type { KeyboardEvent } from "react";
-import { createElement, useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import Image from "next/image";
 import { Search } from "lucide-react";
 
 import type { IntegrationsIntegrationListContent } from "@/app/(site-pages)/integrations/content/integration-list-content";
-import { getIntegrationAppIcon } from "@/components/custom/icons/integration-app-icon-registry";
-import { ScrollThumbRail, useScrollThumb } from "@/components/layout/shared";
+import { CatalogBrowseShell, CatalogProviderCard } from "@/components/layout/shared";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { fetchJson } from "@/lib/rest/fetch-json";
 import {
   getIntegrationCatalogApiUrl,
@@ -16,11 +17,16 @@ import {
   type IntegrationCatalogItem,
   type IntegrationCatalogResponse,
 } from "@/lib/site/integration-catalog";
+import { capCharacters } from "@/lib/text/cap-characters";
 import { cn } from "@/lib/utils";
 
 export interface IntegrationListToolProps {
   content: IntegrationsIntegrationListContent;
   initialData: IntegrationCatalogResponse;
+}
+
+function passthroughImageLoader({ src }: { src: string }) {
+  return src;
 }
 
 function getInitials(name: string) {
@@ -95,15 +101,19 @@ function handleCategoryKeyDown(
 }
 
 function IntegrationCardLogo({ item }: { item: IntegrationCatalogItem }) {
-  const Icon = getIntegrationAppIcon(...item.logoHints);
-
   return (
     <span aria-label={`${item.name} logo`} className="integration-list-card__logo" role="img">
-      {Icon ? (
-        createElement(Icon, {
-          className: "integration-list-card__logo-svg",
-          focusable: "false",
-        })
+      {item.logoUrl ? (
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="integration-list-card__logo-image"
+          height={24}
+          loader={passthroughImageLoader}
+          src={item.logoUrl}
+          unoptimized
+          width={24}
+        />
       ) : (
         <span aria-hidden="true" className="integration-list-card__logo-fallback">
           {getInitials(item.name)}
@@ -115,13 +125,12 @@ function IntegrationCardLogo({ item }: { item: IntegrationCatalogItem }) {
 
 function IntegrationCatalogCard({ item }: { item: IntegrationCatalogItem }) {
   return (
-    <article className="integration-list-card">
-      <IntegrationCardLogo item={item} />
-      <div className="integration-list-card__copy">
-        <h3 className="integration-list-card__title">{item.name}</h3>
-        <p className="integration-list-card__description">{item.description}</p>
-      </div>
-    </article>
+    <CatalogProviderCard
+      description={item.description}
+      logo={<IntegrationCardLogo item={item} />}
+      namespace="integration-list"
+      title={item.name}
+    />
   );
 }
 
@@ -142,6 +151,24 @@ function IntegrationListSkeleton({ count = 15 }: { count?: number }) {
   );
 }
 
+function CappedCategoryLabel({ label }: { label: string }) {
+  const cappedLabel = capCharacters(label, 20);
+  const labelElement = <span className="integration-list__category-label">{cappedLabel.text}</span>;
+
+  if (!cappedLabel.isCapped) {
+    return labelElement;
+  }
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>{labelElement}</TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
 interface CategoryRailProps {
   categories: readonly IntegrationCatalogCategory[];
   panelId: string;
@@ -157,6 +184,7 @@ function CategoryRail({ categories, onSelect, panelId, selectedCategoryId }: Cat
 
         return (
           <button
+            aria-label={`${category.label} ${category.count}`}
             aria-controls={panelId}
             aria-selected={isSelected}
             className="integration-list__category-button"
@@ -169,7 +197,7 @@ function CategoryRail({ categories, onSelect, panelId, selectedCategoryId }: Cat
             tabIndex={isSelected ? 0 : -1}
             type="button"
           >
-            <span className="integration-list__category-label">{category.label}</span>
+            <CappedCategoryLabel label={category.label} />
             <span className="integration-list__category-count">{category.count}</span>
           </button>
         );
@@ -214,10 +242,7 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
   const abortControllerRef = useRef<AbortController | null>(null);
   const resolvedRequestKeyRef = useRef(getRequestKey(initialData.selectedCategoryId, initialData.query));
   const pendingRequestKeyRef = useRef<string | null>(null);
-  const { contentRef, thumbState, viewportRef } = useScrollThumb<HTMLDivElement, HTMLDivElement>({
-    minSizePercentage: 18,
-    orientation: "vertical",
-  });
+  const viewportRef = useRef<HTMLDivElement>(null);
   const panelId = "integration-list-panel";
   const selectedCategory = useMemo(
     () => data.categories.find((category) => category.id === selectedCategoryId) ?? data.categories[0],
@@ -307,11 +332,17 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
   }
 
   return (
-    <div className="integration-list__catalog" data-integration-list-hydrated={isHydrated ? "true" : "false"}>
-      <div className="integration-list__catalog-header">
-        <h3 className="integration-list__catalog-title">Browse Our Integration Catalog</h3>
-
-        <div className="integration-list__filters">
+    <CatalogBrowseShell
+      categoryRail={
+        <CategoryRail
+          categories={data.categories}
+          onSelect={handleCategorySelect}
+          panelId={panelId}
+          selectedCategoryId={selectedCategoryId}
+        />
+      }
+      filters={
+        <>
           <CategorySelect
             categories={data.categories}
             onSelect={handleCategorySelect}
@@ -329,69 +360,36 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
               value={searchQuery}
             />
           </label>
+        </>
+      }
+      hydrated={isHydrated}
+      isBusy={isLoading}
+      namespace="integration-list"
+      panelId={panelId}
+      resultsLabel="Integration catalog results"
+      selectedTabId={selectedTabId}
+      status={
+        <p aria-live="polite" className={cn("integration-list__status", !loadError && "sr-only")} role="status">
+          {loadError || `${data.totalCount} integrations shown.`}
+        </p>
+      }
+      title="Browse Our Integration Catalog"
+      viewportRef={viewportRef}
+    >
+      {isLoading ? (
+        <IntegrationListSkeleton />
+      ) : data.items.length ? (
+        <div className="integration-list-grid">
+          {data.items.map((item) => (
+            <IntegrationCatalogCard item={item} key={item.id} />
+          ))}
         </div>
-      </div>
-
-      <div className="integration-list__catalog-body">
-        <CategoryRail
-          categories={data.categories}
-          onSelect={handleCategorySelect}
-          panelId={panelId}
-          selectedCategoryId={selectedCategoryId}
-        />
-
-        <div
-          aria-busy={isLoading}
-          aria-labelledby={selectedTabId}
-          className="integration-list__results"
-          id={panelId}
-          role="tabpanel"
-        >
-          <div className="integration-list__results-scroll-region">
-            <div
-              aria-label="Integration catalog results"
-              className="integration-list__results-viewport scrollbar-hidden"
-              ref={viewportRef}
-              tabIndex={0}
-            >
-              <div className="integration-list__results-content" ref={contentRef}>
-                {isLoading ? (
-                  <IntegrationListSkeleton />
-                ) : data.items.length ? (
-                  <div className="integration-list-grid">
-                    {data.items.map((item) => (
-                      <IntegrationCatalogCard item={item} key={item.id} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="integration-list__empty">
-                    <p className="integration-list__empty-title">No integrations found</p>
-                    <p className="integration-list__empty-copy">Try another search or category.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div aria-hidden="true" className="integration-list__rail-shell">
-              <ScrollThumbRail
-                className="integration-list__rail"
-                hidden={thumbState.hidden}
-                offsetPercentage={thumbState.offsetPercentage}
-                orientation="vertical"
-                sizePercentage={thumbState.sizePercentage}
-              />
-            </div>
-          </div>
+      ) : (
+        <div className="integration-list__empty">
+          <p className="integration-list__empty-title">No integrations found</p>
+          <p className="integration-list__empty-copy">Try another search or category.</p>
         </div>
-      </div>
-
-      <p
-        aria-live="polite"
-        className={cn("integration-list__status", !loadError && "sr-only")}
-        role="status"
-      >
-        {loadError || `${data.totalCount} integrations shown.`}
-      </p>
-    </div>
+      )}
+    </CatalogBrowseShell>
   );
 }
