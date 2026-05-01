@@ -33,9 +33,10 @@ export class LandingAlternativeAppsDataError extends Error {
 const getCachedLandingCatalog = unstable_cache(
   async () =>
     getAlternativeAppsCatalogResponse({
+      featured: true,
       take: landingAlternativeAppsTake,
     }),
-  ["landing-alternative-apps-catalog-v1"],
+  ["landing-alternative-apps-featured-catalog-v1"],
   {
     revalidate: landingAlternativeAppsRevalidateSeconds,
     tags: ["alternative-apps", "landing-alternative-apps"],

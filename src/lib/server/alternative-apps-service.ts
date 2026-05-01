@@ -14,11 +14,13 @@ import { fetchDoowApi } from "@/lib/server/doow-api-client";
 export async function getAlternativeAppsCatalogResponse({
   categoryId = "all",
   cursor,
+  featured,
   query = "",
   take = alternativeAppsCatalogDefaultTake,
 }: {
   categoryId?: string;
   cursor?: string | null;
+  featured?: boolean;
   query?: string;
   take?: number;
 } = {}) {
@@ -33,6 +35,7 @@ export async function getAlternativeAppsCatalogResponse({
       params: {
         category,
         cursor,
+        featured,
         name: query.trim() || undefined,
         take,
       },

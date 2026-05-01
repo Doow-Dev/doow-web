@@ -75,6 +75,6 @@ export const alternativeAppsSectionContent = {
   ],
   analysisCta: {
     href: "/alternative-apps",
-    label: "See full analysis in Doow",
+    label: "See full analysis",
   } satisfies LandingActionLink,
 } as const satisfies AlternativeAppsSectionContent;

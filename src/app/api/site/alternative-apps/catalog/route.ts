@@ -7,6 +7,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const categoryId = searchParams.get("categoryId")?.trim() || "all";
   const cursor = searchParams.get("cursor")?.trim() || null;
+  const featuredParam = searchParams.get("featured")?.trim().toLowerCase();
+  const featured = featuredParam === "true" ? true : featuredParam === "false" ? false : undefined;
   const query = searchParams.get("query")?.trim() ?? "";
   const take = Number(searchParams.get("take") ?? alternativeAppsCatalogDefaultTake);
   let response;
@@ -15,6 +17,7 @@ export async function GET(request: Request) {
     response = await getAlternativeAppsCatalogResponse({
       categoryId,
       cursor,
+      featured,
       query,
       take: Number.isFinite(take) && take > 0 ? take : alternativeAppsCatalogDefaultTake,
     });

@@ -8,10 +8,12 @@ const defaultDoowApiBaseUrl = "https://dev-api.doow.co";
 
 type DoowApiSecret = "catalogAdminKey" | "adminSecret";
 
+type DoowApiParamValue = boolean | number | string | null | undefined;
+
 interface FetchDoowApiOptions<TData> {
   cache?: RequestCache;
   next?: NextFetchRequestConfig;
-  params?: Record<string, number | string | null | undefined>;
+  params?: Record<string, DoowApiParamValue>;
   path: string;
   schema?: z.ZodType<TData>;
   secret?: DoowApiSecret;
@@ -51,7 +53,7 @@ function getSecretHeader(secret: DoowApiSecret) {
   };
 }
 
-export function getDoowApiUrl(path: string, params: Record<string, number | string | null | undefined> = {}) {
+export function getDoowApiUrl(path: string, params: Record<string, DoowApiParamValue> = {}) {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const url = new URL(`${getDoowApiBaseUrl()}${normalizedPath}`);
 

@@ -88,11 +88,13 @@ export const alternativeAppsCatalogResponseSchema: z.ZodType<AlternativeAppsCata
 export function getAlternativeAppsCatalogApiUrl({
   categoryId = "all",
   cursor,
+  featured,
   query = "",
   take = alternativeAppsCatalogDefaultTake,
 }: {
   categoryId?: string;
   cursor?: string | null;
+  featured?: boolean;
   query?: string;
   take?: number;
 } = {}) {
@@ -108,6 +110,10 @@ export function getAlternativeAppsCatalogApiUrl({
 
   if (cursor) {
     params.set("cursor", cursor);
+  }
+
+  if (typeof featured === "boolean") {
+    params.set("featured", String(featured));
   }
 
   if (take > 0) {

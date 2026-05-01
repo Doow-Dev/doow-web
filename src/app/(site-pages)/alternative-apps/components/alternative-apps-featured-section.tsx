@@ -143,7 +143,10 @@ function FeaturedApplicationCard({ item }: { item: AlternativeAppsCatalogItem })
 
 export async function AlternativeAppsFeaturedSection() {
   const { featured } = alternativeAppsPageContent;
-  const featuredData = await getAlternativeAppsCatalogResponse({ take: featuredApplicationsTake });
+  const featuredData = await getAlternativeAppsCatalogResponse({
+    featured: true,
+    take: featuredApplicationsTake,
+  });
 
   if (!featuredData.items.length) {
     return null;

@@ -230,13 +230,14 @@ await runTest("alternative apps catalog URL keeps local route params stable", as
   const url = catalog.getAlternativeAppsCatalogApiUrl({
     categoryId: "Project Management",
     cursor: "source-jira",
+    featured: true,
     query: "linear",
     take: 72,
   });
 
   assert.equal(
     url,
-    "/api/site/alternative-apps/catalog?categoryId=Project+Management&query=linear&cursor=source-jira&take=72",
+    "/api/site/alternative-apps/catalog?categoryId=Project+Management&query=linear&cursor=source-jira&featured=true&take=72",
   );
 });
 

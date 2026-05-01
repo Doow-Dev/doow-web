@@ -151,22 +151,6 @@ export const siteAssetManifest = {
     width: 294,
     height: 441,
   },
-  // Temporary local fallback until the canonical blob assets are published.
-  integrationsHeroIllustrationArt: {
-    id: "integrations-hero-illustration-art",
-    src: "/assets/illustrations/integrations-hero-art.svg",
-    alt: "",
-    width: 2182.29,
-    height: 917.278,
-  },
-  // Temporary local fallback until the canonical blob assets are published.
-  integrationsHeroIllustrationMask: {
-    id: "integrations-hero-illustration-mask",
-    src: "/assets/illustrations/integrations-hero-mask.svg",
-    alt: "",
-    width: 2311.64,
-    height: 781,
-  },
   // Temporary local fallback until the canonical blob asset is published.
   subscriptionsHeroDashboard: {
     id: "subscriptions-hero-dashboard",
