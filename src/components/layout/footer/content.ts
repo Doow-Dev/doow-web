@@ -14,6 +14,7 @@ export interface SiteFooterLink {
   label: string;
   rel?: string;
   target?: string;
+  action?: "contactDialog";
 }
 
 export interface SiteFooterLinkGroup {
@@ -80,6 +81,7 @@ export const siteFooterBodyContent = {
         { href: "/expenses", label: "Expenses" },
         { href: "/integrations", label: "Integrations" },
         { href: "/subscriptions", label: "Subscriptions" },
+        { href: "/alternative-apps", label: "Alternative Apps" },
         { href: "/doow-ai", label: "Doow AI" },
       ],
     },
@@ -88,7 +90,7 @@ export const siteFooterBodyContent = {
       items: [
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
-        { href: "mailto:contact@doow.co", label: "Contact" },
+        { href: "#contact-us", label: "Contact", action: "contactDialog" },
         { href: doowAppLinks.login, label: "Login" },
       ],
     },
@@ -103,14 +105,14 @@ export const siteFooterBodyContent = {
   },
   socialLinks: [
     {
-      href: "https://www.linkedin.com/company/doowapp",
+      href: "https://www.linkedin.com/company/doowbusiness/",
       kind: "linkedin",
       label: "LinkedIn",
       rel: "noopener noreferrer",
       target: "_blank",
     },
     {
-      href: "https://x.com",
+      href: "https://x.com/Doowfinance",
       kind: "x",
       label: "X",
       rel: "noopener noreferrer",

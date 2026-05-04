@@ -1,19 +1,57 @@
-export function AboutTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-left text-xl font-semibold tracking-tight text-zinc-950 md:text-2xl">{children}</h2>;
+import type { ReactNode } from "react";
+
+import { SiteFooter } from "@/components/layout/footer";
+
+export function LegalPageShell({
+  children,
+  lastUpdated,
+  title,
+}: {
+  children: ReactNode;
+  lastUpdated: string;
+  title: string;
+}) {
+  return (
+    <div className="legal-page" data-figma-node="1689:2511">
+      <section aria-labelledby="legal-page-title" className="legal-page__primary">
+        <div className="legal-page__hero">
+          <div className="legal-page__updated" aria-label={`Last updated ${lastUpdated}`}>
+            <p className="legal-page__updated-label">Last Updated</p>
+            <p className="legal-page__updated-date">{lastUpdated}</p>
+          </div>
+
+          <h1 className="legal-page__title" id="legal-page-title">
+            {title}
+          </h1>
+        </div>
+
+        <div className="legal-page__content-band">
+          <article className="legal-page__article">{children}</article>
+        </div>
+      </section>
+
+      <div aria-hidden="true" className="legal-page__footer-spacer" />
+      <SiteFooter />
+    </div>
+  );
 }
 
-export function AboutSubHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-left text-sm font-semibold leading-7 text-zinc-900 md:text-lg">{children}</h3>;
+export function AboutTitle({ children }: { children: ReactNode }) {
+  return <h2 className="legal-page__section-title">{children}</h2>;
 }
 
-export function AboutBody({ children }: { children: React.ReactNode }) {
-  return <div className="text-left text-sm leading-7 text-zinc-600 md:text-base">{children}</div>;
+export function AboutSubHeading({ children }: { children: ReactNode }) {
+  return <h3 className="legal-page__subheading">{children}</h3>;
 }
 
-export function AboutSection({ children }: { children: React.ReactNode }) {
-  return <section className="space-y-4">{children}</section>;
+export function AboutBody({ children }: { children: ReactNode }) {
+  return <div className="legal-page__body">{children}</div>;
 }
 
-export function AboutWrapper({ children }: { children: React.ReactNode }) {
-  return <div className="w-full space-y-10 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm md:p-10">{children}</div>;
+export function AboutSection({ children }: { children: ReactNode }) {
+  return <section className="legal-page__section">{children}</section>;
+}
+
+export function AboutWrapper({ children }: { children: ReactNode }) {
+  return <div className="legal-page__copy">{children}</div>;
 }

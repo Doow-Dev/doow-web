@@ -17,7 +17,7 @@ export const pricingSectionContent = {
   titleLines: ["Choose a plan", "that fits your needs"],
   description: "Most teams save 10× their subscription cost in the first 90 days.",
   cta: {
-    href: "#pricing-plans",
+    href: "/pricing",
     label: "View Pricing Plans",
   } satisfies LandingActionLink,
   placeholderAnchorId: "pricing-plans",

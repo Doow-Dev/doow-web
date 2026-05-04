@@ -6,6 +6,7 @@ import { LinkedInIcon } from "@/components/custom/icons/linkedin-icon";
 import { XIcon } from "@/components/custom/icons/x-icon";
 import { Container, FooterList } from "@/components/system";
 
+import { ContactUsDialog } from "./contact-us-dialog";
 import type { SiteFooterBodyContent } from "./content";
 
 export interface SiteFooterBodyProps {
@@ -47,15 +48,22 @@ export function SiteFooterBody({ body }: SiteFooterBodyProps) {
                 titleTag="p"
               />
 
-              <FooterList
-                className="site-footer__group"
-                items={companyGroup.items}
-                linkClassName="site-footer__link"
-                listClassName="site-footer__list"
-                title={companyGroup.title}
-                titleClassName="site-footer__group-title"
-                titleTag="p"
-              />
+              <div className="site-footer__group">
+                <p className="site-footer__group-title">{companyGroup.title}</p>
+                <ul className="site-footer__list">
+                  {companyGroup.items.map((item) => (
+                    <li key={item.href}>
+                      {item.action === "contactDialog" ? (
+                        <ContactUsDialog triggerClassName="site-footer__link" triggerLabel={item.label} />
+                      ) : (
+                        <Link className="site-footer__link" href={item.href} rel={item.rel} target={item.target}>
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </nav>
 
             <section aria-labelledby={`${body.id}-contact-heading`} className="site-footer__contact">
