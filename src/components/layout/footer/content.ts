@@ -80,6 +80,7 @@ export const siteFooterBodyContent = {
         { href: "/expenses", label: "Expenses" },
         { href: "/integrations", label: "Integrations" },
         { href: "/subscriptions", label: "Subscriptions" },
+        { href: "/alternative-apps", label: "Alternative Apps" },
         { href: "/doow-ai", label: "Doow AI" },
       ],
     },

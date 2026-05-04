@@ -1,6 +1,6 @@
 "use client";
 
-import { createElement, useEffect, useMemo, useRef, useState } from "react";
+import { createElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,6 +13,7 @@ import {
   CircleHelp,
   Star,
 } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { BulbIcon, MenuIcon } from "@/components/custom/icons";
 import {
   getIntegrationAppGraphic,
@@ -35,7 +36,11 @@ export interface AlternativeAppDetailsSectionProps {
 
 type CostPeriod = "annual" | "quarterly" | "monthly";
 
-const maxSelectedAlternatives = 2;
+const maxComparedAlternatives = 2;
+const comparisonMotionTransition = {
+  duration: 0.34,
+  ease: [0.22, 1, 0.36, 1],
+} as const;
 const periodLabels: Record<CostPeriod, string> = {
   annual: "Annual",
   quarterly: "Quarterly",
@@ -409,7 +414,7 @@ function AlternativeAppSelectionDropdown({
     }
 
     const nextSelection =
-      selectedSlugs.length >= maxSelectedAlternatives ? [...selectedSlugs.slice(1), slug] : [...selectedSlugs, slug];
+      selectedSlugs.length >= maxComparedAlternatives ? [...selectedSlugs.slice(1), slug] : [...selectedSlugs, slug];
 
     onSelectionChange(nextSelection);
     setIsOpen(false);
@@ -469,31 +474,27 @@ function AlternativeAppSelectionDropdown({
 
 function AlternativeCard({
   alternative,
-  isLocked,
   isRecommended,
-  onDeselect,
+  isSelected,
+  reduceMotion,
+  onActivate,
 }: {
   alternative: AlternativeAppDetailAlternative;
-  isLocked: boolean;
   isRecommended: boolean;
-  onDeselect: (slug: string) => void;
+  isSelected: boolean;
+  onActivate: () => void;
+  reduceMotion: boolean;
 }) {
   return (
-    <button
-      aria-label={
-        isLocked
-          ? `${alternative.name} is selected for comparison. Select another app before removing it.`
-          : `Remove ${alternative.name} from comparison`
-      }
-      aria-pressed="true"
+    <motion.button
+      aria-label={isSelected ? `${alternative.name} is active in comparison` : `Scroll ${alternative.name} into comparison`}
+      aria-pressed={isSelected}
       className="alternative-app-details-alternative-card"
-      data-locked={isLocked ? "true" : "false"}
-      data-state="active"
-      onClick={() => {
-        if (!isLocked) {
-          onDeselect(alternative.slug);
-        }
-      }}
+      data-alternative-slug={alternative.slug}
+      data-state={isSelected ? "active" : "idle"}
+      layout={reduceMotion ? false : "position"}
+      onClick={onActivate}
+      transition={comparisonMotionTransition}
       type="button"
     >
       <span className="alternative-app-details-alternative-card__header">
@@ -530,7 +531,7 @@ function AlternativeCard({
           <strong>{formatPublicCurrencyPeriod(alternative.monthlySpendUsd, "month")}</strong>
         </span>
       </span>
-    </button>
+    </motion.button>
   );
 }
 
@@ -541,6 +542,7 @@ function CompactAppCard({
   details,
   isCurrent = false,
   isRecommended = false,
+  reduceMotion = false,
 }: {
   alternative?: AlternativeAppDetailAlternative;
   currentAnnualSpendUsd?: number;
@@ -548,6 +550,7 @@ function CompactAppCard({
   details?: AlternativeAppDetailResponse;
   isCurrent?: boolean;
   isRecommended?: boolean;
+  reduceMotion?: boolean;
 }) {
   const name = isCurrent ? details?.app.name : alternative?.name;
   const rating = isCurrent ? details?.app.rating : alternative?.rating;
@@ -559,7 +562,12 @@ function CompactAppCard({
   }
 
   return (
-    <article className="alternative-app-details-compact-card" data-current={isCurrent ? "true" : "false"}>
+    <motion.article
+      className="alternative-app-details-compact-card"
+      data-current={isCurrent ? "true" : "false"}
+      layout={!reduceMotion}
+      transition={comparisonMotionTransition}
+    >
       <div className="alternative-app-details-compact-card__header">
         {isCurrent ? (
           <CurrentAppLogo hints={hints} logoUrl={details?.app.logoUrl} name={name} />
@@ -605,15 +613,37 @@ function CompactAppCard({
           />
         ) : null}
       </p>
-    </article>
+    </motion.article>
   );
 }
 
-function Cell({ cell, period }: { cell: AlternativeAppDetailComparisonCell; period: CostPeriod }) {
+function Cell({
+  cell,
+  motionKey,
+  period,
+  reduceMotion = false,
+}: {
+  cell: AlternativeAppDetailComparisonCell;
+  motionKey?: string;
+  period: CostPeriod;
+  reduceMotion?: boolean;
+}) {
   const value = cell.periodValues?.[period] ?? cell.value;
+  const motionProps = motionKey
+    ? {
+        animate: { opacity: 1, x: 0 },
+        exit: reduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -36 },
+        initial: reduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: 36 },
+        layout: !reduceMotion,
+        transition: comparisonMotionTransition,
+      }
+    : {
+        layout: !reduceMotion,
+        transition: comparisonMotionTransition,
+      };
 
   return (
-    <div className="alternative-app-details-cell" data-tone={cell.tone ?? "neutral"}>
+    <motion.div className="alternative-app-details-cell" data-tone={cell.tone ?? "neutral"} {...motionProps}>
       {cell.pills?.length ? (
         <div className="alternative-app-details-certifications">
           {cell.pills.map((pill) => (
@@ -640,7 +670,7 @@ function Cell({ cell, period }: { cell: AlternativeAppDetailComparisonCell; peri
           ) : null}
         </>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -752,8 +782,10 @@ function ComparisonSection({
   section,
   selectedAlternatives,
   setPeriod,
+  reduceMotion,
 }: {
   period: CostPeriod;
+  reduceMotion: boolean;
   section: AlternativeAppDetailComparisonSection;
   selectedAlternatives: readonly AlternativeAppDetailAlternative[];
   setPeriod: (period: CostPeriod) => void;
@@ -789,12 +821,22 @@ function ComparisonSection({
                 {row.id === "annual-cost" ? <CostPeriodDropdown period={period} setPeriod={setPeriod} /> : null}
               </div>
               <div className="alternative-app-details-comparison-section__data-row">
-                <Cell cell={row.current} period={period} />
-                {selectedAlternatives.map((alternative) => {
-                  const matchedRow = findAlternativeRow({ alternative, row, section });
+                <Cell cell={row.current} period={period} reduceMotion={reduceMotion} />
+                <AnimatePresence initial={false} mode="sync">
+                  {selectedAlternatives.map((alternative) => {
+                    const matchedRow = findAlternativeRow({ alternative, row, section });
 
-                  return <Cell cell={matchedRow?.alternative ?? row.alternative} key={alternative.slug} period={period} />;
-                })}
+                    return (
+                      <Cell
+                        cell={matchedRow?.alternative ?? row.alternative}
+                        key={`${section.id}-${row.id}-${alternative.slug}`}
+                        motionKey={alternative.slug}
+                        period={period}
+                        reduceMotion={reduceMotion}
+                      />
+                    );
+                  })}
+                </AnimatePresence>
               </div>
             </div>
           ))}
@@ -806,6 +848,8 @@ function ComparisonSection({
 
 export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsSectionProps) {
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const reduceMotion = shouldReduceMotion ?? false;
   const {
     contentRef: alternativesContentRef,
     thumbState: alternativesThumbState,
@@ -815,7 +859,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     orientation: "horizontal",
   });
   const [selectedAlternativeSlugs, setSelectedAlternativeSlugs] = useState<string[]>(
-    details.alternatives.slice(0, maxSelectedAlternatives).map((alternative) => alternative.slug),
+    details.alternatives.slice(0, maxComparedAlternatives).map((alternative) => alternative.slug),
   );
   const [isSticky, setIsSticky] = useState(false);
   const [isFullDetailsOpen, setIsFullDetailsOpen] = useState(false);
@@ -864,25 +908,161 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     [selectedAlternatives],
   );
 
-  function updateSelectedAlternatives(nextSlugs: string[]) {
-    const normalizedSlugs = nextSlugs
-      .filter((slug, index, slugs) => slugs.indexOf(slug) === index)
-      .filter((slug) => details.alternatives.some((alternative) => alternative.slug === slug))
-      .slice(-maxSelectedAlternatives);
+  const updateSelectedAlternatives = useCallback(
+    function updateSelectedAlternatives(nextSlugs: string[]) {
+      const normalizedSlugs = nextSlugs
+        .filter((slug, index, slugs) => slugs.indexOf(slug) === index)
+        .filter((slug) => details.alternatives.some((alternative) => alternative.slug === slug))
+        .slice(-maxComparedAlternatives);
 
-    if (!normalizedSlugs.length) {
+      if (!normalizedSlugs.length) {
+        return;
+      }
+
+      setSelectedAlternativeSlugs((currentSlugs) =>
+        currentSlugs.length === normalizedSlugs.length &&
+        currentSlugs.every((slug, index) => slug === normalizedSlugs[index])
+          ? currentSlugs
+          : normalizedSlugs,
+      );
+    },
+    [details.alternatives],
+  );
+
+  const scrollComparedAlternativesIntoView = useCallback(
+    function scrollComparedAlternativesIntoView(nextSlugs: string[]) {
+      const viewport = alternativesViewportRef.current;
+      const content = alternativesContentRef.current;
+
+      if (!viewport || !content || !nextSlugs.length) {
+        return;
+      }
+
+      const cards = Array.from(content.querySelectorAll<HTMLElement>(".alternative-app-details-alternative-card"));
+      const firstCard = cards[0];
+
+      if (!firstCard) {
+        return;
+      }
+
+      const firstSelectedIndex = cards.findIndex((card) => card.dataset.alternativeSlug === nextSlugs[0]);
+      const maxStartIndex = Math.max(0, cards.length - maxComparedAlternatives);
+      const startIndex = Math.min(maxStartIndex, Math.max(0, firstSelectedIndex));
+      const targetCard = cards[startIndex];
+
+      if (!targetCard) {
+        return;
+      }
+
+      viewport.scrollTo({
+        behavior: reduceMotion ? "auto" : "smooth",
+        left: targetCard.offsetLeft - firstCard.offsetLeft,
+      });
+    },
+    [reduceMotion],
+  );
+
+  const handleSelectionChange = useCallback(
+    function handleSelectionChange(nextSlugs: string[]) {
+      updateSelectedAlternatives(nextSlugs);
+      scrollComparedAlternativesIntoView(nextSlugs.slice(-maxComparedAlternatives));
+    },
+    [scrollComparedAlternativesIntoView, updateSelectedAlternatives],
+  );
+
+  const syncSelectedAlternativesFromScroll = useCallback(() => {
+    const viewport = alternativesViewportRef.current;
+    const content = alternativesContentRef.current;
+
+    if (!viewport || !content) {
       return;
     }
 
-    setSelectedAlternativeSlugs(normalizedSlugs);
-  }
+    const cards = Array.from(content.querySelectorAll<HTMLElement>(".alternative-app-details-alternative-card"));
 
-  function deselectAlternative(slug: string) {
-    if (selectedAlternativeSlugs.length <= 1) {
+    if (!cards.length) {
       return;
     }
 
-    updateSelectedAlternatives(selectedAlternativeSlugs.filter((selectedSlug) => selectedSlug !== slug));
+    if (cards.length <= maxComparedAlternatives) {
+      updateSelectedAlternatives(
+        cards.map((card) => card.dataset.alternativeSlug).filter((slug): slug is string => Boolean(slug)),
+      );
+      return;
+    }
+
+    const firstCard = cards[0];
+    const secondCard = cards[1];
+    const cardStep = secondCard ? secondCard.offsetLeft - firstCard.offsetLeft : firstCard.offsetWidth;
+    const maxStartIndex = Math.max(0, cards.length - maxComparedAlternatives);
+    const startIndex = Math.min(maxStartIndex, Math.max(0, Math.round(viewport.scrollLeft / Math.max(1, cardStep))));
+    const visibleSlugs = cards
+      .slice(startIndex, startIndex + maxComparedAlternatives)
+      .map((card) => card.dataset.alternativeSlug)
+      .filter((slug): slug is string => Boolean(slug));
+
+    updateSelectedAlternatives(visibleSlugs);
+  }, [alternativesContentRef, alternativesViewportRef, updateSelectedAlternatives]);
+
+  useEffect(() => {
+    const viewport = alternativesViewportRef.current;
+    const content = alternativesContentRef.current;
+
+    if (!viewport || !content) {
+      return;
+    }
+
+    let animationFrame = 0;
+    const syncOnFrame = () => {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(syncSelectedAlternativesFromScroll);
+    };
+    const resizeObserver = new ResizeObserver(syncOnFrame);
+
+    syncSelectedAlternativesFromScroll();
+    viewport.addEventListener("scroll", syncOnFrame, { passive: true });
+    resizeObserver.observe(viewport);
+    resizeObserver.observe(content);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      viewport.removeEventListener("scroll", syncOnFrame);
+      resizeObserver.disconnect();
+    };
+  }, [syncSelectedAlternativesFromScroll]);
+
+  function scrollAlternativeIntoActivePair(index: number) {
+    const viewport = alternativesViewportRef.current;
+    const content = alternativesContentRef.current;
+
+    if (!viewport || !content) {
+      return;
+    }
+
+    const cards = Array.from(content.querySelectorAll<HTMLElement>(".alternative-app-details-alternative-card"));
+    const currentStartIndex = Math.max(
+      0,
+      details.alternatives.findIndex((alternative) => alternative.slug === selectedAlternativeSlugs[0]),
+    );
+    const clickedIndex = Math.max(0, Math.min(index, cards.length - 1));
+    const nextStartIndex =
+      clickedIndex > currentStartIndex + 1
+        ? clickedIndex - 1
+        : clickedIndex < currentStartIndex
+          ? clickedIndex
+          : currentStartIndex;
+    const card = cards[Math.min(Math.max(nextStartIndex, 0), Math.max(0, cards.length - maxComparedAlternatives))];
+
+    if (!card) {
+      return;
+    }
+
+    const firstCard = cards[0];
+
+    viewport.scrollTo({
+      behavior: reduceMotion ? "auto" : "smooth",
+      left: firstCard ? card.offsetLeft - firstCard.offsetLeft : card.offsetLeft,
+    });
   }
 
   return (
@@ -922,23 +1102,26 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                 >
                   <div className="alternative-app-details__sticky-compact-intro">
                     <h2>{details.app.name} alternatives</h2>
-                    <AlternativeAppSelectionDropdown
-                      alternatives={details.alternatives}
-                      selectedSlugs={selectedAlternativeSlugs}
-                      onSelectionChange={updateSelectedAlternatives}
-                    />
-                  </div>
-                  <CompactAppCard details={details} isCurrent />
-                  <div className="alternative-app-details__sticky-compact-alternatives">
-                    {selectedAlternatives.map((alternative) => (
-                      <CompactAppCard
-                        alternative={alternative}
-                        currentAnnualSpendUsd={details.currentAppMetrics.annualSpendUsd}
-                        currentAppName={details.app.name}
-                        isRecommended={alternative.slug === recommendedAlternativeSlug || alternative.badgeLabel === "Best fit"}
-                        key={alternative.slug}
+                      <AlternativeAppSelectionDropdown
+                        alternatives={details.alternatives}
+                        selectedSlugs={selectedAlternativeSlugs}
+                        onSelectionChange={handleSelectionChange}
                       />
-                    ))}
+                  </div>
+                  <CompactAppCard details={details} isCurrent reduceMotion={reduceMotion} />
+                  <div className="alternative-app-details__sticky-compact-alternatives">
+                    <AnimatePresence initial={false} mode="sync">
+                      {selectedAlternatives.map((alternative) => (
+                        <CompactAppCard
+                          alternative={alternative}
+                          currentAnnualSpendUsd={details.currentAppMetrics.annualSpendUsd}
+                          currentAppName={details.app.name}
+                          isRecommended={alternative.slug === recommendedAlternativeSlug || alternative.badgeLabel === "Best fit"}
+                          key={alternative.slug}
+                          reduceMotion={reduceMotion}
+                        />
+                      ))}
+                    </AnimatePresence>
                   </div>
                 </div>
               </div>
@@ -953,7 +1136,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                 <AlternativeAppSelectionDropdown
                   alternatives={details.alternatives}
                   selectedSlugs={selectedAlternativeSlugs}
-                  onSelectionChange={updateSelectedAlternatives}
+                  onSelectionChange={handleSelectionChange}
                 />
               </div>
 
@@ -971,19 +1154,24 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
 
                   <div className="alternative-app-details__alternatives-scroll" ref={alternativesViewportRef} tabIndex={0}>
                     <div
-                      aria-label={`${details.app.name} selected alternatives`}
+                      aria-label={`${details.app.name} alternatives`}
                       className="alternative-app-details__alternatives-list"
                       ref={alternativesContentRef}
                     >
-                      {selectedAlternatives.map((alternative) => (
-                        <AlternativeCard
-                          alternative={alternative}
-                          isLocked={selectedAlternatives.length <= 1}
-                          isRecommended={alternative.slug === recommendedAlternativeSlug || alternative.badgeLabel === "Best fit"}
-                          key={alternative.slug}
-                          onDeselect={deselectAlternative}
-                        />
-                      ))}
+                      {details.alternatives.map((alternative, index) => {
+                        const isSelected = selectedAlternativeSlugs.includes(alternative.slug);
+
+                        return (
+                          <AlternativeCard
+                            alternative={alternative}
+                            isRecommended={alternative.slug === recommendedAlternativeSlug || alternative.badgeLabel === "Best fit"}
+                            isSelected={isSelected}
+                            key={alternative.slug}
+                            onActivate={() => scrollAlternativeIntoActivePair(index)}
+                            reduceMotion={reduceMotion}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
                   <div aria-hidden="true" className="alternative-app-details__alternatives-rail-shell">
@@ -998,15 +1186,17 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                 </div>
               </div>
 
-              <button
-                aria-expanded={isFullDetailsOpen}
-                className="alternative-app-details__full-details-button"
-                onClick={() => setIsFullDetailsOpen((open) => !open)}
-                type="button"
-              >
-                <span>{isFullDetailsOpen ? "Close full details" : "View full details"}</span>
-                {isFullDetailsOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
-              </button>
+              {!isFullDetailsOpen ? (
+                <button
+                  aria-expanded="false"
+                  className="alternative-app-details__full-details-button"
+                  onClick={() => setIsFullDetailsOpen(true)}
+                  type="button"
+                >
+                  <span>View full details</span>
+                  <ChevronDown aria-hidden="true" />
+                </button>
+              ) : null}
             </div>
 
             <p aria-live="polite" className="sr-only" role="status">
@@ -1023,6 +1213,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                   <ComparisonSection
                     key={section.id}
                     period={period}
+                    reduceMotion={reduceMotion}
                     section={section}
                     selectedAlternatives={selectedAlternatives}
                     setPeriod={setPeriod}
