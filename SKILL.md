@@ -124,7 +124,6 @@ Public routes to keep:
 
 Routes to prune with permanent redirects:
 
-- `/about_us`
 - `/contact_us`
 
 ## AI Collaboration Rules

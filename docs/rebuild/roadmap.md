@@ -22,7 +22,7 @@
 
 ### Batch 2. Legacy cleanup and route pruning
 - Remove legacy landing sections and legacy landing-page-only assets or helpers.
-- Prune `/about_us` and `/contact_us` with redirects.
+- Keep `/about_us` as a site page, and prune `/contact_us` with a redirect.
 - Preserve `/signin`, `/privacy_policy`, and `/terms_of_use`, but detach them from the old landing-page shell.
 - Status: completed, ready for review
 

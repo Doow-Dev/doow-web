@@ -57,6 +57,36 @@ The section must avoid:
 - broken heading hierarchy
 - hidden or JS-only critical copy
 
+### Blog performance targets
+
+The blog route family has additional launch gates because article, archive,
+and feed pages are long-lived SEO surfaces. These targets apply to `/blog`,
+`/blog/[slug]`, and future category archive pages.
+
+Desktop Lighthouse targets:
+
+- Performance: at least 90
+- Accessibility: at least 95
+- Best Practices: at least 95
+- SEO: at least 95
+
+Mobile Lighthouse targets:
+
+- Performance: at least 85
+- Accessibility: at least 95
+- Best Practices: at least 95
+- SEO: at least 95
+
+Core Web Vitals targets:
+
+- LCP: 2.5 seconds or less on a 4G mobile profile
+- INP: 200 milliseconds or less
+- CLS: 0.1 or less
+- TTFB: 0.8 seconds or less for static routes
+
+Do not set `BLOG_LIVE=true` until the blog passes these targets on a preview
+deployment.
+
 ## Section Sign-off Template
 
 When a section is ready for review, report:
