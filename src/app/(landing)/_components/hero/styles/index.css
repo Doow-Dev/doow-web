@@ -2,7 +2,7 @@
   .hero-surface {
     position: relative;
     isolation: isolate;
-    min-height: 50svh;
+    min-height: 90svh;
     overflow: clip;
     background: #0b1110;
     color: var(--fg-on-color);
@@ -13,7 +13,7 @@
     inset-inline: 0;
     inset-block-start: 0;
     inset-block-end: auto;
-    height: 50svh;
+    height: 90svh;
     background: var(--hero-overlay-image);
   }
 
@@ -93,14 +93,13 @@
     display: inline-flex;
     align-items: baseline;
     white-space: nowrap;
-    gap: 0.14em;
   }
 
   .hero-title__accent-word-sequence {
     position: relative;
     display: inline-block;
     align-items: baseline;
-    overflow: clip;
+    overflow: visible;
     white-space: nowrap;
   }
 
@@ -117,25 +116,6 @@
     inset-inline-start: 0;
     white-space: nowrap;
     will-change: opacity;
-    color: var(--fg-on-color);
-  }
-
-  .hero-title__accent-suffix {
-    display: inline-flex;
-    align-items: baseline;
-    white-space: nowrap;
-    gap: 0.11em;
-  }
-
-  .hero-title__accent-static {
-    display: inline-block;
-  }
-
-  .hero-title__accent-gradient-phrase {
-    position: relative;
-    display: inline-block;
-    overflow: visible;
-    white-space: nowrap;
     background-image: var(--hero-accent-suffix-gradient);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -145,14 +125,8 @@
     -webkit-text-fill-color: transparent;
   }
 
-  .hero-title__accent-suffix-text,
-  .hero-title__accent-using-letter {
+  .hero-title__accent-word-text {
     display: inline-block;
-  }
-
-  .hero-title__accent-using-letter {
-    position: relative;
-    overflow: visible;
   }
 
   .hero-copy__lead {
@@ -182,13 +156,17 @@
     height: 1.25rem;
   }
 
-  .hero-accent-sparkle--using {
-    inset-inline-start: 4.86em;
-    inset-block-start: 0.58em;
-    transform: translate(-50%, -50%);
+  .hero-accent-sparkle--word {
+    position: absolute;
+    inset-inline-start: auto;
+    inset-inline-end: 0.68em;
+    inset-block-start: 0.5em;
+    inset-block-end: auto;
+    transform: translate(50%, -50%);
     width: 0.38em;
     height: 0.38em;
     pointer-events: none;
+    -webkit-text-fill-color: initial;
   }
 
   .hero-demo-preview {

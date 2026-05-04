@@ -1,5 +1,6 @@
 import type { SiteAssetEntry } from "@/lib/assets/site";
 import { siteAssetManifest } from "@/lib/assets/site";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface FooterActionLink {
   href: string;
@@ -88,7 +89,7 @@ export const siteFooterBodyContent = {
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
         { href: "mailto:contact@doow.co", label: "Contact" },
-        { href: "/signin", label: "Login" },
+        { href: doowAppLinks.login, label: "Login" },
       ],
     },
   ] satisfies readonly [SiteFooterLinkGroup, SiteFooterLinkGroup],
@@ -132,7 +133,7 @@ export const siteFooterPromoPresets = {
     description: "Start seeing it.",
     supportingText: "Cancel anytime",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Start 14 days free trial",
     },
     dashboard: siteAssetManifest.footerDashboard,
@@ -143,7 +144,7 @@ export const siteFooterPromoPresets = {
     title: "Stop guessing what you're paying for.",
     description: "Get complete visibility into your SaaS stack and start saving money within minutes.",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Start Exploring Applications",
     },
   } satisfies SiteFooterPromo,
@@ -153,7 +154,7 @@ export const siteFooterPromoPresets = {
     title: "See where your software budget is going",
     description: "Track every SaaS payment across cards, banks, and accounting systems in one place.",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Track Expenses",
     },
   } satisfies SiteFooterPromo,
@@ -162,7 +163,7 @@ export const siteFooterPromoPresets = {
     id: "site-footer-promo-compact-headline-only",
     title: "Stop Tracking Softwares Manually",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Manage Subscriptions",
     },
   } satisfies SiteFooterPromo,

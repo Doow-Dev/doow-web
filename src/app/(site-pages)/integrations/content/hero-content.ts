@@ -1,4 +1,5 @@
 import { siteAssetManifest } from "@/lib/assets/site";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface IntegrationsHeroActionLink {
   href: string;
@@ -29,7 +30,7 @@ export const integrationsHeroContent = {
   },
   description: "Bring identity, finance, and HR data together so everything stays up to date.",
   cta: {
-    href: "/signin",
+    href: doowAppLinks.startFreeTrial,
     label: "Start Free Trial",
   } satisfies IntegrationsHeroActionLink,
   illustration: {

@@ -6,7 +6,7 @@ import {
   getIntegrationAppGraphic,
   type IntegrationAppGraphicSource,
 } from "@/components/custom/icons/integration-app-icon-registry";
-import { CatalogProviderCard } from "@/components/layout/shared";
+import { CatalogProviderCard, QueryErrorMessage } from "@/components/layout/shared";
 import { Container } from "@/components/system";
 import { getAlternativeAppsCatalogResponse } from "@/lib/server/alternative-apps-service";
 import type {
@@ -14,7 +14,7 @@ import type {
   AlternativeAppsCatalogLogoPreview,
 } from "@/lib/site/alternative-apps-catalog";
 
-const featuredApplicationsTake = 4;
+const featuredApplicationsTake = 20;
 
 function getInitials(name: string) {
   const words = name.trim().split(/\s+/).filter(Boolean);
@@ -96,7 +96,7 @@ function AlternativePreviewLogo({ index, preview }: { index: number; preview: Al
 function FeaturedApplicationCard({ item }: { item: AlternativeAppsCatalogItem }) {
   const categoryLabel = getPrimaryCategoryLabel(item.categoryLabel);
   const graphic = getIntegrationAppGraphic(...item.logoHints, item.name);
-  const previews = (item.alternativePreviewLogos ?? []).slice(0, 4);
+  const previews = (item.alternativePreviewLogos ?? []).slice(0, 3);
 
   return (
     <CatalogProviderCard
@@ -115,12 +115,12 @@ function FeaturedApplicationCard({ item }: { item: AlternativeAppsCatalogItem })
             </span>
           ) : null}
           {item.alternativeCount > 0 ? (
-            <span className="alternative-apps-featured-card__alternative-count">
-              &amp; {item.alternativeCount}+ alternatives
-            </span>
+            <span className="alternative-apps-featured-card__alternative-count">+{item.alternativeCount}</span>
           ) : null}
         </span>
       }
+      footerDivider
+      footerLabel="Alternatives:"
       href={item.href}
       logo={
         <span aria-label={`${item.name} logo`} className="alternative-apps-featured-card__logo" role="img">
@@ -143,12 +143,18 @@ function FeaturedApplicationCard({ item }: { item: AlternativeAppsCatalogItem })
 
 export async function AlternativeAppsFeaturedSection() {
   const { featured } = alternativeAppsPageContent;
-  const featuredData = await getAlternativeAppsCatalogResponse({
-    featured: true,
-    take: featuredApplicationsTake,
-  });
+  let featuredData = null;
 
-  if (!featuredData.items.length) {
+  try {
+    featuredData = await getAlternativeAppsCatalogResponse({
+      featured: true,
+      take: featuredApplicationsTake,
+    });
+  } catch (error) {
+    console.error("Alternative apps featured catalog failed to load initial data.", error);
+  }
+
+  if (featuredData && !featuredData.items.length) {
     return null;
   }
 
@@ -160,11 +166,18 @@ export async function AlternativeAppsFeaturedSection() {
             {featured.title}
           </h2>
 
-          <div className="alternative-apps-featured__grid">
-            {featuredData.items.map((item) => (
-              <FeaturedApplicationCard item={item} key={item.id} />
-            ))}
-          </div>
+          {featuredData ? (
+            <div className="alternative-apps-featured__grid">
+              {featuredData.items.map((item) => (
+                <FeaturedApplicationCard item={item} key={item.id} />
+              ))}
+            </div>
+          ) : (
+            <QueryErrorMessage
+              message="We could not load featured applications right now. Please try again later."
+              title="Featured applications unavailable"
+            />
+          )}
         </div>
       </Container>
     </section>

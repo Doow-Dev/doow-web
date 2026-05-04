@@ -10,9 +10,16 @@ export interface SiteFooterPromoProps {
   promo: SiteFooterPromoContent;
 }
 
+const retainedPromoCtaLabels = new Set(["Start 14 days free trial", "Start Free Trial"]);
+
+function getPromoCtaLabel(label: string) {
+  return retainedPromoCtaLabels.has(label) ? label : "Get Started";
+}
+
 export function SiteFooterPromoSection({ promo }: SiteFooterPromoProps) {
   const headingId = promo.id ? `${promo.id}-heading` : "site-footer-promo-heading";
   const isDashboard = promo.kind === "dashboard";
+  const ctaLabel = getPromoCtaLabel(promo.cta.label);
 
   return (
     <section
@@ -41,7 +48,7 @@ export function SiteFooterPromoSection({ promo }: SiteFooterPromoProps) {
 
             <Button asChild className="site-footer-promo__cta" size="md" variant="secondary">
               <Link href={promo.cta.href} rel={promo.cta.rel} target={promo.cta.target}>
-                {promo.cta.label}
+                {ctaLabel}
               </Link>
             </Button>
 

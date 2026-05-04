@@ -1,3 +1,5 @@
+import { doowAppLinks } from "@/lib/site/app-links";
+
 export type GlobalSiteNavAvailability = "live" | "planned";
 
 export type GlobalSiteNavIcon =
@@ -128,11 +130,11 @@ export const globalSiteNavContent = {
   ] satisfies readonly GlobalSiteNavEntry[],
   login: {
     activeMatchPaths: ["/signin"],
-    href: "/signin",
+    href: doowAppLinks.login,
     label: "Login",
   } satisfies GlobalSiteNavAction,
   signUp: {
-    href: "/signin",
+    href: doowAppLinks.signUp,
     label: "Sign Up",
   } satisfies GlobalSiteNavAction,
 } as const satisfies GlobalSiteNavContent;

@@ -2,6 +2,7 @@ import type { FaqSectionContent } from "@/components/layout/faq";
 import type { SiteFooterPromo } from "@/components/layout/footer";
 import type { SiteAssetEntry } from "@/lib/assets/site";
 import { siteAssetManifest } from "@/lib/assets/site";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 import { doowAiFaqContent } from "./faq-content";
 
@@ -67,7 +68,7 @@ const doowAiHeroContent: DoowAiHeroContent = {
   quote:
     "Two complete finance operators. Same rigor. Same standards. Different energy. Derek finds the leak. Mina draws the shape. Both tell the truth.",
   cta: {
-    href: "/signin",
+    href: doowAppLinks.getStarted,
     label: "Get Started",
   },
   illustration: siteAssetManifest.doowAiComposite,
@@ -81,7 +82,7 @@ const doowAiActionSections = [
     description:
       "Derek doesn\u2019t just retrieve data\u2014he understands how money moves across your stack. Ask anything, and he traces patterns, surfaces waste, and guides you toward smarter decisions with clarity.",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Continue with Derek",
       image: siteAssetManifest.doowAiDerekCtaImage,
     },
@@ -95,7 +96,7 @@ const doowAiActionSections = [
     description:
       "Mina moves through your stack like a living current\u2014connecting signals, revealing hidden patterns, and guiding each decision with quiet intuition.",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Continue with Mina",
       image: siteAssetManifest.doowAiMinaCtaImage,
     },

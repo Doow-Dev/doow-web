@@ -10,6 +10,8 @@ export interface CatalogProviderCardProps {
   className?: string;
   description?: string;
   footer?: ReactNode;
+  footerDivider?: boolean;
+  footerLabel?: ReactNode;
   href?: string;
   logo: ReactNode;
   meta?: ReactNode;
@@ -23,6 +25,8 @@ export function CatalogProviderCard({
   className,
   description,
   footer,
+  footerDivider = false,
+  footerLabel,
   href,
   logo,
   meta,
@@ -34,6 +38,18 @@ export function CatalogProviderCard({
   const descriptionElement = description ? (
     <CatalogCardDescription className={`${namespace}-card__description`} description={description} />
   ) : null;
+  const shouldUseStructuredFooter = Boolean(footer && (footerDivider || footerLabel));
+  const footerElement = shouldUseStructuredFooter ? (
+    <>
+      {footerDivider ? <span aria-hidden="true" className={`${namespace}-card__divider`} /> : null}
+      <div className={`${namespace}-card__footer`}>
+        {footerLabel ? <span className={`${namespace}-card__footer-label`}>{footerLabel}</span> : null}
+        {footer}
+      </div>
+    </>
+  ) : (
+    footer
+  );
 
   const content = (
     <>
@@ -43,7 +59,7 @@ export function CatalogProviderCard({
         {createElement(titleAs, { className: `${namespace}-card__title` }, title)}
         {meta}
         {descriptionElement}
-        {footer}
+        {footerElement}
       </div>
     </>
   );

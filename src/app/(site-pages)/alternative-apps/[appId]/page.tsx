@@ -2,13 +2,21 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { AlternativeAppDetailsSection } from "@/app/(site-pages)/alternative-apps/components/alternative-app-details-section";
+import { QueryErrorMessage } from "@/components/layout/shared";
+import { Container } from "@/components/system";
 import { getAlternativeAppDetailsResponse } from "@/lib/server/alternative-apps-service";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
 
 export async function generateMetadata({ params }: { params: Promise<{ appId: string }> }): Promise<Metadata> {
   const { appId } = await params;
-  const details = await getAlternativeAppDetailsResponse(appId);
+  let details = null;
+
+  try {
+    details = await getAlternativeAppDetailsResponse(appId);
+  } catch (error) {
+    console.error("Alternative app details metadata failed to load.", error);
+  }
 
   if (!details) {
     return {
@@ -32,7 +40,23 @@ export async function generateMetadata({ params }: { params: Promise<{ appId: st
 
 export default async function AlternativeAppDetailsPage({ params }: { params: Promise<{ appId: string }> }) {
   const { appId } = await params;
-  const details = await getAlternativeAppDetailsResponse(appId);
+  let details = null;
+
+  try {
+    details = await getAlternativeAppDetailsResponse(appId);
+  } catch (error) {
+    console.error("Alternative app details failed to load.", error);
+    return (
+      <section aria-label="Alternative application details" className="alternative-app-details">
+        <Container className="alternative-app-details__shell" variant="siteFooterPromo">
+          <QueryErrorMessage
+            message="We could not load this application comparison right now. Please try again later."
+            title="Application comparison unavailable"
+          />
+        </Container>
+      </section>
+    );
+  }
 
   if (!details) {
     notFound();

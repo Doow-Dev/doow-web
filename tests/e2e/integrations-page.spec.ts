@@ -104,7 +104,10 @@ for (const viewport of viewports) {
       await expect(
         heroShell.getByText("Bring identity, finance, and HR data together so everything stays up to date."),
       ).toBeVisible();
-      await expect(heroShell.getByRole("link", { name: "Start Free Trial" })).toHaveAttribute("href", "/signin");
+      await expect(heroShell.getByRole("link", { name: "Start Free Trial" })).toHaveAttribute(
+        "href",
+        "https://dev.doow.co/signup",
+      );
       await expect(integrationListShell.getByRole("heading", { level: 2, name: "One Hub for Every Integration" })).toBeVisible();
       await expect(integrationListShell.getByRole("heading", { level: 3, name: "Browse Our Integration Catalog" })).toBeVisible();
       await expect(integrationListShell.getByRole("searchbox", { name: "Search integrations" })).toBeVisible();
@@ -311,6 +314,9 @@ test.describe("integrations FAQ and footer content", () => {
     await expect(
       footerPromo.getByText("Bring identity, finance, and HR data together so everything stays up to date."),
     ).toBeVisible();
-    await expect(footerPromo.getByRole("link", { name: "View Integrations" })).toHaveAttribute("href", "/signin");
+    await expect(footerPromo.getByRole("link", { name: "Get Started" })).toHaveAttribute(
+      "href",
+      "https://dev.doow.co/signup",
+    );
   });
 });

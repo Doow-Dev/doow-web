@@ -1,3 +1,5 @@
+import { doowAppLinks } from "@/lib/site/app-links";
+
 export interface SubscriptionsPricingFeature {
   label: string;
 }
@@ -49,7 +51,7 @@ export const subscriptionsPricingContent = {
       priceSuffix: "/ Month",
       featureEyebrow: "Basic plan includes:",
       cta: {
-        href: "/signin",
+        href: doowAppLinks.signUp,
         label: "Start 14 days free trial",
       },
       features: [
@@ -68,7 +70,7 @@ export const subscriptionsPricingContent = {
       priceSuffix: "/ Month",
       featureEyebrow: "Everything in Basic, plus:",
       cta: {
-        href: "/signin",
+        href: doowAppLinks.signUp,
         label: "Start 14 days free trial",
       },
       features: [

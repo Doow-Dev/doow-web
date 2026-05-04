@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Search } from "lucide-react";
 
 import type { IntegrationsIntegrationListContent } from "@/app/(site-pages)/integrations/content/integration-list-content";
-import { CatalogBrowseShell, CatalogProviderCard } from "@/components/layout/shared";
+import { CatalogBrowseShell, CatalogProviderCard, QueryErrorMessage } from "@/components/layout/shared";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { fetchJson } from "@/lib/rest/fetch-json";
@@ -18,7 +18,6 @@ import {
   type IntegrationCatalogResponse,
 } from "@/lib/site/integration-catalog";
 import { capCharacters } from "@/lib/text/cap-characters";
-import { cn } from "@/lib/utils";
 
 export interface IntegrationListToolProps {
   content: IntegrationsIntegrationListContent;
@@ -183,23 +182,26 @@ function CategoryRail({ categories, onSelect, panelId, selectedCategoryId }: Cat
         const isSelected = category.id === selectedCategoryId;
 
         return (
-          <button
-            aria-label={`${category.label} ${category.count}`}
-            aria-controls={panelId}
-            aria-selected={isSelected}
-            className="integration-list__category-button"
-            data-state={isSelected ? "active" : "inactive"}
-            id={getCategoryButtonId(category.id)}
-            key={category.id}
-            onClick={() => onSelect(category.id)}
-            onKeyDown={(event) => handleCategoryKeyDown(event, categories, index, onSelect)}
-            role="tab"
-            tabIndex={isSelected ? 0 : -1}
-            type="button"
-          >
-            <CappedCategoryLabel label={category.label} />
-            <span className="integration-list__category-count">{category.count}</span>
-          </button>
+          <div className="integration-list__category-group" key={category.id}>
+            <div className="integration-list__category-row" data-state={isSelected ? "active" : "inactive"}>
+              <button
+                aria-label={`${category.label} ${category.count}`}
+                aria-controls={panelId}
+                aria-selected={isSelected}
+                className="integration-list__category-filter-button"
+                data-category-control="true"
+                id={getCategoryButtonId(category.id)}
+                onClick={() => onSelect(category.id)}
+                onKeyDown={(event) => handleCategoryKeyDown(event, categories, index, onSelect)}
+                role="tab"
+                tabIndex={isSelected ? 0 : -1}
+                type="button"
+              >
+                <CappedCategoryLabel label={category.label} />
+                <span className="integration-list__category-count">{category.count}</span>
+              </button>
+            </div>
+          </div>
         );
       })}
     </div>
@@ -238,10 +240,12 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
   const [loadError, setLoadError] = useState("");
   const [isHydrated, setIsHydrated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [retryVersion, setRetryVersion] = useState(0);
   const [, startTransition] = useTransition();
   const abortControllerRef = useRef<AbortController | null>(null);
   const resolvedRequestKeyRef = useRef(getRequestKey(initialData.selectedCategoryId, initialData.query));
   const pendingRequestKeyRef = useRef<string | null>(null);
+  const failedRequestKeyRef = useRef<string | null>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const panelId = "integration-list-panel";
   const selectedCategory = useMemo(
@@ -274,6 +278,7 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
       pendingRequestKeyRef.current = requestKey;
       setIsLoading(true);
       setLoadError("");
+      failedRequestKeyRef.current = null;
 
       try {
         const nextData = await fetchJson<IntegrationCatalogResponse>(
@@ -294,12 +299,14 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
           setData(nextData);
         });
         resolvedRequestKeyRef.current = requestKey;
+        failedRequestKeyRef.current = null;
       } catch (error) {
         if (error instanceof Error && error.name === "AbortError") {
           return;
         }
 
         setLoadError("We could not update the integration catalog right now. Please try again.");
+        failedRequestKeyRef.current = requestKey;
       } finally {
         if (pendingRequestKeyRef.current === requestKey) {
           pendingRequestKeyRef.current = null;
@@ -311,7 +318,7 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [searchQuery, selectedCategoryId, startTransition]);
+  }, [retryVersion, searchQuery, selectedCategoryId, startTransition]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -329,6 +336,16 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
     }
 
     setSelectedCategoryId(categoryId);
+  }
+
+  function handleRetry() {
+    if (!failedRequestKeyRef.current) {
+      return;
+    }
+
+    resolvedRequestKeyRef.current = "";
+    pendingRequestKeyRef.current = null;
+    setRetryVersion((version) => version + 1);
   }
 
   return (
@@ -369,14 +386,21 @@ export function IntegrationListTool({ content, initialData }: IntegrationListToo
       resultsLabel="Integration catalog results"
       selectedTabId={selectedTabId}
       status={
-        <p aria-live="polite" className={cn("integration-list__status", !loadError && "sr-only")} role="status">
+        <p aria-live="polite" className="sr-only" role="status">
           {loadError || `${data.totalCount} integrations shown.`}
         </p>
       }
       title="Browse Our Integration Catalog"
       viewportRef={viewportRef}
     >
-      {isLoading ? (
+      {loadError ? (
+        <QueryErrorMessage
+          actionLabel="Retry"
+          message={loadError}
+          onRetry={handleRetry}
+          title="Integration catalog unavailable"
+        />
+      ) : isLoading ? (
         <IntegrationListSkeleton />
       ) : data.items.length ? (
         <div className="integration-list-grid">

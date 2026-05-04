@@ -7,6 +7,10 @@ export {
   type CatalogProviderCardProps,
 } from "./components/catalog-provider-card";
 export {
+  QueryErrorMessage,
+  type QueryErrorMessageProps,
+} from "./components/query-error-message";
+export {
   ProgressiveSplitShell,
   type ProgressiveSplitItem,
   type ProgressiveSplitShellClassNames,

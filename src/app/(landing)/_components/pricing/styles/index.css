@@ -8,7 +8,8 @@
 
     position: relative;
     isolation: isolate;
-    min-height: 34rem;
+    height: 100vh;
+    min-height: 100vh;
     overflow: clip;
     background: #0b1110;
     color: #ffffff;
@@ -142,10 +143,6 @@
   }
 
   @media (min-width: 48rem) {
-    .pricing {
-      min-height: 42rem;
-    }
-
     .pricing__layout {
       gap: 1.75rem;
       padding-top: var(--pricing-layout-offset-top-tablet);
@@ -154,11 +151,6 @@
   }
 
   @media (min-width: 64rem) {
-    .pricing {
-      height: 80vh;
-      min-height: 80vh;
-    }
-
     .pricing__layout {
       gap: 1.7527rem;
       padding-top: var(--pricing-layout-offset-top-desktop);

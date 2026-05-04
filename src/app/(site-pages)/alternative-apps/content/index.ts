@@ -1,4 +1,5 @@
 import type { SiteFooterPromo } from "@/components/layout/footer";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface AlternativeAppsPageContent {
   catalog: {
@@ -40,7 +41,7 @@ export const alternativeAppsPageContent = {
     id: "alternative-apps-footer-promo",
     title: "See more alternatives to the softwares you are paying for",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.getStarted,
       label: "Get Started",
     },
   },

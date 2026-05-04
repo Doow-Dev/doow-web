@@ -25,7 +25,6 @@
     position: absolute;
     inset: 0;
     border: 1px dashed var(--stroke-dashed-subtle);
-    border-bottom: 0;
     pointer-events: none;
     z-index: 1;
     content: "";
@@ -68,16 +67,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  .feature-split__point-list::before {
-    position: absolute;
-    left: 0.594rem;
-    top: 0.25rem;
-    bottom: 0.25rem;
-    width: 1px;
-    background: linear-gradient(180deg, var(--showcase-highlight-border) 0%, rgba(4, 167, 85, 0.12) 100%);
-    content: "";
   }
 
   .feature-split__point-item {
@@ -569,7 +558,6 @@
       position: absolute;
       inset: 0;
       border: 1px dashed var(--stroke-dashed-subtle);
-      border-bottom: 0;
       pointer-events: none;
       content: "";
     }
