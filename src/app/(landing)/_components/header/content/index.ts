@@ -10,7 +10,7 @@ export const landingHeaderContent = {
   primaryNavigation: [
     { href: "#product", label: "Product", hasDisclosure: true },
     { href: "#pricing", label: "Pricing" },
-    { href: "#blog", label: "Blog" },
+    { href: "/blog", label: "Blog" },
   ] satisfies LandingNavItem[],
   login: {
     href: "/signin",

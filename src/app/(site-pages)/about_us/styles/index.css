@@ -1,0 +1,346 @@
+@layer components {
+  .about-us-page-main {
+    background: #ffffff;
+    color: var(--fg-base);
+  }
+
+  .about-us-hero {
+    padding-top: 1.5rem;
+  }
+
+  .about-us-hero__shell {
+    padding-top: clamp(3.5rem, 8vw, 5.625rem);
+    padding-bottom: clamp(2.75rem, 7vw, 4.25rem);
+  }
+
+  .about-us-hero__content {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    width: min(100%, 50.125rem);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .about-us-hero__badge {
+    justify-content: center;
+  }
+
+  .about-us-hero__copy {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .about-us-hero__title {
+    width: min(100%, 50.125rem);
+    margin: 0 auto;
+    color: #111827;
+    font-size: clamp(2.75rem, 8vw, 3.75rem);
+    font-weight: 600;
+    line-height: clamp(3.125rem, 8.4vw, 4.5rem);
+    letter-spacing: -2px;
+    text-shadow: var(--text-shadow-hero-display);
+    text-wrap: balance;
+  }
+
+  .about-us-hero__description {
+    width: min(100%, 46.5rem);
+    margin: 0 auto;
+    color: #5e5f6e;
+    line-height: 1.5rem;
+    text-wrap: pretty;
+  }
+
+  .about-us-hero__cta {
+    min-height: 2.125rem;
+    justify-content: center;
+  }
+
+  .about-us-principles__shell {
+    padding-top: clamp(0.5rem, 2vw, 0.75rem);
+    padding-bottom: clamp(4rem, 9vw, 6.75rem);
+  }
+
+  .about-us-principles__grid {
+    overflow: visible;
+    display: grid;
+  }
+
+  .about-us-principles__card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: start;
+    min-height: 9.75rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-base);
+    border-radius: 0;
+    background: #ffffff;
+  }
+
+  .about-us-principles__card[data-tone="subtle"] {
+    background: var(--bg-subtle);
+  }
+
+  .about-us-principles__card + .about-us-principles__card {
+    margin-top: -1px;
+  }
+
+  .about-us-principles__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #28303f;
+  }
+
+  .about-us-principles__icon-svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .about-us-principles__copy {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .about-us-principles__card-title {
+    margin: 0;
+    color: #141414;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.375rem;
+    letter-spacing: -0.14px;
+  }
+
+  .about-us-principles__card-description {
+    margin: 0;
+    color: #656565;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: -0.14px;
+    text-wrap: pretty;
+  }
+
+  .about-us-team__shell {
+    padding-top: 0;
+    padding-bottom: clamp(5.5rem, 10vw, 8.125rem);
+  }
+
+  .about-us-team__content {
+    display: grid;
+    gap: 2.1875rem;
+    justify-items: center;
+    width: min(100%, 41.5rem);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .about-us-team__copy {
+    display: grid;
+    gap: 1rem;
+    width: min(100%, 33.375rem);
+  }
+
+  .about-us-team__title {
+    width: min(100%, 27rem);
+    margin: 0 auto;
+    color: #00140a;
+    font-size: clamp(2rem, 6vw, 2.25rem);
+    font-weight: 600;
+    line-height: clamp(2.5rem, 6.5vw, 2.625rem);
+    letter-spacing: -2px;
+    text-shadow: var(--text-shadow-hero-display);
+    text-wrap: balance;
+  }
+
+  .about-us-team__description {
+    margin: 0;
+    color: #666b69;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.3125rem;
+    letter-spacing: -0.0496px;
+    text-wrap: pretty;
+  }
+
+  .about-us-team__logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem 1.75rem;
+    width: min(100%, 40.375rem);
+  }
+
+  .about-us-team__logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-us-team__logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #141414;
+    line-height: 1;
+  }
+
+  .about-us-team__logo--clerk {
+    gap: 0.1875rem;
+  }
+
+  .about-us-team__logo-clerk-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: #141414;
+    box-shadow: 0.35rem -0.2rem 0 -0.12rem rgba(20, 20, 20, 0.88);
+  }
+
+  .about-us-team__logo[data-logo-id="about-us-team-logo-clerk"] .about-us-team__logo-label {
+    font-size: 1.675rem;
+    font-weight: 700;
+    letter-spacing: -0.08em;
+    text-transform: lowercase;
+  }
+
+  .about-us-team__logo--traqq {
+    gap: 0.375rem;
+  }
+
+  .about-us-team__logo-mark {
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 32% 50%, #ffffff 0 23%, transparent 24% 100%),
+      linear-gradient(135deg, #ffb800 0%, #04a755 100%);
+    box-shadow: inset 0 0 0 1px rgba(4, 152, 77, 0.08);
+  }
+
+  .about-us-team__logo--traqq .about-us-team__logo-label {
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: #141414;
+    text-transform: lowercase;
+  }
+
+  .about-us-team__logo[data-logo-id="about-us-team-logo-sytch"] .about-us-team__logo-label {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    color: #141414;
+  }
+
+  .about-us-team__logo--sytch {
+    gap: 0.1875rem;
+    align-items: flex-end;
+  }
+
+  .about-us-team__logo-subcopy {
+    position: relative;
+    inset-block-end: 0.0625rem;
+    color: #656565;
+    font-size: 0.5rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+  }
+
+  .about-us-team__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .about-us-team__link-button {
+    min-height: 2.125rem;
+    padding-inline: 0.5rem;
+    gap: 0.375rem;
+    border-color: rgba(11, 19, 36, 0.07);
+    border-radius: 0.5rem;
+    box-shadow:
+      0 1px 3px 0 rgba(11, 19, 36, 0.1),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+    color: #111827;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.3125rem;
+    letter-spacing: -0.14px;
+  }
+
+  .about-us-team__link-button span {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .about-us-team__link-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #111827;
+  }
+
+  @media (min-width: 48rem) {
+    .about-us-hero {
+      padding-top: 2rem;
+    }
+
+    .about-us-principles__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about-us-principles__card {
+      min-height: 9.6875rem;
+      padding: 2rem;
+    }
+
+    .about-us-principles__card + .about-us-principles__card {
+      margin-top: 0;
+    }
+
+    .about-us-principles__card:nth-child(2) {
+      margin-left: -1px;
+      border-top-right-radius: 2rem;
+    }
+
+    .about-us-principles__card:nth-child(3) {
+      margin-top: -1px;
+      border-bottom-left-radius: 2rem;
+    }
+
+    .about-us-principles__card:nth-child(4) {
+      margin-top: -1px;
+      margin-left: -1px;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .about-us-hero__shell {
+      padding-top: 4.125rem;
+      padding-bottom: 4.8125rem;
+    }
+
+    .about-us-principles__shell {
+      padding-bottom: 7.0625rem;
+    }
+
+    .about-us-team__shell {
+      padding-bottom: 8.5625rem;
+    }
+
+    .about-us-team__logos {
+      gap: 1.75rem;
+    }
+  }
+}

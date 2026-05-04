@@ -76,6 +76,7 @@ export const siteFooterBodyContent = {
     {
       title: "Company",
       items: [
+        { href: "/about_us", label: "About Us" },
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
         { href: "mailto:contact@doow.co", label: "Contact" },

@@ -133,6 +133,12 @@ export const siteAssetManifest = {
     height: 310,
   },
   // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsRenewalsVideo: {
+    id: "subscriptions-renewals-video",
+    src: "/assets/illustrations/subscriptions-renewals-feature.mp4",
+    mimeType: "video/mp4",
+  },
+  // Temporary local fallback until the canonical blob asset is published.
   subscriptionsContractsVisual: {
     id: "subscriptions-contracts-visual",
     src: "/assets/illustrations/subscriptions-contracts-visual.png",
@@ -229,6 +235,7 @@ export const siteAssetManifest = {
   integrationsHeroIllustrationMask: SiteAssetEntry;
   subscriptionsHeroDashboard: SiteAssetEntry;
   subscriptionsRenewalsVisual: SiteAssetEntry;
+  subscriptionsRenewalsVideo: SiteVideoEntry;
   subscriptionsContractsVisual: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;

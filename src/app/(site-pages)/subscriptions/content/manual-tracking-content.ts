@@ -1,4 +1,4 @@
-import { siteAssetManifest, type SiteAssetEntry } from "@/lib/assets/site";
+import { siteAssetManifest, type SiteAssetEntry, type SiteVideoEntry } from "@/lib/assets/site";
 
 export type SubscriptionsManualTrackingVisualId = "renewals" | "licenses" | "contracts";
 
@@ -8,6 +8,7 @@ export interface SubscriptionsManualTrackingItem {
   visualCaption: string;
   visualId: SubscriptionsManualTrackingVisualId;
   visualImage?: SiteAssetEntry;
+  visualVideo?: SiteVideoEntry;
   visualTitle: string;
 }
 
@@ -20,7 +21,7 @@ export interface SubscriptionsManualTrackingContent {
 }
 
 export const subscriptionsManualTrackingContent = {
-  defaultSelectedVisualId: "licenses",
+  defaultSelectedVisualId: "renewals",
   id: "subscriptions-manual-tracking",
   title: "Many teams track subscriptions manually",
   description: "But as tools grow, manual tracking becomes unmanageable",
@@ -30,6 +31,7 @@ export const subscriptionsManualTrackingContent = {
       description:
         "Capture software payments made directly from your bank accounts so no subscription or vendor slips outside your visibility.",
       visualId: "renewals",
+      visualVideo: siteAssetManifest.subscriptionsRenewalsVideo,
       visualTitle: "Know which licenses are active",
       visualCaption: "Keep usage, owners, and plan counts close to the subscription record.",
     },
