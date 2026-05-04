@@ -737,6 +737,106 @@
   }
 }
 
+@layer components {
+  .dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.17);
+    backdrop-filter: blur(3px);
+    animation: dialog-overlay-show 180ms ease;
+  }
+
+  .dialog-content {
+    position: fixed;
+    z-index: 51;
+    inset-inline: 1rem;
+    top: 50%;
+    left: 50%;
+    width: min(calc(100vw - 2rem), 34rem);
+    max-height: min(calc(100vh - 2rem), 48rem);
+    overflow-y: auto;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(1, 19, 19, 0.1);
+    border-radius: 1.5rem;
+    background: #ffffff;
+    box-shadow:
+      0 30px 80px rgba(1, 19, 19, 0.24),
+      0 12px 30px rgba(1, 19, 19, 0.12);
+    animation: dialog-content-show 200ms ease;
+  }
+
+  .dialog-close {
+    position: absolute;
+    top: 1.125rem;
+    right: 1.125rem;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid var(--border-base);
+    border-radius: 999px;
+    background: var(--button-neutral);
+    color: var(--fg-base);
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      opacity 160ms ease;
+  }
+
+  .dialog-close:hover {
+    background: var(--button-neutral-hover);
+    border-color: var(--border-strong);
+  }
+
+  .dialog-close:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+  }
+
+  .dialog-close svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .dialog-header {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .dialog-title,
+  .dialog-description {
+    margin: 0;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dialog-overlay,
+    .dialog-content {
+      animation: none;
+    }
+  }
+}
+
+@keyframes dialog-overlay-show {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-content-show {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.75rem)) scale(0.98);
+  }
+}
+
 @utility button-secondary {
   background: var(--button-neutral);
   border: 1px solid var(--border-base);

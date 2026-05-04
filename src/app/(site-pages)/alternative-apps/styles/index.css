@@ -2473,9 +2473,19 @@
     justify-content: space-between;
     gap: 1rem;
     min-height: 10.625rem;
+    border: 0;
     border-bottom: 1px solid var(--border-base);
     background: var(--button-neutral);
+    color: inherit;
     padding: 1rem;
+    text-align: left;
+  }
+
+  button.alternative-app-details-compact-card {
+    appearance: none;
+    border-top: 0;
+    border-left: 0;
+    cursor: pointer;
   }
 
   .alternative-app-details-compact-card__header {
@@ -2528,8 +2538,30 @@
 
   .alternative-app-details__sticky-compact-alternatives {
     position: relative;
-    display: grid;
     min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .alternative-app-details__sticky-compact-alternatives::-webkit-scrollbar {
+    display: none;
+  }
+
+  .alternative-app-details__sticky-compact-alternatives-list {
+    display: flex;
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .alternative-app-details__sticky-compact-alternatives-list .alternative-app-details-compact-card {
+    flex: 0 0 50%;
+    min-width: 50%;
+    width: 50%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .alternative-app-details-comparison-section {

@@ -257,6 +257,16 @@
     line-height: 1.375rem;
   }
 
+  .site-footer__link-button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    text-align: start;
+  }
+
   .site-footer__contact {
     display: grid;
     align-content: start;
@@ -484,4 +494,94 @@
       opacity: 0.72;
     }
   }
+}
+
+@layer components {
+  .contact-dialog {
+    width: min(calc(100vw - 2rem), 31rem);
+    padding: 1.5rem;
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: none;
+  }
+
+  .contact-dialog__title {
+    color: #00140a;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1064px;
+    line-height: 2.125rem;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  }
+
+  .contact-dialog__description {
+    max-width: none;
+    color: #6b7280;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: -0.14px;
+    line-height: 1.3125rem;
+  }
+
+  .contact-dialog__form {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .contact-dialog__field {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .contact-dialog__label {
+    color: #011313;
+    font-family: var(--type-font-family-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: -0.0104px;
+    line-height: 1.125rem;
+  }
+
+  .contact-dialog__label-note {
+    color: #808484;
+    font-weight: 400;
+  }
+
+  .contact-dialog__input {
+    min-height: 2.375rem;
+    border-color: #e6e7e7;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 0.625rem 0.8125rem;
+    color: #011313;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: -0.0104px;
+    line-height: 1.125rem;
+    box-shadow:
+      0 0.25px 0 rgba(1, 19, 19, 0.16),
+      0 0.5px 0 rgba(1, 19, 19, 0.16);
+  }
+
+  .contact-dialog__input::placeholder {
+    color: #808484;
+  }
+
+  .contact-dialog__textarea {
+    min-height: 4.25rem;
+    resize: vertical;
+  }
+
+  .contact-dialog__submit {
+    width: 100%;
+    min-height: 2.125rem;
+    border-color: #04984d;
+    border-radius: 0.5rem;
+    background: #04a755;
+    font-size: 0.8125rem;
+    letter-spacing: -0.14px;
+    line-height: 1.3125rem;
+  }
+
 }

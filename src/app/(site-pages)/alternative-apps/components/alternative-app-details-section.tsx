@@ -542,6 +542,8 @@ function CompactAppCard({
   details,
   isCurrent = false,
   isRecommended = false,
+  isSelected = false,
+  onActivate,
   reduceMotion = false,
 }: {
   alternative?: AlternativeAppDetailAlternative;
@@ -550,6 +552,8 @@ function CompactAppCard({
   details?: AlternativeAppDetailResponse;
   isCurrent?: boolean;
   isRecommended?: boolean;
+  isSelected?: boolean;
+  onActivate?: () => void;
   reduceMotion?: boolean;
 }) {
   const name = isCurrent ? details?.app.name : alternative?.name;
@@ -561,13 +565,16 @@ function CompactAppCard({
     return null;
   }
 
-  return (
-    <motion.article
-      className="alternative-app-details-compact-card"
-      data-current={isCurrent ? "true" : "false"}
-      layout={!reduceMotion}
-      transition={comparisonMotionTransition}
-    >
+  const cardProps = {
+    className: "alternative-app-details-compact-card",
+    "data-alternative-slug": alternative?.slug,
+    "data-current": isCurrent ? "true" : "false",
+    "data-state": isSelected ? "active" : "idle",
+    layout: !reduceMotion,
+    transition: comparisonMotionTransition,
+  };
+  const content = (
+    <>
       <div className="alternative-app-details-compact-card__header">
         {isCurrent ? (
           <CurrentAppLogo hints={hints} logoUrl={details?.app.logoUrl} name={name} />
@@ -613,6 +620,26 @@ function CompactAppCard({
           />
         ) : null}
       </p>
+    </>
+  );
+
+  if (!isCurrent && onActivate) {
+    return (
+      <motion.button
+        {...cardProps}
+        aria-label={isSelected ? `${name} is active in comparison` : `Scroll ${name} into comparison`}
+        aria-pressed={isSelected}
+        onClick={onActivate}
+        type="button"
+      >
+        {content}
+      </motion.button>
+    );
+  }
+
+  return (
+    <motion.article {...cardProps}>
+      {content}
     </motion.article>
   );
 }
@@ -848,6 +875,8 @@ function ComparisonSection({
 
 export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsSectionProps) {
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const stickyAlternativesContentRef = useRef<HTMLDivElement>(null);
+  const stickyAlternativesViewportRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const reduceMotion = shouldReduceMotion ?? false;
   const {
@@ -861,9 +890,14 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
   const [selectedAlternativeSlugs, setSelectedAlternativeSlugs] = useState<string[]>(
     details.alternatives.slice(0, maxComparedAlternatives).map((alternative) => alternative.slug),
   );
+  const selectedAlternativeSlugsRef = useRef(selectedAlternativeSlugs);
   const [isSticky, setIsSticky] = useState(false);
   const [isFullDetailsOpen, setIsFullDetailsOpen] = useState(false);
   const [period, setPeriod] = useState<CostPeriod>("annual");
+
+  useEffect(() => {
+    selectedAlternativeSlugsRef.current = selectedAlternativeSlugs;
+  }, [selectedAlternativeSlugs]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -929,16 +963,19 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     [details.alternatives],
   );
 
-  const scrollComparedAlternativesIntoView = useCallback(
-    function scrollComparedAlternativesIntoView(nextSlugs: string[]) {
-      const viewport = alternativesViewportRef.current;
-      const content = alternativesContentRef.current;
+  const scrollComparedAlternativesIntoSurface = useCallback(
+    function scrollComparedAlternativesIntoSurface(
+      viewport: HTMLDivElement | null,
+      content: HTMLDivElement | null,
+      nextSlugs: string[],
+      behavior: ScrollBehavior = reduceMotion ? "auto" : "smooth",
+    ) {
 
       if (!viewport || !content || !nextSlugs.length) {
         return;
       }
 
-      const cards = Array.from(content.querySelectorAll<HTMLElement>(".alternative-app-details-alternative-card"));
+      const cards = Array.from(content.querySelectorAll<HTMLElement>("[data-alternative-slug]"));
       const firstCard = cards[0];
 
       if (!firstCard) {
@@ -955,11 +992,29 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
       }
 
       viewport.scrollTo({
-        behavior: reduceMotion ? "auto" : "smooth",
+        behavior,
         left: targetCard.offsetLeft - firstCard.offsetLeft,
       });
     },
     [reduceMotion],
+  );
+
+  const scrollComparedAlternativesIntoView = useCallback(
+    function scrollComparedAlternativesIntoView(nextSlugs: string[], behavior?: ScrollBehavior) {
+      scrollComparedAlternativesIntoSurface(
+        alternativesViewportRef.current,
+        alternativesContentRef.current,
+        nextSlugs,
+        behavior,
+      );
+      scrollComparedAlternativesIntoSurface(
+        stickyAlternativesViewportRef.current,
+        stickyAlternativesContentRef.current,
+        nextSlugs,
+        behavior,
+      );
+    },
+    [alternativesContentRef, alternativesViewportRef, scrollComparedAlternativesIntoSurface],
   );
 
   const handleSelectionChange = useCallback(
@@ -970,76 +1025,130 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     [scrollComparedAlternativesIntoView, updateSelectedAlternatives],
   );
 
-  const syncSelectedAlternativesFromScroll = useCallback(() => {
-    const viewport = alternativesViewportRef.current;
-    const content = alternativesContentRef.current;
+  const syncSelectedAlternativesFromScroll = useCallback(
+    (source: "main" | "sticky") => {
+      const viewport = source === "main" ? alternativesViewportRef.current : stickyAlternativesViewportRef.current;
+      const content = source === "main" ? alternativesContentRef.current : stickyAlternativesContentRef.current;
 
-    if (!viewport || !content) {
-      return;
-    }
+      if (!viewport || !content) {
+        return;
+      }
 
-    const cards = Array.from(content.querySelectorAll<HTMLElement>(".alternative-app-details-alternative-card"));
+      const cards = Array.from(content.querySelectorAll<HTMLElement>("[data-alternative-slug]"));
 
-    if (!cards.length) {
-      return;
-    }
+      if (!cards.length) {
+        return;
+      }
 
-    if (cards.length <= maxComparedAlternatives) {
-      updateSelectedAlternatives(
-        cards.map((card) => card.dataset.alternativeSlug).filter((slug): slug is string => Boolean(slug)),
+      if (cards.length <= maxComparedAlternatives) {
+        updateSelectedAlternatives(
+          cards.map((card) => card.dataset.alternativeSlug).filter((slug): slug is string => Boolean(slug)),
+        );
+        return;
+      }
+
+      const firstCard = cards[0];
+      const secondCard = cards[1];
+      const cardStep = secondCard ? secondCard.offsetLeft - firstCard.offsetLeft : firstCard.offsetWidth;
+      const maxStartIndex = Math.max(0, cards.length - maxComparedAlternatives);
+      const startIndex = Math.min(maxStartIndex, Math.max(0, Math.round(viewport.scrollLeft / Math.max(1, cardStep))));
+      const visibleSlugs = cards
+        .slice(startIndex, startIndex + maxComparedAlternatives)
+        .map((card) => card.dataset.alternativeSlug)
+        .filter((slug): slug is string => Boolean(slug));
+
+      updateSelectedAlternatives(visibleSlugs);
+      scrollComparedAlternativesIntoSurface(
+        source === "main" ? stickyAlternativesViewportRef.current : alternativesViewportRef.current,
+        source === "main" ? stickyAlternativesContentRef.current : alternativesContentRef.current,
+        visibleSlugs,
+        "auto",
       );
-      return;
-    }
-
-    const firstCard = cards[0];
-    const secondCard = cards[1];
-    const cardStep = secondCard ? secondCard.offsetLeft - firstCard.offsetLeft : firstCard.offsetWidth;
-    const maxStartIndex = Math.max(0, cards.length - maxComparedAlternatives);
-    const startIndex = Math.min(maxStartIndex, Math.max(0, Math.round(viewport.scrollLeft / Math.max(1, cardStep))));
-    const visibleSlugs = cards
-      .slice(startIndex, startIndex + maxComparedAlternatives)
-      .map((card) => card.dataset.alternativeSlug)
-      .filter((slug): slug is string => Boolean(slug));
-
-    updateSelectedAlternatives(visibleSlugs);
-  }, [alternativesContentRef, alternativesViewportRef, updateSelectedAlternatives]);
+    },
+    [
+      alternativesContentRef,
+      alternativesViewportRef,
+      scrollComparedAlternativesIntoSurface,
+      updateSelectedAlternatives,
+    ],
+  );
 
   useEffect(() => {
-    const viewport = alternativesViewportRef.current;
-    const content = alternativesContentRef.current;
+    const surfaces = [
+      {
+        content: alternativesContentRef.current,
+        source: "main" as const,
+        viewport: alternativesViewportRef.current,
+      },
+      {
+        content: stickyAlternativesContentRef.current,
+        source: "sticky" as const,
+        viewport: stickyAlternativesViewportRef.current,
+      },
+    ].filter(
+      (surface): surface is { content: HTMLDivElement; source: "main" | "sticky"; viewport: HTMLDivElement } =>
+        Boolean(surface.content && surface.viewport),
+    );
 
-    if (!viewport || !content) {
+    if (!surfaces.length) {
       return;
     }
 
-    let animationFrame = 0;
-    const syncOnFrame = () => {
-      cancelAnimationFrame(animationFrame);
-      animationFrame = requestAnimationFrame(syncSelectedAlternativesFromScroll);
+    const animationFrames = new Map<"main" | "sticky", number>();
+    const syncOnFrame = (source: "main" | "sticky") => {
+      cancelAnimationFrame(animationFrames.get(source) ?? 0);
+      animationFrames.set(
+        source,
+        requestAnimationFrame(() => {
+          syncSelectedAlternativesFromScroll(source);
+        }),
+      );
     };
-    const resizeObserver = new ResizeObserver(syncOnFrame);
+    const resizeObserver = new ResizeObserver(() => {
+      surfaces.forEach(({ source }) => syncOnFrame(source));
+    });
+    const scrollListeners: Array<{ handleScroll: () => void; viewport: HTMLDivElement }> = [];
 
-    syncSelectedAlternativesFromScroll();
-    viewport.addEventListener("scroll", syncOnFrame, { passive: true });
-    resizeObserver.observe(viewport);
-    resizeObserver.observe(content);
+    syncSelectedAlternativesFromScroll("main");
+    scrollComparedAlternativesIntoSurface(
+      stickyAlternativesViewportRef.current,
+      stickyAlternativesContentRef.current,
+      selectedAlternativeSlugsRef.current,
+      "auto",
+    );
+
+    surfaces.forEach(({ content, source, viewport }) => {
+      const handleScroll = () => syncOnFrame(source);
+
+      viewport.addEventListener("scroll", handleScroll, { passive: true });
+      resizeObserver.observe(viewport);
+      resizeObserver.observe(content);
+      scrollListeners.push({ handleScroll, viewport });
+    });
 
     return () => {
-      cancelAnimationFrame(animationFrame);
-      viewport.removeEventListener("scroll", syncOnFrame);
+      animationFrames.forEach((animationFrame) => cancelAnimationFrame(animationFrame));
+      scrollListeners.forEach(({ handleScroll, viewport }) => viewport.removeEventListener("scroll", handleScroll));
       resizeObserver.disconnect();
     };
-  }, [syncSelectedAlternativesFromScroll]);
+  }, [
+    alternativesContentRef,
+    alternativesViewportRef,
+    isFullDetailsOpen,
+    isSticky,
+    scrollComparedAlternativesIntoSurface,
+    syncSelectedAlternativesFromScroll,
+  ]);
 
-  function scrollAlternativeIntoActivePair(index: number) {
-    const viewport = alternativesViewportRef.current;
-    const content = alternativesContentRef.current;
+  function scrollAlternativeIntoActivePair(index: number, source: "main" | "sticky" = "main") {
+    const viewport = source === "main" ? alternativesViewportRef.current : stickyAlternativesViewportRef.current;
+    const content = source === "main" ? alternativesContentRef.current : stickyAlternativesContentRef.current;
 
     if (!viewport || !content) {
       return;
     }
 
-    const cards = Array.from(content.querySelectorAll<HTMLElement>(".alternative-app-details-alternative-card"));
+    const cards = Array.from(content.querySelectorAll<HTMLElement>("[data-alternative-slug]"));
     const currentStartIndex = Math.max(
       0,
       details.alternatives.findIndex((alternative) => alternative.slug === selectedAlternativeSlugs[0]),
@@ -1109,19 +1218,35 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                       />
                   </div>
                   <CompactAppCard details={details} isCurrent reduceMotion={reduceMotion} />
-                  <div className="alternative-app-details__sticky-compact-alternatives">
-                    <AnimatePresence initial={false} mode="sync">
-                      {selectedAlternatives.map((alternative) => (
-                        <CompactAppCard
-                          alternative={alternative}
-                          currentAnnualSpendUsd={details.currentAppMetrics.annualSpendUsd}
-                          currentAppName={details.app.name}
-                          isRecommended={alternative.slug === recommendedAlternativeSlug || alternative.badgeLabel === "Best fit"}
-                          key={alternative.slug}
-                          reduceMotion={reduceMotion}
-                        />
-                      ))}
-                    </AnimatePresence>
+                  <div
+                    className="alternative-app-details__sticky-compact-alternatives"
+                    ref={stickyAlternativesViewportRef}
+                    tabIndex={0}
+                  >
+                    <div
+                      aria-label={`${details.app.name} sticky alternatives`}
+                      className="alternative-app-details__sticky-compact-alternatives-list"
+                      ref={stickyAlternativesContentRef}
+                    >
+                      <AnimatePresence initial={false} mode="sync">
+                        {details.alternatives.map((alternative, index) => {
+                          const isSelected = selectedAlternativeSlugs.includes(alternative.slug);
+
+                          return (
+                            <CompactAppCard
+                              alternative={alternative}
+                              currentAnnualSpendUsd={details.currentAppMetrics.annualSpendUsd}
+                              currentAppName={details.app.name}
+                              isRecommended={alternative.slug === recommendedAlternativeSlug || alternative.badgeLabel === "Best fit"}
+                              isSelected={isSelected}
+                              key={alternative.slug}
+                              onActivate={() => scrollAlternativeIntoActivePair(index, "sticky")}
+                              reduceMotion={reduceMotion}
+                            />
+                          );
+                        })}
+                      </AnimatePresence>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -207,6 +207,45 @@ test.describe("alternative app details page", () => {
     await expect(details.getByText("$8", { exact: true })).toBeVisible();
   });
 
+  test("updates comparison rows when scrolling the sticky alternative cards", async ({ page }) => {
+    await page.goto(detailsAppPath);
+
+    const details = page.locator(".alternative-app-details");
+    const comparison = details.locator(".alternative-app-details__comparison");
+    await details.getByRole("button", { name: "View full details" }).click();
+    await page.evaluate(() => {
+      const comparisonSection = document.querySelector<HTMLElement>(".alternative-app-details__comparison");
+
+      if (!comparisonSection) {
+        throw new Error("Expected comparison section to exist.");
+      }
+
+      window.scrollTo({ left: 0, top: comparisonSection.getBoundingClientRect().top + window.scrollY + 280 });
+    });
+
+    const stickyAlternatives = details.locator(".alternative-app-details__sticky-compact-alternatives");
+    await expect(stickyAlternatives).toBeVisible();
+    await expect(stickyAlternatives.locator(".alternative-app-details-compact-card")).toHaveCount(detailsAlternativeCount);
+
+    await stickyAlternatives.evaluate((element) => {
+      const cards = Array.from(element.querySelectorAll<HTMLElement>(".alternative-app-details-compact-card"));
+      const firstCard = cards[0];
+      const nextCard = cards[1];
+
+      if (!firstCard || !nextCard) {
+        throw new Error("Expected at least two sticky alternative cards.");
+      }
+
+      element.scrollTo({ behavior: "auto", left: nextCard.offsetLeft - firstCard.offsetLeft });
+    });
+
+    await expect(comparison).toHaveAttribute(
+      "data-selected-alternatives",
+      /3b26f33a-1a79-44ed-9543-bec3b223a9d2,57eaa86a-a503-4cca-80ac-9550c3107232/,
+    );
+    await expect(details.getByText("-$11,883")).toBeVisible();
+  });
+
   test("keeps two compared alternatives while the card rail shows every alternative", async ({ page }) => {
     await page.goto(detailsAppPath);
 
