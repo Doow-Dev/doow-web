@@ -120,7 +120,7 @@ export const globalSiteNavContent = {
       type: "link",
     },
     {
-      availability: "planned",
+      availability: "live",
       href: "/blog",
       label: "Blog",
       type: "link",

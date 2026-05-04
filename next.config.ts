@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+import { BLOG_REDIRECTS } from "./src/lib/blog/redirects";
+
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
@@ -59,11 +61,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/about_us",
-        destination: "/",
-        permanent: true,
-      },
+      ...BLOG_REDIRECTS,
       {
         source: "/contact_us",
         destination: "/",

@@ -1,0 +1,36 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Doow blog MDX proof graphic</title>
+  <desc id="desc">A clean diagram of connected software cards on a light green background.</desc>
+  <rect width="1200" height="630" rx="36" fill="#F7FAF5"/>
+  <circle cx="600" cy="650" r="360" fill="#40A758" fill-opacity="0.14"/>
+  <circle cx="910" cy="88" r="190" fill="#F3A801" fill-opacity="0.14"/>
+  <path d="M296 314C398 236 486 400 600 316C716 230 800 388 904 306" stroke="#40A758" stroke-width="5" stroke-linecap="round" stroke-dasharray="14 18"/>
+  <g filter="url(#shadow)">
+    <rect x="220" y="196" width="220" height="164" rx="24" fill="white" stroke="#E6ECE4"/>
+    <rect x="490" y="156" width="220" height="204" rx="24" fill="white" stroke="#DCE8DD"/>
+    <rect x="760" y="196" width="220" height="164" rx="24" fill="white" stroke="#E6ECE4"/>
+  </g>
+  <circle cx="278" cy="254" r="26" fill="#0FA958"/>
+  <circle cx="548" cy="228" r="26" fill="#101828"/>
+  <circle cx="818" cy="254" r="26" fill="#F3A801"/>
+  <rect x="314" y="232" width="84" height="14" rx="7" fill="#101828" fill-opacity="0.86"/>
+  <rect x="314" y="260" width="62" height="12" rx="6" fill="#667085" fill-opacity="0.42"/>
+  <rect x="584" y="206" width="84" height="14" rx="7" fill="#101828" fill-opacity="0.86"/>
+  <rect x="584" y="234" width="62" height="12" rx="6" fill="#667085" fill-opacity="0.42"/>
+  <rect x="854" y="232" width="84" height="14" rx="7" fill="#101828" fill-opacity="0.86"/>
+  <rect x="854" y="260" width="62" height="12" rx="6" fill="#667085" fill-opacity="0.42"/>
+  <rect x="286" y="414" width="628" height="18" rx="9" fill="#40A758" fill-opacity="0.18"/>
+  <rect x="380" y="454" width="440" height="14" rx="7" fill="#101828" fill-opacity="0.1"/>
+  <defs>
+    <filter id="shadow" x="184" y="120" width="832" height="276" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="10"/>
+      <feGaussianBlur stdDeviation="18"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+</svg>
