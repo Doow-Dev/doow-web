@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { landingPageContent } from "@/app/(landing)/_components/landing-page-content";
 import { Button, SectionHeading } from "@/components/system";
-import { getAlternativeAppsResponse } from "@/lib/site/alternative-apps";
+import { getLandingAlternativeAppsResponse } from "@/lib/server/landing-alternative-apps-service";
 
 import { AlternativeAppsTool } from "./alternative-apps-tool";
 
@@ -13,7 +13,13 @@ export interface AlternativeAppsSectionProps {
 
 export async function AlternativeAppsSection({ Shell }: AlternativeAppsSectionProps) {
   const alternativeApps = landingPageContent.alternativeApps;
-  const initialData = await getAlternativeAppsResponse(alternativeApps.initialSelectedAppId);
+  let initialData = null;
+
+  try {
+    initialData = await getLandingAlternativeAppsResponse();
+  } catch (error) {
+    console.error("Landing alternative apps section failed to load initial data.", error);
+  }
 
   return (
     <section
@@ -52,7 +58,7 @@ export async function AlternativeAppsSection({ Shell }: AlternativeAppsSectionPr
 
           <div className="alternative-apps__cta">
             <Button asChild className="alternative-apps__cta-button">
-              <Link href={alternativeApps.analysisCta.href} rel="noopener noreferrer" target="_blank">
+              <Link href={alternativeApps.analysisCta.href} rel="noopener noreferrer">
                 {alternativeApps.analysisCta.label}
               </Link>
             </Button>

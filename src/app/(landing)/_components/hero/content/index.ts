@@ -1,8 +1,10 @@
 import { siteAssetManifest } from "@/lib/assets/site";
 import type { LandingActionLink } from "@/app/(landing)/_components/shared";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface LandingHeroContent {
   background: (typeof siteAssetManifest)["heroBackground"];
+  compactBackground: (typeof siteAssetManifest)["heroBackgroundCompact"];
   secondaryCtaPreview: (typeof siteAssetManifest)["demoPoster"];
   title: {
     firstLine: string;
@@ -16,16 +18,17 @@ export interface LandingHeroContent {
 
 export const landingHeroContent = {
   background: siteAssetManifest.heroBackground,
+  compactBackground: siteAssetManifest.heroBackgroundCompact,
   secondaryCtaPreview: siteAssetManifest.demoPoster,
   title: {
     firstLine: "How much are you wasting",
-    secondLinePrefix: "on SaaS no ",
-    accentWords: ["agent", "human", "one"],
+    secondLinePrefix: "on ",
+    accentWords: ["SaaS", "compute", "storage", "tokens"],
   },
   description:
-    "Doow helps finance teams see exactly where the money's going before it's gone — every subscription, renewal, and license in one place.",
+    "Doow helps finance teams see exactly where the money's going before it's gone. Every PAYG + enterprise contract — prepaid, seats, and metered licenses, all in one place.",
   primaryCta: {
-    href: "/signin",
+    href: doowAppLinks.startFreeTrial,
     label: "Start Free Trial",
   } satisfies LandingActionLink,
   secondaryCta: {

@@ -1,3 +1,5 @@
+import { doowAppLinks } from "@/lib/site/app-links";
+
 export interface PricingPlanFeature {
   label: string;
   emphasis?: string;
@@ -67,7 +69,7 @@ export const pricingPlansContent = {
       },
       priceSuffix: "/ Month",
       cta: {
-        href: "/signin",
+        href: doowAppLinks.signUp,
         label: "Start 14 days free trial",
       },
       eyebrow: "Basic plan includes:",
@@ -93,7 +95,7 @@ export const pricingPlansContent = {
       },
       priceSuffix: "/ Month",
       cta: {
-        href: "/signin",
+        href: doowAppLinks.signUp,
         label: "Start 14 days free trial",
       },
       eyebrow: "Everything in BASIC, plus:",

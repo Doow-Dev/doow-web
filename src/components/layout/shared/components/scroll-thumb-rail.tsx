@@ -27,12 +27,12 @@ export function ScrollThumbRail({
         style={
           isHorizontal
             ? {
-                transform: `translateX(${offsetPercentage}%)`,
+                left: `${offsetPercentage}%`,
                 width: `${sizePercentage}%`,
               }
             : {
                 height: `${sizePercentage}%`,
-                transform: `translateY(${offsetPercentage}%)`,
+                top: `${offsetPercentage}%`,
               }
         }
       />

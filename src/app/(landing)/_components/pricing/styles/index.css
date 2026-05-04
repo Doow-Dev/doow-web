@@ -8,7 +8,8 @@
 
     position: relative;
     isolation: isolate;
-    min-height: 34rem;
+    height: 100vh;
+    min-height: 100vh;
     overflow: clip;
     background: #0b1110;
     color: #ffffff;
@@ -30,22 +31,23 @@
   .pricing__background-track {
     position: absolute;
     inset: 0;
-    display: flex;
-    width: calc(var(--pricing-background-count) * 100%);
     height: 100%;
-  }
-
-  .pricing__background-track--animated {
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.42, 0, 0.24, 1);
-    will-change: transform;
   }
 
   .pricing__background-slide {
-    position: relative;
-    flex: 0 0 calc(100% / var(--pricing-background-count));
-    height: 100%;
+    position: absolute;
+    inset: 0;
     overflow: hidden;
+    opacity: 0;
+  }
+
+  .pricing__background-slide[data-active="true"] {
+    opacity: 1;
+  }
+
+  .pricing__background-slide--animated {
+    transition: opacity 2800ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
   }
 
   .pricing__background-image {
@@ -141,10 +143,6 @@
   }
 
   @media (min-width: 48rem) {
-    .pricing {
-      min-height: 42rem;
-    }
-
     .pricing__layout {
       gap: 1.75rem;
       padding-top: var(--pricing-layout-offset-top-tablet);
@@ -153,11 +151,6 @@
   }
 
   @media (min-width: 64rem) {
-    .pricing {
-      height: 80vh;
-      min-height: 80vh;
-    }
-
     .pricing__layout {
       gap: 1.7527rem;
       padding-top: var(--pricing-layout-offset-top-desktop);
@@ -166,8 +159,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .pricing__background-track--animated {
-      transition-duration: 0ms !important;
+    .pricing__background-slide--animated {
+      transition: none;
       will-change: auto;
     }
   }

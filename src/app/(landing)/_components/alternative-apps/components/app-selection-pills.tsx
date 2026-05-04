@@ -85,7 +85,7 @@ export function AppSelectionPills({ options, selectedAppId, panelId, onSelect }:
               tabIndex={isSelected ? 0 : -1}
               type="button"
             >
-              <AppLogoAvatar logoKey={option.logoKey} size="pill" />
+              <AppLogoAvatar logoKey={option.logoKey} logoUrl={option.logoUrl} name={option.name} size="pill" />
               <span className="alternative-apps__tab-label">{option.name}</span>
             </button>
           );

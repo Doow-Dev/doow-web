@@ -1,6 +1,6 @@
 "use client";
 
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, SVGProps } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,6 +36,17 @@ function getNextIndex(currentIndex: number, total: number, direction: "next" | "
   }
 
   return (currentIndex - 1 + total) % total;
+}
+
+function FaqAssistantLabelIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg aria-hidden="true" fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path
+        d="M7.18 2.08c.21-.86 1.43-.86 1.64 0l.74 3.04c.07.31.31.55.62.62l3.04.74c.86.21.86 1.43 0 1.64l-3.04.74a.84.84 0 0 0-.62.62l-.74 3.04c-.21.86-1.43.86-1.64 0l-.74-3.04a.84.84 0 0 0-.62-.62l-3.04-.74c-.86-.21-.86-1.43 0-1.64l3.04-.74c.31-.07.55-.31.62-.62l.74-3.04Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
 }
 
 function handleCategoryKeyDown(
@@ -324,9 +335,17 @@ export function FaqTool({ content }: FaqToolProps) {
                           </>
                         ) : (
                           <>
-                            <p className="faq-tool__bubble faq-tool__bubble--assistant" data-animate={shouldAnimateThread ? "true" : "false"}>
+                          <div className="faq-tool__assistant-stack">
+                            {message.assistantLabel ? (
+                              <span className="faq-tool__assistant-label">
+                                <FaqAssistantLabelIcon className="faq-tool__assistant-label-icon" />
+                                <span>{message.assistantLabel}</span>
+                              </span>
+                            ) : null}
+                              <p className="faq-tool__bubble faq-tool__bubble--assistant" data-animate={shouldAnimateThread ? "true" : "false"}>
                               <span className="faq-tool__bubble-text">{message.text}</span>
                             </p>
+                          </div>
                             <AiIcon className="faq-tool__assistant-avatar" />
                           </>
                         )}

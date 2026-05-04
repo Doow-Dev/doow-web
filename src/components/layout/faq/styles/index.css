@@ -348,6 +348,33 @@
     flex-shrink: 0;
   }
 
+  .faq-tool__assistant-stack {
+    display: grid;
+    justify-items: end;
+    gap: 0.5625rem;
+    min-width: 0;
+    max-width: calc(100% - 3rem);
+  }
+
+  .faq-tool__assistant-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--fg-base);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.08px;
+    line-height: 18px;
+    text-align: right;
+  }
+
+  .faq-tool__assistant-label-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: #f644e4;
+    flex-shrink: 0;
+  }
+
   .faq-tool__message-stack {
     display: grid;
     gap: 0.5625rem;
@@ -459,16 +486,10 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
-    width: min(100%, 20.75rem);
-    max-width: calc(100% - 0.75rem);
-    border-radius: 12px;
-    background: var(--button-neutral);
-    box-shadow:
-      0 0 0 1px rgba(0, 20, 10, 0.08),
-      0 1px 2px -1px rgba(0, 20, 10, 0.08),
-      0 2px 8px 0 rgba(0, 20, 10, 0.1);
+    width: auto;
+    max-width: 100%;
     margin-inline: auto;
-    padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+    padding: 0;
   }
 
   .faq-tool__sticky-copy {
@@ -519,11 +540,8 @@
     }
 
     .faq-tool__sticky-cta {
-      width: auto;
       flex-wrap: nowrap;
-      justify-content: space-between;
-      min-width: 18.75rem;
-      max-width: calc(100% - 0.25rem);
+      max-width: 100%;
     }
 
     .faq-tool__sticky-copy {
@@ -616,6 +634,10 @@
     .faq-tool__message-stack {
       width: min(100%, 18.375rem);
       max-width: min(100%, 18.375rem);
+    }
+
+    .faq-tool__assistant-stack {
+      max-width: min(100%, 18.125rem);
     }
 
     .faq-tool__bubble--assistant {

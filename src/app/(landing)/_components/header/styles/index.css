@@ -13,7 +13,9 @@
     overflow: clip;
     isolation: isolate;
     padding-top: var(--header-offset-top);
+    padding-right: var(--landing-navbar-gutter);
     padding-bottom: 0.75rem;
+    padding-left: var(--landing-navbar-gutter);
   }
 
   .landing-navbar__open-surface,
@@ -65,9 +67,12 @@
     position: relative;
     z-index: 1;
     display: flex;
+    width: 100%;
+    max-width: var(--layout-shell-wide);
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    padding-inline: 0;
   }
 
   .landing-navbar__brand-row {
@@ -78,9 +83,34 @@
     gap: var(--space-cluster);
   }
 
+  .landing-navbar__logo-link {
+    position: relative;
+    display: block;
+    width: 78px;
+    height: 22px;
+    line-height: 0;
+    transform: translateZ(0);
+  }
+
+  .landing-navbar__logo-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    will-change: opacity;
+  }
+
+  .landing-navbar__logo-layer--scrolled {
+    z-index: 1;
+  }
+
   .landing-navbar__logo {
-    width: 77px;
-    height: auto;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left center;
   }
 
   .landing-navbar__actions {
@@ -213,8 +243,9 @@
   }
 
   @media (min-width: 40rem) {
-    .landing-navbar__logo {
+    .landing-navbar__logo-link {
       width: 84px;
+      height: 23.692px;
     }
   }
 
@@ -222,9 +253,11 @@
     .landing-navbar__layout {
       display: grid;
       width: 100%;
+      max-width: var(--layout-shell-wide);
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 1rem;
+      padding-inline: 0;
     }
 
     .landing-navbar__brand-row {
@@ -256,7 +289,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .landing-navbar__open-surface,
-    .landing-navbar__menu-trigger {
+    .landing-navbar__menu-trigger,
+    .landing-navbar__logo-layer {
       transition: none;
     }
 

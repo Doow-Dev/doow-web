@@ -1,4 +1,5 @@
 import { siteAssetManifest } from "@/lib/assets/site";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface SubscriptionsHeroContent {
   cta: {
@@ -22,7 +23,7 @@ export const subscriptionsHeroContent = {
   title: "Keep every software subscription in one place",
   description: "Contracts, licenses, and renewals without spreadsheets.",
   cta: {
-    href: "/signin",
+    href: doowAppLinks.startFreeTrial,
     label: "Start Free Trial",
   },
   dashboard: siteAssetManifest.subscriptionsHeroDashboard,

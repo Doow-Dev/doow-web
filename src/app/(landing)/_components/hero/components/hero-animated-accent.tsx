@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { HeroSparkleIcon } from "@/components/custom/icons/hero-sparkle-icon";
@@ -11,20 +11,27 @@ export interface HeroAnimatedAccentProps {
   className?: string;
 }
 
-const WORD_CHANGE_INTERVAL_MS = 3600;
+const WORD_CHANGE_INTERVAL_MS = 4800;
 const WORD_TRANSITION = {
-  duration: 0.56,
-  ease: [0.4, 0, 0.2, 1] as const,
+  duration: 2.65,
+  ease: [0.22, 1, 0.36, 1] as const,
+};
+const WORD_EXIT_TRANSITION = {
+  duration: 1.7,
+  ease: [0.22, 1, 0.36, 1] as const,
 };
 const LAYOUT_TRANSITION = {
-  duration: 0.56,
-  ease: [0.4, 0, 0.2, 1] as const,
+  duration: 0.9,
+  ease: [0.22, 1, 0.36, 1] as const,
 };
 
 export function HeroAnimatedAccent({ words, className }: HeroAnimatedAccentProps) {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
+  const [activeWordWidth, setActiveWordWidth] = useState<number | null>(null);
+  const activeWordSizerRef = useRef<HTMLSpanElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const accessiblePhrase = `${words[0] ?? ""} is using?`;
+  const activeWord = words[activeWordIndex] ?? words[0] ?? "";
+  const activeAccentText = activeWord.endsWith("?") ? activeWord : `${activeWord}?`;
 
   useEffect(() => {
     if (prefersReducedMotion || words.length <= 1) {
@@ -40,9 +47,32 @@ export function HeroAnimatedAccent({ words, className }: HeroAnimatedAccentProps
     };
   }, [activeWordIndex, prefersReducedMotion, words]);
 
+  useLayoutEffect(() => {
+    const sizerElement = activeWordSizerRef.current;
+
+    if (!sizerElement) {
+      return;
+    }
+
+    const updateWordWidth = () => {
+      setActiveWordWidth(sizerElement.offsetWidth);
+    };
+
+    updateWordWidth();
+
+    const resizeObserver = new ResizeObserver(updateWordWidth);
+    resizeObserver.observe(sizerElement);
+    window.addEventListener("resize", updateWordWidth);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateWordWidth);
+    };
+  }, [activeAccentText]);
+
   return (
     <span className={cn("hero-title__accent", className)}>
-      <span className="sr-only">{accessiblePhrase}</span>
+      <span className="sr-only">{activeAccentText}</span>
 
       <motion.span
         aria-hidden="true"
@@ -50,31 +80,29 @@ export function HeroAnimatedAccent({ words, className }: HeroAnimatedAccentProps
         layout="position"
         transition={{ layout: LAYOUT_TRANSITION }}
       >
-        <motion.span className="hero-title__accent-word-sequence" layout="position" transition={{ layout: LAYOUT_TRANSITION }}>
+        <motion.span
+          animate={activeWordWidth === null ? undefined : { width: activeWordWidth }}
+          className="hero-title__accent-word-sequence"
+          initial={false}
+          layout="position"
+          transition={LAYOUT_TRANSITION}
+        >
+          <span ref={activeWordSizerRef} aria-hidden="true" className="hero-title__accent-word-sizer">
+            {activeAccentText}
+          </span>
           <AnimatePresence initial={false} mode="sync">
             <motion.span
-              animate={{ opacity: 1 }}
+              animate={{ filter: "blur(0px)", opacity: 1 }}
               className="hero-title__accent-word"
-              exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-              initial={prefersReducedMotion ? false : { opacity: 0 }}
-              key={words[activeWordIndex]}
+              exit={prefersReducedMotion ? { opacity: 1 } : { filter: "blur(2px)", opacity: 0, transition: WORD_EXIT_TRANSITION }}
+              initial={prefersReducedMotion ? false : { filter: "blur(3px)", opacity: 0 }}
+              key={activeAccentText}
               transition={WORD_TRANSITION}
             >
-              {words[activeWordIndex]}
+              <span className="hero-title__accent-word-text">{activeAccentText}</span>
+              <HeroSparkleIcon className="hero-accent-sparkle--word" />
             </motion.span>
           </AnimatePresence>
-        </motion.span>
-
-        <motion.span className="hero-title__accent-suffix" layout="position" transition={{ layout: LAYOUT_TRANSITION }}>
-          <span className="hero-title__accent-suffix-text">is</span>
-          <span className="hero-title__accent-using">
-            <span className="hero-title__accent-using-letter">
-              u
-              <HeroSparkleIcon className="hero-accent-sparkle--using" />
-            </span>
-            <span className="hero-title__accent-suffix-text">sing</span>
-          </span>
-          <span className="hero-title__accent-suffix-text">?</span>
         </motion.span>
       </motion.span>
     </span>

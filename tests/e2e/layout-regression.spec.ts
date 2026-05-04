@@ -348,6 +348,7 @@ test.describe("landing feature split interactions", () => {
 
     const section = page.locator("#product");
     const panel = section.getByRole("tabpanel");
+    const progressFill = section.locator('[data-progressive-split-progress-fill="true"]');
     const discoverTab = section.getByRole("tab", { name: /Discover every tool your team is using/i });
     const eliminateTab = section.getByRole("tab", { name: /Eliminate licenses nobody is using/i });
     const consolidateTab = section.getByRole("tab", { name: /Consolidate duplicate tools and cut overlap/i });
@@ -366,11 +367,93 @@ test.describe("landing feature split interactions", () => {
     await expect(panel).toHaveAttribute("data-feature-stage-kind", "placeholder");
     await expect(panel.locator('[data-progressive-split-placeholder="true"]')).toBeVisible();
 
+    const progressBeforeClick = await progressFill.evaluate((element) => element.getBoundingClientRect().height);
     await consolidateTab.click();
 
     await expect(consolidateTab).toHaveAttribute("aria-selected", "true");
     await expect(panel).toHaveAttribute("data-feature-active-point-id", "consolidate");
     await expect(panel).toHaveAttribute("data-feature-stage-kind", "placeholder");
+    await expect
+      .poll(() => progressFill.evaluate((element) => element.getBoundingClientRect().height))
+      .toBeGreaterThan(progressBeforeClick);
+  });
+
+  test("captures desktop wheel scroll to advance and releases at section boundaries", async ({ page }) => {
+    await page.goto("/");
+
+    const section = page.locator("#product");
+    const stageSurface = section.locator(".feature-split__stage-surface");
+    const tabs = section.getByRole("tab");
+    const discoverTab = section.getByRole("tab", { name: /Discover every tool your team is using/i });
+    const eliminateTab = section.getByRole("tab", { name: /Eliminate licenses nobody is using/i });
+    const renewalsTab = section.getByRole("tab", { name: /Never get blindsided by a renewal again/i });
+    const consolidateTab = section.getByRole("tab", { name: /Consolidate duplicate tools and cut overlap/i });
+
+    await section.scrollIntoViewIfNeeded();
+    await expect(tabs).toHaveCount(4);
+    await expect(discoverTab).toHaveAttribute("aria-selected", "true");
+
+    await stageSurface.evaluate((element) => element.scrollIntoView({ block: "center", inline: "nearest" }));
+    await expect
+      .poll(() =>
+        stageSurface.evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+
+          return rect.top >= 0 && rect.bottom <= window.innerHeight;
+        }),
+      )
+      .toBe(true);
+
+    await page.mouse.wheel(0, 380);
+    await expect(eliminateTab).toHaveAttribute("aria-selected", "true");
+
+    await page.mouse.wheel(0, 380);
+    await expect(renewalsTab).toHaveAttribute("aria-selected", "true");
+
+    await page.mouse.wheel(0, 380);
+    await expect(consolidateTab).toHaveAttribute("aria-selected", "true");
+
+    const beforeDownRelease = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, 500);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(beforeDownRelease);
+
+    await stageSurface.evaluate((element) => element.scrollIntoView({ block: "center", inline: "nearest" }));
+    await expect
+      .poll(() =>
+        stageSurface.evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+
+          return rect.top >= 0 && rect.bottom <= window.innerHeight;
+        }),
+      )
+      .toBe(true);
+
+    await page.mouse.wheel(0, -380);
+    await expect(renewalsTab).toHaveAttribute("aria-selected", "true");
+
+    await discoverTab.click();
+    await expect(discoverTab).toHaveAttribute("aria-selected", "true");
+
+    const beforeUpRelease = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, -500);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(beforeUpRelease);
+  });
+
+  test("does not hijack wheel scroll when reduced motion is requested", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+
+    const section = page.locator("#product");
+    const discoverTab = section.getByRole("tab", { name: /Discover every tool your team is using/i });
+
+    await section.scrollIntoViewIfNeeded();
+    await expect(discoverTab).toHaveAttribute("aria-selected", "true");
+
+    const beforeWheel = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, 500);
+
+    await expect(discoverTab).toHaveAttribute("aria-selected", "true");
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(beforeWheel);
   });
 });
 
@@ -446,7 +529,7 @@ test("pricing renders its content and resolves the in-page pricing plans anchor"
   }
 
   const sectionHeight = await section.evaluate((element) => element.getBoundingClientRect().height);
-  expect(Math.abs(sectionHeight - viewportSize.height * 0.8)).toBeLessThanOrEqual(1.5);
+  expect(Math.abs(sectionHeight - viewportSize.height)).toBeLessThanOrEqual(1.5);
 
   await section.getByRole("link", { name: "View Pricing Plans" }).click();
 
@@ -465,7 +548,10 @@ test("footer renders the promo dashboard and mapped footer links", async ({ page
 
   await expect(footerPromo.getByRole("heading", { name: "Stop guessing what you're paying for." })).toBeVisible();
   await expect(footerPromo).toContainText("Start seeing it.");
-  await expect(footerPromo.getByRole("link", { name: "Start 14 days free trial" })).toHaveAttribute("href", "/signin");
+  await expect(footerPromo.getByRole("link", { name: "Start 14 days free trial" })).toHaveAttribute(
+    "href",
+    "https://dev.doow.co/signup",
+  );
   await expect(footerPromo).toContainText("Cancel anytime");
   await expect(dashboardImage).toBeVisible();
 

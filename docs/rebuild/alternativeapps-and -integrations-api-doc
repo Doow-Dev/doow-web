@@ -1,0 +1,415 @@
+Here's the full API reference for both catalogs:
+
+  ---
+  Catalog API Reference
+
+  Base URL: https://<your-api-host>
+  Auth: All endpoints require the header x-admin-key: <CATALOG_ADMIN_KEY>
+  Caching: All responses are cached for 12 hours. First request after cache expiry hits the database; subsequent requests are served from Redis.
+
+  ---
+  Alternatives Catalog
+
+  1. GET /alternatives/catalog/categories
+
+  Returns all distinct category values for SaaS apps that have at least one enriched alternative. Use these to populate a category filter UI.
+
+  Headers
+  x-admin-key: <key>
+
+  Response 200
+  {
+    "data": ["CRM", "Help Desk", "Project Management"],
+    "total": 3
+  }
+
+  ┌───────┬──────────┬───────────────────────────────┐
+  │ Field │   Type   │          Description          │
+  ├───────┼──────────┼───────────────────────────────┤
+  │ data  │ string[] │ Sorted list of category names │
+  ├───────┼──────────┼───────────────────────────────┤
+  │ total │ number   │ Count of distinct categories  │
+  └───────┴──────────┴───────────────────────────────┘
+
+  ---
+  2. GET /alternatives/catalog
+
+  Returns SaaS apps that have at least one enriched alternative, with their alternatives nested. Supports pagination and optional grouping.
+
+  Query params
+
+  ┌───────────────┬────────┬──────────┬──────────────────────────────────────────────────────────────────────┐
+  │     Param     │  Type  │ Required │                             Description                              │
+  ├───────────────┼────────┼──────────┼──────────────────────────────────────────────────────────────────────┤
+  │ take          │ number │ No       │ Page size. Default: 10                                               │
+  ├───────────────┼────────┼──────────┼──────────────────────────────────────────────────────────────────────┤
+  │ skip          │ number │ No       │ Offset. Default: 0. Ignored when cursor is set                       │
+  ├───────────────┼────────┼──────────┼──────────────────────────────────────────────────────────────────────┤
+  │ cursor        │ string │ No       │ ID of the last item from the previous page (cursor-based pagination) │
+  ├───────────────┼────────┼──────────┼──────────────────────────────────────────────────────────────────────┤
+  │ category      │ string │ No       │ Filter by source app category (exact match)                          │
+  ├───────────────┼────────┼──────────┼──────────────────────────────────────────────────────────────────────┤
+  │ source_app_id │ string │ No       │ Return alternatives for a single app by its ID                       │
+  ├───────────────┼────────┼──────────┼──────────────────────────────────────────────────────────────────────┤
+  │ grouped       │ "true" │ No       │ When "true", groups results by category key                          │
+  └───────────────┴────────┴──────────┴──────────────────────────────────────────────────────────────────────┘
+
+  Pagination — skip/take
+  GET /alternatives/catalog?take=10&skip=0
+  GET /alternatives/catalog?take=10&skip=10
+
+  Pagination — cursor (recommended for large datasets)
+  GET /alternatives/catalog?take=10
+  # use nextCursor from response:
+  GET /alternatives/catalog?take=10&cursor=<nextCursor>
+
+  Response 200 (flat)
+  {
+    "data": [
+      {
+        "id": "uuid",
+        "name": "Jira",
+        "logo_url": "https://...",
+        "category": "Project Management",
+        "description": "Issue tracker and project management tool",
+        "alternatives": [
+          {
+            "id": "uuid",
+            "alt_name": "Linear",
+            "alt_logo_url": "https://...",
+            "category": "Project Management",
+            "migration_complexity": "low",
+            "feature_overlap_pct": 80,
+            "est_monthly_cost": 10,
+            "est_annual_cost": 120,
+            "est_cost_per_seat": 10,
+            "team_fit_headline": "Great for engineering teams",
+            "adoption_risk": "low",
+            "adoption_rate": 72,
+            "feature_risk_bullets": ["No time tracking"],
+            "feature_gap_summary": "Lacks time tracking",
+            "choose_if": "You prefer a cleaner UX",
+            "avoid_if": "You need deep Jira integrations",
+            "benchmark_rate": 12
+          }
+        ]
+      }
+    ],
+    "total": 20257,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "uuid-of-last-item"
+  }
+
+  Response 200 (grouped — ?grouped=true)
+  {
+    "data": {
+      "Project Management": [ { ...app }, { ...app } ],
+      "CRM": [ { ...app } ]
+    },
+    "total": 20257,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "uuid-of-last-item"
+  }
+
+  ▎ Note: Grouped mode groups the current page in memory — it does not return all categories at once. Each page may contain partial categories.
+
+  ---
+  3. GET /alternatives/catalog/hero
+
+  Returns fully processed hero cards — the rich format used to render the alternatives comparison UI. Each item in data is a complete hero for one source app, including ranked alternatives, savings estimates, pricing tiers, migration
+  narratives, and switch cost indicators.
+
+  Query params
+
+  ┌───────────────┬────────┬──────────┬─────────────────────────────────────────────────────────────────┐
+  │     Param     │  Type  │ Required │                           Description                           │
+  ├───────────────┼────────┼──────────┼─────────────────────────────────────────────────────────────────┤
+  │ take          │ number │ No       │ Page size. Default: 10                                          │
+  ├───────────────┼────────┼──────────┼─────────────────────────────────────────────────────────────────┤
+  │ skip          │ number │ No       │ Offset. Default: 0. Ignored when cursor is set                  │
+  ├───────────────┼────────┼──────────┼─────────────────────────────────────────────────────────────────┤
+  │ cursor        │ string │ No       │ ID of the last item from the previous page                      │
+  ├───────────────┼────────┼──────────┼─────────────────────────────────────────────────────────────────┤
+  │ category      │ string │ No       │ Filter by source app category (exact match)                     │
+  ├───────────────┼────────┼──────────┼─────────────────────────────────────────────────────────────────┤
+  │ source_app_id │ string │ No       │ Return hero for a single specific app. Returns 404 if not found │
+  └───────────────┴────────┴──────────┴─────────────────────────────────────────────────────────────────┘
+
+  Response 200
+
+  {
+    "data": [
+      {
+        "analysis_status": null,
+        "top_recommendation": {
+          "alt_name": "Linear",
+          "alt_app_id": "uuid",
+          "reason": "Strongest catalog alternative based on public pricing, product fit, and migration signals.",
+          "potential_monthly_savings": 5,
+          "feature_overlap_pct": 80,
+          "migration_complexity": "low"
+        },
+        "summary": "Linear is the strongest catalog alternative to evaluate for Jira.",
+        "cost_savings_estimate": 5,
+        "switch_feasibility": "risky",
+        "currentApp": {
+          "name": "Jira",
+          "logoUrl": "https://...",
+          "rating": 4.3,
+          "licenseType": "SEAT",
+          "subscriptionType": "PAYG",
+          "appStatus": null,
+          "seatsAssigned": null,
+          "activeUsers": null,
+          "unusedSeats": null,
+          "monthlyCost": 15,
+          "annualCost": 180,
+          "metrics": {
+            "allTimeSpend": { "value": 0, "hoverCopy": "Company spend is not available in catalog mode." },
+            "wasting": { "value": 0, "hoverCopy": "Waste is not available without organization usage data." },
+            "utilizing": { "value": null, "hoverCopy": "Utilization is not available without organization usage data." }
+          },
+          "recommendation": {
+            "type": "NoAction",
+            "badgeLabel": "Compare Options",
+            "copy": "This catalog view compares public market data and does not include organization spend or usage."
+          },
+          "pricingTiers": [
+            {
+              "tier_name": "Standard",
+              "monthly_per_seat": 15,
+              "annual_total": 180,
+              "features": ["Issues", "Roadmaps"],
+              "three_year_net_saving": null
+            }
+          ],
+          "teamFitScore": 80,
+          "teamFitHeadline": "Strong for complex teams",
+          "teamFitNarrative": "Jira is strong for cross-functional teams with mature workflows.",
+          "adoptionRisk": "low",
+          "adoptionRate": 82,
+          "reviewCount": 1200,
+          "integrationCount": 200,
+          "integrationCoveragePct": null,
+          "integrationCoverageCopy": "Supports 200 native integrations.",
+          "featureOverlapPct": 100,
+          "features": ["Issues", "Roadmaps", "Backlog"],
+          "certifications": ["SOC 2 Type II"],
+          "featureRiskBullets": [],
+          "featureGapSummary": null,
+          "chooseIf": null,
+          "avoidIf": null,
+          "usedByCompanies": ["Spotify", "Airbnb"],
+          "usedByCount": 2,
+          "currentAppFullyEnriched": true
+        },
+        "alternatives": [
+          {
+            "altName": "Linear",
+            "altLogoUrl": "https://...",
+            "altWebsite": "https://linear.app",
+            "rating": 4.6,
+            "estMonthlyCost": 10,
+            "estAnnualCost": 120,
+            "switchCost": {
+              "amount": 120,
+              "delta": -5,
+              "deltaPercentage": -0.33,
+              "color": "green",
+              "hoverCopy": "Catalog pricing suggests this alternative is $5 per seat cheaper per month (33%)."
+            "insight": {
+              "decision": "Consider",
+              "badgeLabel": "Best Fit",
+              "copy": "Linear is worth evaluating based on 80% feature overlap, 33% lower public per-seat pricing, low migration complexity."
+            },
+            "financialImpact": {
+              "threeYearNetSaving": 80,
+              "migrationCostUsd": 100,
+              "migrationWeeks": 2,
+              "integrationCount": 100,
+              "teamFitScore": 85,
+              "chooseIf": "You prefer a cleaner UX",
+              "avoidIf": "You need deep Jira integrations",
+              "pricingTiers": [
+                {
+                  "tier_name": "Basic",
+                  "monthly_per_seat": 10,
+                  "annual_total": 120,
+                  "features": ["Issues"],
+                  "three_year_net_saving": 80
+                }
+              ]
+            },
+            "teamFitHeadline": "Great for engineering teams",
+            "teamFitNarrative": "A focused project management tool for engineering workflows.",
+            "adoptionRisk": "low",
+            "adoptionRate": 72,
+            "reviewCount": 240,
+            "migrationComplexity": "low",
+            "migrationNarrative": "Linear is a low-complexity migration. Estimated 2 weeks and $100 one-time cost.",
+            "integrationCount": 100,
+            "integrationCoveragePct": 50,
+            "integrationCoverageCopy": "Supports 100 native integrations.",
+            "featureOverlapPct": 80,
+            "features": ["Issues", "Roadmaps", "Cycles"],
+            "certifications": ["SOC 2 Type II"],
+            "featureRiskBullets": ["No time tracking"],
+            "featureGapSummary": "Lacks time tracking",
+            "usedByCompanies": ["Acme"],
+            "usedByCount": 1
+          }
+        ],
+        "meta": {
+          "totalAlternatives": 1,
+          "noAlternativesMessage": null
+        }
+      }
+    ],
+    "total": 20257,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "uuid-of-last-item"
+  }
+
+  Key field notes
+
+  ┌────────────────────────────┬─────────────────────────────────────────────────────────────────────────────────────┐
+  │           Field            │                                        Notes                                        │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ insight.decision           │ Always "Consider" or "NotRecommended" in catalog mode. Never "Switch" (no org data) │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ switchCost.color           │ "green" = cheaper, "red" = more expensive, "black" = no pricing data to compare     │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ cost_savings_estimate      │ 0 when source app has no public pricing data                                        │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ currentApp.monthlyCost     │ Derived from lowest paid tier in pricingPlans. 0 when pricing data is absent        │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ analysis_status            │ Always null in catalog mode                                                         │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ currentApp.metrics.*       │ Always zeroed out in catalog mode — no org spend data                               │
+  ├────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────┤
+  │ meta.noAlternativesMessage │ Non-null string when alternatives is empty                                          │
+  └────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────┘
+
+  Status codes
+
+  ┌──────┬──────────────────────────────────────────────────────┐
+  │ Code │                         When                         │
+  ├──────┼──────────────────────────────────────────────────────┤
+  │ 200  │ Success                                              │
+  ├──────┼──────────────────────────────────────────────────────┤
+  │ 401  │ Missing or invalid x-admin-key                       │
+  ├──────┼──────────────────────────────────────────────────────┤
+  │ 404  │ source_app_id was provided but the app was not found │
+  └──────┴──────────────────────────────────────────────────────┘
+
+  ---
+  Integrations Catalog
+
+  4. GET /integrations/catalog/categories
+
+  Returns all distinct category values for implemented integrations.
+
+  Response 200
+  {
+    "data": [
+      "Accounting & Bookkeeping",
+      "AI & LLM Providers",
+      "HRIS"
+    ],
+    "total": 3
+  }
+
+  ---
+  5. GET /integrations/catalog
+
+  Returns all integrations where is_implemented = true. Supports pagination and optional grouping.
+
+  Query params
+
+  ┌──────────┬────────┬──────────┬────────────────────────────────────────────────┐
+  │  Param   │  Type  │ Required │                  Description                   │
+  ├──────────┼────────┼──────────┼────────────────────────────────────────────────┤
+  │ take     │ number │ No       │ Page size. Default: 10                         │
+  ├──────────┼────────┼──────────┼────────────────────────────────────────────────┤
+  │ skip     │ number │ No       │ Offset. Default: 0. Ignored when cursor is set │
+  ├──────────┼────────┼──────────┼────────────────────────────────────────────────┤
+  │ cursor   │ string │ No       │ ID of last item from previous page             │
+  ├──────────┼────────┼──────────┼────────────────────────────────────────────────┤
+  │ category │ string │ No       │ Filter by category (exact match)               │
+  ├──────────┼────────┼──────────┼────────────────────────────────────────────────┤
+  │ grouped  │ "true" │ No       │ When "true", groups results by category key    │
+  └──────────┴────────┴──────────┴────────────────────────────────────────────────┘
+
+  Response 200 (flat)
+  {
+    "data": [
+      {
+        "id": "uuid",
+        "name": "QuickBooks",
+        "category": "Accounting & Bookkeeping",
+        "logo_url": "https://...",
+        "description": "Accounting software",
+        "website_url": "https://quickbooks.intuit.com",
+        "metered_vendor_id": "quickbooks"
+      }
+    ],
+    "total": 53,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "uuid-of-last-item"
+  }
+
+  Response 200 (grouped — ?grouped=true)
+  {
+    "data": {
+      "Accounting & Bookkeeping": [ { ...integration }, { ...integration } ],
+      "HRIS": [ { ...integration } ]
+    },
+    "total": 53,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "uuid-of-last-item"
+  }
+
+  ┌───────────────────┬───────────────┬──────────────────────────────────────────────────────────┐
+  │       Field       │     Type      │                          Notes                           │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ id                │ string        │ Integration ID                                           │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ name              │ string        │ Display name                                             │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ category          │ string        │ Category label                                           │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ logo_url          │ string | null │ Logo URL, may be null                                    │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ description       │ string | null │ Short description, may be null                           │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ website_url       │ string | null │ Integration website, may be null                         │
+  ├───────────────────┼───────────────┼──────────────────────────────────────────────────────────┤
+  │ metered_vendor_id │ string | null │ Non-null if this integration has metered billing support │
+  └───────────────────┴───────────────┴──────────────────────────────────────────────────────────┘
+
+  ---
+  Pagination guide
+
+  Both catalogs use the same pagination shape:
+
+  {
+    "data": [...],
+    "total": 20257,
+    "take": 10,
+    "skip": 0,
+    "nextCursor": "uuid"
+  }
+
+  Skip/take — use for known page numbers:
+  ?take=10&skip=0   → page 1
+  ?take=10&skip=10  → page 2
+
+  Cursor — use for infinite scroll / load-more (more efficient):
+  ?take=10                        → first page, get nextCursor from response
+  ?take=10&cursor=<nextCursor>    → next page
+  When nextCursor is null, you are on the last page.

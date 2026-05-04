@@ -12,9 +12,7 @@ import {
 function runTest(name, callback) {
   try {
     callback();
-    console.log(`PASS ${name}`);
   } catch (error) {
-    console.error(`FAIL ${name}`);
     throw error;
   }
 }

@@ -1,5 +1,6 @@
 import type { SiteAssetEntry } from "@/lib/assets/site";
 import { siteAssetManifest } from "@/lib/assets/site";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface FooterActionLink {
   href: string;
@@ -13,6 +14,7 @@ export interface SiteFooterLink {
   label: string;
   rel?: string;
   target?: string;
+  action?: "contactDialog";
 }
 
 export interface SiteFooterLinkGroup {
@@ -48,8 +50,17 @@ export interface SiteFooterBodyContent {
   id: string;
   title: string;
   navigationAriaLabel: string;
-  groups: readonly [SiteFooterLinkGroup, SiteFooterLinkGroup, SiteFooterLinkGroup];
+  groups: readonly [SiteFooterLinkGroup, SiteFooterLinkGroup];
   addressLines: readonly [string, string, string];
+  disclaimer: {
+    title: string;
+    paragraphs: readonly [string, string];
+  };
+  socialLinks: readonly [
+    SiteFooterLink & { kind: "linkedin" },
+    SiteFooterLink & { kind: "x" },
+    SiteFooterLink & { kind: "email" },
+  ];
   copyright: string;
 }
 
@@ -64,12 +75,13 @@ export const siteFooterBodyContent = {
   navigationAriaLabel: "Footer navigation",
   groups: [
     {
-      title: "Solutions",
+      title: "Products",
       items: [
         { href: "/applications", label: "Applications" },
         { href: "/expenses", label: "Expenses" },
         { href: "/integrations", label: "Integrations" },
         { href: "/subscriptions", label: "Subscriptions" },
+        { href: "/alternative-apps", label: "Alternative Apps" },
         { href: "/doow-ai", label: "Doow AI" },
       ],
     },
@@ -79,24 +91,40 @@ export const siteFooterBodyContent = {
         { href: "/about_us", label: "About Us" },
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
-        { href: "mailto:contact@doow.co", label: "Contact" },
-        { href: "/signin", label: "Login" },
+        { href: "#contact-us", label: "Contact", action: "contactDialog" },
+        { href: doowAppLinks.login, label: "Login" },
       ],
+    },
+  ] satisfies readonly [SiteFooterLinkGroup, SiteFooterLinkGroup],
+  addressLines: ["1007 N Orange St. 4th Floor,", "Wilmington, DE,", "United States"],
+  disclaimer: {
+    title: "Disclaimer",
+    paragraphs: [
+      "Doow Inc. is a financial technology company duly incorporated under the laws of Delaware, United States of America. Doow is not a bank. Doow offers all of its services in partnership with licensed banking and financial partners in their respective jurisdictions worldwide.",
+      "All logos, trademarks and brand names belong to their respective owners. Using these brand items does not imply endorsement with Doow.",
+    ],
+  },
+  socialLinks: [
+    {
+      href: "https://www.linkedin.com/company/doowbusiness/",
+      kind: "linkedin",
+      label: "LinkedIn",
+      rel: "noopener noreferrer",
+      target: "_blank",
     },
     {
-      title: "Company & Contact",
-      items: [
-        { href: "#pricing", label: "Contact Sales" },
-        {
-          href: "https://x.com",
-          label: "Twitter (X)",
-          rel: "noopener noreferrer",
-          target: "_blank",
-        },
-      ],
+      href: "https://x.com/Doowfinance",
+      kind: "x",
+      label: "X",
+      rel: "noopener noreferrer",
+      target: "_blank",
     },
-  ] satisfies readonly [SiteFooterLinkGroup, SiteFooterLinkGroup, SiteFooterLinkGroup],
-  addressLines: ["1007 N Orange St. 4th Floor,", "Wilmington, DE,", "United States"],
+    {
+      href: "mailto:hello@doow.co",
+      kind: "email",
+      label: "Email Doow",
+    },
+  ],
   copyright: "\u00a9 2026 Doow",
 } as const satisfies SiteFooterBodyContent;
 
@@ -108,7 +136,7 @@ export const siteFooterPromoPresets = {
     description: "Start seeing it.",
     supportingText: "Cancel anytime",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Start 14 days free trial",
     },
     dashboard: siteAssetManifest.footerDashboard,
@@ -119,7 +147,7 @@ export const siteFooterPromoPresets = {
     title: "Stop guessing what you're paying for.",
     description: "Get complete visibility into your SaaS stack and start saving money within minutes.",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Start Exploring Applications",
     },
   } satisfies SiteFooterPromo,
@@ -129,7 +157,7 @@ export const siteFooterPromoPresets = {
     title: "See where your software budget is going",
     description: "Track every SaaS payment across cards, banks, and accounting systems in one place.",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Track Expenses",
     },
   } satisfies SiteFooterPromo,
@@ -138,7 +166,7 @@ export const siteFooterPromoPresets = {
     id: "site-footer-promo-compact-headline-only",
     title: "Stop Tracking Softwares Manually",
     cta: {
-      href: "/signin",
+      href: doowAppLinks.signUp,
       label: "Manage Subscriptions",
     },
   } satisfies SiteFooterPromo,

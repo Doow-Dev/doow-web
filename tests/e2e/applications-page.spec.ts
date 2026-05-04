@@ -371,7 +371,7 @@ test.describe("applications FAQ and footer content", () => {
     await expect(
       page.getByText("Get complete visibility into your SaaS stack and start saving money within minutes.")
     ).toBeVisible();
-    await expect(page.getByRole("link", { name: "Start Exploring Applications" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Get Started" })).toBeVisible();
     await expect(footerNavigation).toBeVisible();
     await expect(footerNavigation.getByRole("link", { name: "Applications" })).toHaveAttribute("href", "/applications");
   });

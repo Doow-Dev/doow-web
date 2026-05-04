@@ -12,7 +12,12 @@ import { IntegrationsSection } from "@/app/(landing)/_components/integrations";
 import { PricingSection } from "@/app/(landing)/_components/pricing";
 import { LandingSectionShell } from "@/app/(landing)/_components/shared";
 import { SiteFaqSection } from "@/components/layout/faq";
-import { SiteFooter, siteFooterPromoPresets } from "@/components/layout/footer";
+import {
+  SiteFooterBody,
+  SiteFooterPromoSection,
+  siteFooterBodyContent,
+  siteFooterPromoPresets,
+} from "@/components/layout/footer";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
 
@@ -148,7 +153,8 @@ export default function Home() {
       <PricingSection Shell={PricingShell} />
       <SiteFaqSection Shell={FaqShell} content={landingPageContent.faq} />
       <IntegrationsSection Shell={IntegrationsShell} />
-      <SiteFooter promo={siteFooterPromoPresets.landingDashboard} />
+      <SiteFooterPromoSection promo={siteFooterPromoPresets.landingDashboard} />
+      <SiteFooterBody body={siteFooterBodyContent} />
     </>
   );
 }

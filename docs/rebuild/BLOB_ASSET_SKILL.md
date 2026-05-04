@@ -249,7 +249,7 @@ async function generateBlur(imagePath: string) {
     .toBuffer();
   
   const base64 = `data:image/webp;base64,${resized.toString('base64')}`;
-  console.log(base64);
+
 }
 
 generateBlur('./public/images/hero-bg.jpg');

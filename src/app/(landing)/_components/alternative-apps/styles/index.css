@@ -92,6 +92,12 @@
     white-space: nowrap;
   }
 
+  .alternative-apps__tab-label-skeleton {
+    width: 4.25rem;
+    height: 0.875rem;
+    border-radius: 999px;
+  }
+
   .alternative-apps-logo {
     display: inline-flex;
     align-items: center;
@@ -141,6 +147,22 @@
     height: 1.25rem;
   }
 
+  .alternative-apps-logo__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    object-fit: contain;
+  }
+
+  .alternative-apps-logo__fallback {
+    color: var(--fg-base);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
   .alternative-apps-logo[data-logo-key="google"] .alternative-apps-logo__inner {
     background: #e8f0fe;
   }
@@ -157,6 +179,10 @@
     background: #fdf2f8;
   }
 
+  .alternative-apps-logo[data-logo-key="image"] .alternative-apps-logo__inner {
+    background: var(--button-neutral);
+  }
+
   .alternative-apps-comparison {
     min-width: 0;
     overflow: hidden;
@@ -167,6 +193,35 @@
       0 2px 2px -1px rgba(2, 6, 23, 0.02),
       0 6px 6px -3px rgba(2, 6, 23, 0.08),
       0 4px 4px -2px rgba(2, 6, 23, 0.04);
+  }
+
+  .alternative-apps-comparison--error {
+    display: grid;
+    padding: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .alternative-apps__query-error {
+    min-height: clamp(18rem, 50vw, 26rem);
+  }
+
+  .alternative-apps-current__name-skeleton {
+    width: 8rem;
+    height: 1.25rem;
+  }
+
+  .alternative-apps-current__meta-skeleton {
+    width: 10rem;
+    height: 1rem;
+  }
+
+  .alternative-apps-current__metric-label-skeleton {
+    width: 4.5rem;
+    height: 0.875rem;
+  }
+
+  .alternative-apps-current__metric-value-skeleton {
+    width: 5.5rem;
+    height: 1.125rem;
   }
 
   .alternative-apps-current {
@@ -247,6 +302,10 @@
     margin: 0;
   }
 
+  .alternative-apps-current__metric--annual {
+    grid-column: span 2;
+  }
+
   .alternative-apps-current__metric-label {
     color: var(--fg-subtle);
     font-size: 13px;
@@ -303,6 +362,16 @@
     font-weight: 500;
   }
 
+  .alternative-apps-scroller__title-skeleton {
+    width: 10rem;
+    height: 1.25rem;
+  }
+
+  .alternative-apps-scroller__description-skeleton {
+    width: min(100%, 24rem);
+    height: 1rem;
+  }
+
   .alternative-apps-scroller__viewport {
     min-width: 0;
     overflow-x: auto;
@@ -326,6 +395,26 @@
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  .alternative-apps-card__name-skeleton {
+    width: 8rem;
+    height: 1.125rem;
+  }
+
+  .alternative-apps-card__pricing-skeleton {
+    width: 11rem;
+    height: 0.875rem;
+  }
+
+  .alternative-apps-card__metrics-skeleton {
+    width: 100%;
+    height: 3rem;
+  }
+
+  .alternative-apps-card__insight-skeleton {
+    width: 100%;
+    height: 4.5rem;
   }
 
   .alternative-apps-scroller__rail-shell {

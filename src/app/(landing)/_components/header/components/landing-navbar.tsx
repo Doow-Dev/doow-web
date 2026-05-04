@@ -1,13 +1,13 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from "motion/react";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiMiniBars3, HiMiniChevronDown, HiMiniXMark } from "react-icons/hi2";
 
 import type { LandingHeaderContent } from "../content";
-import { DoowLogo } from "@/components/custom/icons/doow_logo";
 import { Button, Container, NavLink } from "@/components/system";
 
 function HeaderDisclosureIcon() {
@@ -74,7 +74,9 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
     setIsMenuOpen(false);
   };
 
+  const baseLogoOpacity = useTransform(scrollBlend, [0, 0.82], [1, 0]);
   const scrollBlendOpacity = isMenuOpen ? 0 : scrollBlend;
+  const scrolledLogoOpacity = isMenuOpen ? 1 : scrollBlend;
 
   return (
     <Dialog.Root open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -87,7 +89,36 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
 
           <Container className="landing-navbar__layout" data-layout-shell="landingNavbarShell" variant="landingWide">
             <div className="landing-navbar__brand-row">
-              <DoowLogo className="shrink-0" imageClassName="landing-navbar__logo" width={77} height={22} />
+              <Link aria-label="Doow home" className="landing-navbar__logo-link shrink-0" href="/" prefetch={false}>
+                <motion.span
+                  aria-hidden="true"
+                  className="landing-navbar__logo-layer landing-navbar__logo-layer--base"
+                  style={{ opacity: isMenuOpen ? 0 : baseLogoOpacity }}
+                >
+                  <Image
+                    alt=""
+                    className="landing-navbar__logo landing-navbar__logo--base"
+                    height={22}
+                    priority
+                    src="/logos/doowFull.svg"
+                    width={78}
+                  />
+                </motion.span>
+                <motion.span
+                  aria-hidden="true"
+                  className="landing-navbar__logo-layer landing-navbar__logo-layer--scrolled"
+                  style={{ opacity: scrolledLogoOpacity }}
+                >
+                  <Image
+                    alt=""
+                    className="landing-navbar__logo landing-navbar__logo--scrolled"
+                    height={22}
+                    priority
+                    src="/logos/doow-logo-white-full.svg"
+                    width={78}
+                  />
+                </motion.span>
+              </Link>
 
               <div className="landing-navbar__actions landing-navbar__actions--mobile">
                 <NavLink href={content.login.href} variant="header">

@@ -1,4 +1,5 @@
 import type { LandingActionLink, LandingNavItem } from "@/app/(landing)/_components/shared";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface LandingHeaderContent {
   primaryNavigation: LandingNavItem[];
@@ -9,15 +10,15 @@ export interface LandingHeaderContent {
 export const landingHeaderContent = {
   primaryNavigation: [
     { href: "#product", label: "Product", hasDisclosure: true },
-    { href: "#pricing", label: "Pricing" },
+    { href: "/pricing", label: "Pricing" },
     { href: "/blog", label: "Blog" },
   ] satisfies LandingNavItem[],
   login: {
-    href: "/signin",
+    href: doowAppLinks.login,
     label: "Login",
   } satisfies LandingActionLink,
   signUp: {
-    href: "/signin",
+    href: doowAppLinks.signUp,
     label: "Sign Up",
   } satisfies LandingActionLink,
 } satisfies LandingHeaderContent;

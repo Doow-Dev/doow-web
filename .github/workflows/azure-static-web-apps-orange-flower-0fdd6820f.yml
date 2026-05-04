@@ -41,6 +41,10 @@ jobs:
         env:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+          NEXT_PUBLIC_BLOB_BASE_URL: ${{ secrets.NEXT_PUBLIC_BLOB_BASE_URL }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
         run: |
           echo "Building with PostHog environment variables..."
           echo "NEXT_PUBLIC_POSTHOG_KEY is set: $([ -n "${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}" ] && echo 'yes' || echo 'no')"
@@ -62,6 +66,11 @@ jobs:
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
+        env:
+          NEXT_PUBLIC_BLOB_BASE_URL: ${{ secrets.NEXT_PUBLIC_BLOB_BASE_URL }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_FLOWER_0FDD6820F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
