@@ -1,4 +1,5 @@
 import { siteAssetManifest } from "@/lib/assets/site";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 import {
   applicationsHeroPillFieldContent,
@@ -34,7 +35,7 @@ export const applicationsHeroContent = {
   },
   description: "Discover tools your teams use, how often they're used, and where money might be slipping away.",
   cta: {
-    href: "/signin",
+    href: doowAppLinks.startFreeTrial,
     label: "Start Free Trial",
   } satisfies ApplicationsHeroActionLink,
   foreground: siteAssetManifest.applicationsHeroForeground,

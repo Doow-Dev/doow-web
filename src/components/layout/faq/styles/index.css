@@ -486,16 +486,10 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
-    width: min(100%, 20.75rem);
-    max-width: calc(100% - 0.75rem);
-    border-radius: 12px;
-    background: var(--button-neutral);
-    box-shadow:
-      0 0 0 1px rgba(0, 20, 10, 0.08),
-      0 1px 2px -1px rgba(0, 20, 10, 0.08),
-      0 2px 8px 0 rgba(0, 20, 10, 0.1);
+    width: auto;
+    max-width: 100%;
     margin-inline: auto;
-    padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+    padding: 0;
   }
 
   .faq-tool__sticky-copy {
@@ -546,11 +540,8 @@
     }
 
     .faq-tool__sticky-cta {
-      width: auto;
       flex-wrap: nowrap;
-      justify-content: space-between;
-      min-width: 18.75rem;
-      max-width: calc(100% - 0.25rem);
+      max-width: 100%;
     }
 
     .faq-tool__sticky-copy {

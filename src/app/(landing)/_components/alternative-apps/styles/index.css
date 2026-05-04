@@ -195,12 +195,13 @@
       0 4px 4px -2px rgba(2, 6, 23, 0.04);
   }
 
-  .alternative-apps__error {
-    margin: 0;
-    color: var(--fg-error);
-    font-size: 13px;
-    line-height: 20px;
-    text-align: center;
+  .alternative-apps-comparison--error {
+    display: grid;
+    padding: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .alternative-apps__query-error {
+    min-height: clamp(18rem, 50vw, 26rem);
   }
 
   .alternative-apps-current__name-skeleton {

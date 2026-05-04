@@ -17,7 +17,7 @@ import {
 } from "@/lib/server/alternative-apps-service";
 
 const landingAlternativeAppsTake = 5;
-const landingAlternativeRecommendationsTake = 4;
+const landingAlternativeRecommendationsTake = 10;
 const landingAlternativeAppsRevalidateSeconds = 300;
 
 export class LandingAlternativeAppsDataError extends Error {

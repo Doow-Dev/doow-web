@@ -13,11 +13,11 @@ export interface HeroAnimatedAccentProps {
 
 const WORD_CHANGE_INTERVAL_MS = 4800;
 const WORD_TRANSITION = {
-  duration: 1.35,
+  duration: 2.65,
   ease: [0.22, 1, 0.36, 1] as const,
 };
 const WORD_EXIT_TRANSITION = {
-  duration: 0.72,
+  duration: 1.7,
   ease: [0.22, 1, 0.36, 1] as const,
 };
 const LAYOUT_TRANSITION = {
@@ -31,7 +31,7 @@ export function HeroAnimatedAccent({ words, className }: HeroAnimatedAccentProps
   const activeWordSizerRef = useRef<HTMLSpanElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const activeWord = words[activeWordIndex] ?? words[0] ?? "";
-  const accessiblePhrase = `${activeWord} no human is using?`;
+  const activeAccentText = activeWord.endsWith("?") ? activeWord : `${activeWord}?`;
 
   useEffect(() => {
     if (prefersReducedMotion || words.length <= 1) {
@@ -68,11 +68,11 @@ export function HeroAnimatedAccent({ words, className }: HeroAnimatedAccentProps
       resizeObserver.disconnect();
       window.removeEventListener("resize", updateWordWidth);
     };
-  }, [activeWord]);
+  }, [activeAccentText]);
 
   return (
     <span className={cn("hero-title__accent", className)}>
-      <span className="sr-only">{accessiblePhrase}</span>
+      <span className="sr-only">{activeAccentText}</span>
 
       <motion.span
         aria-hidden="true"
@@ -88,28 +88,21 @@ export function HeroAnimatedAccent({ words, className }: HeroAnimatedAccentProps
           transition={LAYOUT_TRANSITION}
         >
           <span ref={activeWordSizerRef} aria-hidden="true" className="hero-title__accent-word-sizer">
-            {activeWord}
+            {activeAccentText}
           </span>
           <AnimatePresence initial={false} mode="sync">
             <motion.span
-              animate={{ opacity: 1 }}
+              animate={{ filter: "blur(0px)", opacity: 1 }}
               className="hero-title__accent-word"
-              exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, transition: WORD_EXIT_TRANSITION }}
-              initial={prefersReducedMotion ? false : { opacity: 0 }}
-              key={activeWord}
+              exit={prefersReducedMotion ? { opacity: 1 } : { filter: "blur(2px)", opacity: 0, transition: WORD_EXIT_TRANSITION }}
+              initial={prefersReducedMotion ? false : { filter: "blur(3px)", opacity: 0 }}
+              key={activeAccentText}
               transition={WORD_TRANSITION}
             >
-              {activeWord}
+              <span className="hero-title__accent-word-text">{activeAccentText}</span>
+              <HeroSparkleIcon className="hero-accent-sparkle--word" />
             </motion.span>
           </AnimatePresence>
-        </motion.span>
-
-        <motion.span className="hero-title__accent-suffix" layout="position" transition={{ layout: LAYOUT_TRANSITION }}>
-          <span className="hero-title__accent-static">no</span>
-          <span className="hero-title__accent-gradient-phrase">
-            human is using?
-            <HeroSparkleIcon className="hero-accent-sparkle--using" />
-          </span>
         </motion.span>
       </motion.span>
     </span>

@@ -6,10 +6,7 @@ import type {
   ApplicationsProblemId,
   ApplicationsProblemsSectionContent,
 } from "@/app/(site-pages)/applications/content/problems-content";
-import { ChartArrowDownRectangleIcon } from "@/components/custom/icons/chart-arrow-down-rectangle-icon";
-import { EyeOffIcon } from "@/components/custom/icons/eye-off-icon";
-import { SquareStackIcon } from "@/components/custom/icons/square-stack-icon";
-import { TrashIcon } from "@/components/custom/icons/trash-icon";
+import { ChartArrowDownRectangleIcon, SquareStackIcon, TrashIcon, EyeOffIcon } from "@/components/custom/icons";
 import { ProgressiveSplitShell, type ProgressiveSplitItem } from "@/components/layout/shared";
 
 const problemIconMap = {

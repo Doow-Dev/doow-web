@@ -80,9 +80,31 @@ function FeatureSplitStageContent({
   return <ProgressiveSplitPlaceholderIllustration className="feature-split__placeholder-stage" />;
 }
 
+function useDesktopStageQuery() {
+  const [matchesDesktopStage, setMatchesDesktopStage] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 64rem)");
+
+    function updateMatchesDesktopStage() {
+      setMatchesDesktopStage(mediaQuery.matches);
+    }
+
+    updateMatchesDesktopStage();
+    mediaQuery.addEventListener("change", updateMatchesDesktopStage);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateMatchesDesktopStage);
+    };
+  }, []);
+
+  return matchesDesktopStage;
+}
+
 export function FeatureSplitShowcase({ content }: FeatureSplitShowcaseProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const showStage = useDesktopStageQuery();
   const prefersReducedMotion = useReducedMotion() ?? false;
   const items = content.points.map(
     (point) =>
@@ -158,6 +180,7 @@ export function FeatureSplitShowcase({ content }: FeatureSplitShowcaseProps) {
         <FeatureSplitStageContent content={content} inView={inView} point={item} prefersReducedMotion={prefersReducedMotion} />
       )}
       rootProps={{ "data-feature-split-surface": "layout" }}
+      showStage={showStage}
       stagePanelProps={{ "data-feature-split-panel": "stage" }}
     />
   );

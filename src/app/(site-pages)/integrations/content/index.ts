@@ -1,5 +1,6 @@
 import type { FaqSectionContent } from "@/components/layout/faq";
 import type { SiteFooterPromo } from "@/components/layout/footer";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 import {
   integrationsConnectionsContent,
@@ -26,7 +27,7 @@ const integrationsFooterPromo = {
   title: "Connect the tools you already use",
   description: "Bring identity, finance, and HR data together so everything stays up to date.",
   cta: {
-    href: "/signin",
+    href: doowAppLinks.signUp,
     label: "View Integrations",
   },
 } as const satisfies SiteFooterPromo;

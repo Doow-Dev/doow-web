@@ -19,7 +19,7 @@
     display: grid;
     width: 100%;
     padding: 3.5rem 1rem 3.5rem;
-    border-radius: 0.75rem;
+    border-radius: 0.75rem 0.75rem 0 0;
     background-color: var(--button-base);
     box-shadow:
       0 0 0 1px rgba(3, 7, 18, 0.14),
@@ -179,7 +179,7 @@
   }
 
   .site-footer-promo[data-site-footer-promo-kind="dashboard"] + .site-footer {
-    margin-top: 1.5rem;
+    margin-top: 0;
   }
 
   .site-footer__shell {
@@ -350,7 +350,7 @@
     }
 
     .site-footer-promo[data-site-footer-promo-kind="dashboard"] + .site-footer {
-      margin-top: 2rem;
+      margin-top: 0;
     }
 
     .site-footer__nav {
@@ -387,7 +387,7 @@
     }
 
     .site-footer-promo[data-site-footer-promo-kind="dashboard"] + .site-footer {
-      margin-top: 2.5rem;
+      margin-top: 0;
     }
 
     .site-footer-promo__title {
@@ -438,7 +438,7 @@
     }
 
     .site-footer-promo[data-site-footer-promo-kind="dashboard"] + .site-footer {
-      margin-top: 7.375rem;
+      margin-top: 0;
     }
 
     .site-footer__layout {

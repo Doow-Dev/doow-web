@@ -24,6 +24,13 @@ export const siteAssetManifest = {
     width: 1352,
     height: 902,
   },
+  heroBackgroundCompact: {
+    id: "hero-background-compact",
+    src: assetUrl("sitting_with_laptop.png"),
+    alt: "",
+    width: 1352,
+    height: 902,
+  },
   demoFrame: {
     id: "demo-frame",
     src: assetUrl("gradient-frame.webp"),
@@ -249,6 +256,7 @@ export const siteAssetManifest = {
   },
 } as const satisfies {
   heroBackground: SiteAssetEntry;
+  heroBackgroundCompact: SiteAssetEntry;
   demoFrame: SiteAssetEntry;
   demoPoster: SiteAssetEntry;
   demoVideo: SiteVideoEntry;

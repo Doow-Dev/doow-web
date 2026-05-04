@@ -74,12 +74,14 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [pageVersion, setPageVersion] = useState(0);
+  const [retryVersion, setRetryVersion] = useState(0);
   const [, startTransition] = useTransition();
   const abortControllerRef = useRef<AbortController | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const resolvedRequestKeyRef = useRef(getRequestKey(initialData.selectedCategoryId, initialData.query));
   const pendingRequestKeyRef = useRef<string | null>(null);
   const loadingMoreCursorRef = useRef<string | null>(null);
+  const failedRequestRef = useRef<{ kind: "refresh"; requestKey: string } | { kind: "loadMore" } | null>(null);
 
   useEffect(() => {
     setIsHydrated(true);
@@ -103,6 +105,7 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
     loadingMoreCursorRef.current = cursor;
     setIsLoadingMore(true);
     setLoadError("");
+    failedRequestRef.current = null;
 
     try {
       const nextPage = await fetchJson<TPage>(
@@ -122,8 +125,10 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
       startTransition(() => {
         setData((previousPage) => mergePages({ getItemKey, nextPage, previousPage }) as TPage);
       });
+      failedRequestRef.current = null;
     } catch {
       setLoadError(errorMessage);
+      failedRequestRef.current = { kind: "loadMore" };
     } finally {
       if (loadingMoreCursorRef.current === cursor) {
         loadingMoreCursorRef.current = null;
@@ -162,6 +167,7 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
       loadingMoreCursorRef.current = null;
       setIsRefreshing(true);
       setLoadError("");
+      failedRequestRef.current = null;
 
       try {
         const nextPage = await fetchJson<TPage>(
@@ -183,12 +189,14 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
           setPageVersion((version) => version + 1);
         });
         resolvedRequestKeyRef.current = requestKey;
+        failedRequestRef.current = null;
       } catch (error) {
         if (error instanceof Error && error.name === "AbortError") {
           return;
         }
 
         setLoadError(errorMessage);
+        failedRequestRef.current = { kind: "refresh", requestKey };
       } finally {
         if (pendingRequestKeyRef.current === requestKey) {
           pendingRequestKeyRef.current = null;
@@ -200,7 +208,7 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [debounceMs, errorMessage, getPageUrl, schema, searchQuery, selectedCategoryId, startTransition]);
+  }, [debounceMs, errorMessage, getPageUrl, retryVersion, schema, searchQuery, selectedCategoryId, startTransition]);
 
   useEffect(() => {
     const sentinel = loadMoreRef.current;
@@ -233,6 +241,23 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
     setSelectedCategoryId((currentCategoryId) => (currentCategoryId === categoryId ? currentCategoryId : categoryId));
   }, []);
 
+  const retryLastRequest = useCallback(() => {
+    const failedRequest = failedRequestRef.current;
+
+    if (!failedRequest) {
+      return;
+    }
+
+    if (failedRequest.kind === "loadMore") {
+      void loadMore();
+      return;
+    }
+
+    resolvedRequestKeyRef.current = "";
+    pendingRequestKeyRef.current = null;
+    setRetryVersion((version) => version + 1);
+  }, [loadMore]);
+
   return {
     data,
     isHydrated,
@@ -246,5 +271,6 @@ export function useInfiniteCatalog<TPage extends InfiniteCatalogPageBase<TItem, 
     selectedCategoryId,
     setSearchQuery,
     setSelectedCategoryId: selectCategory,
+    retryLastRequest,
   };
 }

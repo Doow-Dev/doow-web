@@ -343,7 +343,7 @@
   --header-actions-gap: 12px;
   --header-nav-gap-mobile: 20px;
   --header-nav-gap-desktop: 28px;
-  --landing-navbar-gutter: clamp(1.5rem, 4.45vw, 4rem);
+  --landing-navbar-gutter: clamp(0.75rem, 3vw, 1rem);
   --header-surface-scrolled: rgba(31, 35, 38, 0.72);
   --header-surface-open: #1f2326;
   --header-surface-panel: rgba(17, 20, 24, 0.94);
@@ -450,4 +450,10 @@
   --surface-global-site-navbar: var(--global-site-navbar-surface);
   --surface-global-site-navbar-panel: var(--global-site-navbar-surface-panel);
   --stroke-global-site-navbar: var(--global-site-navbar-border);
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --landing-navbar-gutter: clamp(1.5rem, 4.45vw, 4rem);
+  }
 }

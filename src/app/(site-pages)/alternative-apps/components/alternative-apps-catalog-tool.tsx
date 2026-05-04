@@ -18,7 +18,7 @@ import {
   getIntegrationAppGraphic,
   type IntegrationAppGraphicSource,
 } from "@/components/custom/icons/integration-app-icon-registry";
-import { CatalogBrowseShell, CatalogProviderCard, useInfiniteCatalog } from "@/components/layout/shared";
+import { CatalogBrowseShell, CatalogProviderCard, QueryErrorMessage, useInfiniteCatalog } from "@/components/layout/shared";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { fetchJson } from "@/lib/rest/fetch-json";
@@ -32,7 +32,6 @@ import {
   type AlternativeAppsCatalogResponse,
 } from "@/lib/site/alternative-apps-catalog";
 import { capCharacters } from "@/lib/text/cap-characters";
-import { cn } from "@/lib/utils";
 
 export interface AlternativeAppsCatalogToolProps {
   content: AlternativeAppsPageContent["catalog"];
@@ -215,8 +214,7 @@ function AlternativePreviewLogo({ index, preview }: { index: number; preview: Al
 
 function AlternativeAppsCatalogCard({ item }: { item: AlternativeAppsCatalogItem }) {
   const graphic = getIntegrationAppGraphic(...item.logoHints, item.name);
-  const previews = (item.alternativePreviewLogos ?? []).slice(0, 4);
-  const remainingAlternativeCount = Math.max(0, item.alternativeCount - previews.length);
+  const previews = (item.alternativePreviewLogos ?? []).slice(0, 3);
   const categoryLabel = getPrimaryCategoryLabel(item.categoryLabel);
 
   return (
@@ -235,11 +233,13 @@ function AlternativeAppsCatalogCard({ item }: { item: AlternativeAppsCatalogItem
               ))}
             </span>
           ) : null}
-          {remainingAlternativeCount > 0 ? (
-            <span className="alternative-apps-catalog-card__alternative-count">&amp; {remainingAlternativeCount}+ alternatives</span>
+          {item.alternativeCount > 0 ? (
+            <span className="alternative-apps-catalog-card__alternative-count">+{item.alternativeCount}</span>
           ) : null}
         </span>
       }
+      footerDivider
+      footerLabel="Alternatives:"
       href={item.href}
       logo={
         <span aria-label={`${item.name} logo`} className="alternative-apps-catalog-card__logo" role="img">
@@ -269,20 +269,24 @@ function AlternativeAppsCatalogSkeleton({ count = 12 }: { count?: number }) {
           <span className="alternative-apps-catalog-card__copy">
             <Skeleton className="alternative-apps-catalog-card__title-skeleton" />
             <Skeleton className="alternative-apps-catalog-card__category-skeleton" />
-            <span className="alternative-apps-catalog-card__alternatives alternative-apps-catalog-card__alternatives--skeleton">
-              <span
-                className="alternative-apps-catalog-card__preview-stack"
-                style={{ "--alternative-apps-preview-count": 4 } as CSSProperties}
-              >
-                {Array.from({ length: 4 }, (_, logoIndex) => (
-                  <Skeleton
-                    className="alternative-apps-catalog-card__preview-logo alternative-apps-catalog-card__preview-logo--skeleton"
-                    key={logoIndex}
-                    style={{ "--alternative-apps-preview-index": logoIndex } as CSSProperties}
-                  />
-                ))}
+            <span className="alternative-apps-catalog-card__divider" />
+            <span className="alternative-apps-catalog-card__footer">
+              <Skeleton className="alternative-apps-catalog-card__footer-label-skeleton" />
+              <span className="alternative-apps-catalog-card__alternatives alternative-apps-catalog-card__alternatives--skeleton">
+                <span
+                  className="alternative-apps-catalog-card__preview-stack"
+                  style={{ "--alternative-apps-preview-count": 3 } as CSSProperties}
+                >
+                  {Array.from({ length: 3 }, (_, logoIndex) => (
+                    <Skeleton
+                      className="alternative-apps-catalog-card__preview-logo alternative-apps-catalog-card__preview-logo--skeleton"
+                      key={logoIndex}
+                      style={{ "--alternative-apps-preview-index": logoIndex } as CSSProperties}
+                    />
+                  ))}
+                </span>
+                <Skeleton className="alternative-apps-catalog-card__alternative-count-skeleton" />
               </span>
-              <Skeleton className="alternative-apps-catalog-card__alternative-count-skeleton" />
             </span>
           </span>
         </div>
@@ -465,6 +469,7 @@ export function AlternativeAppsCatalogTool({ content, initialData }: Alternative
     selectedCategoryId,
     setSearchQuery,
     setSelectedCategoryId,
+    retryLastRequest,
   } = useInfiniteCatalog<AlternativeAppsCatalogResponse, AlternativeAppsCatalogItem, AlternativeAppsCatalogCategory>({
     errorMessage: "We could not update the application catalog right now. Please try again.",
     getItemKey: (item) => item.id,
@@ -613,7 +618,7 @@ export function AlternativeAppsCatalogTool({ content, initialData }: Alternative
       status={
         <p
           aria-live="polite"
-          className={cn("alternative-apps-catalog__status", !loadError && "sr-only")}
+          className="sr-only"
           role="status"
         >
           {loadError || `${data.totalCount} applications shown.`}
@@ -623,7 +628,14 @@ export function AlternativeAppsCatalogTool({ content, initialData }: Alternative
       titleId={`${content.id}-heading`}
       viewportRef={viewportRef}
     >
-      {isLoading ? (
+      {loadError ? (
+        <QueryErrorMessage
+          actionLabel="Retry"
+          message={loadError}
+          onRetry={retryLastRequest}
+          title="Application catalog unavailable"
+        />
+      ) : isLoading ? (
         <AlternativeAppsCatalogSkeleton />
       ) : data.items.length ? (
         <div className="alternative-apps-catalog__grid">

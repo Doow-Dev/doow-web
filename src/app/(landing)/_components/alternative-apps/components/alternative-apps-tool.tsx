@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 
+import { QueryErrorMessage } from "@/components/layout/shared";
 import { Skeleton } from "@/components/ui/skeleton";
 import { fetchJson } from "@/lib/rest/fetch-json";
 import {
@@ -103,7 +104,9 @@ function AlternativeAppsComparisonSkeleton() {
 export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
   const [data, setData] = useState(initialData);
   const [loadError, setLoadError] = useState("");
+  const [failedAppId, setFailedAppId] = useState<string | null>(null);
   const [isInitialLoading, setIsInitialLoading] = useState(!initialData);
+  const [initialLoadVersion, setInitialLoadVersion] = useState(0);
   const [loadingAppId, setLoadingAppId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const pendingAppIdRef = useRef<string | null>(null);
@@ -129,6 +132,7 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
     abortControllerRef.current = controller;
     setIsInitialLoading(true);
     setLoadError("");
+    setFailedAppId(null);
 
     async function loadInitialData() {
       try {
@@ -142,6 +146,7 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
         responseCacheRef.current.set(nextData.selectedAppId, nextData);
         if (isMounted) {
           setData(nextData);
+          setFailedAppId(null);
         }
       } catch (error) {
         if (error instanceof Error && error.name === "AbortError") {
@@ -150,6 +155,7 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
 
         if (isMounted) {
           setLoadError("We could not load the comparison right now. Please try again later.");
+          setFailedAppId(null);
         }
       } finally {
         if (isMounted) {
@@ -164,7 +170,7 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
       isMounted = false;
       controller.abort();
     };
-  }, [initialData]);
+  }, [initialData, initialLoadVersion]);
 
   async function handleSelect(appId: string) {
     if (appId === data?.selectedAppId || pendingAppIdRef.current === appId) {
@@ -177,6 +183,7 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
 
     if (cachedData) {
       setLoadError("");
+      setFailedAppId(null);
       startTransition(() => {
         setData(cachedData);
       });
@@ -188,6 +195,7 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
     pendingAppIdRef.current = appId;
     setLoadingAppId(appId);
     setLoadError("");
+    setFailedAppId(null);
 
     try {
       const nextData = await fetchJson<AlternativeAppsResponse>(getAlternativeAppsApiUrl(appId), {
@@ -201,17 +209,30 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
       startTransition(() => {
         setData(nextData);
       });
+      setFailedAppId(null);
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
         return;
       }
 
       setLoadError("We could not update the comparison right now. Please try again.");
+      setFailedAppId(appId);
     } finally {
       if (pendingAppIdRef.current === appId) {
         pendingAppIdRef.current = null;
         setLoadingAppId(null);
       }
+    }
+  }
+
+  function handleRetry() {
+    if (!data) {
+      setInitialLoadVersion((version) => version + 1);
+      return;
+    }
+
+    if (failedAppId) {
+      void handleSelect(failedAppId);
     }
   }
 
@@ -232,7 +253,23 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
         <AppSelectionPillsSkeleton />
       )}
 
-      {data && !isLoadingComparison ? (
+      {loadError ? (
+        <div
+          aria-busy={false}
+          aria-labelledby={selectedTabId}
+          className="alternative-apps-comparison alternative-apps-comparison--error"
+          id={comparisonPanelId}
+          role="tabpanel"
+        >
+          <QueryErrorMessage
+            actionLabel="Retry"
+            className="alternative-apps__query-error"
+            message={loadError}
+            onRetry={handleRetry}
+            title="Comparison unavailable"
+          />
+        </div>
+      ) : data && !isLoadingComparison ? (
         <div
           aria-busy={false}
           aria-labelledby={selectedTabId}
@@ -250,8 +287,6 @@ export function AlternativeAppsTool({ initialData }: AlternativeAppsToolProps) {
       ) : (
         <AlternativeAppsComparisonSkeleton />
       )}
-
-      {loadError ? <p className="alternative-apps__error">{loadError}</p> : null}
 
       <p aria-live="polite" className="sr-only" role="status">
         {loadError || (isInitialLoading || isLoadingComparison ? "Loading alternative application comparison." : "")}
