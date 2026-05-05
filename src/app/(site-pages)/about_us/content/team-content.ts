@@ -1,3 +1,5 @@
+import { siteFooterBodyContent } from "@/components/layout/footer";
+
 export interface AboutUsTeamLogoContent {
   height: number;
   id: string;
@@ -24,13 +26,15 @@ export interface AboutUsTeamContent {
   title: string;
 }
 
+const [footerLinkedInLink, footerXLink] = siteFooterBodyContent.socialLinks;
+
 export const aboutUsTeamContent = {
   description:
     "We have the right mix of hands-on experience across financial services, developer tooling and enterprise software.",
   id: "about-us-team",
   links: [
     {
-      href: "https://www.linkedin.com/company/doow",
+      href: footerLinkedInLink.href,
       iconHeight: 20,
       iconSrc: "/assets/about-us/linkedin-icon.png",
       iconWidth: 20,
@@ -39,7 +43,7 @@ export const aboutUsTeamContent = {
       platform: "linkedin",
     },
     {
-      href: "https://x.com/doowco",
+      href: footerXLink.href,
       iconHeight: 20,
       iconSrc: "/assets/about-us/x-icon.png",
       iconWidth: 23,

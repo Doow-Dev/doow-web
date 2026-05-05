@@ -13,7 +13,6 @@ const STATIC_ROUTES = [
   "/integrations",
   "/pricing",
   "/privacy_policy",
-  "/signin",
   "/subscriptions",
   "/terms_of_use",
 ];

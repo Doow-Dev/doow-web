@@ -1,4 +1,5 @@
 import type { SiteFooterPromo } from "@/components/layout/footer";
+import { doowAppLinks } from "@/lib/site/app-links";
 
 import { aboutUsHeroContent, type AboutUsHeroContent } from "./hero-content";
 import {
@@ -18,7 +19,7 @@ export interface AboutUsPageContent {
 export const aboutUsPageContent = {
   footerPromo: {
     cta: {
-      href: "/signin",
+      href: doowAppLinks.getStarted,
       label: "Get Started",
     },
     id: "site-footer-promo-about-us",

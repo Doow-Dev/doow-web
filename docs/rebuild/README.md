@@ -23,7 +23,6 @@ This folder is the source of truth for the Doow landing-page rebuild.
   - `/doow-ai`
   - `/integrations`
   - `/privacy_policy`
-  - `/signin`
   - `/terms_of_use`
 - Current typecheck status: passes
 - Current unit test status: passes via `npm run test:unit`, with a Node module-type warning from `src/lib/site/integrations.js`

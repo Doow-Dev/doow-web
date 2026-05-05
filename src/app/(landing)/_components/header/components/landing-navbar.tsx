@@ -187,12 +187,13 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
                   {menuEntries.map((entry) => {
                     const menuValue = getMenuValue(entry.label);
                     const panelId = `landing-navbar-menu-${menuValue}`;
+                    const isMenuOpen = desktopMenuValue === menuValue;
 
                     return (
                       <li key={entry.label} className="landing-navbar__nav-menu-item">
                         <button
                           aria-controls={panelId}
-                          aria-expanded={desktopMenuValue === menuValue}
+                          aria-expanded={isMenuOpen}
                           aria-haspopup="true"
                           className="nav-link-base nav-link-header landing-navbar__nav-trigger"
                           onClick={() => openDesktopMenu(menuValue)}
@@ -215,22 +216,24 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
                           <HiMiniChevronDown aria-hidden="true" className="size-4" />
                         </button>
 
-                        <div
-                          className="landing-navbar__desktop-content global-site-navbar__desktop-content"
-                          id={panelId}
-                          onMouseEnter={() => openDesktopMenu(menuValue)}
-                          onPointerEnter={() => openDesktopMenu(menuValue)}
-                        >
-                          <div className="global-site-navbar__product-grid">
-                            {entry.groups.map((group) => (
-                              <div className="global-site-navbar__product-column" key={group.id}>
-                                {group.items.map((item) => (
-                                  <ProductMenuCard item={item} key={item.label} />
-                                ))}
-                              </div>
-                            ))}
+                        {isMenuOpen ? (
+                          <div
+                            className="landing-navbar__desktop-content global-site-navbar__desktop-content"
+                            id={panelId}
+                            onMouseEnter={() => openDesktopMenu(menuValue)}
+                            onPointerEnter={() => openDesktopMenu(menuValue)}
+                          >
+                            <div className="global-site-navbar__product-grid">
+                              {entry.groups.map((group) => (
+                                <div className="global-site-navbar__product-column" key={group.id}>
+                                  {group.items.map((item) => (
+                                    <ProductMenuCard item={item} key={item.label} onNavigate={closeDesktopMenu} />
+                                  ))}
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </div>
+                        ) : null}
                       </li>
                     );
                   })}

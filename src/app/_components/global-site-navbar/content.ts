@@ -188,7 +188,6 @@ export const globalSiteNavContent = {
     },
   ] satisfies readonly GlobalSiteNavEntry[],
   login: {
-    activeMatchPaths: ["/signin"],
     href: doowAppLinks.login,
     label: "Login",
   } satisfies GlobalSiteNavAction,

@@ -239,12 +239,13 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
                     {menuEntries.map((entry) => {
                       const menuValue = getMenuValue(entry.label);
                       const panelId = `global-site-navbar-menu-${menuValue}`;
+                      const isMenuOpen = desktopMenuValue === menuValue;
 
                       return (
                         <li key={entry.label} className="global-site-navbar__desktop-menu-item">
                           <button
                             aria-controls={panelId}
-                            aria-expanded={desktopMenuValue === menuValue}
+                            aria-expanded={isMenuOpen}
                             aria-haspopup="true"
                             className="global-site-navbar__desktop-trigger"
                             data-global-site-navbar-menu-trigger={entry.label}
@@ -268,24 +269,26 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
                             <ChevronDown aria-hidden="true" className="size-3.5" strokeWidth={1.75} />
                           </button>
 
-                          <div
-                            className="global-site-navbar__desktop-content"
-                            data-global-site-navbar-menu-content={entry.label}
-                            id={panelId}
-                            onMouseEnter={() => openDesktopMenu(menuValue)}
-                            onPointerEnter={() => openDesktopMenu(menuValue)}
-                          >
-                            <div className="global-site-navbar__product-grid" data-global-site-navbar-product-grid="true">
-                              {entry.groups.map((group) => (
-                                <div className="global-site-navbar__product-column" key={group.id}>
-                                  {group.title ? <p className="global-site-navbar__product-column-title">{group.title}</p> : null}
-                                  {group.items.map((item) => (
-                                    <ProductMenuCard item={item} key={item.label} />
-                                  ))}
-                                </div>
-                              ))}
+                          {isMenuOpen ? (
+                            <div
+                              className="global-site-navbar__desktop-content"
+                              data-global-site-navbar-menu-content={entry.label}
+                              id={panelId}
+                              onMouseEnter={() => openDesktopMenu(menuValue)}
+                              onPointerEnter={() => openDesktopMenu(menuValue)}
+                            >
+                              <div className="global-site-navbar__product-grid" data-global-site-navbar-product-grid="true">
+                                {entry.groups.map((group) => (
+                                  <div className="global-site-navbar__product-column" key={group.id}>
+                                    {group.title ? <p className="global-site-navbar__product-column-title">{group.title}</p> : null}
+                                    {group.items.map((item) => (
+                                      <ProductMenuCard item={item} key={item.label} onNavigate={closeDesktopMenu} />
+                                    ))}
+                                  </div>
+                                ))}
+                              </div>
                             </div>
-                          </div>
+                          ) : null}
                         </li>
                       );
                     })}

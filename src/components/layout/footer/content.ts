@@ -175,7 +175,7 @@ export const siteFooterPromoPresets = {
     id: "site-footer-promo-doow-ai-questions",
     title: "Ask questions about your company\u2019s software",
     cta: {
-      href: "/doow-ai",
+      href: doowAppLinks.signUp,
       label: "Open Doow AI",
     },
   } satisfies SiteFooterPromo,
