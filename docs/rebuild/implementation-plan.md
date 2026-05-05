@@ -66,7 +66,7 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
 
 - Remove the old landing-page implementation and old asset assumptions.
 - Keep `/about_us` as a site page, and prune `/contact_us` with a redirect.
-- Keep `/signin`, `/privacy_policy`, and `/terms_of_use` on a neutral rebuild shell.
+- Keep `/privacy_policy` and `/terms_of_use` on a neutral rebuild shell. Sign-in and sign-up live in the external Doow app.
 - Status: completed
 
 ### Batch 3. Figma extraction and design-system foundation
@@ -165,7 +165,6 @@ Keep:
 - `/applications`
 - `/subscriptions`
 - `/doow-ai`
-- `/signin`
 - `/privacy_policy`
 - `/terms_of_use`
 

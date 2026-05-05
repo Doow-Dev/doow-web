@@ -61,7 +61,6 @@ Keep:
 - `/subscriptions`
 - `/doow-ai`
 - `/integrations`
-- `/signin`
 - `/privacy_policy`
 - `/terms_of_use`
 

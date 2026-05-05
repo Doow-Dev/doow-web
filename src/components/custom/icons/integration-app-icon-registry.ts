@@ -11,6 +11,7 @@ import { OneLoginAppIcon } from "@/components/custom/icons/onelogin-app-icon";
 import { PlaidAppIcon } from "@/components/custom/icons/plaid-app-icon";
 import { QuickBooksAppIcon } from "@/components/custom/icons/quickbooks-app-icon";
 import { SageAppIcon } from "@/components/custom/icons/sage-app-icon";
+import { SalesforceAppIcon } from "@/components/custom/icons/salesforce-app-icon";
 import { SlackAppIcon } from "@/components/custom/icons/slack-app-icon";
 import { WindowsAppIcon } from "@/components/custom/icons/windows-app-icon";
 import { ZohoAppIcon } from "@/components/custom/icons/zoho-app-icon";
@@ -74,6 +75,7 @@ const integrationAppIconRegistry: Record<string, IntegrationAppGraphicSource> = 
   pnccom: assetEntry(integrationLogoAssetManifest.plaidBanking.pnc),
   quickbooks: componentEntry(QuickBooksAppIcon),
   sage: componentEntry(SageAppIcon),
+  salesforce: componentEntry(SalesforceAppIcon),
   slack: componentEntry(SlackAppIcon),
   tdcom: assetEntry(integrationLogoAssetManifest.plaidBanking.td),
   tiptap: assetEntry(integrationLogoAssetManifest.tiptap),

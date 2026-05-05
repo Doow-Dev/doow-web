@@ -2,7 +2,6 @@
 
 import * as Accordion from "@radix-ui/react-accordion";
 import * as Dialog from "@radix-ui/react-dialog";
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import {
   BarChart3,
   Briefcase,
@@ -10,13 +9,15 @@ import {
   ChevronDown,
   Menu,
   Rocket,
-  type LucideIcon,
+  ArrowRight,
   UserRound,
   Users,
   X,
+  Replace
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ComponentType, SVGProps } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import {
@@ -26,16 +27,31 @@ import {
   type GlobalSiteNavLinkEntry,
   type GlobalSiteNavMenuItem,
 } from "./content";
+import {
+  ApplicationIcon,
+  DoowAiIcon,
+  ExpensesIcon,
+  IntegrationsIcon,
+  SubscriptionsIcon,
+} from "@/components/custom/icons";
 import { DoowLogo } from "@/components/custom/icons/doow_logo";
 import { Button, Container } from "@/components/system";
 
-const productMenuIcons: Record<GlobalSiteNavIcon, LucideIcon> = {
+type NavMenuIconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+const productMenuIcons: Record<GlobalSiteNavIcon, NavMenuIconComponent> = {
+  applications: ApplicationIcon,
   ceos: Briefcase,
   cfos: BarChart3,
+  doowAi: DoowAiIcon,
+  expenses: ExpensesIcon,
   managers: Users,
   employees: UserRound,
+  integrations: IntegrationsIcon,
+  subscriptions: SubscriptionsIcon,
   startups: Rocket,
   enterprises: Building2,
+  alternatives: Replace,
 };
 
 function matchesPath(pathname: string, matchPaths?: readonly string[]) {
@@ -46,7 +62,11 @@ function matchesPath(pathname: string, matchPaths?: readonly string[]) {
   return matchPaths.some((pattern) => pathname === pattern || pathname.startsWith(`${pattern}/`));
 }
 
-function ProductMenuCard({
+function getMenuValue(label: string) {
+  return label.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function ProductMenuCard({
   item,
   onNavigate,
 }: {
@@ -55,13 +75,21 @@ function ProductMenuCard({
 }) {
   const Icon = productMenuIcons[item.icon];
   const isLive = item.availability === "live" && Boolean(item.href);
+  const isPlanned = item.availability === "planned";
   const sharedCardContent = (
     <>
       <span aria-hidden="true" className="global-site-navbar__menu-card-icon">
         <Icon className="size-[18px]" strokeWidth={1.75} />
       </span>
       <span className="global-site-navbar__menu-card-copy">
-        <span className="global-site-navbar__menu-card-title">{item.label}</span>
+        <span className="global-site-navbar__menu-card-heading">
+          <span className="global-site-navbar__menu-card-title">{item.label}</span>
+          {isLive ? (
+            <span aria-hidden="true" className="global-site-navbar__menu-card-arrow">
+              <ArrowRight className="size-4" strokeWidth={1.75} />
+            </span>
+          ) : null}
+        </span>
         <span className="global-site-navbar__menu-card-description">{item.description}</span>
       </span>
     </>
@@ -83,8 +111,8 @@ function ProductMenuCard({
 
   return (
     <div
-      aria-disabled="true"
-      className="global-site-navbar__menu-card global-site-navbar__menu-card--planned"
+      aria-disabled={isPlanned ? "true" : undefined}
+      className={`global-site-navbar__menu-card ${isPlanned ? "global-site-navbar__menu-card--planned" : "global-site-navbar__menu-card--static"}`}
       data-availability={item.availability}
       data-global-site-navbar-menu-item={item.label}
     >
@@ -97,17 +125,15 @@ function DesktopNavigationLink({ entry, pathname }: { entry: GlobalSiteNavLinkEn
   const isActive = matchesPath(pathname, entry.activeMatchPaths);
 
   return (
-    <NavigationMenu.Item>
-      <NavigationMenu.Link asChild>
-        <Link
-          className="global-site-navbar__desktop-link"
-          data-active={isActive ? "true" : "false"}
-          href={entry.href}
-        >
-          {entry.label}
-        </Link>
-      </NavigationMenu.Link>
-    </NavigationMenu.Item>
+    <li>
+      <Link
+        className="global-site-navbar__desktop-link"
+        data-active={isActive ? "true" : "false"}
+        href={entry.href}
+      >
+        {entry.label}
+      </Link>
+    </li>
   );
 }
 
@@ -122,12 +148,12 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
   const desktopMenuRegionRef = useRef<HTMLDivElement | null>(null);
   const renderableEntries = content.primaryNavigation.filter((entry) => entry.type === "menu" || entry.availability === "live");
   const desktopPlainLinks = renderableEntries.filter((entry) => entry.type === "link");
-  const productEntry = renderableEntries.find((entry) => entry.type === "menu");
+  const menuEntries = renderableEntries.filter((entry) => entry.type === "menu");
   const loginIsActive = matchesPath(pathname, content.login.activeMatchPaths);
-  const desktopProductMenuOpen = desktopMenuValue === "product";
+  const desktopMenuOpen = desktopMenuValue !== "";
 
   useEffect(() => {
-    if (!desktopProductMenuOpen) {
+    if (!desktopMenuOpen) {
       return;
     }
 
@@ -142,17 +168,17 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [desktopProductMenuOpen]);
+  }, [desktopMenuOpen]);
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const openDesktopProductMenu = () => {
-    setDesktopMenuValue("product");
+  const openDesktopMenu = (value: string) => {
+    setDesktopMenuValue(value);
   };
 
-  const closeDesktopProductMenu = () => {
+  const closeDesktopMenu = () => {
     setDesktopMenuValue("");
   };
 
@@ -202,69 +228,76 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
                 className="global-site-navbar__desktop-nav-wrapper"
                 onBlurCapture={(event) => {
                   if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                    closeDesktopProductMenu();
+                    closeDesktopMenu();
                   }
                 }}
-                onPointerLeave={closeDesktopProductMenu}
+                onPointerLeave={closeDesktopMenu}
                 ref={desktopMenuRegionRef}
               >
-                <NavigationMenu.Root
-                  className="global-site-navbar__desktop-nav"
-                  delayDuration={90}
-                  onValueChange={setDesktopMenuValue}
-                  skipDelayDuration={120}
-                  value={desktopMenuValue}
-                >
-                  <NavigationMenu.List className="global-site-navbar__desktop-list">
-                    {productEntry && productEntry.type === "menu" ? (
-                      <NavigationMenu.Item value="product">
-                        <NavigationMenu.Trigger
-                          className="global-site-navbar__desktop-trigger"
-                          data-global-site-navbar-product-trigger="true"
-                          onFocus={openDesktopProductMenu}
-                          onKeyDown={(event) => {
-                            if (event.key === "Escape") {
-                              closeDesktopProductMenu();
-                              return;
-                            }
+                <div className="global-site-navbar__desktop-nav">
+                  <ul className="global-site-navbar__desktop-list">
+                    {menuEntries.map((entry) => {
+                      const menuValue = getMenuValue(entry.label);
+                      const panelId = `global-site-navbar-menu-${menuValue}`;
+                      const isMenuOpen = desktopMenuValue === menuValue;
 
-                            if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
-                              openDesktopProductMenu();
-                            }
-                          }}
-                          onPointerEnter={openDesktopProductMenu}
-                        >
-                          {productEntry.label}
-                          <ChevronDown aria-hidden="true" className="size-3.5" strokeWidth={1.75} />
-                        </NavigationMenu.Trigger>
+                      return (
+                        <li key={entry.label} className="global-site-navbar__desktop-menu-item">
+                          <button
+                            aria-controls={panelId}
+                            aria-expanded={isMenuOpen}
+                            aria-haspopup="true"
+                            className="global-site-navbar__desktop-trigger"
+                            data-global-site-navbar-menu-trigger={entry.label}
+                            onClick={() => openDesktopMenu(menuValue)}
+                            onFocus={() => openDesktopMenu(menuValue)}
+                            onKeyDown={(event) => {
+                              if (event.key === "Escape") {
+                                closeDesktopMenu();
+                                return;
+                              }
 
-                        <NavigationMenu.Content
-                          className="global-site-navbar__desktop-content"
-                          data-global-site-navbar-product-content="true"
-                          onEscapeKeyDown={closeDesktopProductMenu}
-                          onPointerEnter={openDesktopProductMenu}
-                        >
-                          <div className="global-site-navbar__product-grid" data-global-site-navbar-product-grid="true">
-                            {productEntry.groups.map((group) => (
-                              <div className="global-site-navbar__product-column" key={group.id}>
-                                {group.title ? <p className="global-site-navbar__product-column-title">{group.title}</p> : null}
-                                {group.items.map((item) => (
-                                  <NavigationMenu.Link asChild key={item.label}>
-                                    <ProductMenuCard item={item} />
-                                  </NavigationMenu.Link>
+                              if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+                                openDesktopMenu(menuValue);
+                              }
+                            }}
+                            onMouseEnter={() => openDesktopMenu(menuValue)}
+                            onPointerEnter={() => openDesktopMenu(menuValue)}
+                            type="button"
+                          >
+                            {entry.label}
+                            <ChevronDown aria-hidden="true" className="size-3.5" strokeWidth={1.75} />
+                          </button>
+
+                          {isMenuOpen ? (
+                            <div
+                              className="global-site-navbar__desktop-content"
+                              data-global-site-navbar-menu-content={entry.label}
+                              id={panelId}
+                              onMouseEnter={() => openDesktopMenu(menuValue)}
+                              onPointerEnter={() => openDesktopMenu(menuValue)}
+                            >
+                              <div className="global-site-navbar__product-grid" data-global-site-navbar-product-grid="true">
+                                {entry.groups.map((group) => (
+                                  <div className="global-site-navbar__product-column" key={group.id}>
+                                    {group.title ? <p className="global-site-navbar__product-column-title">{group.title}</p> : null}
+                                    {group.items.map((item) => (
+                                      <ProductMenuCard item={item} key={item.label} onNavigate={closeDesktopMenu} />
+                                    ))}
+                                  </div>
                                 ))}
                               </div>
-                            ))}
-                          </div>
-                        </NavigationMenu.Content>
-                      </NavigationMenu.Item>
-                    ) : null}
+                            </div>
+                          ) : null}
+                        </li>
+                      );
+                    })}
 
                     {desktopPlainLinks.map((entry) => (
                       <DesktopNavigationLink entry={entry} key={entry.label} pathname={pathname} />
                     ))}
-                  </NavigationMenu.List>
-                </NavigationMenu.Root>
+                  </ul>
+                </div>
               </nav>
 
               <div className="global-site-navbar__desktop-actions">
@@ -305,32 +338,34 @@ export function GlobalSiteNavbar({ content = globalSiteNavContent }: GlobalSiteN
           <Container className="global-site-navbar__mobile-container" variant="utilityShell">
             <div className="global-site-navbar__mobile-panel">
               <nav aria-label="Mobile navigation" className="global-site-navbar__mobile-nav">
-                {productEntry && productEntry.type === "menu" ? (
+                {menuEntries.length > 0 ? (
                   <Accordion.Root className="global-site-navbar__mobile-accordion" collapsible type="single">
-                    <Accordion.Item className="global-site-navbar__mobile-accordion-item" value="product">
-                      <Accordion.Header>
-                        <Accordion.Trigger
-                          className="global-site-navbar__mobile-accordion-trigger"
-                          data-global-site-navbar-mobile-product-trigger="true"
-                        >
-                          <span>Product</span>
-                          <ChevronDown aria-hidden="true" className="size-4" strokeWidth={1.75} />
-                        </Accordion.Trigger>
-                      </Accordion.Header>
+                    {menuEntries.map((entry) => (
+                      <Accordion.Item className="global-site-navbar__mobile-accordion-item" key={entry.label} value={entry.label}>
+                        <Accordion.Header>
+                          <Accordion.Trigger
+                            className="global-site-navbar__mobile-accordion-trigger"
+                            data-global-site-navbar-mobile-menu-trigger={entry.label}
+                          >
+                            <span>{entry.label}</span>
+                            <ChevronDown aria-hidden="true" className="size-4" strokeWidth={1.75} />
+                          </Accordion.Trigger>
+                        </Accordion.Header>
 
-                      <Accordion.Content
-                        className="global-site-navbar__mobile-accordion-content"
-                        data-global-site-navbar-mobile-product-content="true"
-                      >
-                        <div className="global-site-navbar__mobile-product-list">
-                          {productEntry.groups.flatMap((group) =>
-                            group.items.map((item) => (
-                              <ProductMenuCard item={item} key={item.label} onNavigate={closeMobileMenu} />
-                            )),
-                          )}
-                        </div>
-                      </Accordion.Content>
-                    </Accordion.Item>
+                        <Accordion.Content
+                          className="global-site-navbar__mobile-accordion-content"
+                          data-global-site-navbar-mobile-menu-content={entry.label}
+                        >
+                          <div className="global-site-navbar__mobile-product-list">
+                            {entry.groups.flatMap((group) =>
+                              group.items.map((item) => (
+                                <ProductMenuCard item={item} key={item.label} onNavigate={closeMobileMenu} />
+                              )),
+                            )}
+                          </div>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    ))}
                   </Accordion.Root>
                 ) : null}
 

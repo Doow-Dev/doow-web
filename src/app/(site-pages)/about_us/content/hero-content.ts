@@ -1,3 +1,5 @@
+import { doowAppLinks } from "@/lib/site/app-links";
+
 export interface AboutUsHeroContent {
   cta: {
     href: string;
@@ -11,7 +13,7 @@ export interface AboutUsHeroContent {
 
 export const aboutUsHeroContent = {
   cta: {
-    href: "/signin",
+    href: doowAppLinks.getStarted,
     label: "Get Started",
   },
   description:

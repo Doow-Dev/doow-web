@@ -19,7 +19,7 @@ const demoVideoSources = videoAsset("demo-placeholder-vid.mp4", "demo-poster.jpg
 export const siteAssetManifest = {
   heroBackground: {
     id: "hero-background",
-    src: "/assets/images/hero-bg.png",
+    src: assetUrl("hero-bg_mobile.png"),
     alt: "",
     width: 1352,
     height: 902,

@@ -23,7 +23,7 @@
 ### Batch 2. Legacy cleanup and route pruning
 - Remove legacy landing sections and legacy landing-page-only assets or helpers.
 - Keep `/about_us` as a site page, and prune `/contact_us` with a redirect.
-- Preserve `/signin`, `/privacy_policy`, and `/terms_of_use`, but detach them from the old landing-page shell.
+- Preserve `/privacy_policy` and `/terms_of_use`, but detach them from the old landing-page shell. Sign-in and sign-up live in the external Doow app.
 - Status: completed, ready for review
 
 ### Batch 3. Figma extraction and design-system foundation

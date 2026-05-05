@@ -2707,6 +2707,10 @@
       height: auto;
     }
 
+    .alternative-app-details-current-card {
+      width: 100%;
+    }
+
     .alternative-app-details__sticky-compact {
       grid-template-columns: var(--alternative-app-details-comparison-grid-columns);
       min-width: var(--alternative-app-details-comparison-min-width);
@@ -2782,6 +2786,17 @@
         2px 0 2px rgba(2, 6, 23, 0.02),
         3px 0 6px rgba(2, 6, 23, 0.08),
         2px 0 2px rgba(2, 6, 23, 0.04);
+    }
+  }
+
+  @media (max-width: 64rem) {
+    .alternative-app-details__summary-grid {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    .alternative-app-details-current-card {
+      width: 100%;
     }
   }
 
