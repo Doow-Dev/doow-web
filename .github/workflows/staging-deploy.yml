@@ -67,6 +67,7 @@ jobs:
             --resource-group Doow-dev \
             --slot staging \
             --settings \
+              SCM_DO_BUILD_DURING_DEPLOYMENT=false \
               DOOW_API_BASE_URL="${{ secrets.DOOW_API_BASE_URL }}" \
               CATALOG_ADMIN_KEY="${{ secrets.CATALOG_ADMIN_KEY }}" \
               X_ADMIN_SECRET="${{ secrets.X_ADMIN_SECRET }}" \
@@ -85,14 +86,3 @@ jobs:
             --type zip \
             --clean true \
             --async false
-
-      - name: Remove Oryx artifacts from wwwroot
-        run: |
-          CREDS=$(az webapp deployment list-publishing-credentials \
-            --name landing-page --resource-group Doow-dev --slot staging \
-            --query '{user:publishingUserName,pass:publishingPassword}' -o json)
-          KUDU_USER=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['user'])")
-          KUDU_PASS=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['pass'])")
-          KUDU_URL="https://landing-page-staging-d7bydpddbuawa2hp.scm.canadacentral-01.azurewebsites.net"
-          curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/node_modules.tar.gz" || true
-          curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/oryx-manifest.toml" || true
