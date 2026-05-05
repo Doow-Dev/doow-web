@@ -72,7 +72,7 @@ jobs:
               BLOG_LIVE="${{ secrets.BLOG_LIVE }}"
 
       - name: Zip standalone bundle
-        run: zip -r standalone.zip .next/standalone/. -x "*.git*"
+        run: (cd .next/standalone && zip -r ../../standalone.zip . -x "*.git*")
 
       - name: Deploy standalone bundle to staging slot
         run: |
