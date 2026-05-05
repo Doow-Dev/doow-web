@@ -37,6 +37,11 @@ jobs:
           BLOG_LIVE: ${{ secrets.BLOG_LIVE }}
         run: npm run build
 
+      - name: Prepare standalone package
+        run: |
+          cp -r public .next/standalone/
+          cp -r .next/static .next/standalone/.next/static
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -44,10 +49,18 @@ jobs:
           tenant-id: ${{ secrets.AGENT_CICD_TENANT_ID }}
           subscription-id: ${{ secrets.AGENT_CICD_SUBSCRIPTION_ID }}
 
-      - name: Deploy to staging slot
+      - name: Set startup command
+        run: |
+          az webapp config set \
+            --name landing-page \
+            --resource-group Doow-dev \
+            --startup-file "node server.js" \
+            --slot staging
+
+      - name: Deploy standalone bundle to staging slot
         uses: azure/webapps-deploy@v3
         with:
           app-name: landing-page
           resource-group-name: Doow-dev
           slot-name: staging
-          package: .
+          package: .next/standalone
