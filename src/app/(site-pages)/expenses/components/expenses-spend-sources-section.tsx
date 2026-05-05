@@ -17,21 +17,17 @@ import { cn } from "@/lib/utils";
 type ExpensesSpendSourceShellItem = ExpensesSpendSourceItem & ProgressiveSplitItem<ExpensesSpendSourceVisualId>;
 
 function ExpensesSpendSourceIcon({ item }: { item: ExpensesSpendSourceItem }) {
-  const iconSrc =
+  const iconClassName =
     item.icon === "cards"
-      ? "/assets/expenses-card-icon.svg"
+      ? "expenses-spend__card-icon-mask--cards"
       : item.icon === "transfers"
-        ? "/assets/expenses-bank-transfer-icon.svg"
-        : "/assets/expenses-accounting-icon.svg";
-  const iconWidth = item.icon === "ledger" ? 24 : 22;
+        ? "expenses-spend__card-icon-mask--transfers"
+        : "expenses-spend__card-icon-mask--ledger";
 
   return (
-    <Image
-      alt=""
-      className="expenses-spend__card-icon-svg expenses-spend__card-icon-svg--asset"
-      height={22}
-      src={iconSrc}
-      width={iconWidth}
+    <span
+      aria-hidden="true"
+      className={cn("expenses-spend__card-icon-svg expenses-spend__card-icon-mask", iconClassName)}
     />
   );
 }
@@ -48,7 +44,13 @@ function ExpensesSpendVisual({ item }: { item: ExpensesSpendSourceShellItem }) {
     >
       {item.visualId === "cards" ? (
         <div className="expenses-spend__feature-card">
-          <Image alt="" className="expenses-spend__feature-card-logo" height={22} src="/assets/expenses-visual-logo.svg" width={72} />
+          <Image
+            alt=""
+            className="expenses-spend__feature-card-logo"
+            height={22}
+            src="/assets/expenses-visual-logo.svg"
+            width={72}
+          />
 
           <div className="expenses-spend__feature-card-copy">
             <p className="expenses-spend__feature-card-number">**** **** **** 3090</p>
@@ -110,11 +112,11 @@ export function ExpensesSpendSourcesSection() {
           classNames={{
             contentColumn: "expenses-spend__copy",
             contentPanel: "expenses-spend__content-panel",
-            item: "expenses-spend__card",
+            item: "site-feature-card expenses-spend__card",
             itemButton: "expenses-spend__card-button",
             itemCopy: "expenses-spend__card-copy",
             itemDescription: "expenses-spend__card-description",
-            itemIndicator: "expenses-spend__card-icon",
+            itemIndicator: "site-feature-card__icon-wrap expenses-spend__card-icon",
             itemList: "expenses-spend__cards",
             itemTitle: "expenses-spend__card-title",
             layout: "expenses-spend__layout",

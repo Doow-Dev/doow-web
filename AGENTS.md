@@ -33,6 +33,24 @@ Prune:
 - `/about_us`
 - `/contact_us`
 
+Blog routes (added per `docs/rebuild/blog-roadmap.md` and
+`docs/rebuild/blog-sprints.md`):
+
+- `/blog` — editorial index
+- `/blog/[slug]` — article pages
+- `/blog/page/[page]` — index pagination
+- `/blog?category=[category]` — same-page category filtering
+- `/blog/tag/[tag]` — tag archives
+- `/blog/tag/[tag]/page/[page]` — tag pagination
+- `/blog/rss.xml` — primary RSS feed
+- `/api/og/blog` — dynamic OG image route
+- `/blog/search.json` — build-time search index (post-launch milestone)
+- `/blog/category/[category]/rss.xml` — per-category RSS (post-launch milestone)
+- `/blog/tag/[tag]/rss.xml` — per-tag RSS (post-launch milestone)
+
+All blog routes return `noindex, nofollow` until `BLOG_LIVE=true` in
+production environment variables.
+
 ## What Not To Do
 
 - Do not keep old landing-page sections just because they already exist.

@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+import { BLOG_REDIRECTS } from "./src/lib/blog/redirects";
+
 const DEFAULT_BLOB_BASE_URL = "https://landingpageassests.blob.core.windows.net/images";
 
 function getBlobRemotePattern() {
@@ -79,11 +81,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/about_us",
-        destination: "/",
-        permanent: true,
-      },
+      ...BLOG_REDIRECTS,
       {
         source: "/contact_us",
         destination: "/",

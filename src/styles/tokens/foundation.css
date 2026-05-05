@@ -440,6 +440,58 @@
   --copy-measure: 40rem;
   --copy-measure-hero: 43.625rem;
   --measure-display-hero: 49.875rem;
+  --blog-shell-max: 70rem;
+  --blog-index-copy-max: 45rem;
+  --blog-article-measure: 46rem;
+  --blog-sidebar-width: 14rem;
+  --blog-card-image-aspect: 16 / 9;
+  --blog-surface-page: var(--bg-subtle);
+  --blog-surface-card: var(--button-neutral);
+  --blog-surface-elevated: var(--button-neutral);
+  --blog-surface-muted: var(--bg-component);
+  --blog-media-surface: var(--bg-highlight);
+  --blog-code-surface: var(--bg-field-subtle);
+  --blog-table-header-surface: var(--bg-component);
+  --blog-ink-heading: var(--fg-base);
+  --blog-ink-body: var(--fg-subtle);
+  --blog-ink-muted: var(--fg-component);
+  --blog-ink-link: var(--fg-interactive);
+  --blog-border-subtle: color-mix(in srgb, var(--border-base) 86%, transparent);
+  --blog-border-strong: var(--border-strong);
+  --blog-focus-ring: var(--focus-ring);
+  --blog-elevation-card: 0 1.5rem 4rem color-mix(in srgb, var(--fg-base) 6%, transparent);
+  --blog-elevation-card-hover: 0 1.75rem 4.5rem color-mix(in srgb, var(--fg-base) 10%, transparent);
+  --blog-hero-glow: radial-gradient(
+    58% 46% at 50% 100%,
+    color-mix(in srgb, var(--bg-interactive) 16%, transparent) 0%,
+    color-mix(in srgb, var(--tag-orange-bg) 42%, transparent) 48%,
+    transparent 100%
+  );
+  --blog-callout-note-surface: var(--bg-highlight);
+  --blog-callout-note-border: color-mix(in srgb, var(--border-interactive) 28%, var(--border-base));
+  --blog-callout-note-icon: var(--fg-interactive);
+  --blog-callout-warning-surface: var(--tag-orange-bg);
+  --blog-callout-warning-border: var(--tag-orange-border);
+  --blog-callout-warning-icon: var(--tag-orange-text);
+  --blog-callout-insight-surface: var(--tag-blue-bg);
+  --blog-callout-insight-border: var(--tag-blue-border);
+  --blog-callout-insight-icon: var(--tag-blue-text);
+  --blog-callout-example-surface: var(--tag-violet-bg);
+  --blog-callout-example-border: var(--tag-violet-border);
+  --blog-callout-example-icon: var(--tag-violet-text);
+  --blog-index-shell-max: 60.9375rem;
+  --blog-index-library-max: 61.125rem;
+  --blog-index-grid-card-width: 17.75rem;
+  --blog-index-fg-base: #00140a;
+  --blog-index-fg-subtle: #666b69;
+  --blog-index-border: #e5e6e5;
+  --blog-index-card-shadow: 0 0 0 1px rgba(0, 20, 10, 0.08), 0 1px 2px rgba(0, 20, 10, 0.08),
+    0 2px 3px rgba(0, 20, 10, 0.08);
+  --blog-index-card-shadow-hover: 0 0 0 1px rgba(0, 20, 10, 0.1), 0 10px 22px rgba(0, 20, 10, 0.12),
+    0 2px 6px rgba(0, 20, 10, 0.08);
+  --blog-index-featured-shadow: inset 0 0 0 1px rgba(0, 20, 10, 0.08), inset 0 -1px 0 rgba(0, 20, 10, 0.1),
+    0 0 0 1px rgba(0, 20, 10, 0.08), 0 16px 32px rgba(0, 20, 10, 0.08),
+    0 2px 24px rgba(0, 20, 10, 0.08);
 
   /* Compatibility aliases kept only for route or section code that has not been renamed yet. */
   --surface-header-scrolled: var(--header-surface-scrolled);

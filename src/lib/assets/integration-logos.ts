@@ -109,7 +109,6 @@ export const integrationLogoAssetManifest = {
     id: "integration-logo-tiptap",
     src: "/assets/icons/tiptap.svg",
   },
-  // Temporary local fallback exported from Figma node 605:59602 until the canonical blob URL is published.
   yapily: {
     format: "raster",
     id: "integration-logo-yapily",

@@ -38,6 +38,7 @@ export function ExpensesHeroSection() {
                 alt=""
                 className="expenses-hero__card-image"
                 fill
+                priority
                 sizes="(min-width: 1024px) 320px, (min-width: 768px) 24vw, 44vw"
                 src={card.asset.src}
               />

@@ -19,6 +19,10 @@ function buildThreadMessages(categoryId: FaqCategoryId, exchanges: readonly FaqE
 
 export const landingFaqContent = {
   initialSelectedCategoryId: "spend-visibility",
+  interaction: {
+    mode: "simulated",
+    revealDelayMs: 320,
+  },
   categories: [
     {
       id: "spend-visibility",

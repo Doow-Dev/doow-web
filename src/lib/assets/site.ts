@@ -92,7 +92,6 @@ export const siteAssetManifest = {
     width: 22,
     height: 20,
   },
-  // Temporary local fallback until the canonical blob URL is published.
   faqBackgroundIllustration: {
     id: "faq-background-illustration",
     src: "/assets/illustrations/faq-background-illustration.svg",
@@ -114,7 +113,6 @@ export const siteAssetManifest = {
     width: 918,
     height: 557,
   },
-  // Temporary local fallback until the canonical blob assets are published.
   integrationsHeroIllustrationArt: {
     id: "integrations-hero-illustration-art",
     src: "/assets/illustrations/integrations-hero-art.svg",
@@ -122,7 +120,6 @@ export const siteAssetManifest = {
     width: 2182.29,
     height: 917.278,
   },
-  // Temporary local fallback until the canonical blob assets are published.
   integrationsHeroIllustrationMask: {
     id: "integrations-hero-illustration-mask",
     src: "/assets/illustrations/integrations-hero-mask.svg",
@@ -158,26 +155,28 @@ export const siteAssetManifest = {
     width: 294,
     height: 441,
   },
-  // Temporary local fallback until the canonical blob asset is published.
   subscriptionsHeroDashboard: {
     id: "subscriptions-hero-dashboard",
-    src: "/assets/illustrations/subscriptions-hero-dashboard.png",
+    src: assetUrl("subscriptions-hero-dashboard.png"),
     alt: "",
     width: 847,
     height: 456,
   },
-  // Temporary local fallback until the canonical blob asset is published.
   subscriptionsRenewalsVisual: {
     id: "subscriptions-renewals-visual",
-    src: "/assets/illustrations/subscriptions-renewals-visual.png",
+    src: assetUrl("subscriptions-renewals-visual.png"),
     alt: "",
     width: 368,
     height: 310,
   },
-  // Temporary local fallback until the canonical blob asset is published.
+  subscriptionsRenewalsVideo: {
+    id: "subscriptions-renewals-video",
+    src: "/assets/illustrations/subscriptions-renewals-feature.mp4",
+    mimeType: "video/mp4",
+  },
   subscriptionsContractsVisual: {
     id: "subscriptions-contracts-visual",
-    src: "/assets/illustrations/subscriptions-contracts-visual.png",
+    src: assetUrl("subscriptions-contracts-visual.png"),
     alt: "",
     width: 456,
     height: 353,
@@ -277,6 +276,7 @@ export const siteAssetManifest = {
   integrationsHeroIllustrationMask: SiteAssetEntry;
   subscriptionsHeroDashboard: SiteAssetEntry;
   subscriptionsRenewalsVisual: SiteAssetEntry;
+  subscriptionsRenewalsVideo: SiteVideoEntry;
   subscriptionsContractsVisual: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;

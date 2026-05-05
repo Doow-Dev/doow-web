@@ -6,7 +6,7 @@
     position: relative;
     overflow: clip;
     background: var(--button-neutral);
-    color: var(--fg-base);
+    color: #656565 !important;
   }
 
   .expenses-hero__shell {
@@ -41,7 +41,7 @@
     width: 100%;
     max-width: var(--expenses-hero-title-max-width);
     margin: 0;
-    color: var(--fg-base);
+    color: #656565;
     font-size: clamp(2.5rem, 8vw, 4rem);
     font-weight: var(--type-weight-semibold);
     letter-spacing: clamp(-1px, -0.15vw, var(--type-title-xl-letter-spacing));
@@ -226,12 +226,14 @@
   }
 
   .expenses-spend__card {
+    --site-feature-card-surface: #ffffff;
+
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
     gap: 0.75rem;
     width: 100%;
-    padding: 2rem !important;
+    padding: 0 !important;
     position: relative;
     border: 0;
     border-top: 1px solid #e5e6e5;
@@ -240,7 +242,7 @@
     border-bottom: 1px solid #e5e6e5;
     border-radius: 0 !important;
     box-shadow: none !important;
-    background: #ffffff !important;
+    background: transparent !important;
     text-align: left;
     transition:
       box-shadow 180ms ease,
@@ -249,7 +251,7 @@
 
   .expenses-spend__card:first-child,
   .expenses-spend__card:nth-child(3) {
-    background: #fafafa !important;
+    --site-feature-card-surface: #fafafa;
   }
 
   .expenses-spend__card[data-active="true"] {
@@ -272,10 +274,13 @@
 
   .expenses-spend__card-button {
     display: grid;
-    gap: 0.25rem;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    align-items: start;
+    gap: 0.75rem;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 2rem;
     border: 0;
     background: transparent;
     color: inherit;
@@ -296,7 +301,7 @@
     border: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
-    color: var(--fg-base);
+    color: #656565 !important;
     box-shadow: none !important;
     font-size: inherit;
     line-height: 1;
@@ -305,8 +310,15 @@
   .expenses-spend__card[data-active="true"] .expenses-spend__card-icon {
     border: 0 !important;
     background: transparent !important;
-    color: var(--fg-base) !important;
+    color: var(--button-base, #04a755) !important;
     box-shadow: none !important;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .expenses-spend__card:hover .expenses-spend__card-icon,
+    .expenses-spend__card[data-active="true"]:hover .expenses-spend__card-icon {
+      color: var(--button-base, #04a755) !important;
+    }
   }
 
   .expenses-spend__card-icon-svg {
@@ -314,8 +326,32 @@
     stroke-width: 1.75;
   }
 
-  .expenses-spend__card-icon-svg--asset {
-    object-fit: contain;
+  .expenses-spend__card-icon-mask {
+    width: 1.375rem;
+    height: 1.375rem;
+    background: currentColor;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+  }
+
+  .expenses-spend__card-icon-mask--cards {
+    mask-image: url("/assets/expenses-card-icon.svg");
+    -webkit-mask-image: url("/assets/expenses-card-icon.svg");
+  }
+
+  .expenses-spend__card-icon-mask--transfers {
+    mask-image: url("/assets/expenses-bank-transfer-icon.svg");
+    -webkit-mask-image: url("/assets/expenses-bank-transfer-icon.svg");
+  }
+
+  .expenses-spend__card-icon-mask--ledger {
+    width: 1.5rem;
+    mask-image: url("/assets/expenses-accounting-icon.svg");
+    -webkit-mask-image: url("/assets/expenses-accounting-icon.svg");
   }
 
   .expenses-spend__card-copy {
@@ -489,20 +525,36 @@
     isolation: isolate;
   }
 
-  .expenses-clarity__backdrop {
+  .expenses-clarity__illustration {
     position: absolute;
     left: 50%;
     top: clamp(7.75rem, 18vw, 8.5rem);
     z-index: 0;
-    width: min(136.393125rem, 151vw);
-    min-width: 68rem;
+    width: max(64rem, 160vw);
     aspect-ratio: 2182.29 / 917.278;
     transform: translateX(-50%);
-    background-image: url("/assets/illustrations/expenses-clarity-backdrop.svg");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: 132% 100%;
     pointer-events: none;
+  }
+
+  .expenses-clarity__illustration-mask {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-position: 4.32% 9.74%;
+    mask-position: 4.32% 9.74%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 105.95% 119.87%;
+    mask-size: 105.95% 119.87%;
+  }
+
+  .expenses-clarity__illustration-art {
+    position: absolute;
+    inset: -0.2% 0 0 0;
+  }
+
+  .expenses-clarity__illustration-image {
+    display: block;
   }
 
   .expenses-clarity__layout {
@@ -550,17 +602,19 @@
   }
 
   .expenses-clarity__card {
+    --site-feature-card-surface: white;
+
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
     min-height: 8.375rem;
     padding: 2rem;
     border: 1px solid var(--border-base);
-    background: white;
+    background: transparent;
   }
 
   .expenses-clarity__card[data-surface="subtle"] {
-    background: var(--bg-subtle);
+    --site-feature-card-surface: var(--bg-subtle);
   }
 
   .expenses-clarity__card + .expenses-clarity__card {
@@ -673,10 +727,10 @@
       border-bottom-right-radius: 0;
     }
 
-    .expenses-clarity__backdrop {
+    .expenses-clarity__illustration {
       transform: translateX(-50%);
-      background-size: 128% 100%;
     }
+
   }
 
   @media (min-width: 64rem) {
@@ -762,9 +816,8 @@
       padding-left: 0;
     }
 
-    .expenses-clarity__backdrop {
+    .expenses-clarity__illustration {
       transform: translateX(-50%);
-      background-size: 132% 100%;
     }
 
     .expenses-clarity__title {
