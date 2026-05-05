@@ -41,6 +41,7 @@ jobs:
         run: |
           cp -r public .next/standalone/
           cp -r .next/static .next/standalone/.next/static
+          rm -f .next/standalone/.next/oryx-manifest.toml
 
       - name: Login to Azure
         uses: azure/login@v2
