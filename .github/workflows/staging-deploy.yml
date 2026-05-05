@@ -44,8 +44,18 @@ jobs:
           tenant-id: ${{ secrets.AGENT_CICD_TENANT_ID }}
           subscription-id: ${{ secrets.AGENT_CICD_SUBSCRIPTION_ID }}
 
-      - name: Deploy to App Service
+      - name: Deploy to staging slot
         uses: azure/webapps-deploy@v3
         with:
-          app-name: doow-web-staging
+          app-name: landing-page
+          resource-group-name: Doow-dev
+          slot-name: staging
+          package: .
+
+      - name: Deploy to production slot
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: landing-page
+          resource-group-name: Doow-dev
+          slot-name: production
           package: .
