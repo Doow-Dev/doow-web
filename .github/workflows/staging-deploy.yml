@@ -59,10 +59,28 @@ jobs:
             --startup-file "node server.js" \
             --slot staging
 
+      - name: Set runtime app settings
+        run: |
+          az webapp config appsettings set \
+            --name landing-page \
+            --resource-group Doow-dev \
+            --slot staging \
+            --settings \
+              DOOW_API_BASE_URL="${{ secrets.DOOW_API_BASE_URL }}" \
+              CATALOG_ADMIN_KEY="${{ secrets.CATALOG_ADMIN_KEY }}" \
+              X_ADMIN_SECRET="${{ secrets.X_ADMIN_SECRET }}" \
+              BLOG_LIVE="${{ secrets.BLOG_LIVE }}"
+
+      - name: Zip standalone bundle
+        run: zip -r standalone.zip .next/standalone/. -x "*.git*"
+
       - name: Deploy standalone bundle to staging slot
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: landing-page
-          resource-group-name: Doow-dev
-          slot-name: staging
-          package: .next/standalone
+        run: |
+          az webapp deploy \
+            --name landing-page \
+            --resource-group Doow-dev \
+            --slot staging \
+            --src-path standalone.zip \
+            --type zip \
+            --clean true \
+            --async false
