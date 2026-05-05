@@ -88,6 +88,7 @@ export const siteFooterBodyContent = {
     {
       title: "Company",
       items: [
+        { href: "/about_us", label: "About Us" },
         { href: "/privacy_policy", label: "Privacy Policy" },
         { href: "/terms_of_use", label: "Terms of Use" },
         { href: "#contact-us", label: "Contact", action: "contactDialog" },

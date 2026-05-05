@@ -551,10 +551,6 @@
   }
 
   @media (min-width: 64rem) {
-    .faq-section {
-      min-height: 68.5625rem;
-    }
-
     .faq-section__layout {
       padding-inline: 0;
       padding-top: 7.875rem;

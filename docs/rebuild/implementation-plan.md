@@ -65,7 +65,7 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
 ### Batch 2. Legacy cleanup and route pruning
 
 - Remove the old landing-page implementation and old asset assumptions.
-- Prune `/about_us` and `/contact_us` with redirects.
+- Keep `/about_us` as a site page, and prune `/contact_us` with a redirect.
 - Keep `/signin`, `/privacy_policy`, and `/terms_of_use` on a neutral rebuild shell.
 - Status: completed
 
@@ -161,6 +161,7 @@ If a section fails review, iterate on that section only.
 Keep:
 
 - `/`
+- `/about_us`
 - `/applications`
 - `/subscriptions`
 - `/doow-ai`
@@ -170,7 +171,6 @@ Keep:
 
 Prune:
 
-- `/about_us`
 - `/contact_us`
 
 ## Architecture Direction

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 import { SitePageCardIcon } from "@/app/(site-pages)/_components/site-page-card-icon";
 import { SitePageSectionShell } from "@/app/(site-pages)/_components/site-page-section-shell";
@@ -47,10 +48,60 @@ function RenewalCalendar() {
   );
 }
 
+function ManualTrackingVideo({ mimeType, src }: { mimeType: string; src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const videoElement = video;
+
+    function syncPlayback() {
+      if (motionQuery.matches) {
+        videoElement.pause();
+        videoElement.currentTime = 0;
+        return;
+      }
+
+      videoElement.muted = true;
+      void videoElement.play().catch(() => undefined);
+    }
+
+    syncPlayback();
+    motionQuery.addEventListener("change", syncPlayback);
+
+    return () => {
+      motionQuery.removeEventListener("change", syncPlayback);
+    };
+  }, [src]);
+
+  return (
+    <video
+      aria-hidden="true"
+      autoPlay
+      className="subscriptions-manual__visual-video"
+      loop
+      muted
+      playsInline
+      preload="auto"
+      ref={videoRef}
+    >
+      <source src={src} type={mimeType} />
+    </video>
+  );
+}
+
 function SubscriptionsManualVisual({ item }: { item: SubscriptionsManualTrackingShellItem }) {
   return (
     <div className="subscriptions-manual__visual-window">
-      {item.visualImage ? (
+      {item.visualVideo ? (
+        <ManualTrackingVideo mimeType={item.visualVideo.mimeType} src={item.visualVideo.src} />
+      ) : item.visualImage ? (
         <Image
           alt={item.visualImage.alt}
           className="subscriptions-manual__visual-image"
@@ -96,11 +147,11 @@ export function SubscriptionsManualTrackingSection() {
           classNames={{
             contentColumn: "subscriptions-manual__copy",
             contentPanel: "subscriptions-manual__content-panel",
-            item: "subscriptions-manual__item",
+            item: "site-feature-card subscriptions-manual__item",
             itemButton: "subscriptions-manual__item-button",
             itemCopy: "subscriptions-manual__item-copy",
             itemDescription: "subscriptions-manual__item-description",
-            itemIndicator: "subscriptions-manual__item-icon",
+            itemIndicator: "site-feature-card__icon-wrap subscriptions-manual__item-icon",
             itemList: "subscriptions-manual__items",
             itemTitle: "subscriptions-manual__item-title",
             layout: "subscriptions-manual__layout",

@@ -56,6 +56,7 @@ This file tracks the source Figma nodes and status for each major landing-page s
 Keep:
 
 - `/`
+- `/about_us`
 - `/applications`
 - `/subscriptions`
 - `/doow-ai`
@@ -66,5 +67,4 @@ Keep:
 
 Prune:
 
-- `/about_us`
 - `/contact_us`

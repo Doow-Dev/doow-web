@@ -418,28 +418,28 @@ export function ProgressiveSplitShell<
 
               return (
                 <li className={cn("progressive-split__item", classNames?.item)} data-active={isSelected ? "true" : "false"} key={item.id}>
+                  <button
+                    aria-controls={showStage ? panelId : undefined}
+                    aria-selected={showStage ? isSelected : undefined}
+                    className={cn("progressive-split__item-button", classNames?.itemButton)}
+                    id={showStage ? tabId : undefined}
+                    onClick={() => handleSelect(item.id)}
+                    onKeyDown={showStage ? (event) => handleItemKeyDown(event, index, items, handleSelect) : undefined}
+                    role={showStage ? "tab" : undefined}
+                    tabIndex={showStage ? (isSelected ? 0 : -1) : undefined}
+                    type="button"
+                  >
                   <span aria-hidden="true" className={cn("progressive-split__item-indicator", classNames?.itemIndicator)}>
                     {item.indicator}
                   </span>
 
                   <div className={cn("progressive-split__item-copy", classNames?.itemCopy)}>
-                    <button
-                      aria-controls={showStage ? panelId : undefined}
-                      aria-selected={showStage ? isSelected : undefined}
-                      className={cn("progressive-split__item-button", classNames?.itemButton)}
-                      id={showStage ? tabId : undefined}
-                      onClick={() => handleSelect(item.id)}
-                      onKeyDown={showStage ? (event) => handleItemKeyDown(event, index, items, handleSelect) : undefined}
-                      role={showStage ? "tab" : undefined}
-                      tabIndex={showStage ? (isSelected ? 0 : -1) : undefined}
-                      type="button"
-                    >
-                      <span className={cn("progressive-split__item-title", classNames?.itemTitle)}>{item.title}</span>
-                      <span className={cn("progressive-split__item-description", classNames?.itemDescription)}>
-                        {item.description}
-                      </span>
-                    </button>
+                    <span className={cn("progressive-split__item-title", classNames?.itemTitle)}>{item.title}</span>
+                    <span className={cn("progressive-split__item-description", classNames?.itemDescription)}>
+                      {item.description}
+                    </span>
                   </div>
+                  </button>
                 </li>
               );
             })}
