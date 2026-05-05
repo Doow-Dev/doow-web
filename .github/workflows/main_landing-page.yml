@@ -65,6 +65,7 @@ jobs:
             --name landing-page \
             --resource-group Doow-dev \
             --settings \
+              SCM_DO_BUILD_DURING_DEPLOYMENT=false \
               DOOW_API_BASE_URL="${{ secrets.DOOW_API_BASE_URL }}" \
               CATALOG_ADMIN_KEY="${{ secrets.CATALOG_ADMIN_KEY }}" \
               X_ADMIN_SECRET="${{ secrets.X_ADMIN_SECRET }}" \
