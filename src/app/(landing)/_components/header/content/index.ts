@@ -1,18 +1,15 @@
-import type { LandingActionLink, LandingNavItem } from "@/app/(landing)/_components/shared";
+import type { LandingActionLink } from "@/app/(landing)/_components/shared";
+import { globalSiteNavContent, type GlobalSiteNavEntry } from "@/app/_components/global-site-navbar/content";
 import { doowAppLinks } from "@/lib/site/app-links";
 
 export interface LandingHeaderContent {
-  primaryNavigation: LandingNavItem[];
+  primaryNavigation: readonly GlobalSiteNavEntry[];
   login: LandingActionLink;
   signUp: LandingActionLink;
 }
 
 export const landingHeaderContent = {
-  primaryNavigation: [
-    { href: "#product", label: "Product", hasDisclosure: true },
-    { href: "/pricing", label: "Pricing" },
-    { href: "#blog", label: "Blog" },
-  ] satisfies LandingNavItem[],
+  primaryNavigation: globalSiteNavContent.primaryNavigation,
   login: {
     href: doowAppLinks.login,
     label: "Login",

@@ -22,9 +22,10 @@ function HeroBackground({ compactBackground, desktopBackground }: HeroBackground
     className: "hero-media",
     decoding: "async" as const,
     fill: true,
+    fetchPriority: "high" as const,
     loading: "eager" as const,
     placeholder: "blur" as const,
-    quality: 90,
+    quality: 80,
     sizes: "100vw",
   };
   const {

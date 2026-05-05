@@ -1,21 +1,23 @@
 "use client";
 
+import * as Accordion from "@radix-ui/react-accordion";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiMiniBars3, HiMiniChevronDown, HiMiniXMark } from "react-icons/hi2";
 
 import type { LandingHeaderContent } from "../content";
+import { ProductMenuCard } from "@/app/_components/global-site-navbar/global-site-navbar";
 import { Button, Container, NavLink } from "@/components/system";
-
-function HeaderDisclosureIcon() {
-  return <HiMiniChevronDown aria-hidden="true" className="size-4" />;
-}
 
 function HeaderMenuIcon({ open }: { open: boolean }) {
   return open ? <HiMiniXMark aria-hidden="true" className="size-5" /> : <HiMiniBars3 aria-hidden="true" className="size-5" />;
+}
+
+function getMenuValue(label: string) {
+  return label.toLowerCase().replace(/\s+/g, "-");
 }
 
 export interface LandingNavbarProps {
@@ -24,8 +26,14 @@ export interface LandingNavbarProps {
 
 export function LandingNavbar({ content }: LandingNavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [desktopMenuValue, setDesktopMenuValue] = useState("");
+  const desktopMenuRegionRef = useRef<HTMLDivElement | null>(null);
   const { scrollY } = useScroll();
   const shouldReduceMotion = useReducedMotion();
+  const renderableEntries = content.primaryNavigation.filter((entry) => entry.type === "menu" || entry.availability === "live");
+  const menuEntries = renderableEntries.filter((entry) => entry.type === "menu");
+  const plainLinks = renderableEntries.filter((entry) => entry.type === "link");
+  const desktopMenuOpen = desktopMenuValue !== "";
   const scrollBlend = useSpring(0, {
     stiffness: 240,
     damping: 30,
@@ -70,8 +78,34 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!desktopMenuOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!(event.target instanceof Node) || !desktopMenuRegionRef.current?.contains(event.target)) {
+        setDesktopMenuValue("");
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [desktopMenuOpen]);
+
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const openDesktopMenu = (value: string) => {
+    setDesktopMenuValue(value);
+  };
+
+  const closeDesktopMenu = () => {
+    setDesktopMenuValue("");
   };
 
   const baseLogoOpacity = useTransform(scrollBlend, [0, 0.82], [1, 0]);
@@ -137,12 +171,79 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
               </div>
             </div>
 
-            <nav aria-label="Primary navigation" className="landing-navbar__nav">
-              {content.primaryNavigation.map((item) => (
-                <NavLink href={item.href} key={item.label} trailingIcon={item.hasDisclosure ? <HeaderDisclosureIcon /> : undefined} variant="header">
-                  {item.label}
-                </NavLink>
-              ))}
+            <nav
+              aria-label="Primary navigation"
+              className="landing-navbar__nav"
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                  closeDesktopMenu();
+                }
+              }}
+              onPointerLeave={closeDesktopMenu}
+              ref={desktopMenuRegionRef}
+            >
+              <div className="landing-navbar__nav-menu">
+                <ul className="landing-navbar__nav-list">
+                  {menuEntries.map((entry) => {
+                    const menuValue = getMenuValue(entry.label);
+                    const panelId = `landing-navbar-menu-${menuValue}`;
+
+                    return (
+                      <li key={entry.label} className="landing-navbar__nav-menu-item">
+                        <button
+                          aria-controls={panelId}
+                          aria-expanded={desktopMenuValue === menuValue}
+                          aria-haspopup="true"
+                          className="nav-link-base nav-link-header landing-navbar__nav-trigger"
+                          onClick={() => openDesktopMenu(menuValue)}
+                          onFocus={() => openDesktopMenu(menuValue)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Escape") {
+                              closeDesktopMenu();
+                              return;
+                            }
+
+                            if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+                              openDesktopMenu(menuValue);
+                            }
+                          }}
+                          onMouseEnter={() => openDesktopMenu(menuValue)}
+                          onPointerEnter={() => openDesktopMenu(menuValue)}
+                          type="button"
+                        >
+                          {entry.label}
+                          <HiMiniChevronDown aria-hidden="true" className="size-4" />
+                        </button>
+
+                        <div
+                          className="landing-navbar__desktop-content global-site-navbar__desktop-content"
+                          id={panelId}
+                          onMouseEnter={() => openDesktopMenu(menuValue)}
+                          onPointerEnter={() => openDesktopMenu(menuValue)}
+                        >
+                          <div className="global-site-navbar__product-grid">
+                            {entry.groups.map((group) => (
+                              <div className="global-site-navbar__product-column" key={group.id}>
+                                {group.items.map((item) => (
+                                  <ProductMenuCard item={item} key={item.label} />
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </li>
+                    );
+                  })}
+
+                  {plainLinks.map((item) => (
+                    <li key={item.label}>
+                      <NavLink href={item.href} variant="header">
+                        {item.label}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </nav>
 
             <div className="landing-navbar__actions landing-navbar__actions--desktop">
@@ -168,17 +269,35 @@ export function LandingNavbar({ content }: LandingNavbarProps) {
 
             <div className="landing-navbar__menu-panel">
               <nav aria-label="Mobile navigation" className="landing-navbar__menu-links">
-                {content.primaryNavigation.map((item) => (
-                  <NavLink
-                    className="landing-navbar__menu-link"
-                    href={item.href}
-                    key={item.label}
-                    onClick={closeMenu}
-                    trailingIcon={item.hasDisclosure ? <HeaderDisclosureIcon /> : undefined}
-                    variant="header"
-                  >
+                {menuEntries.length > 0 ? (
+                  <Accordion.Root className="landing-navbar__mobile-accordion" collapsible type="single">
+                    {menuEntries.map((entry) => (
+                      <Accordion.Item className="landing-navbar__mobile-accordion-item" key={entry.label} value={entry.label}>
+                        <Accordion.Header>
+                          <Accordion.Trigger className="landing-navbar__menu-link landing-navbar__mobile-accordion-trigger">
+                            <span>{entry.label}</span>
+                            <HiMiniChevronDown aria-hidden="true" className="size-4" />
+                          </Accordion.Trigger>
+                        </Accordion.Header>
+
+                        <Accordion.Content className="landing-navbar__mobile-accordion-content">
+                          <div className="landing-navbar__mobile-dropdown-list">
+                            {entry.groups.flatMap((group) =>
+                              group.items.map((item) => (
+                                <ProductMenuCard item={item} key={item.label} onNavigate={closeMenu} />
+                              )),
+                            )}
+                          </div>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    ))}
+                  </Accordion.Root>
+                ) : null}
+
+                {plainLinks.map((item) => (
+                  <Link className="landing-navbar__menu-link landing-navbar__mobile-link" href={item.href} key={item.label} onClick={closeMenu}>
                     {item.label}
-                  </NavLink>
+                  </Link>
                 ))}
               </nav>
 
