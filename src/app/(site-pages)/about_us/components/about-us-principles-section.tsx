@@ -31,12 +31,12 @@ export function AboutUsPrinciplesSection() {
         <div className="about-us-principles__grid" role="list">
           {section.cards.map((card) => (
             <article
-              className="about-us-principles__card"
+              className="site-feature-card about-us-principles__card"
               data-tone={card.tone}
               key={card.id}
               role="listitem"
             >
-              <div className="about-us-principles__icon">
+              <div className="site-feature-card__icon-wrap about-us-principles__icon">
                 <AboutUsPrincipleIcon icon={card.icon} />
               </div>
 

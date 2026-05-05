@@ -68,6 +68,9 @@
   }
 
   .about-us-principles__card {
+    --site-feature-card-surface: #ffffff;
+
+    position: relative;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     gap: 0.75rem;
@@ -76,11 +79,11 @@
     padding: 1.5rem;
     border: 1px solid var(--border-base);
     border-radius: 0;
-    background: #ffffff;
+    background: transparent;
   }
 
   .about-us-principles__card[data-tone="subtle"] {
-    background: var(--bg-subtle);
+    --site-feature-card-surface: var(--bg-subtle);
   }
 
   .about-us-principles__card + .about-us-principles__card {
