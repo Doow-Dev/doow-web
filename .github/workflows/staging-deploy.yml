@@ -43,7 +43,7 @@ jobs:
           cp -r .next/static .next/standalone/.next/static
           rm -f .next/standalone/.next/oryx-manifest.toml
           echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > .next/standalone/package.json
-          cd .next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
+          rm -f .next/standalone/node_modules.tar.gz
 
       - name: Login to Azure
         uses: azure/login@v2
