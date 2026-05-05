@@ -230,9 +230,13 @@
     left: 0;
     right: 0;
     top: var(--header-shell-height);
+    bottom: 0;
     z-index: 41;
     width: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     outline: none;
+    -webkit-overflow-scrolling: touch;
   }
 
   .landing-navbar-shell[data-open="true"] .landing-navbar__dialog-content {
@@ -245,6 +249,9 @@
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    max-height: calc(100svh - var(--header-shell-height));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border: 0;
     border-radius: 0;
     background: var(--header-surface-scrolled);
@@ -254,6 +261,7 @@
     padding-right: clamp(1rem, 4vw, 1.5rem);
     padding-bottom: 1rem;
     padding-left: clamp(1rem, 4vw, 1.5rem);
+    -webkit-overflow-scrolling: touch;
   }
 
   .landing-navbar-shell[data-open="true"] .landing-navbar__menu-panel {
@@ -325,7 +333,11 @@
   }
 
   .landing-navbar__mobile-accordion-content[data-state="open"] {
+    max-height: min(32rem, calc(100svh - var(--header-shell-height) - 11rem));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     animation: landing-navbar-accordion-down 200ms ease-out;
+    -webkit-overflow-scrolling: touch;
   }
 
   .landing-navbar__mobile-accordion-content[data-state="closed"] {

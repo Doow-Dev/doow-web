@@ -2,7 +2,7 @@ import { AboutBody, AboutSection, AboutSubHeading, AboutTitle, AboutWrapper, Leg
 
 export default function PrivacyPolicy() {
   return (
-    <LegalPageShell lastUpdated="3 April 2023" title="Privacy Policy">
+    <LegalPageShell lastUpdated="5 May 2026" title="Privacy Policy">
       <AboutWrapper>
         <AboutSection>
           <AboutTitle>Introduction</AboutTitle>

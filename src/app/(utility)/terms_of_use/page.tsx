@@ -2,7 +2,7 @@ import { AboutBody, AboutSection, AboutTitle, AboutWrapper, LegalPageShell } fro
 
 export default function TermsOfUse() {
   return (
-    <LegalPageShell lastUpdated="3 April 2023" title="Terms of Use">
+    <LegalPageShell lastUpdated="5 May 2026" title="Terms of Use">
       <AboutWrapper>
         <AboutSection>
           <AboutTitle>Introduction</AboutTitle>
