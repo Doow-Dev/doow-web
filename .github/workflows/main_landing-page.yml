@@ -48,9 +48,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AGENT_CICD_CLIENT_ID }}
-          tenant-id: ${{ secrets.AGENT_CICD_TENANT_ID }}
-          subscription-id: ${{ secrets.AGENT_CICD_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C1F6479EE331409FB37827C3C24DD4F1 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9B4206EE64A744E491F3B808D299976E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2B9FC860620B4599808A1823D86D21C0 }}
 
       - name: Set startup command
         run: |
