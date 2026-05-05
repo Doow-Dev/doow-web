@@ -23,6 +23,17 @@ const MAX_ASSISTANT_TYPING_MS = 1560;
 const USER_SEND_SETTLE_MS = 320;
 const ASSISTANT_REPLY_SETTLE_MS = 260;
 const MAX_THREAD_TOP_SPACER_PX = 120;
+const FAQ_VIEWPORT_TRIGGER_RATIO = 0.2;
+const FAQ_VIEWPORT_BOTTOM_OFFSET_RATIO = 0.2;
+
+function isElementInPlaybackRange(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const effectiveViewportBottom = viewportHeight * (1 - FAQ_VIEWPORT_BOTTOM_OFFSET_RATIO);
+  const visibleHeight = Math.min(rect.bottom, effectiveViewportBottom) - Math.max(rect.top, 0);
+
+  return visibleHeight >= Math.max(rect.height * FAQ_VIEWPORT_TRIGGER_RATIO, 1);
+}
 
 function getAssistantTypingDuration(messageText: string, baseDelayMs: number) {
   const textWeightedDelay = Math.round(messageText.length * 18);
@@ -138,15 +149,63 @@ export function FaqTool({ content }: FaqToolProps) {
   const selectedMessages = useMemo(() => selectedCategory?.messages ?? [], [selectedCategory]);
   const resolvedSelectedCategoryId = selectedCategory?.id ?? "";
   const prefersReducedMotion = useReducedMotion() ?? false;
-  const shouldAnimateThread = content.interaction?.mode === "simulated" && !prefersReducedMotion;
+  const shouldUseSimulatedPlayback = content.interaction?.mode === "simulated" && !prefersReducedMotion;
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
+  const shouldAnimateThread = shouldUseSimulatedPlayback && hasEnteredViewport;
   const revealDelayMs = content.interaction?.revealDelayMs ?? DEFAULT_REVEAL_DELAY_MS;
   const { contentRef, thumbState, viewportRef } = useScrollThumb<HTMLDivElement, HTMLOListElement>({
     minSizePercentage: 18,
     orientation: "vertical",
   });
+  const toolRef = useRef<HTMLDivElement>(null);
   const animationSequenceRef = useRef(0);
-  const [revealedCount, setRevealedCount] = useState(shouldAnimateThread ? 0 : selectedMessages.length);
+  const [revealedCount, setRevealedCount] = useState(shouldUseSimulatedPlayback ? 0 : selectedMessages.length);
   const [typingMessageId, setTypingMessageId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!shouldUseSimulatedPlayback || hasEnteredViewport) {
+      return;
+    }
+
+    const tool = toolRef.current;
+
+    if (!tool || typeof IntersectionObserver === "undefined") {
+      const timer = window.setTimeout(() => setHasEnteredViewport(true), 0);
+
+      return () => {
+        window.clearTimeout(timer);
+      };
+    }
+
+    if (isElementInPlaybackRange(tool)) {
+      const timer = window.setTimeout(() => setHasEnteredViewport(true), 0);
+
+      return () => {
+        window.clearTimeout(timer);
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) {
+          return;
+        }
+
+        setHasEnteredViewport(true);
+        observer.disconnect();
+      },
+      {
+        rootMargin: "0px 0px -20% 0px",
+        threshold: 0.2,
+      },
+    );
+
+    observer.observe(tool);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasEnteredViewport, shouldUseSimulatedPlayback]);
 
   useEffect(() => {
     if (!shouldAnimateThread || selectedMessages.length === 0) {
@@ -235,7 +294,7 @@ export function FaqTool({ content }: FaqToolProps) {
     };
   }, [revealedCount, shouldAnimateThread, typingMessageId, viewportRef]);
 
-  const visibleMessages = shouldAnimateThread ? selectedMessages.slice(0, revealedCount) : selectedMessages;
+  const visibleMessages = shouldUseSimulatedPlayback ? selectedMessages.slice(0, revealedCount) : selectedMessages;
   const typingMessage = useMemo(() => {
     if (!typingMessageId) {
       return null;
@@ -246,7 +305,7 @@ export function FaqTool({ content }: FaqToolProps) {
   const visibleRenderableCount = visibleMessages.length + (typingMessage ? 1 : 0);
   const totalRenderableCount = selectedMessages.length;
   const threadProgress = totalRenderableCount > 0 ? visibleRenderableCount / totalRenderableCount : 1;
-  const shouldUseLiveSpacer = shouldAnimateThread && totalRenderableCount > 0;
+  const shouldUseLiveSpacer = shouldUseSimulatedPlayback && totalRenderableCount > 0;
   const threadTopSpacerHeight = shouldUseLiveSpacer
     ? Math.round((1 - Math.min(threadProgress, 1)) * MAX_THREAD_TOP_SPACER_PX)
     : 0;
@@ -263,7 +322,7 @@ export function FaqTool({ content }: FaqToolProps) {
   };
 
   return (
-    <div className="faq-tool">
+    <div className="faq-tool" ref={toolRef}>
       <div className="faq-tool__mobile-nav">
         <div className="faq-tool__mobile-nav-strip scrollbar-hidden">
           <FaqCategoryTabs
