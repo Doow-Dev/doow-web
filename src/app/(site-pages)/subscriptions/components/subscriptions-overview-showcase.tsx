@@ -14,16 +14,17 @@ import type {
 import { GoogleAppIcon } from "@/components/custom/icons/google-app-icon";
 import { NotionAppIcon } from "@/components/custom/icons/notion-app-icon";
 import { SlackAppIcon } from "@/components/custom/icons/slack-app-icon";
+import { assetUrl } from "@/lib/assets/blob";
 
 const cardRevealEase = [0.22, 1, 0.36, 1] as const;
 const cardFadeDurationSeconds = 0.86;
 const figureEaseDurationSeconds = 0.68;
 
 const licenseAvatarImages = {
-  activeOne: "/assets/illustrations/subscriptions-license-user-1.png",
-  activeTwo: "/assets/illustrations/subscriptions-license-user-2.png",
-  activeThree: "/assets/illustrations/subscriptions-license-user-3.png",
-  activeFour: "/assets/illustrations/subscriptions-license-user-4.png",
+  activeOne: assetUrl("subscriptions-license-user-1.png"),
+  activeTwo: assetUrl("subscriptions-license-user-2.png"),
+  activeThree: assetUrl("subscriptions-license-user-3.png"),
+  activeFour: assetUrl("subscriptions-license-user-4.png"),
 } as const;
 
 const licenseUsageAvatars = [
@@ -64,7 +65,7 @@ const usageMetrics = [
 const usageTrendLinePath = "M0.5 7.75L66.28 5.81L99.16 2.9L147 0.75";
 const usageTrendAreaPath = "M65.55 5.22L0 6.93V20.75H146V0.75L98.33 2.65L65.55 5.22Z";
 
-const overageUserImage = "/assets/illustrations/subscriptions-overage-user.png";
+const overageUserImage = assetUrl("subscriptions-overage-user.png");
 
 const overageRows = [
   { id: "storage", itemType: "Additional storage", qty: "10000", mappedUser: "All", totalValue: "$5000" },

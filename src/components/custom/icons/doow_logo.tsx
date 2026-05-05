@@ -28,4 +28,3 @@ export const DoowLogo = ({ className, imageClassName, width = 100, height = 50, 
     </div>
   );
 };
-

@@ -1,4 +1,5 @@
 import { SitePageCardIcon } from "@/app/(site-pages)/_components/site-page-card-icon";
+import { SiteFeatureCardGrid } from "@/app/(site-pages)/_components/site-feature-card-grid";
 import { SitePageSectionShell } from "@/app/(site-pages)/_components/site-page-section-shell";
 import { expensesPageContent } from "@/app/(site-pages)/expenses/content";
 import { SectionHeading } from "@/components/system";
@@ -25,24 +26,26 @@ export function ExpensesClaritySection() {
             title={<span id="expenses-clarity-heading">{section.title}</span>}
           />
 
-          <ul className="expenses-clarity__grid" role="list">
-            {section.cards.map((card, index) => (
-              <li
-                className="expenses-clarity__card"
-                data-cell={cardCells[index]}
-                data-surface={index === 0 || index === section.cards.length - 1 ? "subtle" : "base"}
-                key={card.title}
-              >
-                <span aria-hidden="true" className="expenses-clarity__icon-wrap">
-                  <SitePageCardIcon className="expenses-clarity__card-icon-svg" />
-                </span>
-                <div className="expenses-clarity__card-copy">
-                  <h3 className="expenses-clarity__card-title">{card.title}</h3>
-                  <p className="expenses-clarity__card-description">{card.description}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <SiteFeatureCardGrid
+            classNames={{
+              card: "expenses-clarity__card",
+              copy: "expenses-clarity__card-copy",
+              description: "expenses-clarity__card-description",
+              grid: "expenses-clarity__grid",
+              iconWrap: "expenses-clarity__icon-wrap",
+              title: "expenses-clarity__card-title",
+            }}
+            getCardProps={(_card, index) => ({
+              "data-cell": cardCells[index],
+              "data-surface": index === 0 || index === section.cards.length - 1 ? "subtle" : "base",
+            })}
+            items={section.cards.map((card) => ({
+              description: card.description,
+              icon: <SitePageCardIcon className="expenses-clarity__card-icon-svg" />,
+              id: card.title,
+              title: card.title,
+            }))}
+          />
         </div>
       </SitePageSectionShell>
     </section>

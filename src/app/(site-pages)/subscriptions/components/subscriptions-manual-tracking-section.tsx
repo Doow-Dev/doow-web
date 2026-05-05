@@ -147,11 +147,11 @@ export function SubscriptionsManualTrackingSection() {
           classNames={{
             contentColumn: "subscriptions-manual__copy",
             contentPanel: "subscriptions-manual__content-panel",
-            item: "subscriptions-manual__item",
+            item: "site-feature-card subscriptions-manual__item",
             itemButton: "subscriptions-manual__item-button",
             itemCopy: "subscriptions-manual__item-copy",
             itemDescription: "subscriptions-manual__item-description",
-            itemIndicator: "subscriptions-manual__item-icon",
+            itemIndicator: "site-feature-card__icon-wrap subscriptions-manual__item-icon",
             itemList: "subscriptions-manual__items",
             itemTitle: "subscriptions-manual__item-title",
             layout: "subscriptions-manual__layout",

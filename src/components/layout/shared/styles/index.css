@@ -120,7 +120,9 @@
   }
 
   .progressive-split__item-button {
-    display: grid;
+    display: inherit;
+    grid-template-columns: inherit;
+    align-items: inherit;
     gap: 0.55rem;
     width: 100%;
     margin: 0;
@@ -391,7 +393,9 @@
   }
 
   .progressive-split__item-button {
-    display: grid;
+    display: inherit;
+    grid-template-columns: inherit;
+    align-items: inherit;
     gap: 0.55rem;
     width: 100%;
     margin: 0;
