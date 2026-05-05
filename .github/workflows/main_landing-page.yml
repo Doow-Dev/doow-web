@@ -36,6 +36,9 @@ jobs:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
           BLOG_LIVE: ${{ secrets.BLOG_LIVE }}
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
         run: npm run build
 
       - name: Prepare standalone package
