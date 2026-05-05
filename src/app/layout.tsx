@@ -21,7 +21,7 @@ const sometypeMono = Sometype_Mono({
   variable: "--font-sometype-mono-variable",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.doow.co";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

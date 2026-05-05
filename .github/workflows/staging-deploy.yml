@@ -51,11 +51,3 @@ jobs:
           resource-group-name: Doow-dev
           slot-name: staging
           package: .
-
-      - name: Deploy to production slot
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: landing-page
-          resource-group-name: Doow-dev
-          slot-name: production
-          package: .
