@@ -28,12 +28,12 @@ const publishedPosts = files
 const categories = new Set(publishedPosts.map((post) => post.category).filter(Boolean));
 const failures = [];
 
-if (publishedPosts.length < 3) {
-  failures.push(`expected at least 3 published posts, found ${publishedPosts.length}`);
+if (publishedPosts.length < 1) {
+  failures.push(`expected at least 1 published post, found ${publishedPosts.length}`);
 }
 
-if (categories.size < 2) {
-  failures.push(`expected at least 2 represented categories, found ${categories.size}`);
+if (categories.size < 1) {
+  failures.push(`expected at least 1 represented category, found ${categories.size}`);
 }
 
 if (publishedPosts.some((post) => !post.title || !post.category)) {

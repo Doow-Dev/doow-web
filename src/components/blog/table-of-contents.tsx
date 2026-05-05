@@ -3,6 +3,7 @@
 import type { CSSProperties } from "react";
 
 import { useEffect, useMemo, useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 import type { BlogTocItem } from "@/lib/blog/types";
 
@@ -82,12 +83,15 @@ export function TableOfContents({ toc }: TableOfContentsProps) {
       <button
         aria-controls="blog-detail-toc-panel"
         aria-expanded={isExpanded}
+        aria-label={isExpanded ? "Collapse table of contents" : "Expand table of contents"}
         className="blog-detail-toc__toggle"
         onClick={() => setIsExpanded((current) => !current)}
         type="button"
       >
         <span>Table of Content</span>
-        <span aria-hidden="true">{isExpanded ? "Close" : "Open"}</span>
+        <span aria-hidden="true" className="blog-detail-toc__toggle-caret">
+          {isExpanded ? <ChevronUp size={18} strokeWidth={2} /> : <ChevronDown size={18} strokeWidth={2} />}
+        </span>
       </button>
       <div className="blog-detail-toc__panel" id="blog-detail-toc-panel">
         <nav aria-label="Table of contents" className="blog-detail-toc" role="navigation" style={tocStyle}>

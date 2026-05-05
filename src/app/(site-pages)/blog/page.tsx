@@ -85,13 +85,15 @@ const BLOG_FIGMA_CARDS = [
 
 function buildLibraryCard(post: PostMeta, index: number) {
   const card = BLOG_FIGMA_CARDS[index % BLOG_FIGMA_CARDS.length] ?? BLOG_FIGMA_CARDS[0];
+  const fallbackImage =
+    post.slug === "running-out-of-runway" ? BLOG_INDEX_FIGMA_ASSETS.latestArticle : card.image;
 
   return {
     ...card,
     author: post.authors[0]?.name ?? card.author,
     dateLabel: formatBlogNumericDate(post.publishedAt),
     description: post.excerpt,
-    image: post.image ?? card.image,
+    image: post.image ?? fallbackImage,
     imageAlt: post.imageAlt ?? `Doow blog card cover for ${post.title}.`,
     post,
     title: post.title,
@@ -146,12 +148,11 @@ export default async function BlogIndexPage({ searchParams }: BlogIndexPageProps
       ? formatTagLabel(activeTag)
       : null;
 
-  const countLabel = totalPosts === 1 ? "1 article" : `${totalPosts} articles`;
-  const libraryHeading = activeCategory
-    ? `${countLabel} in ${activeFilterLabel}`
+  const libraryLabel = activeCategory
+    ? `${totalPosts === 1 ? "1 article" : `${totalPosts} articles`} in ${activeFilterLabel}`
     : activeTag
-      ? `${countLabel} tagged ${activeFilterLabel?.toLowerCase()}`
-      : "Insights, best practices, and expert advice";
+      ? `${totalPosts === 1 ? "1 article" : `${totalPosts} articles`} tagged ${activeFilterLabel?.toLowerCase()}`
+      : "Blog article library";
   const breadcrumbItems = [
     { href: "/blog", label: "Blog" },
     ...(activeCategory ? [{ href: buildFilterHref({ category: activeCategory }), label: CATEGORIES[activeCategory].label }] : []),
@@ -216,6 +217,10 @@ export default async function BlogIndexPage({ searchParams }: BlogIndexPageProps
 
       <section className="blog-index__library" id="blog-library" aria-labelledby="blog-library-heading">
         <div className="blog-index__library-shell">
+          <span className="sr-only" id="blog-library-heading">
+            {libraryLabel}
+          </span>
+
           {breadcrumbItems.length > 1 ? (
             <nav className="blog-breadcrumb blog-index__breadcrumb" aria-label="Breadcrumb">
               {breadcrumbItems.map((item, index) => {
@@ -232,7 +237,6 @@ export default async function BlogIndexPage({ searchParams }: BlogIndexPageProps
           ) : null}
 
           <header className="blog-index__library-header">
-            <h2 id="blog-library-heading">{libraryHeading}</h2>
             <BlogSearchBar />
             <div className="blog-category-strip" aria-label="Blog categories">
               {BLOG_CATEGORY_FILTERS.map((filter) => {

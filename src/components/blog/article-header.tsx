@@ -86,22 +86,19 @@ export function ArticleHeader({ authors = [], post }: ArticleHeaderProps) {
                       src={primaryAuthor.avatar ?? BLOG_DETAIL_FIGMA_ASSETS.authorAvatar}
                       width={42}
                     />
-                    <span>
+                    <span className="blog-author-chip__body">
                       <strong>{getAuthorLabel(visibleAuthors)}</strong>
                       {primaryAuthor.role ? <small>{primaryAuthor.role}</small> : null}
+                      {primaryAuthorSocials.length > 0 ? (
+                        <span className="blog-author-chip__socials" aria-label={`${primaryAuthor.name} social links`}>
+                          {primaryAuthorSocials.map(({ href, icon: Icon, label }) => (
+                            <a aria-label={label} href={href} key={label} rel="noopener noreferrer" target="_blank">
+                              <Icon aria-hidden="true" size={13} />
+                            </a>
+                          ))}
+                        </span>
+                      ) : null}
                     </span>
-                  </div>
-                  <div className="blog-article-header__author-detail">
-                    <p className="blog-article-header__author-bio">{primaryAuthor.bio}</p>
-                    {primaryAuthorSocials.length > 0 ? (
-                      <span className="blog-author-chip__socials" aria-label={`${primaryAuthor.name} social links`}>
-                        {primaryAuthorSocials.map(({ href, icon: Icon, label }) => (
-                          <a aria-label={label} href={href} key={label} rel="noopener noreferrer" target="_blank">
-                            <Icon aria-hidden="true" size={13} />
-                          </a>
-                        ))}
-                      </span>
-                    ) : null}
                   </div>
                 </div>
               </>
