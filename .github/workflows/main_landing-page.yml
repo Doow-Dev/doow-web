@@ -1,9 +1,10 @@
-name: Doow Web — Staging Deploy (App Service)
+name: Doow Web — Production Deploy (App Service)
 
 on:
   push:
     branches:
-      - staging
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -48,25 +49,24 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AGENT_CICD_CLIENT_ID }}
-          tenant-id: ${{ secrets.AGENT_CICD_TENANT_ID }}
-          subscription-id: ${{ secrets.AGENT_CICD_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C1F6479EE331409FB37827C3C24DD4F1 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9B4206EE64A744E491F3B808D299976E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2B9FC860620B4599808A1823D86D21C0 }}
 
       - name: Set startup command
         run: |
           az webapp config set \
             --name landing-page \
             --resource-group Doow-dev \
-            --startup-file "node server.js" \
-            --slot staging
+            --startup-file "node server.js"
 
       - name: Set runtime app settings
         run: |
           az webapp config appsettings set \
             --name landing-page \
             --resource-group Doow-dev \
-            --slot staging \
             --settings \
+              SCM_DO_BUILD_DURING_DEPLOYMENT=false \
               DOOW_API_BASE_URL="${{ secrets.DOOW_API_BASE_URL }}" \
               CATALOG_ADMIN_KEY="${{ secrets.CATALOG_ADMIN_KEY }}" \
               X_ADMIN_SECRET="${{ secrets.X_ADMIN_SECRET }}" \
@@ -75,12 +75,11 @@ jobs:
       - name: Zip standalone bundle
         run: (cd .next/standalone && zip -r ../../standalone.zip . -x "*.git*")
 
-      - name: Deploy standalone bundle to staging slot
+      - name: Deploy standalone bundle to production
         run: |
           az webapp deploy \
             --name landing-page \
             --resource-group Doow-dev \
-            --slot staging \
             --src-path standalone.zip \
             --type zip \
             --clean true \
@@ -89,10 +88,10 @@ jobs:
       - name: Remove Oryx artifacts from wwwroot
         run: |
           CREDS=$(az webapp deployment list-publishing-credentials \
-            --name landing-page --resource-group Doow-dev --slot staging \
+            --name landing-page --resource-group Doow-dev \
             --query '{user:publishingUserName,pass:publishingPassword}' -o json)
           KUDU_USER=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['user'])")
           KUDU_PASS=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['pass'])")
-          KUDU_URL="https://landing-page-staging-d7bydpddbuawa2hp.scm.canadacentral-01.azurewebsites.net"
+          KUDU_URL="https://landing-page-czbyg4h0c0ctbbgb.scm.canadacentral-01.azurewebsites.net"
           curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/node_modules.tar.gz" || true
           curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/oryx-manifest.toml" || true
