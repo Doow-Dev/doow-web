@@ -97,10 +97,11 @@ function FeaturedApplicationCard({ item }: { item: AlternativeAppsCatalogItem })
   const categoryLabel = getPrimaryCategoryLabel(item.categoryLabel);
   const graphic = getIntegrationAppGraphic(...item.logoHints, item.name);
   const previews = (item.alternativePreviewLogos ?? []).slice(0, 3);
+  const remainingAlternativeCount = Math.max(item.alternativeCount - previews.length, 0);
 
   return (
     <CatalogProviderCard
-      ariaLabel={`${item.name}, ${categoryLabel}, ${item.alternativeCount}+ alternatives`}
+      ariaLabel={`${item.name}, ${categoryLabel}, ${item.alternativeCount} alternatives`}
       footer={
         <span className="alternative-apps-featured-card__alternatives">
           {previews.length ? (
@@ -114,8 +115,8 @@ function FeaturedApplicationCard({ item }: { item: AlternativeAppsCatalogItem })
               ))}
             </span>
           ) : null}
-          {item.alternativeCount > 0 ? (
-            <span className="alternative-apps-featured-card__alternative-count">+{item.alternativeCount}</span>
+          {remainingAlternativeCount > 0 ? (
+            <span className="alternative-apps-featured-card__alternative-count">+{remainingAlternativeCount}</span>
           ) : null}
         </span>
       }

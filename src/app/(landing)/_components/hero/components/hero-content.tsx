@@ -34,8 +34,12 @@ export function HeroContent({ content, Shell }: HeroContentProps) {
           <div className="hero-copy">
             <div className="hero-title-frame mx-auto">
               <h1 className="hero-title">
-                <span className="hero-title__line">{content.title.firstLine}</span>
-                <span className="hero-title__line hero-title__line--accent">
+                <span className="sr-only">
+                  {content.title.firstLine} {content.title.secondLinePrefix}
+                  {content.title.accentWords[0]}
+                </span>
+                <span aria-hidden="true" className="hero-title__line">{content.title.firstLine}</span>
+                <span aria-hidden="true" className="hero-title__line hero-title__line--accent">
                   <span>{content.title.secondLinePrefix}</span>
                   <span className="hero-title__accent-wrap">
                     <HeroAnimatedAccent words={content.title.accentWords} />

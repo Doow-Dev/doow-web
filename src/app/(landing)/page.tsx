@@ -18,8 +18,7 @@ import {
   siteFooterBodyContent,
   siteFooterPromoPresets,
 } from "@/components/layout/footer";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
+import { JsonLd, buildFaqJsonLd, buildSiteMetadata, buildWebPageJsonLd, siteRouteSeo } from "@/lib/seo/site";
 
 function HeroShell({ children }: { children: ReactNode }) {
   return (
@@ -128,22 +127,15 @@ function IntegrationsShell({ children }: { children: ReactNode }) {
   );
 }
 
-export const metadata: Metadata = {
-  title: "Doow | SaaS Spend Visibility",
-  description:
-    "Doow helps finance teams see exactly where the money's going before it's gone \u2014 every subscription, renewal, and license in one place.",
-  openGraph: {
-    title: "Doow | SaaS Spend Visibility",
-    description:
-      "Doow helps finance teams see exactly where the money's going before it's gone \u2014 every subscription, renewal, and license in one place.",
-    url: siteUrl,
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildSiteMetadata(siteRouteSeo.home);
 
 export default function Home() {
+  const faqJsonLd = buildFaqJsonLd(landingPageContent.faq);
+
   return (
     <>
+      <JsonLd data={buildWebPageJsonLd(siteRouteSeo.home)} />
+      {faqJsonLd ? <JsonLd data={faqJsonLd} /> : null}
       <HeroSection Shell={HeroShell} />
       <DemoVideoSection Shell={DemoShell} />
       <FeatureSplitSection Shell={FeatureSplitShell} />

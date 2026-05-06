@@ -115,16 +115,30 @@ Rules:
 
 ## Route Policy
 
-Public routes to keep:
+Public routes intentionally supported by this codebase:
 
 - `/`
-- `/signin`
+- `/about_us`
+- `/alternative-apps`
+- `/alternative-apps/[appId]`
+- `/applications`
+- `/doow-ai`
+- `/expenses`
+- `/integrations`
+- `/pricing`
+- `/subscriptions`
+- `/blog/*`
 - `/privacy_policy`
 - `/terms_of_use`
 
-Routes to prune with permanent redirects:
+Auth links are external and resolve through `NEXT_PUBLIC_DOOW_APP_BASE_URL`.
+Do not add a local `/signin` page unless the product direction changes.
 
-- `/contact_us`
+Contact Us is a footer dialog interaction, not a page. Keep the legacy
+`/contact_us` redirect only for old inbound links.
+
+Blog indexing is controlled by `BLOG_LIVE`. Blog routes are noindex and excluded
+from the sitemap until `BLOG_LIVE=true` is set in production.
 
 ## AI Collaboration Rules
 

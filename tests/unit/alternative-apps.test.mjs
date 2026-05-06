@@ -110,6 +110,13 @@ const catalogRaw = {
         },
       ],
     },
+    {
+      id: "source-empty",
+      name: "Empty Alternatives",
+      category: "Project Management",
+      description: "This app has no alternatives yet.",
+      alternatives: [],
+    },
   ],
   nextCursor: "source-jira",
   skip: 0,
@@ -218,6 +225,7 @@ await runTest("alternative apps catalog adapter maps backend catalog response", 
   assert.equal(response.totalCount, 20257);
   assert.equal(response.categories[0].id, "all");
   assert.equal(response.categories[0].count, 3);
+  assert.equal(response.items.some((item) => item.id === "source-empty"), false);
   assert.equal(response.items[0].id, "source-jira");
   assert.equal(response.items[0].href, "/alternative-apps/source-jira");
   assert.equal(response.items[0].alternativeCount, 2);

@@ -31,7 +31,7 @@ async function assertResponsiveGutter(locator: Locator, viewportWidth: number, v
 
   expect(Math.abs(padding.left - padding.right)).toBeLessThanOrEqual(0.5);
 
-  const zeroPaddingBreakpoint =
+      const zeroPaddingBreakpoint =
     {
       landing: 1120,
       landingWide: 1280,
@@ -40,7 +40,6 @@ async function assertResponsiveGutter(locator: Locator, viewportWidth: number, v
       landingFooterPromo: 1408,
       landingFooterBody: 1216,
       readable: 1024,
-      signIn: 1024,
       utilityShell: 1024,
     }[variant] ?? 1024;
 
@@ -288,7 +287,6 @@ for (const viewport of viewports) {
     test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
     const routeMatrix = [
-      { path: "/signin", shell: "signInShell", variant: "signIn" },
       { path: "/privacy_policy", shell: "legalReadableShell", variant: "readable" },
       { path: "/terms_of_use", shell: "legalReadableShell", variant: "readable" },
     ] as const;

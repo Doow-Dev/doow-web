@@ -7,31 +7,24 @@ import { SubscriptionsHeroSection } from "@/app/(site-pages)/subscriptions/compo
 import { SubscriptionsManualTrackingSection } from "@/app/(site-pages)/subscriptions/components/subscriptions-manual-tracking-section";
 import { SubscriptionsOverviewSection } from "@/app/(site-pages)/subscriptions/components/subscriptions-overview-section";
 import { SiteFaqSection } from "@/components/layout/faq";
+import { JsonLd, buildBreadcrumbJsonLd, buildFaqJsonLd, buildSiteMetadata, buildWebPageJsonLd, siteRouteSeo } from "@/lib/seo/site";
 
 import { subscriptionsPageContent } from "./content";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
-const subscriptionsDescription =
-  "Keep contracts, licenses, and renewals in one place with clearer subscription visibility and governance.";
-
-export const metadata: Metadata = {
-  title: "Subscriptions",
-  description: subscriptionsDescription,
-  openGraph: {
-    title: "Subscriptions | Doow",
-    description: subscriptionsDescription,
-    url: `${siteUrl}/subscriptions`,
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildSiteMetadata(siteRouteSeo.subscriptions);
 
 function FaqShell({ children }: { children: ReactNode }) {
   return <SitePageSectionShell section="faq">{children}</SitePageSectionShell>;
 }
 
 export default function SubscriptionsPage() {
+  const faqJsonLd = buildFaqJsonLd(subscriptionsPageContent.faq);
+
   return (
     <>
+      <JsonLd data={buildWebPageJsonLd(siteRouteSeo.subscriptions)} />
+      <JsonLd data={buildBreadcrumbJsonLd([{ href: "/", label: "Home" }, { href: "/subscriptions", label: "Subscriptions" }])} />
+      {faqJsonLd ? <JsonLd data={faqJsonLd} /> : null}
       <SubscriptionsHeroSection />
       <SubscriptionsManualTrackingSection />
       <SubscriptionsOverviewSection />

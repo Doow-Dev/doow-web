@@ -57,11 +57,11 @@ The section must avoid:
 - broken heading hierarchy
 - hidden or JS-only critical copy
 
-### Blog performance targets
+### Production performance targets
 
-The blog route family has additional launch gates because article, archive,
-and feed pages are long-lived SEO surfaces. These targets apply to `/blog`,
-`/blog/[slug]`, and future category archive pages.
+The production route family has launch gates because the landing, product,
+utility, and blog routes are long-lived SEO surfaces. These targets apply to
+`/`, public site pages, legal pages, `/blog`, `/blog/[slug]`, and archive pages.
 
 Desktop Lighthouse targets:
 
@@ -86,6 +86,41 @@ Core Web Vitals targets:
 
 Do not set `BLOG_LIVE=true` until the blog passes these targets on a preview
 deployment.
+
+Quality harness commands:
+
+- `npm run test:a11y`
+- `npm run test:seo`
+- `npm run test:lighthouse`
+- `npm run test:production`
+
+The Lighthouse CI route set is production-grade, not representative-only. It
+covers every intended crawlable public route plus a stable dynamic
+`/alternative-apps/[appId]` fixture:
+
+- `/`
+- `/applications`
+- `/subscriptions`
+- `/alternative-apps`
+- `/alternative-apps/a4571cad-ae9b-4a72-a9a2-eba8597600b2`
+- `/expenses`
+- `/integrations`
+- `/pricing`
+- `/doow-ai`
+- `/about_us`
+- `/privacy_policy`
+- `/terms_of_use`
+
+When `BLOG_LIVE=true`, the same Lighthouse gate also covers live blog routes:
+
+- `/blog`
+- `/blog/running-out-of-runway`
+- `/blog?category=engineering`
+- `/blog/tag/runway`
+- `/blog/tag/runway/page/1`
+
+Blog routes remain excluded from the default SEO-scored Lighthouse run while
+`BLOG_LIVE` is false because they intentionally emit `noindex, nofollow`.
 
 ## Section Sign-off Template
 

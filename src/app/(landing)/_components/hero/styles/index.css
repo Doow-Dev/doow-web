@@ -2,7 +2,7 @@
   .hero-surface {
     position: relative;
     isolation: isolate;
-    min-height: 90svh;
+    min-height: 100svh;
     overflow: clip;
     background: #0b1110;
     color: var(--fg-on-color);
@@ -13,7 +13,7 @@
     inset-inline: 0;
     inset-block-start: 0;
     inset-block-end: auto;
-    height: 90svh;
+    height: 100svh;
     background: var(--hero-overlay-image);
   }
 

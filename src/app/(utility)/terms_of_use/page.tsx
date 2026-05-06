@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { AboutBody, AboutSection, AboutTitle, AboutWrapper, LegalPageShell } from "@/app/_components/terms-privacy";
+import { JsonLd, buildBreadcrumbJsonLd, buildSiteMetadata, buildWebPageJsonLd, siteRouteSeo } from "@/lib/seo/site";
+
+export const metadata: Metadata = buildSiteMetadata(siteRouteSeo.termsOfUse);
 
 export default function TermsOfUse() {
   return (
-    <LegalPageShell lastUpdated="3 April 2023" title="Terms of Use">
+    <LegalPageShell lastUpdated="5 May 2026" title="Terms of Use">
+      <JsonLd data={buildWebPageJsonLd(siteRouteSeo.termsOfUse)} />
+      <JsonLd data={buildBreadcrumbJsonLd([{ href: "/", label: "Home" }, { href: "/terms_of_use", label: "Terms of Use" }])} />
       <AboutWrapper>
         <AboutSection>
           <AboutTitle>Introduction</AboutTitle>

@@ -36,7 +36,8 @@ export interface AlternativeAppDetailsSectionProps {
 
 type CostPeriod = "annual" | "quarterly" | "monthly";
 
-const maxComparedAlternatives = 2;
+const desktopComparedAlternatives = 2;
+const mobileComparedAlternatives = 1;
 const comparisonMotionTransition = {
   duration: 0.34,
   ease: [0.22, 1, 0.36, 1],
@@ -358,10 +359,12 @@ function CurrentAppCard({ details, selectedAlternative }: { details: Alternative
 
 function AlternativeAppSelectionDropdown({
   alternatives,
+  maxSelectedSlugs,
   selectedSlugs,
   onSelectionChange,
 }: {
   alternatives: readonly AlternativeAppDetailAlternative[];
+  maxSelectedSlugs: number;
   onSelectionChange: (selectedSlugs: string[]) => void;
   selectedSlugs: readonly string[];
 }) {
@@ -414,7 +417,7 @@ function AlternativeAppSelectionDropdown({
     }
 
     const nextSelection =
-      selectedSlugs.length >= maxComparedAlternatives ? [...selectedSlugs.slice(1), slug] : [...selectedSlugs, slug];
+      selectedSlugs.length >= maxSelectedSlugs ? [...selectedSlugs.slice(1), slug] : [...selectedSlugs, slug];
 
     onSelectionChange(nextSelection);
     setIsOpen(false);
@@ -888,16 +891,34 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     orientation: "horizontal",
   });
   const [selectedAlternativeSlugs, setSelectedAlternativeSlugs] = useState<string[]>(
-    details.alternatives.slice(0, maxComparedAlternatives).map((alternative) => alternative.slug),
+    details.alternatives.slice(0, desktopComparedAlternatives).map((alternative) => alternative.slug),
   );
   const selectedAlternativeSlugsRef = useRef(selectedAlternativeSlugs);
+  const [comparedAlternativeLimit, setComparedAlternativeLimit] = useState(desktopComparedAlternatives);
   const [isSticky, setIsSticky] = useState(false);
   const [isFullDetailsOpen, setIsFullDetailsOpen] = useState(false);
   const [period, setPeriod] = useState<CostPeriod>("annual");
 
   useEffect(() => {
-    selectedAlternativeSlugsRef.current = selectedAlternativeSlugs;
-  }, [selectedAlternativeSlugs]);
+    const tabletQuery = window.matchMedia("(min-width: 48rem)");
+    const updateComparedAlternativeLimit = () => {
+      setComparedAlternativeLimit(tabletQuery.matches ? desktopComparedAlternatives : mobileComparedAlternatives);
+    };
+
+    updateComparedAlternativeLimit();
+    tabletQuery.addEventListener("change", updateComparedAlternativeLimit);
+
+    return () => tabletQuery.removeEventListener("change", updateComparedAlternativeLimit);
+  }, []);
+
+  const visibleSelectedAlternativeSlugs = useMemo(
+    () => selectedAlternativeSlugs.slice(0, comparedAlternativeLimit),
+    [comparedAlternativeLimit, selectedAlternativeSlugs],
+  );
+
+  useEffect(() => {
+    selectedAlternativeSlugsRef.current = visibleSelectedAlternativeSlugs;
+  }, [visibleSelectedAlternativeSlugs]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -925,10 +946,10 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
 
   const selectedAlternatives = useMemo(
     () =>
-      selectedAlternativeSlugs
+      visibleSelectedAlternativeSlugs
         .map((slug) => details.alternatives.find((alternative) => alternative.slug === slug))
         .filter((alternative): alternative is AlternativeAppDetailAlternative => Boolean(alternative)),
-    [details.alternatives, selectedAlternativeSlugs],
+    [details.alternatives, visibleSelectedAlternativeSlugs],
   );
 
   const primaryAlternative = selectedAlternatives[0] ?? details.alternatives[0];
@@ -947,7 +968,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
       const normalizedSlugs = nextSlugs
         .filter((slug, index, slugs) => slugs.indexOf(slug) === index)
         .filter((slug) => details.alternatives.some((alternative) => alternative.slug === slug))
-        .slice(-maxComparedAlternatives);
+        .slice(-comparedAlternativeLimit);
 
       if (!normalizedSlugs.length) {
         return;
@@ -960,7 +981,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
           : normalizedSlugs,
       );
     },
-    [details.alternatives],
+    [comparedAlternativeLimit, details.alternatives],
   );
 
   const scrollComparedAlternativesIntoSurface = useCallback(
@@ -983,7 +1004,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
       }
 
       const firstSelectedIndex = cards.findIndex((card) => card.dataset.alternativeSlug === nextSlugs[0]);
-      const maxStartIndex = Math.max(0, cards.length - maxComparedAlternatives);
+      const maxStartIndex = Math.max(0, cards.length - comparedAlternativeLimit);
       const startIndex = Math.min(maxStartIndex, Math.max(0, firstSelectedIndex));
       const targetCard = cards[startIndex];
 
@@ -996,7 +1017,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
         left: targetCard.offsetLeft - firstCard.offsetLeft,
       });
     },
-    [reduceMotion],
+    [comparedAlternativeLimit, reduceMotion],
   );
 
   const scrollComparedAlternativesIntoView = useCallback(
@@ -1020,9 +1041,9 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
   const handleSelectionChange = useCallback(
     function handleSelectionChange(nextSlugs: string[]) {
       updateSelectedAlternatives(nextSlugs);
-      scrollComparedAlternativesIntoView(nextSlugs.slice(-maxComparedAlternatives));
+      scrollComparedAlternativesIntoView(nextSlugs.slice(-comparedAlternativeLimit));
     },
-    [scrollComparedAlternativesIntoView, updateSelectedAlternatives],
+    [comparedAlternativeLimit, scrollComparedAlternativesIntoView, updateSelectedAlternatives],
   );
 
   const syncSelectedAlternativesFromScroll = useCallback(
@@ -1040,7 +1061,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
         return;
       }
 
-      if (cards.length <= maxComparedAlternatives) {
+      if (cards.length <= comparedAlternativeLimit) {
         updateSelectedAlternatives(
           cards.map((card) => card.dataset.alternativeSlug).filter((slug): slug is string => Boolean(slug)),
         );
@@ -1050,10 +1071,10 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
       const firstCard = cards[0];
       const secondCard = cards[1];
       const cardStep = secondCard ? secondCard.offsetLeft - firstCard.offsetLeft : firstCard.offsetWidth;
-      const maxStartIndex = Math.max(0, cards.length - maxComparedAlternatives);
+      const maxStartIndex = Math.max(0, cards.length - comparedAlternativeLimit);
       const startIndex = Math.min(maxStartIndex, Math.max(0, Math.round(viewport.scrollLeft / Math.max(1, cardStep))));
       const visibleSlugs = cards
-        .slice(startIndex, startIndex + maxComparedAlternatives)
+        .slice(startIndex, startIndex + comparedAlternativeLimit)
         .map((card) => card.dataset.alternativeSlug)
         .filter((slug): slug is string => Boolean(slug));
 
@@ -1068,6 +1089,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     [
       alternativesContentRef,
       alternativesViewportRef,
+      comparedAlternativeLimit,
       scrollComparedAlternativesIntoSurface,
       updateSelectedAlternatives,
     ],
@@ -1151,16 +1173,18 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
     const cards = Array.from(content.querySelectorAll<HTMLElement>("[data-alternative-slug]"));
     const currentStartIndex = Math.max(
       0,
-      details.alternatives.findIndex((alternative) => alternative.slug === selectedAlternativeSlugs[0]),
+      details.alternatives.findIndex((alternative) => alternative.slug === visibleSelectedAlternativeSlugs[0]),
     );
     const clickedIndex = Math.max(0, Math.min(index, cards.length - 1));
     const nextStartIndex =
-      clickedIndex > currentStartIndex + 1
+      comparedAlternativeLimit === mobileComparedAlternatives
+        ? clickedIndex
+        : clickedIndex > currentStartIndex + 1
         ? clickedIndex - 1
         : clickedIndex < currentStartIndex
           ? clickedIndex
           : currentStartIndex;
-    const card = cards[Math.min(Math.max(nextStartIndex, 0), Math.max(0, cards.length - maxComparedAlternatives))];
+    const card = cards[Math.min(Math.max(nextStartIndex, 0), Math.max(0, cards.length - comparedAlternativeLimit))];
 
     if (!card) {
       return;
@@ -1213,7 +1237,8 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                     <h2>{details.app.name} alternatives</h2>
                       <AlternativeAppSelectionDropdown
                         alternatives={details.alternatives}
-                        selectedSlugs={selectedAlternativeSlugs}
+                        maxSelectedSlugs={comparedAlternativeLimit}
+                        selectedSlugs={visibleSelectedAlternativeSlugs}
                         onSelectionChange={handleSelectionChange}
                       />
                   </div>
@@ -1230,7 +1255,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                     >
                       <AnimatePresence initial={false} mode="sync">
                         {details.alternatives.map((alternative, index) => {
-                          const isSelected = selectedAlternativeSlugs.includes(alternative.slug);
+                          const isSelected = visibleSelectedAlternativeSlugs.includes(alternative.slug);
 
                           return (
                             <CompactAppCard
@@ -1260,7 +1285,8 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                 </div>
                 <AlternativeAppSelectionDropdown
                   alternatives={details.alternatives}
-                  selectedSlugs={selectedAlternativeSlugs}
+                  maxSelectedSlugs={comparedAlternativeLimit}
+                  selectedSlugs={visibleSelectedAlternativeSlugs}
                   onSelectionChange={handleSelectionChange}
                 />
               </div>
@@ -1284,7 +1310,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
                       ref={alternativesContentRef}
                     >
                       {details.alternatives.map((alternative, index) => {
-                        const isSelected = selectedAlternativeSlugs.includes(alternative.slug);
+                        const isSelected = visibleSelectedAlternativeSlugs.includes(alternative.slug);
 
                         return (
                           <AlternativeCard
@@ -1332,7 +1358,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
               <div
                 className="alternative-app-details__comparison"
                 data-selected-count={selectedAlternatives.length}
-                data-selected-alternatives={selectedAlternativeSlugs.join(",")}
+                data-selected-alternatives={visibleSelectedAlternativeSlugs.join(",")}
               >
                 {details.comparisonSections.map((section) => (
                   <ComparisonSection
