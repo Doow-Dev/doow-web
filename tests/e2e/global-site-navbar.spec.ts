@@ -34,7 +34,6 @@ async function assertResponsiveGutter(locator: Locator, viewportWidth: number, v
   const zeroPaddingBreakpoint =
     {
       readable: 1024,
-      signIn: 1024,
       utilityShell: 1024,
     }[variant] ?? 1024;
 
@@ -129,7 +128,7 @@ for (const viewport of viewports) {
 test.describe("global navbar interactions", () => {
   test("keeps the mobile navigation accessible and returns focus when dismissed", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/signin");
+    await page.goto("/privacy_policy");
 
     const trigger = page.locator('[data-global-site-navbar-mobile-trigger="true"]');
     const dialog = page.locator('[data-global-site-navbar-mobile-content="true"]');

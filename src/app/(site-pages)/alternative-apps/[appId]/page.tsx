@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 
+import { AlternativeAppDetailsEmptyState } from "@/app/(site-pages)/alternative-apps/components/alternative-app-details-empty-state";
 import { AlternativeAppDetailsSection } from "@/app/(site-pages)/alternative-apps/components/alternative-app-details-section";
-import { QueryErrorMessage } from "@/components/layout/shared";
 import { Container } from "@/components/system";
 import { getAlternativeAppDetailsResponse } from "@/lib/server/alternative-apps-service";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildSiteMetadata,
+  buildWebPageJsonLd,
+  siteRouteSeo,
+  type SiteRouteSeo,
+} from "@/lib/seo/site";
 
 export async function generateMetadata({ params }: { params: Promise<{ appId: string }> }): Promise<Metadata> {
   const { appId } = await params;
@@ -21,21 +26,22 @@ export async function generateMetadata({ params }: { params: Promise<{ appId: st
   if (!details) {
     return {
       title: "Alternative App Not Found",
+      robots: {
+        follow: false,
+        index: false,
+      },
     };
   }
 
   const description = `Compare ${details.app.name} against alternative applications for spend, fit, migration, integrations, and security.`;
-
-  return {
+  const route = {
     title: `${details.app.name} Alternatives`,
     description,
-    openGraph: {
-      title: `${details.app.name} Alternatives | Doow`,
-      description,
-      url: `${siteUrl}/alternative-apps/${details.app.slug}`,
-      type: "website",
-    },
-  };
+    path: `/alternative-apps/${details.app.slug}`,
+    ogCategory: "Alternative Apps",
+  } satisfies SiteRouteSeo;
+
+  return buildSiteMetadata(route);
 }
 
 export default async function AlternativeAppDetailsPage({ params }: { params: Promise<{ appId: string }> }) {
@@ -49,18 +55,40 @@ export default async function AlternativeAppDetailsPage({ params }: { params: Pr
     return (
       <section aria-label="Alternative application details" className="alternative-app-details">
         <Container className="alternative-app-details__shell" variant="siteFooterPromo">
-          <QueryErrorMessage
-            message="We could not load this application comparison right now. Please try again later."
-            title="Application comparison unavailable"
-          />
+          <AlternativeAppDetailsEmptyState />
         </Container>
       </section>
     );
   }
 
   if (!details) {
-    notFound();
+    return (
+      <section aria-label="Alternative application details" className="alternative-app-details">
+        <Container className="alternative-app-details__shell" variant="siteFooterPromo">
+          <AlternativeAppDetailsEmptyState />
+        </Container>
+      </section>
+    );
   }
 
-  return <AlternativeAppDetailsSection details={details} />;
+  const route = {
+    title: `${details.app.name} Alternatives`,
+    description: `Compare ${details.app.name} against alternative applications for spend, fit, migration, integrations, and security.`,
+    path: `/alternative-apps/${details.app.slug}`,
+    ogCategory: "Alternative Apps",
+  } satisfies SiteRouteSeo;
+
+  return (
+    <>
+      <JsonLd data={buildWebPageJsonLd(route)} />
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { href: "/", label: "Home" },
+          { href: siteRouteSeo.alternativeApps.path, label: "Alternative Apps" },
+          { href: route.path, label: `${details.app.name} Alternatives` },
+        ])}
+      />
+      <AlternativeAppDetailsSection details={details} />
+    </>
+  );
 }

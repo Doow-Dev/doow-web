@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/.lighthouseci
+/.lighthouseci-desktop
+/.lighthouseci-mobile
 /playwright-report
 /test-results
 

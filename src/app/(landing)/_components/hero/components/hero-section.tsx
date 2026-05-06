@@ -25,19 +25,20 @@ function HeroBackground({ compactBackground, desktopBackground }: HeroBackground
     fetchPriority: "high" as const,
     loading: "eager" as const,
     placeholder: "blur" as const,
-    quality: 80,
-    sizes: "100vw",
+    sizes: "(max-width: 1024px) 100vw, 100vw",
   };
   const {
     props: { srcSet: desktopSrcSet, sizes: desktopSizes },
   } = getImageProps({
     ...commonImageProps,
     blurDataURL: HERO_BLUR_DATA_URL,
+    quality: 80,
     src: desktopBackground.src,
   });
   const { props: compactImageProps } = getImageProps({
     ...commonImageProps,
     blurDataURL: HERO_BLUR_DATA_URL,
+    quality: 70,
     src: compactBackground.src,
   });
 

@@ -1,12 +1,22 @@
 import type { Metadata } from "next";
 import { Inter, Sometype_Mono } from "next/font/google";
-import { Toaster } from "react-hot-toast";
 
 import "../styles/globals.css";
 import "@/app/_components/global-site-navbar/styles/index.css";
 import { cn } from "@/lib/utils";
 import { PostHogProvider } from "@/lib/providers/PostHogProvider";
+import { AppToaster } from "@/lib/components/AppToaster";
 import { GoogleAnalytics } from "@/lib/components/GoogleAnalytics";
+import {
+  JsonLd,
+  SITE_DEFAULT_DESCRIPTION,
+  SITE_NAME,
+  absoluteSiteUrl,
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+  getSiteOgImageUrl,
+  siteUrl,
+} from "@/lib/seo/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,20 +31,39 @@ const sometypeMono = Sometype_Mono({
   variable: "--font-sometype-mono-variable",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.doow.co";
+const analyticsEnabled =
+  process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true" && Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Doow",
-    template: "%s | Doow",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: "Doow landing page rebuild in progress.",
+  description: SITE_DEFAULT_DESCRIPTION,
+  alternates: {
+    canonical: absoluteSiteUrl("/"),
+  },
   openGraph: {
-    title: "Doow",
-    description: "Doow landing page rebuild in progress.",
+    title: SITE_NAME,
+    description: SITE_DEFAULT_DESCRIPTION,
+    images: [
+      {
+        alt: `${SITE_NAME} social preview`,
+        height: 630,
+        url: getSiteOgImageUrl(),
+        width: 1200,
+      },
+    ],
+    siteName: SITE_NAME,
     url: siteUrl,
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    description: SITE_DEFAULT_DESCRIPTION,
+    images: [getSiteOgImageUrl()],
+    title: SITE_NAME,
   },
 };
 
@@ -56,11 +85,11 @@ export default function RootLayout({
         <link href="https://landingpageassests.blob.core.windows.net" rel="dns-prefetch" />
       </head>
       <body className="antialiased">
+        <JsonLd data={buildOrganizationJsonLd()} />
+        <JsonLd data={buildWebsiteJsonLd()} />
         <GoogleAnalytics />
-        <PostHogProvider>
-          {children}
-          <Toaster containerClassName="mt-4" position="top-center" />
-        </PostHogProvider>
+        {analyticsEnabled ? <PostHogProvider>{children}</PostHogProvider> : children}
+        <AppToaster />
       </body>
     </html>
   );

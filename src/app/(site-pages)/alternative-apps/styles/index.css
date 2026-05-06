@@ -1676,9 +1676,9 @@
   .alternative-app-details-alternative-card {
     display: grid;
     gap: 0.875rem;
-    flex: 0 0 calc((100% - var(--alternative-app-details-card-gap)) / 2);
-    min-width: calc((100% - var(--alternative-app-details-card-gap)) / 2);
-    width: calc((100% - var(--alternative-app-details-card-gap)) / 2);
+    flex: 0 0 100%;
+    min-width: 100%;
+    width: 100%;
     overflow: hidden;
     border: 0;
     border-radius: 0.7681875rem;
@@ -2312,6 +2312,10 @@
     white-space: nowrap;
   }
 
+  .alternative-app-details__overview > .alternative-app-details-selection {
+    justify-self: end;
+  }
+
   .alternative-app-details__summary-grid {
     overflow: visible;
   }
@@ -2329,8 +2333,9 @@
   }
 
   .alternative-app-details-alternative-card {
-    width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
-    min-width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+    flex-basis: 100%;
+    width: 100%;
+    min-width: 100%;
     background: #f9fafb;
   }
 
@@ -2454,6 +2459,10 @@
     padding: 1rem;
   }
 
+  .alternative-app-details__sticky-compact-intro .alternative-app-details-selection {
+    justify-self: end;
+  }
+
   .alternative-app-details__sticky-compact-intro h2,
   .alternative-app-details-compact-card h3,
   .alternative-app-details-compact-card p {
@@ -2557,9 +2566,9 @@
   }
 
   .alternative-app-details__sticky-compact-alternatives-list .alternative-app-details-compact-card {
-    flex: 0 0 50%;
-    min-width: 50%;
-    width: 50%;
+    flex: 0 0 100%;
+    min-width: 100%;
+    width: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -2674,8 +2683,29 @@
       display: flex;
     }
 
+    .alternative-app-details__sticky-compact-intro .alternative-app-details-selection {
+      justify-self: start;
+    }
+
+    .alternative-app-details__sticky-compact-intro .alternative-app-details-selection__menu {
+      right: auto;
+      left: 0;
+    }
+
+    .alternative-app-details-alternative-card {
+      flex-basis: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+      min-width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+      width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+    }
+
     .alternative-app-details__sticky-compact-alternatives {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .alternative-app-details__sticky-compact-alternatives-list .alternative-app-details-compact-card {
+      flex-basis: 50%;
+      min-width: 50%;
+      width: 50%;
     }
 
     .alternative-app-details__sticky-compact-alternatives::after {
