@@ -27,16 +27,19 @@ export function DoowAiHeroSection() {
       </div>
 
       <div aria-hidden="true" className="doow-ai-hero__visual">
-        <Image
-          priority
-          alt=""
-          className="doow-ai-hero__image"
-          height={hero.illustration.height}
-          quality={90}
-          sizes="(min-width: 1440px) 1398px, (min-width: 1024px) 96vw, (min-width: 768px) 120vw, 165vw"
-          src={hero.illustration.src}
-          width={hero.illustration.width}
-        />
+        <div className="doow-ai-hero__image-wrap">
+          <Image
+            priority
+            alt=""
+            className="doow-ai-hero__image"
+            height={hero.illustration.height}
+            quality={90}
+            sizes="(min-width: 1440px) 1398px, (min-width: 1024px) 96vw, (min-width: 768px) 120vw, 165vw"
+            src={hero.illustration.src}
+            width={hero.illustration.width}
+          />
+          <span className="doow-ai-hero__visual-overlay" />
+        </div>
       </div>
 
       <div className="doow-ai-hero__outro">

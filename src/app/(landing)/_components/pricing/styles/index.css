@@ -60,6 +60,41 @@
     background-image: linear-gradient(180.476deg, rgba(0, 0, 0, 0.62) 36.849%, rgba(0, 0, 0, 0.043) 96.534%);
   }
 
+  .pricing__overlay::before,
+  .pricing__overlay::after {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: clamp(17rem, 30vw, 34rem);
+    height: clamp(9rem, 20vh, 15rem);
+    content: "";
+    pointer-events: none;
+  }
+
+  .pricing__overlay::before {
+    left: 0;
+    background:
+      radial-gradient(
+        ellipse at 0% 100%,
+        rgba(2, 5, 4, 0.98) 0%,
+        rgba(2, 5, 4, 0.9) 34%,
+        rgba(2, 5, 4, 0.56) 56%,
+        rgba(4, 8, 7, 0) 76%
+      );
+  }
+
+  .pricing__overlay::after {
+    right: 0;
+    background:
+      radial-gradient(
+        ellipse at 100% 100%,
+        rgba(2, 5, 4, 0.98) 0%,
+        rgba(2, 5, 4, 0.9) 34%,
+        rgba(2, 5, 4, 0.56) 56%,
+        rgba(4, 8, 7, 0) 76%
+      );
+  }
+
   .pricing__shell {
     position: relative;
     z-index: 2;

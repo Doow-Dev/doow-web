@@ -46,6 +46,7 @@ export function DoowAiSection({ Shell }: DoowAiSectionProps) {
             src={doowAi.illustration.src}
             width={doowAi.illustration.width}
           />
+          <span className="doow-ai__visual-overlay" />
         </div>
       </div>
     </section>

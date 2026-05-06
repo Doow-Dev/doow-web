@@ -648,11 +648,13 @@ function CompactAppCard({
 }
 
 function Cell({
+  appName,
   cell,
   motionKey,
   period,
   reduceMotion = false,
 }: {
+  appName: string;
   cell: AlternativeAppDetailComparisonCell;
   motionKey?: string;
   period: CostPeriod;
@@ -674,6 +676,7 @@ function Cell({
 
   return (
     <motion.div className="alternative-app-details-cell" data-tone={cell.tone ?? "neutral"} {...motionProps}>
+      <span className="alternative-app-details-cell__app-badge">{appName}</span>
       {cell.pills?.length ? (
         <div className="alternative-app-details-certifications">
           {cell.pills.map((pill) => (
@@ -808,12 +811,14 @@ function CostPeriodDropdown({ period, setPeriod }: { period: CostPeriod; setPeri
 }
 
 function ComparisonSection({
+  currentAppName,
   period,
   section,
   selectedAlternatives,
   setPeriod,
   reduceMotion,
 }: {
+  currentAppName: string;
   period: CostPeriod;
   reduceMotion: boolean;
   section: AlternativeAppDetailComparisonSection;
@@ -851,13 +856,14 @@ function ComparisonSection({
                 {row.id === "annual-cost" ? <CostPeriodDropdown period={period} setPeriod={setPeriod} /> : null}
               </div>
               <div className="alternative-app-details-comparison-section__data-row">
-                <Cell cell={row.current} period={period} reduceMotion={reduceMotion} />
+                <Cell appName={currentAppName} cell={row.current} period={period} reduceMotion={reduceMotion} />
                 <AnimatePresence initial={false} mode="sync">
                   {selectedAlternatives.map((alternative) => {
                     const matchedRow = findAlternativeRow({ alternative, row, section });
 
                     return (
                       <Cell
+                        appName={alternative.name}
                         cell={matchedRow?.alternative ?? row.alternative}
                         key={`${section.id}-${row.id}-${alternative.slug}`}
                         motionKey={alternative.slug}
@@ -1362,6 +1368,7 @@ export function AlternativeAppDetailsSection({ details }: AlternativeAppDetailsS
               >
                 {details.comparisonSections.map((section) => (
                   <ComparisonSection
+                    currentAppName={details.app.name}
                     key={section.id}
                     period={period}
                     reduceMotion={reduceMotion}

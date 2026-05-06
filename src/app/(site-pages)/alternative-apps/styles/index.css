@@ -1908,7 +1908,26 @@
     gap: 0.25rem;
     min-width: 0;
     background: #ffffff;
-    padding: 1rem;
+    padding: 2.75rem 1rem 1rem;
+  }
+
+  .alternative-app-details-cell__app-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    max-width: min(12rem, calc(100% - 1.5rem));
+    overflow: hidden;
+    border: 1px solid #e6e6e6;
+    border-radius: 0.5rem;
+    background: #f7f7f7;
+    color: #111827;
+    font-size: 0.75rem;
+    font-weight: var(--type-weight-medium);
+    letter-spacing: 0;
+    line-height: 1rem;
+    padding: 0.25rem 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .alternative-app-details-cell + .alternative-app-details-cell {
@@ -2807,6 +2826,11 @@
 
     .alternative-app-details-cell {
       min-height: 5.5rem;
+      padding: 1rem;
+    }
+
+    .alternative-app-details-cell__app-badge {
+      display: none;
     }
 
     .alternative-app-details-comparison-section__data-row .alternative-app-details-cell:first-child {
