@@ -57,6 +57,25 @@
     object-position: center top;
   }
 
+  .doow-ai__visual-overlay {
+    position: absolute;
+    top: 57.8%;
+    left: calc(50% + 0.7868%);
+    z-index: 1;
+    display: block;
+    width: 103.0043%;
+    height: 42.2%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.9) 38%,
+      #ffffff 52%,
+      #ffffff 100%
+    );
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
   @media (min-width: 40rem) {
     .doow-ai__visual-shell {
       margin-bottom: 1.5rem;

@@ -64,7 +64,7 @@ export const globalSiteNavContent = {
   primaryNavigation: [
     {
       availability: "live",
-      label: "Solutions",
+      label: "Products",
       type: "menu",
       groups: [
         {
