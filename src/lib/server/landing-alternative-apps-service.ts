@@ -179,12 +179,17 @@ export async function getLandingAlternativeAppsResponse(appId?: string) {
     throw new LandingAlternativeAppsDataError("Unknown landing alternative application id.", 404);
   }
 
-  const details = await getCachedLandingDetails(selectedOption.id);
+  const detailsResult = await getCachedLandingDetails(selectedOption.id);
 
-  if (!details) {
-    throw new LandingAlternativeAppsDataError("Alternative application comparison is unavailable.", 404);
+  if (detailsResult.status === "not-found") {
+    throw new LandingAlternativeAppsDataError("Unknown landing alternative application id.", 404);
   }
 
+  if (detailsResult.status === "empty") {
+    throw new LandingAlternativeAppsDataError("Alternative application comparison is unavailable.", 503);
+  }
+
+  const { details } = detailsResult;
   const response = {
     alternatives: details.alternatives.slice(0, landingAlternativeRecommendationsTake).map((alternative) =>
       detailAlternativeToRecommendation({

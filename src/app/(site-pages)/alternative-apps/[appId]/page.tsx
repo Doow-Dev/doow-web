@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { AlternativeAppDetailsEmptyState } from "@/app/(site-pages)/alternative-apps/components/alternative-app-details-empty-state";
 import { AlternativeAppDetailsSection } from "@/app/(site-pages)/alternative-apps/components/alternative-app-details-section";
 import { Container } from "@/components/system";
-import { getAlternativeAppDetailsResponse } from "@/lib/server/alternative-apps-service";
+import {
+  getAlternativeAppDetailsResponse,
+  type AlternativeAppDetailsResult,
+} from "@/lib/server/alternative-apps-service";
 import {
   JsonLd,
   buildBreadcrumbJsonLd,
@@ -15,15 +19,15 @@ import {
 
 export async function generateMetadata({ params }: { params: Promise<{ appId: string }> }): Promise<Metadata> {
   const { appId } = await params;
-  let details = null;
+  let result: AlternativeAppDetailsResult | null = null;
 
   try {
-    details = await getAlternativeAppDetailsResponse(appId);
+    result = await getAlternativeAppDetailsResponse(appId);
   } catch (error) {
     console.error("Alternative app details metadata failed to load.", error);
   }
 
-  if (!details) {
+  if (!result || result.status === "not-found") {
     return {
       title: "Alternative App Not Found",
       robots: {
@@ -33,6 +37,17 @@ export async function generateMetadata({ params }: { params: Promise<{ appId: st
     };
   }
 
+  if (result.status === "empty") {
+    return {
+      title: "Alternatives Unavailable",
+      robots: {
+        follow: false,
+        index: false,
+      },
+    };
+  }
+
+  const { details } = result;
   const description = `Compare ${details.app.name} against alternative applications for spend, fit, migration, integrations, and security.`;
   const route = {
     title: `${details.app.name} Alternatives`,
@@ -46,10 +61,10 @@ export async function generateMetadata({ params }: { params: Promise<{ appId: st
 
 export default async function AlternativeAppDetailsPage({ params }: { params: Promise<{ appId: string }> }) {
   const { appId } = await params;
-  let details = null;
+  let result: AlternativeAppDetailsResult | null = null;
 
   try {
-    details = await getAlternativeAppDetailsResponse(appId);
+    result = await getAlternativeAppDetailsResponse(appId);
   } catch (error) {
     console.error("Alternative app details failed to load.", error);
     return (
@@ -61,7 +76,11 @@ export default async function AlternativeAppDetailsPage({ params }: { params: Pr
     );
   }
 
-  if (!details) {
+  if (result.status === "not-found") {
+    notFound();
+  }
+
+  if (result.status === "empty") {
     return (
       <section aria-label="Alternative application details" className="alternative-app-details">
         <Container className="alternative-app-details__shell" variant="siteFooterPromo">
@@ -71,6 +90,7 @@ export default async function AlternativeAppDetailsPage({ params }: { params: Pr
     );
   }
 
+  const { details } = result;
   const route = {
     title: `${details.app.name} Alternatives`,
     description: `Compare ${details.app.name} against alternative applications for spend, fit, migration, integrations, and security.`,
