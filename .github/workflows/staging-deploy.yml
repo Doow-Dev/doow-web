@@ -35,6 +35,9 @@ jobs:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
           BLOG_LIVE: ${{ secrets.BLOG_LIVE }}
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
         run: npm run build
 
       - name: Prepare standalone package
@@ -43,7 +46,7 @@ jobs:
           cp -r .next/static .next/standalone/.next/static
           rm -f .next/standalone/.next/oryx-manifest.toml
           echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > .next/standalone/package.json
-          cd .next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
+          rm -f .next/standalone/node_modules.tar.gz
 
       - name: Login to Azure
         uses: azure/login@v2
