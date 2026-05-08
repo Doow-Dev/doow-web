@@ -12,6 +12,7 @@ import type {
 } from "@/app/(site-pages)/subscriptions/content/manual-tracking-content";
 import { ProgressiveSplitShell, type ProgressiveSplitItem } from "@/components/layout/shared";
 import { SectionHeading } from "@/components/system";
+import type { SiteVideoEntry } from "@/lib/assets/site";
 
 type SubscriptionsManualTrackingShellItem = SubscriptionsManualTrackingItem &
   ProgressiveSplitItem<SubscriptionsManualTrackingVisualId>;
@@ -48,8 +49,13 @@ function RenewalCalendar() {
   );
 }
 
-function ManualTrackingVideo({ mimeType, src }: { mimeType: string; src: string }) {
+function getVideoAspectRatio(video: SiteVideoEntry) {
+  return video.width && video.height ? `${video.width} / ${video.height}` : undefined;
+}
+
+function ManualTrackingVideo({ video }: { video: SiteVideoEntry }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const aspectRatio = getVideoAspectRatio(video);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -78,20 +84,23 @@ function ManualTrackingVideo({ mimeType, src }: { mimeType: string; src: string 
     return () => {
       motionQuery.removeEventListener("change", syncPlayback);
     };
-  }, [src]);
+  }, [video.src]);
 
   return (
     <video
       aria-hidden="true"
       autoPlay
       className="subscriptions-manual__visual-video"
+      height={video.height}
       loop
       muted
       playsInline
       preload="auto"
       ref={videoRef}
+      style={{ aspectRatio }}
+      width={video.width}
     >
-      <source src={src} type={mimeType} />
+      <source src={video.src} type={video.mimeType} />
     </video>
   );
 }
@@ -100,7 +109,7 @@ function SubscriptionsManualVisual({ item }: { item: SubscriptionsManualTracking
   return (
     <div className="subscriptions-manual__visual-window">
       {item.visualVideo ? (
-        <ManualTrackingVideo mimeType={item.visualVideo.mimeType} src={item.visualVideo.src} />
+        <ManualTrackingVideo video={item.visualVideo} />
       ) : item.visualImage ? (
         <Image
           alt={item.visualImage.alt}

@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react";
 
 import { useReducedMotion } from "motion/react";
 
-import type { FeaturePointContent, FeatureShowcaseFrame, FeatureSplitSectionContent } from "../content";
-import { PointOneStage } from "./point-one-stage";
+import { ProgressiveSplitPlaceholderIllustration } from "@/components/custom/illustrations/applications-illustrations";
 import { ProgressiveSplitShell, type ProgressiveSplitItem } from "@/components/layout/shared";
 import { SectionHeading } from "@/components/system";
-import { ProgressiveSplitPlaceholderIllustration } from "@/components/custom/illustrations/applications-illustrations";
+import type { SiteVideoEntry } from "@/lib/assets/site";
+
+import type { FeaturePointContent, FeatureSplitSectionContent } from "../content";
 
 export interface FeatureSplitShowcaseProps {
   content: FeatureSplitSectionContent;
@@ -16,65 +17,81 @@ export interface FeatureSplitShowcaseProps {
 
 type FeatureSplitShellItem = FeaturePointContent & ProgressiveSplitItem<FeaturePointContent["id"]>;
 
-function getNextFrame(frame: FeatureShowcaseFrame) {
-  if (frame === "frame-1") {
-    return "frame-2";
-  }
-
-  if (frame === "frame-2") {
-    return "frame-3";
-  }
-
-  return "frame-1";
+function getVideoAspectRatio(video: SiteVideoEntry) {
+  return video.width && video.height ? `${video.width} / ${video.height}` : undefined;
 }
 
-function FeatureSplitStageContent({
-  content,
+function FeatureSplitStageVideo({
   inView,
-  point,
   prefersReducedMotion,
+  video,
 }: {
-  content: FeatureSplitSectionContent;
   inView: boolean;
-  point: FeatureSplitShellItem;
   prefersReducedMotion: boolean;
+  video: SiteVideoEntry;
 }) {
-  const [activeFrame, setActiveFrame] = useState<FeatureShowcaseFrame>(content.defaultFrame);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const shouldLoad = inView;
+  const aspectRatio = getVideoAspectRatio(video);
 
   useEffect(() => {
-    if (point.stageKind !== "pointOne") {
+    const videoElement = videoRef.current;
+
+    if (!shouldLoad || !videoElement) {
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      videoElement.pause();
+      videoElement.currentTime = 0;
       return;
     }
 
     if (!inView) {
-      const frameId = window.setTimeout(() => {
-        setActiveFrame(content.defaultFrame);
-      }, 0);
-
-      return () => {
-        window.clearTimeout(frameId);
-      };
+      videoElement.pause();
+      return;
     }
 
-    const timeoutId = window.setTimeout(() => {
-      setActiveFrame((currentFrame) => getNextFrame(currentFrame));
-    }, activeFrame === "frame-1" ? content.timings.frameOneMs : activeFrame === "frame-2" ? content.timings.frameTwoMs : content.timings.frameThreeMs);
+    videoElement.muted = true;
+    void videoElement.play().catch(() => undefined);
+  }, [inView, prefersReducedMotion, shouldLoad, video.src]);
 
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [
-    activeFrame,
-    content.defaultFrame,
-    content.timings.frameOneMs,
-    content.timings.frameThreeMs,
-    content.timings.frameTwoMs,
-    inView,
-    point.stageKind,
-  ]);
+  return (
+    <div className="feature-split__visual-window">
+      {shouldLoad ? (
+        <video
+          aria-hidden="true"
+          autoPlay
+          className="feature-split__visual-video"
+          height={video.height}
+          loop
+          muted
+          playsInline
+          preload="auto"
+          ref={videoRef}
+          style={{ aspectRatio }}
+          width={video.width}
+        >
+          <source src={video.src} type={video.mimeType} />
+        </video>
+      ) : (
+        <span aria-hidden="true" className="feature-split__visual-video feature-split__visual-video--loading" style={{ aspectRatio }} />
+      )}
+    </div>
+  );
+}
 
-  if (point.stageKind === "pointOne") {
-    return <PointOneStage frame={activeFrame} point={content.pointOne} prefersReducedMotion={prefersReducedMotion} />;
+function FeatureSplitStageContent({
+  inView,
+  point,
+  prefersReducedMotion,
+}: {
+  inView: boolean;
+  point: FeatureSplitShellItem;
+  prefersReducedMotion: boolean;
+}) {
+  if (point.stageKind === "video" && point.visualVideo) {
+    return <FeatureSplitStageVideo inView={inView} prefersReducedMotion={prefersReducedMotion} video={point.visualVideo} />;
   }
 
   return <ProgressiveSplitPlaceholderIllustration className="feature-split__placeholder-stage" />;
@@ -154,6 +171,7 @@ export function FeatureSplitShowcase({ content }: FeatureSplitShowcaseProps) {
         itemTitle: "feature-split__point-title",
         layout: "feature-split__layout",
         stageColumn: "feature-split__stage-column",
+        stageMotion: "feature-split__stage-motion",
         stagePanel: "feature-split__stage-panel",
         stageSurface: "feature-split__stage-surface",
       }}
@@ -177,7 +195,7 @@ export function FeatureSplitShowcase({ content }: FeatureSplitShowcaseProps) {
       layoutRef={sectionRef}
       listAriaLabel="Browse feature highlights"
       renderStage={(item) => (
-        <FeatureSplitStageContent content={content} inView={inView} point={item} prefersReducedMotion={prefersReducedMotion} />
+        <FeatureSplitStageContent inView={inView} point={item} prefersReducedMotion={prefersReducedMotion} />
       )}
       rootProps={{ "data-feature-split-surface": "layout" }}
       showStage={showStage}
