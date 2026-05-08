@@ -12,6 +12,8 @@ export interface SiteVideoEntry {
   id: string;
   src: string;
   mimeType: string;
+  width?: number;
+  height?: number;
 }
 
 const demoVideoSources = videoAsset("demo-placeholder-vid.mp4", "demo-poster.jpg");
@@ -171,8 +173,31 @@ export const siteAssetManifest = {
   },
   subscriptionsRenewalsVideo: {
     id: "subscriptions-renewals-video",
-    src: "/assets/illustrations/subscriptions-renewals-feature.mp4",
+    src: assetUrl("subscriptions-renewals-feature.mp4"),
     mimeType: "video/mp4",
+    width: 900,
+    height: 560,
+  },
+  featureSplitDiscoverVideo: {
+    id: "feature-split-discover-video",
+    src: assetUrl("feature-1 (1).mp4"),
+    mimeType: "video/mp4",
+    width: 860,
+    height: 540,
+  },
+  featureSplitEliminateVideo: {
+    id: "feature-split-eliminate-video",
+    src: assetUrl("usage-based-license.mp4"),
+    mimeType: "video/mp4",
+    width: 900,
+    height: 560,
+  },
+  featureSplitConsolidateVideo: {
+    id: "feature-split-consolidate-video",
+    src: assetUrl("feature-2.mp4"),
+    mimeType: "video/mp4",
+    width: 860,
+    height: 540,
   },
   subscriptionsContractsVisual: {
     id: "subscriptions-contracts-visual",
@@ -277,6 +302,9 @@ export const siteAssetManifest = {
   subscriptionsHeroDashboard: SiteAssetEntry;
   subscriptionsRenewalsVisual: SiteAssetEntry;
   subscriptionsRenewalsVideo: SiteVideoEntry;
+  featureSplitDiscoverVideo: SiteVideoEntry;
+  featureSplitEliminateVideo: SiteVideoEntry;
+  featureSplitConsolidateVideo: SiteVideoEntry;
   subscriptionsContractsVisual: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;
