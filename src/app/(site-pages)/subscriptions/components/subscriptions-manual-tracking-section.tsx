@@ -95,6 +95,7 @@ function ManualTrackingVideo({ video }: { video: SiteVideoEntry }) {
       loop
       muted
       playsInline
+      poster={video.posterSrc}
       preload="auto"
       ref={videoRef}
       style={{ aspectRatio }}

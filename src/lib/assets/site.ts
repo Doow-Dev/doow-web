@@ -12,6 +12,7 @@ export interface SiteVideoEntry {
   id: string;
   src: string;
   mimeType: string;
+  posterSrc?: string;
   width?: number;
   height?: number;
 }
@@ -175,6 +176,7 @@ export const siteAssetManifest = {
     id: "subscriptions-renewals-video",
     src: assetUrl("subscriptions-renewals-feature.mp4"),
     mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/subscriptions-renewals-feature-poster.webp",
     width: 900,
     height: 560,
   },
@@ -182,6 +184,7 @@ export const siteAssetManifest = {
     id: "feature-split-discover-video",
     src: assetUrl("feature-1 (1).mp4"),
     mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/feature-split-discover-poster.webp",
     width: 860,
     height: 540,
   },
@@ -189,6 +192,7 @@ export const siteAssetManifest = {
     id: "feature-split-eliminate-video",
     src: assetUrl("usage-based-license.mp4"),
     mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/feature-split-eliminate-poster.webp",
     width: 900,
     height: 560,
   },
@@ -196,6 +200,7 @@ export const siteAssetManifest = {
     id: "feature-split-consolidate-video",
     src: assetUrl("feature-2.mp4"),
     mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/feature-split-consolidate-poster.webp",
     width: 860,
     height: 540,
   },
