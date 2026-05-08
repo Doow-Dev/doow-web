@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { useReducedMotion } from "motion/react";
@@ -67,6 +68,7 @@ function FeatureSplitStageVideo({
           loop
           muted
           playsInline
+          poster={video.posterSrc}
           preload="auto"
           ref={videoRef}
           style={{ aspectRatio }}
@@ -74,6 +76,17 @@ function FeatureSplitStageVideo({
         >
           <source src={video.src} type={video.mimeType} />
         </video>
+      ) : video.posterSrc && video.width && video.height ? (
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="feature-split__visual-video feature-split__visual-poster"
+          height={video.height}
+          src={video.posterSrc}
+          style={{ aspectRatio }}
+          unoptimized
+          width={video.width}
+        />
       ) : (
         <span aria-hidden="true" className="feature-split__visual-video feature-split__visual-video--loading" style={{ aspectRatio }} />
       )}

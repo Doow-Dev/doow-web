@@ -192,6 +192,11 @@
     height: auto;
     border-radius: 1.5rem;
     box-shadow: 0 22px 38px -28px rgba(2, 6, 23, 0.32);
+    object-fit: cover;
+  }
+
+  .feature-split__visual-poster {
+    background: rgba(255, 255, 255, 0.64);
   }
 
   .feature-split__visual-video--loading {
