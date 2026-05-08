@@ -1,169 +1,109 @@
 ---
-name: doow-website-rebuild
-description: Use this skill when working on the Doow landing-page rebuild. It covers the batched delivery model, Figma-driven implementation flow, mobile-first responsive rules, AI-assistant collaboration, CDN asset policy, design-system extraction, and the quality gates required before any section can be marked complete.
+name: doow-monorepo
+description: Use this skill when working in the Doow production monorepo. It covers app boundaries, package boundaries, MDX governance, deployment paths, root commands, landing-page rebuild rules, and the checks required before work can be marked complete.
 ---
 
-# Doow Website Rebuild
+# Doow monorepo
 
-This repository is being rebuilt as a modern Doow SaaS landing page with supporting utility routes. The current site is legacy. The new source of truth is the Figma landing-page design and the rebuild docs in `docs/rebuild/`.
+The repo is a production pnpm and Turborepo monorepo. It contains the web app,
+the docs app, and shared packages that both apps can use.
 
-Do not treat this repo like a normal incremental UI cleanup. The work is a staged migration with design review after every batch and after every section.
+## Read order
 
-## Primary Rules
+1. `AGENTS.md`
+2. `docs/architecture/README.md`
+3. `docs/architecture/app-boundaries.md`
+4. `docs/architecture/package-boundaries.md`
+5. `docs/architecture/mdx-content-governance.md`
+6. `docs/architecture/deployment.md`
+7. Relevant files in `docs/decisions/`
 
-1. Work in batches, not as a one-shot implementation.
-2. Stop after each batch for review.
-3. Stop after each section for review.
-4. Use Figma as the design source of truth.
-5. Build mobile-first, even when only desktop Figma exists.
-6. Prefer static rendering and minimal client JavaScript.
-7. Do not keep old landing-page structure or assets unless they are intentionally retained.
+For landing-page rebuild work, also read `docs/rebuild/README.md`,
+`docs/rebuild/roadmap.md`, and `docs/rebuild/acceptance-gates.md`.
 
-## Delivery Model
+## Workspace ownership
 
-The rebuild runs in this order:
+`apps/web` owns `www.doow.co`: landing page, subscriptions, auth entry routes,
+legal pages, blog routes, blog MDX, web metadata, web analytics, and web-only
+integrations.
 
-1. Preflight and standards lock
-2. AI agent and repo guidance files
-3. Legacy cleanup and route pruning
-4. Figma extraction and design-system foundation
-5. CDN and asset pipeline
-6. Shared app shell, metadata, and quality harness
-7. Section-by-section implementation from navbar to footer
-8. Final cross-page polish and launch prep
+`apps/docs` owns `docs.doow.co`: docs pages, docs UI, docs navigation, docs
+redirects, docs search, docs versioning, and docs content governance.
 
-Each batch must leave the repo in a coherent state and document what is now considered the new source of truth.
+`packages/mdx` owns generic MDX helpers. `packages/content-schemas` owns shared
+schema primitives. `packages/design-tokens` owns shared token exports.
+`packages/config` owns shared config exports.
 
-## Section Completion Gates
+## Boundary rules
 
-A section is not complete until it passes all four gates:
+- Apps do not import from each other.
+- Shared packages do not import from `apps/*`.
+- `@/*` aliases are app-local.
+- App-specific schemas, navigation, routes, RSS, search, redirects, and
+  publication models stay in the owning app.
+- Extract code into `packages/*` only when multiple workspaces need it and the
+  API is generic.
 
-- Design: matches the agreed Figma node and screenshot.
-- Performance: no avoidable bundle, media, or layout-shift regressions.
-- Accessibility: semantic markup, keyboard behavior, contrast, focus, reduced motion, and alt text all hold up.
-- SEO: correct headings, crawlable markup, descriptive links, and no critical content hidden behind client-only rendering.
+## Content rules
 
-Default review widths:
+Blog content lives in `apps/web/content/blog`. Use
+`docs/runbooks/add-blog-post.md` for blog changes.
 
-- `360`
-- `390`
-- `768`
-- `1024`
-- `1280`
-- `1440+`
+Docs content lives in `apps/docs/content/docs`. Use these runbooks for docs
+changes:
 
-## Figma Workflow
+- `docs/runbooks/add-docs-page.md`
+- `docs/runbooks/move-docs-page.md`
+- `docs/runbooks/add-docs-redirect.md`
 
-Use the Figma MCP workflow whenever a section or primitive is being implemented from design.
+Published docs URL moves require redirects in
+`apps/docs/src/lib/docs/redirects.ts`.
 
-1. Pull the exact node context for the target section or component.
-2. Pull the screenshot for the same node.
-3. Pull only the variables, components, and assets needed for that slice.
-4. Normalize Figma values into the repo token system instead of copy-pasting generated Tailwind output.
-5. Publish approved assets to the CDN path used by the app.
+## Deployment rules
 
-Important constraint:
+Web deploys from `apps/web` to `www.doow.co`. Docs deploys from `apps/docs` to
+`docs.doow.co`. Use the runbooks in `docs/deployment/` before changing Vercel
+settings or environment variables.
 
-- The current Figma connection works, but the active seat has hit tool-call limits during deeper inspection. Keep extraction targeted and section-specific.
+Run `pnpm check:deployment` after deployment config changes.
 
-## Responsive Implementation Rules
+## Root command surface
 
-The available Figma design is desktop-first. Mobile and tablet behavior must be inferred in code.
+- `pnpm dev`
+- `pnpm dev:web`
+- `pnpm dev:docs`
+- `pnpm build`
+- `pnpm build:web`
+- `pnpm build:docs`
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm check:content`
+- `pnpm check:boundaries`
+- `pnpm check:deployment`
+- `pnpm verify`
 
-Use these defaults unless a later review overrides them:
+Use `README.md` for the meaning of each command.
 
-- Start with the mobile layout first.
-- Reduce visual complexity on small screens before shrinking everything proportionally.
-- Preserve hierarchy, spacing rhythm, and CTA clarity.
-- Favor stacked layouts, simplified media framing, and shorter line lengths on small viewports.
-- Use motion sparingly and honor `prefers-reduced-motion`.
+## Landing-page rebuild rules
 
-## Design-System Rules
+Landing-page rebuild work still follows the original production workflow:
 
-The new design system comes from Figma, not from the current repo styling.
+- Work in batches.
+- Stop after each batch and section for review.
+- Use Figma as the design source of truth.
+- Build mobile-first.
+- Prefer static rendering and minimal client JavaScript.
+- Do not preserve legacy sections or assets unless the rebuild docs explicitly
+  retain them.
 
-Build three layers:
+## Completion gate
 
-1. Raw Figma token snapshots for traceability.
-2. Semantic tokens used by code.
-3. Component recipes and primitives built on those semantic tokens.
+Run focused checks for the workspace you changed. For broad or cross-workspace
+changes, run:
 
-Required early primitives:
+```bash
+pnpm verify
+```
 
-- Button
-- Nav link
-- CTA group
-- Badge or pill
-- Section heading
-- Card
-- Form field
-- Footer list
-- Media frame
-
-Do not add one-off section styles when a reusable recipe should exist.
-
-## Asset and CDN Rules
-
-The new site should not depend on the legacy landing-page assets in `public`.
-
-Rules:
-
-- Keep only minimal local essentials inside the app package.
-- Serve landing-page imagery, videos, and exported Figma assets through Azure Blob Storage plus Front Door.
-- Reference assets through typed manifest entries, not ad hoc string URLs.
-- Avoid hardcoded storage URLs in components.
-
-## Route Policy
-
-Public routes to keep:
-
-- `/`
-- `/signin`
-- `/privacy_policy`
-- `/terms_of_use`
-
-Routes to prune with permanent redirects:
-
-- `/contact_us`
-
-## AI Collaboration Rules
-
-This repo is being prepared for multiple AI assistants.
-
-Guidance priority:
-
-1. `docs/rebuild/`
-2. `AGENTS.md`
-3. `SKILL.md`
-4. Assistant-specific instruction files
-
-All assistants should:
-
-- Follow the batch workflow.
-- Reuse the shared design tokens and primitives.
-- Avoid reviving legacy structure.
-- Keep edits localized and easy to review.
-- Leave clear notes about what batch or section changed.
-
-## File Map
-
-- `docs/rebuild/README.md`: rebuild index and current status
-- `docs/rebuild/roadmap.md`: batch order and section sequence
-- `docs/rebuild/acceptance-gates.md`: review criteria and thresholds
-- `docs/rebuild/section-registry.md`: Figma node registry and section status
-- `docs/rebuild/architecture.md`: target app structure and implementation rules
-- `docs/rebuild/design-system.md`: token and primitive strategy
-- `docs/rebuild/figma-workflow.md`: Figma extraction workflow
-- `docs/rebuild/assets-cdn.md`: asset-hosting and CDN contract
-- `docs/rebuild/content-model.md`: typed content strategy
-
-## Working Style
-
-When implementing:
-
-- Announce the batch or section you are working on.
-- Explain what source material you are using.
-- Validate before claiming completion.
-- Pause for review before moving to the next batch or section.
-
-Do not silently continue into the next section after finishing one.
+Do not claim completion while relevant checks fail.

@@ -1,0 +1,34 @@
+{
+  "name": "@doow/mdx",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./code-blocks": "./src/code-blocks.ts",
+    "./errors": "./src/errors.ts",
+    "./headings": "./src/headings.ts",
+    "./parse": "./src/parse.ts",
+    "./validate-components": "./src/validate-components.ts",
+    "./validate-images": "./src/validate-images.ts",
+    "./validate-links": "./src/validate-links.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@doow/content-schemas": "workspace:*",
+    "github-slugger": "2.0.0",
+    "mdast-util-to-string": "4.0.0",
+    "remark-frontmatter": "5.0.0",
+    "remark-mdx": "3.1.1",
+    "remark-parse": "11.0.0",
+    "unified": "11.0.5",
+    "unist-util-visit": "5.1.0"
+  },
+  "devDependencies": {
+    "typescript": "6.0.2",
+    "vitest": "4.0.15"
+  }
+}

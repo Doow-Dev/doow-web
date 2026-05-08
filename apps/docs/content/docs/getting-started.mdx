@@ -1,0 +1,51 @@
+---
+title: "Getting started"
+description: "Set up the first Doow documentation workflow with a clean operating path."
+slug: "getting-started"
+section: "start"
+order: 1
+status: "published"
+updatedAt: "2026-05-08"
+---
+
+## Prepare your workspace
+
+Doow docs start from the same production monorepo as the web app. Keep docs
+content in `apps/docs/content/docs`, keep docs-specific rendering in
+`apps/docs/src/components/docs`, and share only stable primitives from packages.
+
+<Callout title="Production rule" tone="warning">
+  Docs content and docs UI can ship independently from the landing page, but
+  they must pass the same monorepo verification loop before deploy.
+</Callout>
+
+## Create the first page
+
+<Steps>
+  <ol>
+    <li>Add an MDX file under `apps/docs/content/docs`.</li>
+    <li>Set frontmatter with `title`, `description`, `slug`, `section`, and `order`.</li>
+    <li>Add the slug to the docs navigation registry.</li>
+    <li>Run `pnpm --filter @doow/docs check:content`.</li>
+  </ol>
+</Steps>
+
+## Choose the right primitive
+
+<Cards>
+  <Card title="Use Callout">
+    Highlight warnings, notes, and product constraints without interrupting the
+    reading flow.
+  </Card>
+  <Card title="Use Tabs">
+    Compare setup paths when the user needs one of several equivalent commands.
+  </Card>
+</Cards>
+
+## Verify locally
+
+<Tabs items="pnpm, route">
+  <CodeBlock language="bash" code="pnpm --filter @doow/docs dev && pnpm --filter @doow/docs build" />
+</Tabs>
+
+Use <Tooltip label="A table of contents is generated from level-two and level-three headings.">the page outline</Tooltip> to confirm headings are readable and stable.

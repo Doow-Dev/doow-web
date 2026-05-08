@@ -1,13 +1,47 @@
-# Claude Working Notes
+# Claude working notes
 
-Use `AGENTS.md` and `docs/rebuild/` as the main source of truth for this repo.
+Use `AGENTS.md` first. This repo is now a pnpm and Turborepo monorepo with two
+production Next.js apps.
 
-Key expectations:
+## Fast map
 
-- Respect the batch-by-batch rebuild workflow.
-- Pause after each batch and after each section.
-- Implement mobile-first from desktop Figma.
-- Use the shared token and primitive layer before building sections.
-- Prefer small, reviewable changes over broad refactors.
+- Web app: `apps/web`
+- Docs app: `apps/docs`
+- Shared MDX helpers: `packages/mdx`
+- Shared content schema primitives: `packages/content-schemas`
+- Shared tokens: `packages/design-tokens`
+- Deployment docs: `docs/deployment`
+- Architecture docs: `docs/architecture`
+- Decision records: `docs/decisions`
+- Content runbooks: `docs/runbooks`
 
-If the current batch or section is unclear, check `docs/rebuild/roadmap.md` and `docs/rebuild/section-registry.md` first.
+## Default checks
+
+Use focused checks while iterating:
+
+```bash
+pnpm check:boundaries
+pnpm check:deployment
+pnpm --filter @doow/web build
+pnpm --filter @doow/docs check:content
+pnpm --filter @doow/docs build
+```
+
+Use the full gate before broad completion:
+
+```bash
+pnpm verify
+```
+
+## Boundaries
+
+Keep app-owned behavior in the app that owns it. Extract to `packages/*` only
+when both apps need the behavior and the code can be tested without a Next.js
+app. Do not import between apps.
+
+## Landing-page rebuild
+
+For landing-page visual work, also read `docs/rebuild/README.md`,
+`docs/rebuild/roadmap.md`, and `docs/rebuild/acceptance-gates.md`. That rebuild
+still follows batch review, section review, Figma source of truth, and
+mobile-first implementation.
