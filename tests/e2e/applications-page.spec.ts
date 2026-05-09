@@ -171,6 +171,46 @@ for (const viewport of viewports) {
   });
 }
 
+test.describe("applications hero background pills", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("keeps the mobile pill field balanced and slim", async ({ page }) => {
+    await page.goto("/applications");
+
+    const metrics = await page.evaluate(() => {
+      const visiblePills = Array.from(document.querySelectorAll<HTMLElement>(".applications-hero__pill-item")).filter(
+        (element) => getComputedStyle(element).display !== "none"
+      );
+      const viewportCenterX = window.innerWidth / 2;
+      const badgeRatios = visiblePills
+        .flatMap((element) => {
+          const rect = element.querySelector<HTMLElement>(".applications-hero__pill-badge")?.getBoundingClientRect();
+
+          return rect && rect.width > 0 ? [rect.height / rect.width] : [];
+        });
+
+      return {
+        left: visiblePills.filter((element) => {
+          const rect = element.getBoundingClientRect();
+
+          return rect.left + rect.width / 2 < viewportCenterX;
+        }).length,
+        maxBadgeRatio: Math.max(...badgeRatios),
+        right: visiblePills.filter((element) => {
+          const rect = element.getBoundingClientRect();
+
+          return rect.left + rect.width / 2 >= viewportCenterX;
+        }).length,
+        visibleCount: visiblePills.length,
+      };
+    });
+
+    expect(metrics.visibleCount).toBe(16);
+    expect(metrics.left).toBe(metrics.right);
+    expect(metrics.maxBadgeRatio).toBeLessThan(0.35);
+  });
+});
+
 test.describe("applications problems section", () => {
   test.use({ viewport: { width: 1280, height: 960 } });
 

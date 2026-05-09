@@ -265,7 +265,7 @@
 }
 
 @utility badge-app-logo-pill {
-  height: 56px;
+  height: var(--applications-hero-pill-height, 56px);
   justify-content: center;
   gap: var(--applications-hero-pill-gap, 8px);
   border-radius: var(--shape-radius-pill-field);
@@ -277,7 +277,8 @@
   font-weight: var(--type-app-logo-pill-weight);
   letter-spacing: var(--type-app-logo-pill-letter-spacing);
   line-height: var(--type-app-logo-pill-line-height);
-  padding-inline: 33px;
+  padding-block: var(--applications-hero-pill-padding-block, 0);
+  padding-inline: var(--applications-hero-pill-padding-inline, 33px);
   text-transform: uppercase;
 }
 

@@ -3,6 +3,9 @@
     --doow-ai-hero-image-width: clamp(39rem, 165vw, 63rem);
     --doow-ai-hero-image-overlap: -0.5rem;
     --doow-ai-hero-outro-overlap: -2.5rem;
+    --doow-ai-hero-top-padding: calc(
+      var(--global-site-navbar-offset-top) + var(--global-site-navbar-height) + clamp(2.75rem, 6vw, 3.75rem)
+    );
 
     position: relative;
     display: grid;
@@ -12,7 +15,7 @@
     margin-top: calc(0px - var(--global-site-navbar-offset-top) - var(--global-site-navbar-height));
     background: var(--button-neutral);
     color: var(--fg-base);
-    padding: clamp(3.5rem, 13vw, 6.25rem) 1rem clamp(4rem, 12vw, 5.875rem);
+    padding: var(--doow-ai-hero-top-padding) 1rem clamp(4rem, 12vw, 5.875rem);
     scroll-margin-top: calc(var(--global-site-navbar-shell-height) + 1rem);
   }
 
@@ -135,7 +138,9 @@
   @media (min-width: 48rem) {
     .doow-ai-hero {
       --doow-ai-hero-image-width: clamp(56rem, 118vw, 80rem);
-      padding-top: clamp(4.5rem, 11vw, 6.25rem);
+      --doow-ai-hero-top-padding: calc(
+        var(--global-site-navbar-offset-top) + var(--global-site-navbar-height) + clamp(3rem, 6vw, 4rem)
+      );
     }
 
   }
@@ -147,7 +152,7 @@
       --doow-ai-hero-outro-overlap: -4.625rem;
 
       min-height: 64rem;
-      padding-top: 6.25rem;
+      padding-top: var(--doow-ai-hero-top-padding);
       padding-bottom: 5.875rem;
     }
 

@@ -7,7 +7,8 @@
     --applications-hero-foreground-offset: 0.875rem;
     --applications-hero-fade-height: 6.5rem;
     --applications-hero-visual-gap: 0.625rem;
-    --applications-hero-pill-field-scale: 1.08;
+    --applications-hero-pill-field-scale: 1.16;
+    --applications-hero-pill-height: 74%;
 
     position: relative;
     overflow: clip;
@@ -122,13 +123,15 @@
   }
 
   .applications-hero__pill-float {
+    display: flex;
+    align-items: center;
     height: 100%;
   }
 
   .applications-hero__pill-badge {
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    height: var(--applications-hero-pill-height);
   }
 
   .applications-hero__pill-label {
@@ -229,16 +232,35 @@
   }
 
   @media (max-width: 47.999rem) {
+    .applications-hero {
+      --applications-hero-pill-gap-cap: 0.65vw;
+      --applications-hero-pill-height: 70%;
+      --applications-hero-pill-padding-inline: clamp(0.1875rem, 1vw, 0.4375rem);
+      --applications-hero-pill-padding-block: 0;
+      --type-app-logo-pill-line-height: 1;
+      --type-app-logo-pill-size: clamp(0.4375rem, 2vw, 0.625rem);
+    }
+
     .applications-hero__pill-badge {
-      padding-inline: 1.5rem;
-      font-size: 0.9375rem;
-      line-height: 1.125rem;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .applications-hero__pill-label {
+      display: block;
+      flex: none;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
       transform: translateY(0);
+      white-space: nowrap;
     }
 
+    .applications-hero__pill-logo {
+      max-width: clamp(0.375rem, 2.1vw, 0.6875rem);
+      max-height: clamp(0.375rem, 2.1vw, 0.6875rem);
+    }
     .applications-hero__pill-item[data-mobile-hidden="true"] {
       display: none;
     }
