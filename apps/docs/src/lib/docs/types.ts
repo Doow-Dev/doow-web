@@ -6,6 +6,12 @@ export interface DocsTocItem {
   text: string;
 }
 
+export interface DocsNextStep {
+  title: string;
+  href: string;
+  description?: string;
+}
+
 export interface DocsPageFrontmatter {
   description: string;
   order: number;
@@ -14,6 +20,8 @@ export interface DocsPageFrontmatter {
   status: "published" | "draft";
   title: string;
   updatedAt?: string;
+  prerequisites?: string[];
+  nextSteps?: DocsNextStep[];
 }
 
 export interface DocsPage extends DocsPageFrontmatter {
@@ -29,4 +37,17 @@ export interface DocsNavItem {
   label: string;
   section: DocsSection;
   slug: string;
+}
+
+export interface DocsSidebarLink {
+  href: string;
+  label: string;
+  description?: string;
+  badge?: "new" | "beta";
+}
+
+export interface DocsSidebarGroup {
+  label: string;
+  section: DocsSection;
+  items: DocsSidebarLink[];
 }

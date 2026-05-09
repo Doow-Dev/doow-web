@@ -11,6 +11,16 @@ export const DocsFrontmatterSchema = z.object({
   order: z.number().int().nonnegative(),
   status: z.enum(["published", "draft"]).default("published"),
   updatedAt: dateStringSchema.optional(),
+  prerequisites: z.array(z.string().min(1)).optional(),
+  nextSteps: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        href: z.string().min(1),
+        description: z.string().optional(),
+      }),
+    )
+    .optional(),
 });
 
 export type ParsedDocsFrontmatter = z.infer<typeof DocsFrontmatterSchema>;

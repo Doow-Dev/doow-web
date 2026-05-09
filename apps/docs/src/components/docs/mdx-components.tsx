@@ -1,6 +1,9 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import { CopyButton } from "./copy-button";
+import { Tabs } from "./tabs";
+
 type CalloutTone = "note" | "warning" | "success";
 
 function isExternalHref(href?: string) {
@@ -93,40 +96,19 @@ export function CodeBlock({
   const value = typeof code === "string" ? code : typeof children === "string" ? children : "";
 
   return (
-    <pre className="docs-code-block" data-language={language}>
-      <code>{value}</code>
-    </pre>
-  );
-}
-
-export function Tabs({
-  children,
-  items,
-}: {
-  children?: ReactNode;
-  items?: string[] | string;
-}) {
-  const labels = Array.isArray(items)
-    ? items
-    : typeof items === "string"
-      ? items.split(",").map((item) => item.trim()).filter(Boolean)
-      : [];
-
-  return (
-    <div className="docs-tabs">
-      {labels.length > 0 ? (
-        <div className="docs-tabs__list" role="tablist">
-          {labels.map((item, index) => (
-            <span aria-selected={index === 0} key={item} role="tab">
-              {item}
-            </span>
-          ))}
-        </div>
-      ) : null}
-      <div className="docs-tabs__panel">{children}</div>
+    <div className="docs-code-shell">
+      <div className="docs-code-toolbar">
+        <span>{language ?? "text"}</span>
+        <CopyButton value={value} />
+      </div>
+      <pre className="docs-code-block" data-language={language}>
+        <code>{value}</code>
+      </pre>
     </div>
   );
 }
+
+export { Tabs };
 
 export function Tooltip({
   children,

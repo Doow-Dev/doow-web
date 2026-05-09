@@ -44,7 +44,11 @@ export const docsMdxOptions = {
       [
         rehypePrettyCode,
         {
-          theme: "github-light",
+          themes: {
+            light: "github-light",
+            dark: "github-dark",
+          },
+          defaultLang: "plaintext",
         },
       ],
     ],
