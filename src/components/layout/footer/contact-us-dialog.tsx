@@ -1,6 +1,8 @@
 "use client";
 
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, FormEvent } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 import {
   Dialog,
@@ -13,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useContactForm } from "@/lib/hooks/useContactForm";
 
 export interface ContactUsDialogProps {
   triggerClassName?: string;
@@ -33,8 +36,30 @@ function ContactInput({ className, id, label, ...props }: ContactInputProps) {
 }
 
 export function ContactUsDialog({ triggerClassName, triggerLabel = "Contact" }: ContactUsDialogProps) {
+  const [open, setOpen] = useState(false);
+
+  const { loading, error, handleSubmit } = useContactForm({
+    onSuccess() {
+      setOpen(false);
+      toast.success("Message sent!");
+    },
+  });
+
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    void handleSubmit({
+      name: (formData.get("name") as string) ?? "",
+      email: (formData.get("email") as string) ?? "",
+      company: (formData.get("company") as string) ?? "",
+      message: (formData.get("message") as string) ?? "",
+    });
+  }
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button className={cn("site-footer__link site-footer__link-button", triggerClassName)} type="button">
           {triggerLabel}
@@ -48,7 +73,7 @@ export function ContactUsDialog({ triggerClassName, triggerLabel = "Contact" }: 
           </DialogDescription>
         </DialogHeader>
 
-        <form className="contact-dialog__form" onSubmit={(event) => event.preventDefault()}>
+        <form className="contact-dialog__form" onSubmit={onSubmit}>
           <ContactInput autoComplete="name" id="contact-name" label="Name" name="name" placeholder="Enter your name" />
           <ContactInput
             autoComplete="email"
@@ -79,8 +104,14 @@ export function ContactUsDialog({ triggerClassName, triggerLabel = "Contact" }: 
             />
           </label>
 
-          <Button className="contact-dialog__submit" size="base" type="submit" variant="primary">
-            Send message
+          {error ? (
+            <p className="contact-dialog__error" role="alert">
+              {error}
+            </p>
+          ) : null}
+
+          <Button className="contact-dialog__submit" disabled={loading} size="base" type="submit" variant="primary">
+            {loading ? "Sending…" : "Send message"}
           </Button>
         </form>
       </DialogContent>
