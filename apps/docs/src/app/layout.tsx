@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sometype_Mono } from "next/font/google";
 
+import { ThemeScript } from "@/components/docs/theme-provider";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -34,7 +35,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f0e" },
+  ],
 };
 
 export default function RootLayout({
@@ -43,7 +47,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={`${inter.variable} ${sometypeMono.variable}`} lang="en">
+    <html className={`${inter.variable} ${sometypeMono.variable}`} lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>{children}</body>
     </html>
   );
