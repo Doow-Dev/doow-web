@@ -1,0 +1,36 @@
+---
+title: "Permissions"
+description: "Roles, scopes, and the matrix that decides who can do what."
+slug: "permissions"
+section: "reference"
+order: 33
+status: "published"
+updatedAt: "2026-05-08"
+---
+
+## Built-in roles
+
+Three roles ship with every workspace: **owner** (full read and write),
+**reviewer** (read everything, write reviews and approvals), and
+**viewer** (read-only). Most teams stay on these three.
+
+## Scopes
+
+Each role resolves to a set of scopes. Scopes are the unit the API
+checks — for example, `transactions:write` or `approvals:read`. The full
+scope list is exposed in the audit log.
+
+## Custom roles
+
+Custom roles are available on the business plan. They compose existing
+scopes; you cannot define a new scope.
+
+## Audit
+
+Every permission change is recorded in the audit log, including who
+made the change and the prior value.
+
+<Callout title="Coming soon">
+  The full role-to-scope matrix and per-action examples will land here
+  once the role model freezes.
+</Callout>

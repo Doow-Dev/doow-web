@@ -1,0 +1,35 @@
+---
+title: "Conventions"
+description: "Naming, casing, slugs, and the small rules that keep things consistent."
+slug: "conventions"
+section: "reference"
+order: 32
+status: "published"
+updatedAt: "2026-05-08"
+---
+
+## Slugs
+
+Slugs are kebab-case, lowercase, ASCII-only. They appear in URLs and
+in import payloads. Once a slug is set, it should not change — downstream
+references break.
+
+## IDs
+
+Every resource has an opaque ID prefixed by its type — `app_`, `txn_`,
+`vnd_`, `wsp_`. The format is stable across regions.
+
+## Timestamps
+
+All timestamps are ISO-8601 in UTC. Display in the UI is localised to
+the viewer's timezone, but the stored value is always UTC.
+
+## Currency
+
+Amounts are integers in the smallest currency unit (cents for USD,
+pence for GBP). Displays format to two decimals.
+
+<Callout title="Coming soon">
+  A full conventions cheat sheet with examples for every type will land
+  here as the reference set rounds out.
+</Callout>

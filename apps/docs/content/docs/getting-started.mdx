@@ -6,6 +6,17 @@ section: "start"
 order: 1
 status: "published"
 updatedAt: "2026-05-08"
+prerequisites:
+  - "A Doow workspace with admin access"
+  - "Node 20+ or Python 3.11+ (for SDK examples)"
+  - "An API key with `reviews:write` scope"
+nextSteps:
+  - title: "Quickstart"
+    href: "/quickstart"
+    description: "Ship a first review in ten minutes."
+  - title: "Connect data"
+    href: "/connect-data"
+    description: "Plug Doow into your expense source."
 ---
 
 ## Prepare your workspace
@@ -44,8 +55,10 @@ content in `apps/docs/content/docs`, keep docs-specific rendering in
 
 ## Verify locally
 
-<Tabs items="pnpm, route">
-  <CodeBlock language="bash" code="pnpm --filter @doow/docs dev && pnpm --filter @doow/docs build" />
+<Tabs id="docs-verify" items="pnpm, npm, yarn">
+  <CodeBlock language="bash" code="pnpm --filter @doow/docs check:content && pnpm --filter @doow/docs build" />
+  <CodeBlock language="bash" code="npm run check:content --workspace @doow/docs && npm run build --workspace @doow/docs" />
+  <CodeBlock language="bash" code="yarn workspace @doow/docs check:content && yarn workspace @doow/docs build" />
 </Tabs>
 
 Use <Tooltip label="A table of contents is generated from level-two and level-three headings.">the page outline</Tooltip> to confirm headings are readable and stable.
