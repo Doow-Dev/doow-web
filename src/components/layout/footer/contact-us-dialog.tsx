@@ -41,7 +41,7 @@ export function ContactUsDialog({ triggerClassName, triggerLabel = "Contact" }: 
   const { loading, error, handleSubmit } = useContactForm({
     onSuccess() {
       setOpen(false);
-      toast.success("Message sent!");
+      toast.success("Thanks! Someone from our team will reach out to you shortly.");
     },
   });
 
