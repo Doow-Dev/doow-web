@@ -9,7 +9,21 @@ import {
   alternativeAppsCatalogDefaultTake,
   alternativeAppsCatalogResponseSchema,
 } from "@/lib/site/alternative-apps-catalog";
+import type { AlternativeAppDetailResponse } from "@/lib/site/alternative-app-details";
+import { FetchJsonError } from "@/lib/rest/fetch-json";
 import { fetchDoowApi } from "@/lib/server/doow-api-client";
+
+export type AlternativeAppDetailsResult =
+  | {
+      details: AlternativeAppDetailResponse;
+      status: "found";
+    }
+  | {
+      status: "empty";
+    }
+  | {
+      status: "not-found";
+    };
 
 export async function getAlternativeAppsCatalogResponse({
   categoryId = "all",
@@ -57,19 +71,37 @@ export async function getAlternativeAppsCatalogResponse({
   );
 }
 
-export async function getAlternativeAppDetailsResponse(appId: string | undefined) {
+export async function getAlternativeAppDetailsResponse(appId: string | undefined): Promise<AlternativeAppDetailsResult> {
   if (!appId) {
-    return null;
+    return { status: "not-found" };
   }
 
-  const raw = await fetchDoowApi<unknown>({
-    path: "/alternatives/catalog/hero",
-    params: {
-      source_app_id: appId,
-      take: 1,
-    },
-  });
+  let raw;
+
+  try {
+    raw = await fetchDoowApi<unknown>({
+      path: "/alternatives/catalog/hero",
+      params: {
+        source_app_id: appId,
+        take: 1,
+      },
+    });
+  } catch (error) {
+    if (error instanceof FetchJsonError && error.status === 404) {
+      return { status: "not-found" };
+    }
+
+    throw error;
+  }
+
   const response = transformAlternativeAppDetailResponse(raw, appId);
 
-  return response ? alternativeAppDetailResponseSchema.parse(response) : null;
+  if (!response) {
+    return { status: "empty" };
+  }
+
+  return {
+    details: alternativeAppDetailResponseSchema.parse(response),
+    status: "found",
+  };
 }

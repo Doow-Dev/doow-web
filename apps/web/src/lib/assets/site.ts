@@ -12,6 +12,9 @@ export interface SiteVideoEntry {
   id: string;
   src: string;
   mimeType: string;
+  posterSrc?: string;
+  width?: number;
+  height?: number;
 }
 
 const demoVideoSources = videoAsset("demo-placeholder-vid.mp4", "demo-poster.jpg");
@@ -19,7 +22,7 @@ const demoVideoSources = videoAsset("demo-placeholder-vid.mp4", "demo-poster.jpg
 export const siteAssetManifest = {
   heroBackground: {
     id: "hero-background",
-    src: "/assets/images/hero-bg.png",
+    src: assetUrl("hero-bg_mobile.png"),
     alt: "",
     width: 1352,
     height: 902,
@@ -171,8 +174,35 @@ export const siteAssetManifest = {
   },
   subscriptionsRenewalsVideo: {
     id: "subscriptions-renewals-video",
-    src: "/assets/illustrations/subscriptions-renewals-feature.mp4",
+    src: assetUrl("subscriptions-renewals-feature.mp4"),
     mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/subscriptions-renewals-feature-poster.webp",
+    width: 900,
+    height: 560,
+  },
+  featureSplitDiscoverVideo: {
+    id: "feature-split-discover-video",
+    src: assetUrl("feature-1 (1).mp4"),
+    mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/feature-split-discover-poster.webp",
+    width: 860,
+    height: 540,
+  },
+  featureSplitEliminateVideo: {
+    id: "feature-split-eliminate-video",
+    src: assetUrl("usage-based-license.mp4"),
+    mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/feature-split-eliminate-poster.webp",
+    width: 900,
+    height: 560,
+  },
+  featureSplitConsolidateVideo: {
+    id: "feature-split-consolidate-video",
+    src: assetUrl("feature-2.mp4"),
+    mimeType: "video/mp4",
+    posterSrc: "/assets/illustrations/video-posters/feature-split-consolidate-poster.webp",
+    width: 860,
+    height: 540,
   },
   subscriptionsContractsVisual: {
     id: "subscriptions-contracts-visual",
@@ -277,6 +307,9 @@ export const siteAssetManifest = {
   subscriptionsHeroDashboard: SiteAssetEntry;
   subscriptionsRenewalsVisual: SiteAssetEntry;
   subscriptionsRenewalsVideo: SiteVideoEntry;
+  featureSplitDiscoverVideo: SiteVideoEntry;
+  featureSplitEliminateVideo: SiteVideoEntry;
+  featureSplitConsolidateVideo: SiteVideoEntry;
   subscriptionsContractsVisual: SiteAssetEntry;
   faqUserAvatar: SiteAssetEntry;
   integrationsUpwardArcOuter: SiteAssetEntry;

@@ -3,6 +3,9 @@
     --doow-ai-hero-image-width: clamp(39rem, 165vw, 63rem);
     --doow-ai-hero-image-overlap: -0.5rem;
     --doow-ai-hero-outro-overlap: -2.5rem;
+    --doow-ai-hero-top-padding: calc(
+      var(--global-site-navbar-offset-top) + var(--global-site-navbar-height) + clamp(2.75rem, 6vw, 3.75rem)
+    );
 
     position: relative;
     display: grid;
@@ -12,7 +15,7 @@
     margin-top: calc(0px - var(--global-site-navbar-offset-top) - var(--global-site-navbar-height));
     background: var(--button-neutral);
     color: var(--fg-base);
-    padding: clamp(3.5rem, 13vw, 6.25rem) 1rem clamp(4rem, 12vw, 5.875rem);
+    padding: var(--doow-ai-hero-top-padding) 1rem clamp(4rem, 12vw, 5.875rem);
     scroll-margin-top: calc(var(--global-site-navbar-shell-height) + 1rem);
   }
 
@@ -63,15 +66,40 @@
     pointer-events: none;
   }
 
+  .doow-ai-hero__image-wrap {
+    position: relative;
+    width: var(--doow-ai-hero-image-width);
+    max-width: none;
+    aspect-ratio: 1398 / 576;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
   .doow-ai-hero__image {
     display: block;
     position: relative;
-    left: 50%;
-    width: var(--doow-ai-hero-image-width);
-    max-width: none;
+    width: 100%;
     height: auto;
     object-fit: contain;
     object-position: center top;
+  }
+
+  .doow-ai-hero__visual-overlay {
+    position: absolute;
+    top: 57.8%;
+    left: calc(50% + 0.7868%);
+    z-index: 1;
+    display: block;
+    width: 103.0043%;
+    height: 42.2%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.9) 38%,
+      #ffffff 52%,
+      #ffffff 100%
+    );
+    pointer-events: none;
     transform: translateX(-50%);
   }
 
@@ -110,7 +138,9 @@
   @media (min-width: 48rem) {
     .doow-ai-hero {
       --doow-ai-hero-image-width: clamp(56rem, 118vw, 80rem);
-      padding-top: clamp(4.5rem, 11vw, 6.25rem);
+      --doow-ai-hero-top-padding: calc(
+        var(--global-site-navbar-offset-top) + var(--global-site-navbar-height) + clamp(3rem, 6vw, 4rem)
+      );
     }
 
   }
@@ -122,7 +152,7 @@
       --doow-ai-hero-outro-overlap: -4.625rem;
 
       min-height: 64rem;
-      padding-top: 6.25rem;
+      padding-top: var(--doow-ai-hero-top-padding);
       padding-bottom: 5.875rem;
     }
 

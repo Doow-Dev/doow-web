@@ -215,11 +215,12 @@ function AlternativePreviewLogo({ index, preview }: { index: number; preview: Al
 function AlternativeAppsCatalogCard({ item }: { item: AlternativeAppsCatalogItem }) {
   const graphic = getIntegrationAppGraphic(...item.logoHints, item.name);
   const previews = (item.alternativePreviewLogos ?? []).slice(0, 3);
+  const remainingAlternativeCount = Math.max(item.alternativeCount - previews.length, 0);
   const categoryLabel = getPrimaryCategoryLabel(item.categoryLabel);
 
   return (
     <CatalogProviderCard
-      aria-label={`${item.name}, ${categoryLabel}, ${item.alternativeCount}+ alternatives`}
+      aria-label={`${item.name}, ${categoryLabel}, ${item.alternativeCount} alternatives`}
       footer={
         <span className="alternative-apps-catalog-card__alternatives">
           {previews.length ? (
@@ -233,8 +234,8 @@ function AlternativeAppsCatalogCard({ item }: { item: AlternativeAppsCatalogItem
               ))}
             </span>
           ) : null}
-          {item.alternativeCount > 0 ? (
-            <span className="alternative-apps-catalog-card__alternative-count">+{item.alternativeCount}</span>
+          {remainingAlternativeCount > 0 ? (
+            <span className="alternative-apps-catalog-card__alternative-count">+{remainingAlternativeCount}</span>
           ) : null}
         </span>
       }

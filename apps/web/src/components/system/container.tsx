@@ -15,7 +15,6 @@ const containerVariants = cva("", {
       landingFooterPromo: "container-shell-site-footer-promo",
       landingFooterBody: "container-shell-site-footer-body",
       readable: "container-shell-readable",
-      signIn: "container-shell-sign-in",
     },
   },
   defaultVariants: {

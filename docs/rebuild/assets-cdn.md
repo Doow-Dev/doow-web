@@ -40,6 +40,8 @@ The current repo still contains `67` legacy public asset files across several fo
 ## Current Blob Usage
 
 - The hero background, demo frame, demo poster, demo video, and pricing background assets now resolve through the shared blob asset helper.
+- The subscriptions renewal loop and landing feature-split video surfaces also resolve through the shared blob asset helper.
+- Temporary local WebP posters for those landing and subscriptions videos live under `/assets/illustrations/video-posters/` until equivalent blob-hosted poster images are uploaded.
 - `.env.example` documents `NEXT_PUBLIC_BLOB_BASE_URL`, which is the single contract for blob-hosted landing assets until Front Door is introduced.
 - `.env.example` and `.env.local.example` document the server-only deployment variables `DOOW_API_BASE_URL`, `CATALOG_ADMIN_KEY`, and `X_ADMIN_SECRET`; the GitHub Actions Azure Static Web Apps workflows load them from repository secrets during deploy.
 - `next/image` remains responsible for optimizing the remote hero, frame, poster, and thumbnail images, while the demo MP4 stays a direct blob video source that only mounts after user intent.

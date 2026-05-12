@@ -60,6 +60,7 @@ src/
 - Future product and solution routes such as `/applications` should live in `app/(site-pages)` and reuse the shared non-landing navbar shell.
 - Product-detail destinations such as `/doow-ai` should also live in `app/(site-pages)` when a landing CTA requires a stable non-landing route during the rebuild.
 - `/about_us` also lives in `app/(site-pages)` and follows the shared site-page shell.
-- `signin`, `privacy_policy`, and `terms_of_use` remain supported.
+- `privacy_policy` and `terms_of_use` remain supported.
+- Sign-in and sign-up live in the external Doow app and should be linked through `src/lib/site/app-links.ts`.
 - `contact_us` is removed and redirected.
 - Utility routes should share a route-group layout instead of re-wrapping shell markup in each page.

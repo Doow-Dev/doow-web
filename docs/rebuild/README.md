@@ -18,17 +18,28 @@ This folder is the source of truth for the Doow landing-page rebuild.
 - Current public asset file count: `33`
 - Current app routes defined under `src/app/`:
   - `/`
+  - `/about_us`
+  - `/alternative-apps`
+  - `/alternative-apps/[appId]`
   - `/applications`
-  - `/subscriptions`
   - `/doow-ai`
+  - `/expenses`
   - `/integrations`
+  - `/pricing`
+  - `/subscriptions`
+  - `/blog`
+  - `/blog/[slug]`
+  - `/blog/page/[page]`
+  - `/blog/tag/[tag]`
+  - `/blog/tag/[tag]/page/[page]`
+  - `/blog/rss.xml`
+  - `/blog/search.json`
   - `/privacy_policy`
-  - `/signin`
   - `/terms_of_use`
 - Current typecheck status: passes
 - Current unit test status: passes via `npm run test:unit`, with a Node module-type warning from `src/lib/site/integrations.js`
 - Current lint status: passes with 2 warnings in `src/app/(landing)/page.tsx` because the Doow AI landing import and shell are currently unused
-- Current production build status: `next build` currently fails in restricted environments because `src/app/layout.tsx` fetches `Inter` through `next/font/google` at build time
+- Current production build status: `next build` requires network access in restricted environments because `src/app/layout.tsx` intentionally fetches `Inter` and `Sometype Mono` through `next/font/google` at build time
 - Current e2e note: `tests/e2e/layout-regression.spec.ts` still assumes `#doow-ai` is rendered on `/`, but the section is currently commented out in `src/app/(landing)/page.tsx`
 
 ## Baseline Snapshot
@@ -68,6 +79,33 @@ Captured before structural rebuild work:
 17. `assets-cdn.md`
 18. `content-model.md`
 19. `integration-catalog-endpoint-expectations.md`
+
+## Current Route Policy
+
+Public routes intentionally supported by this codebase:
+
+- `/`
+- `/about_us`
+- `/alternative-apps`
+- `/alternative-apps/[appId]`
+- `/applications`
+- `/doow-ai`
+- `/expenses`
+- `/integrations`
+- `/pricing`
+- `/subscriptions`
+- `/blog/*`
+- `/privacy_policy`
+- `/terms_of_use`
+
+Authentication routes are not local pages. Login and sign-up links resolve
+through `NEXT_PUBLIC_DOOW_APP_BASE_URL` via `src/lib/site/app-links.ts`.
+
+Contact Us is a footer dialog interaction, not a page. The legacy `/contact_us`
+URL remains a permanent redirect for old inbound links.
+
+Blog routes remain `noindex, nofollow` and are excluded from the sitemap until
+`BLOG_LIVE=true` is set in the production environment.
 
 ## Important Constraint
 

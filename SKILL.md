@@ -31,8 +31,8 @@ integrations.
 redirects, docs search, docs versioning, and docs content governance.
 
 `packages/mdx` owns generic MDX helpers. `packages/content-schemas` owns shared
-schema primitives. `packages/design-tokens` owns shared token exports.
-`packages/config` owns shared config exports.
+schema primitives. `packages/ui` owns shared UI primitives and shared CSS
+foundations. `packages/config` owns shared config exports.
 
 ## Boundary rules
 
@@ -96,6 +96,65 @@ Landing-page rebuild work still follows the original production workflow:
 - Prefer static rendering and minimal client JavaScript.
 - Do not preserve legacy sections or assets unless the rebuild docs explicitly
   retain them.
+
+### Design-system rules
+
+The web app design system comes from Figma and the shared package layer, not
+from the retired legacy app styling. Build in three layers:
+
+1. Raw Figma token snapshots for traceability.
+2. Semantic tokens used by code.
+3. Component recipes and primitives built on those semantic tokens.
+
+Required reusable primitives include Button, Nav link, CTA group, Badge or
+pill, Section heading, Card, Form field, Footer list, and Media frame. Do not
+add one-off section styles when a reusable recipe should exist.
+
+### Asset and CDN rules
+
+The new site should not depend on the legacy root `public` assets.
+
+- Keep only minimal local essentials inside the app package.
+- Serve landing-page imagery, videos, and exported Figma assets through Azure
+  Blob Storage plus Front Door.
+- Reference assets through typed manifest entries, not ad hoc string URLs.
+- Avoid hardcoded storage URLs in components.
+
+### Web route policy
+
+Public routes intentionally supported by the web app:
+
+- `/`
+- `/about_us`
+- `/alternative-apps`
+- `/alternative-apps/[appId]`
+- `/applications`
+- `/doow-ai`
+- `/expenses`
+- `/integrations`
+- `/pricing`
+- `/subscriptions`
+- `/blog/*`
+- `/privacy_policy`
+- `/terms_of_use`
+
+Auth links resolve through `NEXT_PUBLIC_DOOW_APP_BASE_URL`. Do not add a local
+`/signin` page unless the product direction changes. Contact Us is a footer
+dialog interaction, not a page; keep the legacy `/contact_us` redirect only for
+old inbound links. Blog indexing is controlled by `BLOG_LIVE`.
+
+## AI collaboration rules
+
+This repo is prepared for multiple AI assistants. Guidance priority:
+
+1. `docs/rebuild/`
+2. `AGENTS.md`
+3. `SKILL.md`
+4. Assistant-specific instruction files
+
+All assistants should follow the batch workflow, reuse shared tokens and
+primitives, avoid reviving legacy structure, keep edits localized and easy to
+review, and leave notes about what batch or section changed.
 
 ## Completion gate
 

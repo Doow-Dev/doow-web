@@ -1,19 +1,20 @@
 import type { MetadataRoute } from "next";
 
-import { blogUrl } from "@/lib/blog/config";
+import { BLOG_LIVE, blogUrl } from "@/lib/blog/config";
 import { getAllPostMeta, getAllTags } from "@/lib/blog/content";
 import { POSTS_PER_PAGE } from "@/lib/blog/posts";
+import { absoluteSiteUrl } from "@/lib/seo/site";
 
 const STATIC_ROUTES = [
   "",
+  "/about_us",
+  "/alternative-apps",
   "/applications",
-  "/blog",
   "/doow-ai",
   "/expenses",
   "/integrations",
   "/pricing",
   "/privacy_policy",
-  "/signin",
   "/subscriptions",
   "/terms_of_use",
 ];
@@ -33,9 +34,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries = STATIC_ROUTES.map((route) => ({
     changeFrequency: route === "" ? "weekly" : "monthly",
     lastModified: new Date(),
-    priority: route === "" ? 1 : route === "/blog" ? 0.8 : 0.7,
-    url: blogUrl(route || "/"),
+    priority: route === "" ? 1 : 0.7,
+    url: absoluteSiteUrl(route || "/"),
   })) satisfies MetadataRoute.Sitemap;
+
+  if (!BLOG_LIVE) {
+    return staticEntries;
+  }
+
+  const blogIndexEntry = {
+    changeFrequency: "weekly",
+    lastModified: new Date(),
+    priority: 0.8,
+    url: blogUrl("/blog"),
+  } satisfies MetadataRoute.Sitemap[number];
 
   const posts = await getAllPostMeta();
   const postEntries = posts.map((post) => ({
@@ -60,6 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticEntries,
+    blogIndexEntry,
     ...postEntries,
     ...tagEntries,
     ...blogPaginationEntries,

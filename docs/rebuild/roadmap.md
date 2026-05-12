@@ -23,7 +23,7 @@
 ### Batch 2. Legacy cleanup and route pruning
 - Remove legacy landing sections and legacy landing-page-only assets or helpers.
 - Keep `/about_us` as a site page, and prune `/contact_us` with a redirect.
-- Preserve `/signin`, `/privacy_policy`, and `/terms_of_use`, but detach them from the old landing-page shell.
+- Preserve `/privacy_policy` and `/terms_of_use`, but detach them from the old landing-page shell. Sign-in and sign-up live in the external Doow app.
 - Status: completed, ready for review
 
 ### Batch 3. Figma extraction and design-system foundation
@@ -38,7 +38,7 @@
 
 ### Batch 5. Shared app shell, metadata, and quality harness
 - Build and harden the new shell, metadata, global styles, test harness, and visual review surface.
-- Status: in progress
+- Status: in progress; production-readiness hardening adds shared site SEO helpers, full-route sitemap/robots policy, analytics env gating, axe checks, LHCI mobile/desktop budgets, and bundle analysis
 
 ### Batch 6 onward. Section implementation
 - Navbar or header
@@ -58,6 +58,30 @@
 ### Final batch. Cross-page polish and launch prep
 - Run final validation on metadata, routing, CDN behavior, image handling, analytics, and launch readiness.
 - Status: pending
+
+## Production Route Policy
+
+The expanded public route set is intentional:
+
+- `/`
+- `/about_us`
+- `/alternative-apps`
+- `/alternative-apps/[appId]`
+- `/applications`
+- `/doow-ai`
+- `/expenses`
+- `/integrations`
+- `/pricing`
+- `/subscriptions`
+- `/blog/*`
+- `/privacy_policy`
+- `/terms_of_use`
+
+There is no local `/signin` page. Auth navigation links directly to the
+external Doow app configured by `NEXT_PUBLIC_DOOW_APP_BASE_URL`.
+
+Contact Us remains a footer dialog. `/contact_us` is only a legacy permanent
+redirect for old inbound links.
 
 ## Review Rule
 

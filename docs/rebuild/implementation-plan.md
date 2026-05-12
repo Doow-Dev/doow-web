@@ -66,7 +66,7 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
 
 - Remove the old landing-page implementation and old asset assumptions.
 - Keep `/about_us` as a site page, and prune `/contact_us` with a redirect.
-- Keep `/signin`, `/privacy_policy`, and `/terms_of_use` on a neutral rebuild shell.
+- Keep `/privacy_policy` and `/terms_of_use` on a neutral rebuild shell. Sign-in and sign-up live in the external Doow app.
 - Status: completed
 
 ### Batch 3. Figma extraction and design-system foundation
@@ -111,6 +111,10 @@ Rebuild the Doow landing page as a clean, modern, mobile-first Next.js codebase 
   - typecheck
   - unit coverage for reusable logic
   - Playwright smoke coverage
+  - Playwright axe accessibility coverage
+  - route SEO assertions
+  - Lighthouse CI mobile and desktop budgets
+  - bundle analysis
   - visual screenshot checks
 - Add a component review surface such as Storybook for shared system work.
 - Lock container and spacing rules before section implementation begins.
@@ -158,20 +162,30 @@ If a section fails review, iterate on that section only.
 
 ## Route Policy
 
-Keep:
+Current intended public routes:
 
 - `/`
 - `/about_us`
+- `/alternative-apps`
+- `/alternative-apps/[appId]`
 - `/applications`
-- `/subscriptions`
 - `/doow-ai`
-- `/signin`
+- `/expenses`
+- `/integrations`
+- `/pricing`
+- `/subscriptions`
+- `/blog/*`
 - `/privacy_policy`
 - `/terms_of_use`
 
-Prune:
+Auth links resolve to the external Doow app through
+`NEXT_PUBLIC_DOOW_APP_BASE_URL`; there is no local `/signin` page.
 
-- `/contact_us`
+Contact Us is a footer dialog interaction. `/contact_us` remains only as a
+legacy redirect for old inbound links.
+
+Blog routes remain `noindex, nofollow` and are excluded from the sitemap until
+`BLOG_LIVE=true` is set in production.
 
 ## Architecture Direction
 

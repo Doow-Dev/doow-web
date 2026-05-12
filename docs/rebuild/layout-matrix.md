@@ -22,7 +22,6 @@ This file freezes the outer layout contract for the retained routes before the l
 | `landingFooterPromo` | alias of `siteFooterPromo` | same as `siteFooterPromo` | same as `siteFooterPromo` | no | temporary migration alias |
 | `landingFooterBody` | alias of `siteFooterBody` | same as `siteFooterBody` | same as `siteFooterBody` | no | temporary migration alias |
 | `readable` | `48rem` / `768px` | `clamp(1.25rem, 3vw, 2.5rem)` | `0` | no | legal-page readable body |
-| `signIn` | `64rem` / `1024px` | `clamp(1.25rem, 3vw, 2.5rem)` | `0` | no | sign-in route page shell |
 
 ## Shell Presets
 
@@ -37,7 +36,6 @@ This file freezes the outer layout contract for the retained routes before the l
 | `siteFooterBodyShell` | `siteFooterBody` | none | invariant footer-body shell shared by `(site-pages)` route chrome and landing footer composition |
 | `utilityPageShell` | `utilityShell` | `padding-block: var(--space-section)` for generic utility pages | shared route shell |
 | `legalReadableShell` | `readable` | preserve current legal top and bottom spacing | replaces page-level max-width wrappers |
-| `signInShell` | `signIn` | `padding-block: var(--space-section)` | shared route shell with sign-in-specific content width |
 
 ## Locked Existing Values
 

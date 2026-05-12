@@ -4,9 +4,9 @@ import { getAlternativeAppDetailsResponse } from "@/lib/server/alternative-apps-
 
 export async function GET(_request: Request, context: { params: Promise<{ appId: string }> }) {
   const { appId } = await context.params;
-  const response = await getAlternativeAppDetailsResponse(appId);
+  const result = await getAlternativeAppDetailsResponse(appId);
 
-  if (!response) {
+  if (result.status === "not-found") {
     return NextResponse.json(
       {
         error: "Unknown application id.",
@@ -17,7 +17,18 @@ export async function GET(_request: Request, context: { params: Promise<{ appId:
     );
   }
 
-  return NextResponse.json(response, {
+  if (result.status === "empty") {
+    return NextResponse.json(
+      {
+        error: "Application alternatives are temporarily unavailable.",
+      },
+      {
+        status: 503,
+      },
+    );
+  }
+
+  return NextResponse.json(result.details, {
     headers: {
       "Cache-Control": "public, max-age=0, s-maxage=300, stale-while-revalidate=60",
     },

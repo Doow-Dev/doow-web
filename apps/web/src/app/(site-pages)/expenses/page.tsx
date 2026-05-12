@@ -7,31 +7,24 @@ import { ExpensesClaritySection } from "@/app/(site-pages)/expenses/components/e
 import { ExpensesHeroSection } from "@/app/(site-pages)/expenses/components/expenses-hero-section";
 import { ExpensesSpendSourcesSection } from "@/app/(site-pages)/expenses/components/expenses-spend-sources-section";
 import { SiteFaqSection } from "@/components/layout/faq";
+import { JsonLd, buildBreadcrumbJsonLd, buildFaqJsonLd, buildSiteMetadata, buildWebPageJsonLd, siteRouteSeo } from "@/lib/seo/site";
 
 import { expensesPageContent } from "./content";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
-const expensesDescription =
-  "See where your software money actually goes across cards, banks, and accounting systems in one place.";
-
-export const metadata: Metadata = {
-  title: "Expenses",
-  description: expensesDescription,
-  openGraph: {
-    title: "Expenses | Doow",
-    description: expensesDescription,
-    url: `${siteUrl}/expenses`,
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildSiteMetadata(siteRouteSeo.expenses);
 
 function FaqShell({ children }: { children: ReactNode }) {
   return <SitePageSectionShell section="faq">{children}</SitePageSectionShell>;
 }
 
 export default function ExpensesPage() {
+  const faqJsonLd = buildFaqJsonLd(expensesPageContent.faq);
+
   return (
     <>
+      <JsonLd data={buildWebPageJsonLd(siteRouteSeo.expenses)} />
+      <JsonLd data={buildBreadcrumbJsonLd([{ href: "/", label: "Home" }, { href: "/expenses", label: "Expenses" }])} />
+      {faqJsonLd ? <JsonLd data={faqJsonLd} /> : null}
       <ExpensesHeroSection />
       <ExpensesSpendSourcesSection />
       <ExpensesClaritySection />

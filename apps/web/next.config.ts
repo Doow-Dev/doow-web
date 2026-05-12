@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
 import path from "node:path";
 
 import { BLOG_REDIRECTS } from "./src/lib/blog/redirects";
@@ -28,8 +29,16 @@ function getBlobRemotePattern() {
   }
 }
 
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig: NextConfig = {
   transpilePackages: ["@doow/content-schemas", "@doow/mdx"],
+  output: "standalone",
+  outputFileTracingIncludes: {
+    "/*": ["./node_modules/@img/sharp-win32-x64/lib/*"],
+  },
   turbopack: {
     root: path.join(process.cwd(), "../.."),
   },
@@ -96,4 +105,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

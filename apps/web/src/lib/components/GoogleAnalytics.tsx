@@ -1,13 +1,18 @@
 import Script from 'next/script'
 
-const GA_MEASUREMENT_ID = 'G-Q1X68F95Q2'
+const analyticsEnabled = process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export function GoogleAnalytics() {
+  if (!analyticsEnabled || !gaMeasurementId) {
+    return null;
+  }
+
   return (
     <>
       <Script
         strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
       />
       <Script
         id="google-analytics"
@@ -17,7 +22,7 @@ export function GoogleAnalytics() {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}', {
+            gtag('config', '${gaMeasurementId}', {
               page_path: window.location.pathname,
             });
           `,

@@ -1676,9 +1676,9 @@
   .alternative-app-details-alternative-card {
     display: grid;
     gap: 0.875rem;
-    flex: 0 0 calc((100% - var(--alternative-app-details-card-gap)) / 2);
-    min-width: calc((100% - var(--alternative-app-details-card-gap)) / 2);
-    width: calc((100% - var(--alternative-app-details-card-gap)) / 2);
+    flex: 0 0 100%;
+    min-width: 100%;
+    width: 100%;
     overflow: hidden;
     border: 0;
     border-radius: 0.7681875rem;
@@ -1908,7 +1908,26 @@
     gap: 0.25rem;
     min-width: 0;
     background: #ffffff;
-    padding: 1rem;
+    padding: 2.75rem 1rem 1rem;
+  }
+
+  .alternative-app-details-cell__app-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    max-width: min(12rem, calc(100% - 1.5rem));
+    overflow: hidden;
+    border: 1px solid #e6e6e6;
+    border-radius: 0.5rem;
+    background: #f7f7f7;
+    color: #111827;
+    font-size: 0.75rem;
+    font-weight: var(--type-weight-medium);
+    letter-spacing: 0;
+    line-height: 1rem;
+    padding: 0.25rem 0.5rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .alternative-app-details-cell + .alternative-app-details-cell {
@@ -2312,6 +2331,10 @@
     white-space: nowrap;
   }
 
+  .alternative-app-details__overview > .alternative-app-details-selection {
+    justify-self: end;
+  }
+
   .alternative-app-details__summary-grid {
     overflow: visible;
   }
@@ -2329,8 +2352,9 @@
   }
 
   .alternative-app-details-alternative-card {
-    width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
-    min-width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+    flex-basis: 100%;
+    width: 100%;
+    min-width: 100%;
     background: #f9fafb;
   }
 
@@ -2454,6 +2478,10 @@
     padding: 1rem;
   }
 
+  .alternative-app-details__sticky-compact-intro .alternative-app-details-selection {
+    justify-self: end;
+  }
+
   .alternative-app-details__sticky-compact-intro h2,
   .alternative-app-details-compact-card h3,
   .alternative-app-details-compact-card p {
@@ -2557,9 +2585,9 @@
   }
 
   .alternative-app-details__sticky-compact-alternatives-list .alternative-app-details-compact-card {
-    flex: 0 0 50%;
-    min-width: 50%;
-    width: 50%;
+    flex: 0 0 100%;
+    min-width: 100%;
+    width: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
   }
@@ -2674,8 +2702,29 @@
       display: flex;
     }
 
+    .alternative-app-details__sticky-compact-intro .alternative-app-details-selection {
+      justify-self: start;
+    }
+
+    .alternative-app-details__sticky-compact-intro .alternative-app-details-selection__menu {
+      right: auto;
+      left: 0;
+    }
+
+    .alternative-app-details-alternative-card {
+      flex-basis: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+      min-width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+      width: calc((100% - var(--alternative-app-details-card-gap, 0.75rem)) / 2);
+    }
+
     .alternative-app-details__sticky-compact-alternatives {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .alternative-app-details__sticky-compact-alternatives-list .alternative-app-details-compact-card {
+      flex-basis: 50%;
+      min-width: 50%;
+      width: 50%;
     }
 
     .alternative-app-details__sticky-compact-alternatives::after {
@@ -2705,6 +2754,10 @@
     .alternative-app-details-current-card {
       min-height: 18.8125rem;
       height: auto;
+    }
+
+    .alternative-app-details-current-card {
+      width: 100%;
     }
 
     .alternative-app-details__sticky-compact {
@@ -2773,6 +2826,11 @@
 
     .alternative-app-details-cell {
       min-height: 5.5rem;
+      padding: 1rem;
+    }
+
+    .alternative-app-details-cell__app-badge {
+      display: none;
     }
 
     .alternative-app-details-comparison-section__data-row .alternative-app-details-cell:first-child {
@@ -2782,6 +2840,17 @@
         2px 0 2px rgba(2, 6, 23, 0.02),
         3px 0 6px rgba(2, 6, 23, 0.08),
         2px 0 2px rgba(2, 6, 23, 0.04);
+    }
+  }
+
+  @media (max-width: 64rem) {
+    .alternative-app-details__summary-grid {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    .alternative-app-details-current-card {
+      width: 100%;
     }
   }
 

@@ -159,7 +159,7 @@
   }
 
   .progressive-split__item-description {
-    color: color-mix(in srgb, var(--showcase-copy) 88%, white);
+    color: var(--showcase-copy);
     text-wrap: pretty;
   }
 
@@ -435,7 +435,7 @@
   }
 
   .progressive-split__item-description {
-    color: color-mix(in srgb, var(--showcase-copy) 88%, white);
+    color: var(--showcase-copy);
     text-wrap: pretty;
   }
 

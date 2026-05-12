@@ -355,6 +355,7 @@ export function FaqTool({ content }: FaqToolProps) {
                 aria-label={`${siteFaqChrome.threadAriaLabel}: ${selectedCategory.label}`}
                 className="faq-tool__thread-viewport scrollbar-hidden"
                 ref={viewportRef}
+                role="region"
                 tabIndex={0}
               >
                 <ol className="faq-tool__thread-list" ref={contentRef}>

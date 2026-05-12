@@ -53,18 +53,24 @@ This file tracks the source Figma nodes and status for each major landing-page s
 
 ## Route Policy
 
-Keep:
+Current intended public routes:
 
 - `/`
 - `/about_us`
+- `/alternative-apps`
+- `/alternative-apps/[appId]`
 - `/applications`
-- `/subscriptions`
 - `/doow-ai`
+- `/expenses`
 - `/integrations`
-- `/signin`
+- `/pricing`
+- `/subscriptions`
+- `/blog/*`
 - `/privacy_policy`
 - `/terms_of_use`
 
-Prune:
+Auth links resolve to the external Doow app through
+`NEXT_PUBLIC_DOOW_APP_BASE_URL`; there is no local `/signin` page.
 
-- `/contact_us`
+Contact Us is a footer dialog interaction. `/contact_us` remains only as a
+legacy redirect for old inbound links.

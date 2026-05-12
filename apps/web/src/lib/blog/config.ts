@@ -18,7 +18,7 @@ export const BLOG_CONFIG = {
     title: "Doow Blog",
   },
   siteName: "Doow",
-  siteUrl: trimTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL),
+  siteUrl: trimTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL),
   title: "Doow Blog",
 } as const;
 

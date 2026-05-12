@@ -3,32 +3,27 @@ import type { Metadata } from "next";
 
 import { SitePageSectionShell } from "@/app/(site-pages)/_components/site-page-section-shell";
 import { SiteFaqSection } from "@/components/layout/faq";
+import { JsonLd, buildBreadcrumbJsonLd, buildFaqJsonLd, buildSiteMetadata, buildWebPageJsonLd, siteRouteSeo } from "@/lib/seo/site";
 
 import { DoowAiActionSection } from "./components/doow-ai-action-section";
 import { DoowAiFeaturesSection } from "./components/doow-ai-features-section";
 import { DoowAiHeroSection } from "./components/doow-ai-hero-section";
 import { doowAiPageContent } from "./content";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.doow.co";
-
-export const metadata: Metadata = {
-  title: "Doow AI",
-  description: "Learn how Doow AI helps finance teams explore spend, licenses, and renewals in plain language.",
-  openGraph: {
-    title: "Doow AI | Doow",
-    description: "Learn how Doow AI helps finance teams explore spend, licenses, and renewals in plain language.",
-    url: `${siteUrl}/doow-ai`,
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildSiteMetadata(siteRouteSeo.doowAi);
 
 function FaqShell({ children }: { children: ReactNode }) {
   return <SitePageSectionShell section="faq">{children}</SitePageSectionShell>;
 }
 
 export default function DoowAiPage() {
+  const faqJsonLd = buildFaqJsonLd(doowAiPageContent.faq);
+
   return (
     <>
+      <JsonLd data={buildWebPageJsonLd(siteRouteSeo.doowAi)} />
+      <JsonLd data={buildBreadcrumbJsonLd([{ href: "/", label: "Home" }, { href: "/doow-ai", label: "Doow AI" }])} />
+      {faqJsonLd ? <JsonLd data={faqJsonLd} /> : null}
       <DoowAiHeroSection />
       {doowAiPageContent.actionSections.map((section) => (
         <DoowAiActionSection key={section.id} section={section} />

@@ -22,21 +22,23 @@ function HeroBackground({ compactBackground, desktopBackground }: HeroBackground
     className: "hero-media",
     decoding: "async" as const,
     fill: true,
+    fetchPriority: "high" as const,
     loading: "eager" as const,
     placeholder: "blur" as const,
-    quality: 90,
-    sizes: "100vw",
+    sizes: "(max-width: 1024px) 100vw, 100vw",
   };
   const {
     props: { srcSet: desktopSrcSet, sizes: desktopSizes },
   } = getImageProps({
     ...commonImageProps,
     blurDataURL: HERO_BLUR_DATA_URL,
+    quality: 80,
     src: desktopBackground.src,
   });
   const { props: compactImageProps } = getImageProps({
     ...commonImageProps,
     blurDataURL: HERO_BLUR_DATA_URL,
+    quality: 70,
     src: compactBackground.src,
   });
 

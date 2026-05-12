@@ -352,6 +352,11 @@ function transformCatalogItem(app: Record<string, unknown>) {
   const categoryLabel = stringField(app, ["category"]) ?? "Uncategorized";
   const description = stringField(app, ["description"]) ?? `Compare public alternatives for ${name}.`;
   const alternatives = recordArrayField(app, ["alternatives"]);
+
+  if (!alternatives.length) {
+    return null;
+  }
+
   const alternativePreviewLogos = alternatives.slice(0, 4).map(transformCatalogAlternativePreview);
   const alternativeNames = alternatives
     .map((alternative) => stringField(alternative, ["alt_name", "altName", "name"]))

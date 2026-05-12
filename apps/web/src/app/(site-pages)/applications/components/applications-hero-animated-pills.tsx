@@ -79,6 +79,8 @@ function ApplicationsHeroAnimatedPill({
   pill: ApplicationsHeroPillItem;
   prefersReducedMotion: boolean;
 }) {
+  const pillGap = pill.kind === "brand" ? (pill.logoGap ?? 8) : 0;
+
   return (
     <motion.div
       aria-hidden="true"
@@ -125,7 +127,10 @@ function ApplicationsHeroAnimatedPill({
           className="applications-hero__pill-badge"
           style={
             {
-              "--applications-hero-pill-gap": pill.kind === "brand" ? `${pill.logoGap ?? 8}px` : "0px",
+              "--applications-hero-pill-gap":
+                pill.kind === "brand"
+                  ? `min(${pillGap}px, var(--applications-hero-pill-gap-cap, ${pillGap}px))`
+                  : "0px",
             } as CSSProperties
           }
           variant="appLogoPill"

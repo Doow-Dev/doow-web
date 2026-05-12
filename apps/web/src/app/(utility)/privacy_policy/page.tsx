@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
+
 import { AboutBody, AboutSection, AboutSubHeading, AboutTitle, AboutWrapper, LegalPageShell } from "@/app/_components/terms-privacy";
+import { JsonLd, buildBreadcrumbJsonLd, buildSiteMetadata, buildWebPageJsonLd, siteRouteSeo } from "@/lib/seo/site";
+
+export const metadata: Metadata = buildSiteMetadata(siteRouteSeo.privacyPolicy);
 
 export default function PrivacyPolicy() {
   return (
-    <LegalPageShell lastUpdated="3 April 2023" title="Privacy Policy">
+    <LegalPageShell lastUpdated="5 May 2026" title="Privacy Policy">
+      <JsonLd data={buildWebPageJsonLd(siteRouteSeo.privacyPolicy)} />
+      <JsonLd data={buildBreadcrumbJsonLd([{ href: "/", label: "Home" }, { href: "/privacy_policy", label: "Privacy Policy" }])} />
       <AboutWrapper>
         <AboutSection>
           <AboutTitle>Introduction</AboutTitle>

@@ -149,10 +149,8 @@ const doowAiFooterPromo = {
   id: "doow-ai-footer-promo",
   title: "Ask questions about your company's software",
   cta: {
-    href: "https://dev.doow.co/",
+    href: doowAppLinks.signUp,
     label: "Open Doow AI",
-    rel: "noopener noreferrer",
-    target: "_blank",
   },
 } as const satisfies SiteFooterPromo;
 

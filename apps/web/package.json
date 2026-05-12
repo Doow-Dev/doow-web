@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "node scripts/start-standalone.mjs",
+    "analyze": "ANALYZE=true next build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "pnpm test:unit",
@@ -18,7 +19,13 @@
     "check:blog:s9": "bash scripts/check-blog/s9.sh",
     "check:blog:s11": "bash scripts/check-blog/s11.sh",
     "check:blog:launch": "bash scripts/check-blog/launch.sh",
-    "test:unit": "node tests/unit/integrations.test.mjs && node tests/unit/integration-catalog.test.mjs && node tests/unit/alternative-apps.test.mjs",
+    "test:unit": "node tests/unit/integrations.test.mjs && node tests/unit/integration-catalog.test.mjs && node tests/unit/alternative-apps.test.mjs && node tests/unit/blog-live-policy.test.mjs",
+    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
+    "test:seo": "playwright test tests/e2e/seo-production.spec.ts",
+    "lighthouse:desktop": "lhci autorun --config=../../lighthouserc.desktop.cjs",
+    "lighthouse:mobile": "lhci autorun --config=../../lighthouserc.cjs",
+    "test:lighthouse": "start-server-and-test start http://localhost:3000 \"pnpm lighthouse:mobile && pnpm lighthouse:desktop\"",
+    "test:production": "pnpm lint && pnpm typecheck && pnpm test:unit && pnpm build && pnpm test:a11y && pnpm test:seo && pnpm test:lighthouse",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:install": "playwright install chromium"
@@ -61,6 +68,7 @@
     "remark-mdx": "3.1.1",
     "remark-parse": "11.0.0",
     "server-only": "0.0.1",
+    "sharp": "0.34.5",
     "shiki": "4.0.2",
     "tailwind-merge": "3.5.0",
     "tailwindcss-animate": "1.0.7",
@@ -69,6 +77,9 @@
     "zod": "4.3.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.11.3",
+    "@lhci/cli": "0.15.1",
+    "@next/bundle-analyzer": "16.2.6",
     "@playwright/test": "1.59.1",
     "@tailwindcss/postcss": "4.2.2",
     "@types/node": "25.6.0",
@@ -76,7 +87,9 @@
     "@types/react-dom": "19.2.3",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.3",
+    "lighthouse": "12.8.2",
     "postcss": "8.5.9",
+    "start-server-and-test": "2.1.5",
     "tailwindcss": "4.2.2",
     "typescript": "6.0.2"
   }

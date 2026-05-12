@@ -1,0 +1,100 @@
+name: Doow Web — Staging Deploy (App Service)
+
+on:
+  push:
+    branches:
+      - staging
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        env:
+          NEXT_PUBLIC_BLOB_BASE_URL: ${{ secrets.NEXT_PUBLIC_BLOB_BASE_URL }}
+          NEXT_PUBLIC_DOOW_APP_BASE_URL: ${{ secrets.NEXT_PUBLIC_DOOW_APP_BASE_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
+          BLOG_LIVE: ${{ secrets.BLOG_LIVE }}
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
+          NEXT_PUBLIC_CRISP_WEBSITE_ID: ${{ secrets.NEXT_PUBLIC_CRISP_WEBSITE_ID }}
+        run: pnpm build:web
+
+      - name: Prepare standalone package
+        run: |
+          cp -r apps/web/public apps/web/.next/standalone/
+          mkdir -p apps/web/.next/standalone/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/.next/static
+          rm -f apps/web/.next/standalone/.next/oryx-manifest.toml
+          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > apps/web/.next/standalone/package.json
+          rm -f apps/web/.next/standalone/node_modules.tar.gz
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AGENT_CICD_CLIENT_ID }}
+          tenant-id: ${{ secrets.AGENT_CICD_TENANT_ID }}
+          subscription-id: ${{ secrets.AGENT_CICD_SUBSCRIPTION_ID }}
+
+      - name: Set startup command
+        run: |
+          az webapp config set \
+            --name landing-page \
+            --resource-group Doow-dev \
+            --startup-file "node server.js" \
+            --slot staging
+
+      - name: Set runtime app settings
+        run: |
+          az webapp config appsettings set \
+            --name landing-page \
+            --resource-group Doow-dev \
+            --slot staging \
+            --settings \
+              SCM_DO_BUILD_DURING_DEPLOYMENT=false \
+              DOOW_API_BASE_URL="${{ secrets.DOOW_API_BASE_URL }}" \
+              CATALOG_ADMIN_KEY="${{ secrets.CATALOG_ADMIN_KEY }}" \
+              X_ADMIN_SECRET="${{ secrets.X_ADMIN_SECRET }}" \
+              BLOG_LIVE="${{ secrets.BLOG_LIVE }}" \
+              CRISP_API_IDENTIFIER="${{ secrets.CRISP_API_IDENTIFIER }}" \
+              CRISP_API_KEY="${{ secrets.CRISP_API_KEY }}"
+
+      - name: Zip standalone bundle
+        run: (cd apps/web/.next/standalone && zip -r ../../../../standalone.zip . -x "*.git*")
+
+      - name: Deploy standalone bundle to staging slot
+        run: |
+          az webapp deploy \
+            --name landing-page \
+            --resource-group Doow-dev \
+            --slot staging \
+            --src-path standalone.zip \
+            --type zip \
+            --clean true \
+            --async false

@@ -404,7 +404,7 @@ export function ProgressiveSplitShell<
             className={cn("progressive-split__item-list", classNames?.itemList, itemListPropsClassName)}
             role={showStage ? "tablist" : undefined}
           >
-            <span aria-hidden="true" className={cn("progressive-split__progress-track", classNames?.progressTrack)}>
+            <span aria-hidden="true" className={cn("progressive-split__progress-track", classNames?.progressTrack)} role="presentation">
               <motion.span
                 className={cn("progressive-split__progress-fill", classNames?.progressFill)}
                 data-progressive-split-progress-fill="true"
@@ -417,7 +417,12 @@ export function ProgressiveSplitShell<
               const tabId = `${panelBaseId}-${item.id}-tab`;
 
               return (
-                <li className={cn("progressive-split__item", classNames?.item)} data-active={isSelected ? "true" : "false"} key={item.id}>
+                <li
+                  className={cn("progressive-split__item", classNames?.item)}
+                  data-active={isSelected ? "true" : "false"}
+                  key={item.id}
+                  role={showStage ? "presentation" : undefined}
+                >
                   <button
                     aria-controls={showStage ? panelId : undefined}
                     aria-selected={showStage ? isSelected : undefined}

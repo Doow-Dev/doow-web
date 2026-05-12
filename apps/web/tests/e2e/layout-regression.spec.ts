@@ -31,7 +31,7 @@ async function assertResponsiveGutter(locator: Locator, viewportWidth: number, v
 
   expect(Math.abs(padding.left - padding.right)).toBeLessThanOrEqual(0.5);
 
-  const zeroPaddingBreakpoint =
+      const zeroPaddingBreakpoint =
     {
       landing: 1120,
       landingWide: 1280,
@@ -40,7 +40,6 @@ async function assertResponsiveGutter(locator: Locator, viewportWidth: number, v
       landingFooterPromo: 1408,
       landingFooterBody: 1216,
       readable: 1024,
-      signIn: 1024,
       utilityShell: 1024,
     }[variant] ?? 1024;
 
@@ -288,7 +287,6 @@ for (const viewport of viewports) {
     test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
     const routeMatrix = [
-      { path: "/signin", shell: "signInShell", variant: "signIn" },
       { path: "/privacy_policy", shell: "legalReadableShell", variant: "readable" },
       { path: "/terms_of_use", shell: "legalReadableShell", variant: "readable" },
     ] as const;
@@ -343,7 +341,7 @@ test("alternative apps updates the comparison panel and opens the analysis CTA i
 test.describe("landing feature split interactions", () => {
   test.use({ viewport: { width: 1280, height: 960 } });
 
-  test("renders four selectable items and swaps between the live point-one stage and placeholder stages", async ({ page }) => {
+  test("renders four selectable items and swaps between feature videos", async ({ page }) => {
     await page.goto("/");
 
     const section = page.locator("#product");
@@ -356,23 +354,23 @@ test.describe("landing feature split interactions", () => {
     await expect(section.getByRole("tab")).toHaveCount(4);
     await expect(discoverTab).toHaveAttribute("aria-selected", "true");
     await expect(panel).toHaveAttribute("data-feature-active-point-id", "discover");
-    await expect(panel).toHaveAttribute("data-feature-stage-kind", "pointOne");
-    await expect(panel.locator('[data-feature-point-one-stage="true"]')).toBeVisible();
+    await expect(panel).toHaveAttribute("data-feature-stage-kind", "video");
+    await expect(panel.locator(".feature-split__visual-video")).toBeVisible();
 
     await discoverTab.focus();
     await page.keyboard.press("ArrowDown");
 
     await expect(eliminateTab).toHaveAttribute("aria-selected", "true");
     await expect(panel).toHaveAttribute("data-feature-active-point-id", "eliminate");
-    await expect(panel).toHaveAttribute("data-feature-stage-kind", "placeholder");
-    await expect(panel.locator('[data-progressive-split-placeholder="true"]')).toBeVisible();
+    await expect(panel).toHaveAttribute("data-feature-stage-kind", "video");
+    await expect(panel.locator(".feature-split__visual-video")).toBeVisible();
 
     const progressBeforeClick = await progressFill.evaluate((element) => element.getBoundingClientRect().height);
     await consolidateTab.click();
 
     await expect(consolidateTab).toHaveAttribute("aria-selected", "true");
     await expect(panel).toHaveAttribute("data-feature-active-point-id", "consolidate");
-    await expect(panel).toHaveAttribute("data-feature-stage-kind", "placeholder");
+    await expect(panel).toHaveAttribute("data-feature-stage-kind", "video");
     await expect
       .poll(() => progressFill.evaluate((element) => element.getBoundingClientRect().height))
       .toBeGreaterThan(progressBeforeClick);
