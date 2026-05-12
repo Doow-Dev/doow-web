@@ -1,0 +1,89 @@
+---
+title: "Serverless"
+description: "Send usage events from Lambda, Vercel, and Azure Functions."
+slug: "integrations/usage/instrumentation-sdk/serverless"
+section: "integrations"
+order: 343
+status: "published"
+updatedAt: "2026-05-11"
+---
+Standard Node.js SDK usage relies on timer-based auto-flush. Serverless functions exit after each invocation, so you need guaranteed flush before return. The SDK provides managed wrappers for the most common serverless runtimes.
+
+## What you need
+
+- A Doow SDK API key (`dk_` prefix) — generate one from **Settings → API Keys → SDK Keys**
+- `@doow/track` installed in your function package
+
+## AWS Lambda
+
+```ts
+import { DoowTracker } from '@doow/track';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+export const handler = meter.withLambda(async (event, context) => {
+  meter.track({ metric: 'api_calls', quantity: 1, license_id: 'lic_...' });
+  return { statusCode: 200, body: 'ok' };
+  // shutdown() is called automatically after the handler returns
+});
+```
+
+The `withLambda` wrapper sets `flushAt: 1` so every `track()` triggers an immediate flush, and calls `shutdown()` in a `finally` block so events drain before the function exits.
+
+## Vercel Functions
+
+```ts
+import { DoowTracker } from '@doow/track';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+export default meter.withVercel(async (req: VercelRequest, res: VercelResponse) => {
+  meter.track({ metric: 'requests', quantity: 1, license_id: 'lic_...' });
+  res.status(200).json({ ok: true });
+});
+```
+
+## Azure Functions
+
+```ts
+import { DoowTracker } from '@doow/track';
+import type { Context, HttpRequest } from '@azure/functions';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+export default meter.withAzureFunction(async (context: Context, req: HttpRequest) => {
+  meter.track({ metric: 'invocations', quantity: 1, license_id: 'lic_...' });
+  context.res = { status: 200, body: 'ok' };
+});
+```
+
+## Confirm the event arrived
+
+After sending a test event, open the integration detail page from **Company Settings → Integrations**. A healthy SDK connection should show recent received events for the expected metric and license.
+
+If the event does not appear, confirm that the `dk_` key is valid, the event has a numeric quantity, and the `license_id` matches a license in your Doow workspace.
+
+## Production checklist
+
+Before using this method in production, confirm that your implementation handles batching, retries, shutdown, and credential rotation. Keep the `dk_` key in a secret manager or environment variable, not in source code.
+
+## Troubleshooting
+
+Use these checks when events do not arrive:
+
+- Confirm the `dk_` key is active and belongs to the expected Doow workspace.
+- Confirm each event includes `metric`, `quantity`, and `license_id`.
+- Confirm `quantity` is numeric and greater than zero.
+- Confirm your process flushes events before shutdown.
+- Check application logs for authentication, validation, or network errors.
+
+## Notes
+
+- Initialize `DoowTracker` outside the handler so it is reused across warm invocations
+- The first `track()` call in each invocation triggers an immediate flush (first-event fast path)
+- `shutdown()` has a configurable timeout (default 5 seconds) — increase it if you have high event volumes per invocation
+
+## Next steps
+
+After the test event appears, send events from a production-like environment and confirm batching, retry, and shutdown behavior before rollout.

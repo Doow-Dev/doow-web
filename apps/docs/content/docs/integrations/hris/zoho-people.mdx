@@ -1,0 +1,60 @@
+---
+title: "Zoho People"
+description: "Connect Zoho People employee records and department data to Doow."
+slug: "integrations/hris/zoho-people"
+section: "integrations"
+order: 374
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Zoho People to sync your employee roster and organizational structure into Doow.
+
+> **Note:** This integration covers **Zoho People** as an HR system. If you use Zoho as a login/SSO provider, see the [Zoho identity integration](/integrations/identity/zoho).
+
+## What you need
+
+- A Zoho People account with **Admin** access
+
+## What Doow reads
+
+- Employee name, work email, department, job title
+- Employment status (active, terminated)
+- Start date and termination date
+
+For a full description of how this data is used in Doow, see [HRIS overview](/integrations/hris).
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Zoho People** and click **Connect**
+3. A secure linking modal opens
+4. Zoho People is pre-selected in the modal — log in with your Zoho Admin credentials within the modal
+5. Approve read-only access when prompted
+6. The modal closes and Doow completes the connection and begins the initial employee sync
+
+## What Doow does not read
+
+Salary, compensation, payroll data, leave balances, performance appraisals, tax IDs, or any financial HR data. See [HRIS overview → What Doow does not read](/integrations/hris#what-doow-does-not-read).
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy HRIS sync should show a connected state, a recent sync timestamp, and imported employee records with work email and employment status.
+
+If records are missing, confirm that the connected HR account has access to the employees you expect Doow to read and that those employees have work email addresses.
+
+## Troubleshooting
+
+Use these checks when employee data is missing or stale:
+
+- Confirm the connected HR admin can read the expected employee records.
+- Confirm employee work email addresses are present and match identity records.
+- Check whether terminated or inactive employees are filtered in the provider.
+- Check the integration event log for permission or sync errors.
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Zoho People, and click **Disconnect**. You can also revoke the Doow app from your Zoho account under **My Account → Connected Apps**.
+
+## Next steps
+
+After the sync works, connect an identity provider if you have not already done so. Identity data helps Doow match HRIS employees to app users and assignments.

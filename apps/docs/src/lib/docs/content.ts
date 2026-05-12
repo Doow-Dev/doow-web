@@ -15,7 +15,7 @@ import { cache } from "react";
 
 import { allowedDocsHtmlElements, allowedDocsMdxComponents } from "./mdx-config";
 import { docsNavigationBySlug } from "./navigation";
-import { docsFilenameForSlug, docsPathForSlug } from "./paths";
+import { docsFilenamesForSlug, docsPathForSlug } from "./paths";
 import { validateDocsFrontmatter } from "./schema";
 import type { DocsPage, DocsTocItem } from "./types";
 
@@ -44,24 +44,41 @@ function extractToc(tree: ReturnType<typeof parseDocsMdx>): DocsTocItem[] {
 }
 
 export async function getDocsFiles() {
-  const entries = await fs.readdir(DOCS_DIR, { withFileTypes: true });
+  async function walk(dir: string, prefix = ""): Promise<string[]> {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const files = await Promise.all(
+      entries.map(async (entry) => {
+        const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
+        const fullPath = path.join(dir, entry.name);
 
-  return entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".mdx"))
-    .map((entry) => entry.name)
-    .sort();
+        if (entry.isDirectory()) {
+          return walk(fullPath, relativePath);
+        }
+
+        if (entry.isFile() && entry.name.endsWith(".mdx")) {
+          return [relativePath];
+        }
+
+        return [];
+      }),
+    );
+
+    return files.flat();
+  }
+
+  return (await walk(DOCS_DIR)).sort();
 }
 
 export async function readDocsPage(filename: string): Promise<DocsPage> {
   const raw = await fs.readFile(path.join(DOCS_DIR, filename), "utf8");
   const parsed = matter(raw);
   const frontmatter = validateDocsFrontmatter(parsed.data, filename);
-  const expectedFilename = docsFilenameForSlug(frontmatter.slug);
+  const expectedFilenames = docsFilenamesForSlug(frontmatter.slug);
   const tree = parseDocsMdx(parsed.content, filename);
   const validationErrors: string[] = [];
 
-  if (filename !== expectedFilename) {
-    validationErrors.push(`slug - expected ${expectedFilename} for slug "${frontmatter.slug}"`);
+  if (!expectedFilenames.includes(filename)) {
+    validationErrors.push(`slug - expected ${expectedFilenames.join(" or ")} for slug "${frontmatter.slug}"`);
   }
 
   if (!docsNavigationBySlug.has(frontmatter.slug)) {
@@ -90,6 +107,7 @@ export async function readDocsPage(filename: string): Promise<DocsPage> {
     body: parsed.content,
     canonicalPath: docsPathForSlug(frontmatter.slug),
     links: collectMarkdownLinks(tree).map((link) => link.url),
+    sourcePath: filename,
     toc: extractToc(tree),
   };
 }

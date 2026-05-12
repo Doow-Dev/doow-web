@@ -1,0 +1,109 @@
+---
+title: "Okta"
+description: "Sync users, groups, and app assignments from Okta."
+slug: "integrations/identity/okta"
+section: "integrations"
+order: 362
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect your Okta organization to sync your user directory and application activity into Doow.
+
+## What you need
+
+- An Okta account with **Super Administrator** privileges
+- Your Okta domain URL (for example, `https://yourcompany.okta.com`)
+- A **client ID** and **client secret** from an Okta API Services application you create (see below)
+
+## What Doow reads
+
+### Users
+- Full name and primary work email address
+- Account status (active, deprovisioned, or suspended)
+- Department and job title (where set in your Okta profile)
+- Group memberships
+
+### App activity
+- Last sign-in time per user, per application, from Okta's System Log
+- Application assignments from your Okta app catalog
+
+## What Doow does not read
+
+- Passwords, MFA factors, or authentication secrets
+- Session tokens or personal credentials
+- Any data outside user profiles, group memberships, and application access logs
+
+## Creating an API Services application in Okta
+
+Doow connects using OAuth 2.0 client credentials. You need to create an API application in your Okta admin portal first.
+
+1. Sign in to your Okta Admin Console
+2. Go to **Applications → Applications** and click **Create App Integration**
+3. Select **API Services** and click **Next**
+4. Give the application a name (for example, `Doow`) and click **Save**
+5. On the application's **General** tab, copy the **Client ID** and **Client Secret**
+6. Go to the **Okta API Scopes** tab and grant the following scopes:
+   - `okta.users.read`
+   - `okta.groups.read`
+   - `okta.apps.read`
+   - `okta.logs.read`
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Okta** and click **Connect**
+3. A dialog opens asking for three fields:
+   - **Domain** — your Okta org URL (for example, `https://yourcompany.okta.com`)
+   - **Client ID** — from the API Services app you created above
+   - **Client Secret** — from the API Services app you created above
+4. Fill in all three fields and click **Connect**
+5. Doow verifies the credentials and begins the initial user and activity sync
+
+## Permissions required
+
+Doow uses the following Okta API scopes via client credentials:
+
+| Scope | Purpose |
+|---|---|
+| `okta.users.read` | Read user profiles and account status |
+| `okta.groups.read` | Read group memberships |
+| `okta.apps.read` | Read application assignments |
+| `okta.logs.read` | Read system log and sign-in activity |
+
+All scopes are read-only. Doow cannot create, modify, or delete any data in your Okta organization.
+
+## Webhooks
+
+Doow optionally uses Okta event hooks to receive real-time updates when users are created, deactivated, or their application access changes. This keeps your Doow workspace in sync without waiting for the next scheduled poll. If you prefer not to enable webhooks, scheduled syncs will still keep data up to date — just with a delay.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy identity sync should show a connected state, a recent sync timestamp, imported users, and app assignment or activity records where the provider makes them available.
+
+If the connection is successful but no users appear, verify that you connected the right tenant, granted admin consent, and allowed the required read scopes.
+
+## Troubleshooting
+
+Use these checks when the connection succeeds but data is missing or incomplete:
+
+- Confirm you connected the intended tenant or domain.
+- Confirm the admin consent screen granted the requested read permissions.
+- Confirm the provider account can read users, groups, and app assignments.
+- Check the integration event log for permission or sync errors.
+- Trigger a manual sync when the integration supports it.
+
+### Okta-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Client credentials are rejected | Domain, client ID, or client secret does not match the API Services application | Re-copy all three values from the same Okta application |
+| Users sync but app activity is missing | The application does not have access to the required Okta scopes or event data | Re-check scopes and event access in the Okta admin portal |
+| Webhook events do not arrive | Event hooks are not enabled or verified | Use scheduled sync until the Okta event hook is verified |
+
+## Disconnecting
+
+To disconnect, go to **Company Settings → Integrations**, find Okta, and click **Disconnect**. This immediately stops all syncs and removes stored credentials. You should also delete or deactivate the API Services application from **Okta Admin → Applications** to fully revoke access.
+
+## Next steps
+
+After the sync works, connect HRIS if you need departments and employment status. If you are reviewing AI, cloud, or app usage, connect a usage data source next.

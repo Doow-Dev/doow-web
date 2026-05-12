@@ -7,7 +7,7 @@ export interface DocsRedirect {
 export const docsRedirects: readonly DocsRedirect[] = [
   {
     from: "/start",
-    reason: "Launch docs use /getting-started as the canonical onboarding URL.",
-    to: "/getting-started",
+    reason: "The live docs now start from the integrations hub.",
+    to: "/integrations",
   },
 ];

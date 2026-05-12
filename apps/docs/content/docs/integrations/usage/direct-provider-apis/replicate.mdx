@@ -1,0 +1,73 @@
+---
+title: "Replicate"
+description: "Connect Replicate predictions and compute usage to Doow."
+slug: "integrations/usage/direct-provider-apis/replicate"
+section: "integrations"
+order: 316
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Replicate to pull model usage and prediction data into Doow.
+
+## What you need
+
+- A Replicate account
+- A **Replicate API token** from your account settings
+
+## Creating an API token
+
+1. Go to [replicate.com](https://replicate.com)
+2. Navigate to **Account Settings → API Tokens**
+3. Click **Create token**
+4. Name it something identifiable (for example, `Doow - Usage Read`)
+5. Copy the token
+6. Paste it into Doow when prompted
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Model | The model that was run (for example, `stability-ai/sdxl`, `meta/llama-2`) |
+| Predictions | Number of predictions run, per day |
+| Compute time | Hardware time consumed per prediction type |
+| Date | The day the usage occurred |
+
+Usage is pulled from Replicate's API and aggregated at the day level per model.
+
+## What Doow does not read
+
+- The inputs or outputs of any prediction (images, text, audio, etc.)
+- Your private model weights or fine-tune data
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Replicate** and click **Connect**
+3. A dialog opens asking for your API token
+4. Paste your token and click **Connect**
+5. Doow verifies the token and begins the initial usage sync
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+
+If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Replicate, and click **Disconnect**. The stored token is deleted immediately. You can also revoke the token from your Replicate account settings.
+
+## Next steps
+
+After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.

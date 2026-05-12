@@ -1,0 +1,181 @@
+---
+title: "Connecting integrations"
+description: "Connect, pause, resume, and disconnect integrations from Company Settings."
+slug: "integrations/connect"
+section: "integrations"
+order: 301
+status: "published"
+updatedAt: "2026-05-11"
+---
+All integrations are managed from **Company Settings → Integrations**. The page has two tabs: **My connections** (already connected) and **Not connected** (available to connect). You can search across all integrations from either tab.
+
+## Before you connect
+
+Before connecting a source, decide what you want Doow to learn from it. If you
+are not sure, start with [What Doow needs](/integrations/what-doow-needs) and
+[Choose what to connect first](/integrations/choose-what-to-connect-first).
+
+| If you want... | Connect... |
+|---|---|
+| Usage visibility | A usage data source |
+| User and app ownership | An identity provider |
+| Department and employment context | HRIS |
+| Finance-confirmed spend | Accounting |
+
+## How to find and connect an integration
+
+1. Go to **Company Settings → Integrations**
+2. Click the **Not connected** tab
+3. Find the integration you want — use the search bar or browse by category
+4. Click **Connect** on the integration card
+5. Complete the connection flow for that integration type (see below)
+
+Once connected, the integration moves to the **My connections** tab.
+
+## Connection flows by integration type
+
+Each integration type has a different connection flow depending on how it authenticates.
+
+### Identity providers — OAuth (Google Workspace, Microsoft 365)
+
+These providers use OAuth. No credentials are required from you — you authorize access through the provider's own consent screen.
+
+1. Click **Connect** on the integration card
+2. A popup window opens showing a loading screen while Doow fetches the consent URL
+3. The popup navigates to the provider's OAuth consent screen (Google or Microsoft)
+4. Sign in with your admin account and approve the requested permissions
+5. The popup closes automatically and Doow completes the connection
+6. A success notification confirms the integration is connected
+
+> If your browser blocks the popup, the page will redirect you to the provider's consent screen directly. After approving, you are redirected back to the Integrations page and the connection completes automatically.
+
+### Identity providers — Client credentials (Okta, OneLogin)
+
+These providers connect using OAuth 2.0 client credentials — a domain URL, a client ID, and a client secret that you generate inside your Okta or OneLogin admin portal.
+
+1. Click **Connect** on the integration card
+2. A dialog opens asking for three fields:
+   - **Domain** — your organization's domain URL (for example, `https://yourcompany.okta.com`)
+   - **Client ID** — the client ID from an API application you create in your identity provider
+   - **Client Secret** — the corresponding client secret
+3. Fill in all three fields (see the provider's individual documentation for where to create the API application and find these values)
+4. Click **Connect**
+5. Doow verifies the credentials and begins the initial sync
+
+### HRIS providers (BambooHR, Gusto, Deel, Zoho People)
+
+HRIS connections use a secure linking flow. You authorize access directly through your HR provider's login screen — no credentials are stored in Doow.
+
+1. Click **Connect** on the integration card
+2. A secure linking modal opens
+3. Select your HR provider from the list (if not already pre-selected)
+4. Log in with your HR admin credentials within the modal
+5. Approve read-only access
+6. The modal closes and Doow completes the connection
+
+### Accounting providers (QuickBooks, Xero, and others)
+
+The accounting connection flow is identical to HRIS — a secure linking modal that opens your accounting platform's own login screen.
+
+1. Click **Connect** on the integration card
+2. A secure linking modal opens
+3. Select your accounting provider from the list (if not already pre-selected)
+4. Log in with your accounting admin credentials within the modal
+5. Approve read-only access
+6. The modal closes and Doow completes the connection
+
+### Usage-based integrations — AI and cloud providers (OpenAI, Anthropic, AWS, Azure, Vertex, Groq, Fireworks, OpenRouter, Replicate, Authress)
+
+These providers connect via an API key or service credential that you supply.
+
+1. Click **Connect** on the integration card
+2. A dialog opens asking for your API key (or other credential — see the provider's individual documentation)
+3. Paste your credential
+4. Click **Connect**
+5. Doow verifies the credential and begins the initial usage sync
+
+### Observability integrations — Platform pull (Datadog, New Relic, AppSignal, Sentry)
+
+These connect the same way as usage-based integrations — via an API key dialog.
+
+1. Click **Connect** on the integration card
+2. A dialog opens asking for your API key and any additional required fields (for example, Account ID for New Relic, organization slug for Sentry)
+3. Fill in the required fields
+4. Click **Connect**
+5. Doow verifies the credentials and begins pulling data from the platform
+
+## Managing connected integrations
+
+After connecting, click any integration in the **My connections** tab to open its detail page.
+
+### Integration detail pages
+
+Each integration type has a different set of tabs on its detail page:
+
+| Integration type | Tabs available |
+|---|---|
+| Identity / SSO | **Users** — synced users and app activity · **Activity** — sign-in events · **Event log** — raw sync events |
+| HRIS | **Overview** — synced employee records · **Event log** — raw sync events |
+| Accounting | **Overview** — synced expenses · **Event log** — raw sync events |
+| Usage-based integrations | **Sources** — sync run status per data source · **Event log** — raw metered events |
+
+### Enabling and disabling
+
+Each connected integration has a toggle switch on its card in **My connections**. Turning it off pauses syncing without disconnecting — your stored credential is kept and you can re-enable at any time.
+
+### Triggering a manual sync
+
+Identity provider integrations (Google Workspace, Microsoft 365, Okta, OneLogin) show a **Sync** button on their detail page. Click it to trigger an immediate user and activity sync outside the regular schedule.
+
+### Disconnecting
+
+On the integration card in **My connections**, click **Disconnect**. This disconnects the integration and immediately deletes the stored credential from Doow. You can reconnect at any time by going to the **Not connected** tab.
+
+To fully revoke access, also revoke the credential from within the provider's settings (see each provider's documentation for instructions).
+
+## Confirm the setup worked
+
+After connecting any integration, open its detail page from **My connections**.
+A healthy setup should show a connected state, a recent sync or event
+timestamp, and imported records that match the source you connected.
+
+For usage integrations, check for usage rows or events. For identity, check
+users and app assignments. For HRIS, check employee records and employment
+status. For accounting, check imported expenses from the selected categories.
+
+<Cards>
+  <Card title="Usage data">
+    Look for usage rows, events, provider projects, models, services, metrics,
+    or deployments.
+  </Card>
+  <Card title="Identity">
+    Look for users, groups, app assignments, and activity records where the
+    provider makes them available.
+  </Card>
+  <Card title="HRIS">
+    Look for employee records with work email, department, job title, and
+    employment status.
+  </Card>
+  <Card title="Accounting">
+    Look for expenses from the categories or account codes selected during
+    setup.
+  </Card>
+</Cards>
+
+## Troubleshooting first syncs
+
+Use these checks before you disconnect and reconnect:
+
+- Confirm the credential belongs to the right provider account, tenant,
+  project, subscription, or workspace.
+- Confirm the credential has read access to the data type Doow needs.
+- Confirm the source has records in the selected date range.
+- Check whether the provider reports usage or metric data with a delay.
+- Open the integration event log and look for credential, scope, permission,
+  or rate-limit errors.
+
+## Next steps
+
+If the connection works, connect the next source that adds missing context. For
+most teams, that means usage data first, identity second, HRIS third, and
+accounting when finance-confirmed spend is needed.

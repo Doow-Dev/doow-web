@@ -21,7 +21,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...pages.map((page) => ({
       changeFrequency: "monthly" as const,
       lastModified: page.updatedAt ? new Date(page.updatedAt) : new Date(),
-      priority: page.slug === "getting-started" ? 0.9 : 0.7,
+      priority: page.slug === "integrations" ? 0.9 : 0.7,
       url: docsUrl(page.canonicalPath),
     })),
   ];

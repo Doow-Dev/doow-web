@@ -1,0 +1,95 @@
+---
+title: "Choose what to connect first"
+description: "Pick the right first integration based on what you want Doow to show."
+slug: "integrations/choose-what-to-connect-first"
+section: "integrations"
+order: 303
+status: "published"
+updatedAt: "2026-05-11"
+---
+Start with the question you need Doow to answer. The best first integration is
+the one that unlocks the answer you care about now.
+
+<Callout title="If you are not sure" tone="success">
+  Connect one usage data source first, then connect one identity provider. This
+  gives Doow a practical baseline: what is being used and who is connected to
+  that usage.
+</Callout>
+
+## Choose by outcome
+
+<Cards>
+  <Card title="See AI or cloud consumption" href="/integrations/usage/choose-source">
+    Connect usage data so Doow can show usage trends, models, projects,
+    services, and metrics.
+  </Card>
+  <Card title="Match usage to users" href="/integrations/identity/google-workspace">
+    Connect identity so Doow can explain who has access and who is associated
+    with app usage.
+  </Card>
+  <Card title="Attribute to departments" href="/integrations/hris">
+    Connect HRIS so Doow can use departments, managers, job titles, and
+    employment status.
+  </Card>
+  <Card title="Reconcile against spend" href="/integrations/accounting">
+    Connect accounting so Doow can compare software usage with
+    finance-confirmed expenses.
+  </Card>
+  <Card title="Track your own product" href="/integrations/usage/instrumentation-sdk">
+    Use the instrumentation SDK when you own the app and need to emit custom
+    usage events.
+  </Card>
+  <Card title="Use existing metrics" href="/integrations/usage/observability">
+    Use observability or OTLP when usage metrics already exist in your
+    monitoring pipeline.
+  </Card>
+</Cards>
+
+## Recommended paths
+
+### Usage visibility
+
+Use this path when you want to understand consumption for AI providers, cloud
+platforms, internal products, or observability metrics.
+
+<Steps>
+
+1. Open [Choose a usage data source](/integrations/usage/choose-source).
+2. Pick direct provider APIs, instrumentation, observability, or OTLP.
+3. Connect the provider or method.
+4. Confirm usage data appears in Doow.
+
+</Steps>
+
+### Ownership and user context
+
+Use this path when you want to know who uses each app.
+
+<Steps>
+
+1. Connect [Google Workspace](/integrations/identity/google-workspace),
+   [Microsoft 365](/integrations/identity/microsoft-365), or another identity
+   provider.
+2. Confirm users and app assignments sync.
+3. Add HRIS if you need departments, managers, and employment status.
+
+</Steps>
+
+### Spend reconciliation
+
+Use this path when finance needs a verified spend record.
+
+<Steps>
+
+1. Connect [Accounting integrations](/integrations/accounting).
+2. Select the expense categories that contain software and SaaS spend.
+3. Confirm expenses appear in Doow.
+4. Add usage and identity data so Doow can explain whether spend matches use.
+
+</Steps>
+
+## Next steps
+
+If you know which source you want, go to
+[Connecting integrations](/integrations/connect). If you are choosing a usage
+source, go to [Choose a usage data source](/integrations/usage/choose-source).

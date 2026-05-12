@@ -1,0 +1,72 @@
+---
+title: "Fireworks AI"
+description: "Connect Fireworks AI usage and model metrics to Doow."
+slug: "integrations/usage/direct-provider-apis/fireworks-ai"
+section: "integrations"
+order: 314
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Fireworks AI to pull per-model token throughput into Doow.
+
+## What you need
+
+- A Fireworks AI account
+- An **API key** from your Fireworks account
+
+## Creating an API key
+
+1. Go to [fireworks.ai](https://fireworks.ai)
+2. Navigate to **Settings → API Keys**
+3. Click **Create new key**
+4. Name it something identifiable (for example, `Doow - Usage Read`)
+5. Copy the key
+6. Paste it into Doow when prompted
+
+## What Doow reads
+
+| Metric | Description |
+|---|---|
+| `prompt_tokens_per_second` | Prompt token throughput per model, per day |
+| `cached_prompt_tokens_per_second` | Cached prompt token throughput per model, per day |
+| Model | Which model was called |
+| Date | The day the usage occurred |
+
+Usage is pulled from Fireworks' API and aggregated at the day level.
+
+## What Doow does not read
+
+- The content of any prompts or completions
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Fireworks AI** and click **Connect**
+3. A dialog opens asking for your API key
+4. Paste your key and click **Connect**
+5. Doow verifies the key and begins the initial usage sync
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+
+If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Fireworks AI, and click **Disconnect**. The stored key is deleted immediately. You can also revoke the key from your Fireworks account settings.
+
+## Next steps
+
+After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.

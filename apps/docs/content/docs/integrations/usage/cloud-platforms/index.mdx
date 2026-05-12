@@ -1,0 +1,42 @@
+---
+title: "Cloud platforms"
+description: "Choose a cloud platform integration for AI usage reported through cloud monitoring or billing."
+slug: "integrations/usage/cloud-platforms"
+section: "integrations"
+order: 329
+status: "published"
+updatedAt: "2026-05-11"
+---
+Use cloud platform integrations when usage data is exposed through cloud
+monitoring, billing, account, subscription, or project data instead of a direct
+provider usage endpoint.
+
+## When to use this path
+
+Choose this path when your AI usage runs through a cloud provider and the
+provider records consumption at the cloud account, subscription, project,
+region, deployment, or model level.
+
+<Cards>
+  <Card title="AWS Bedrock" href="/integrations/usage/cloud-platforms/aws-bedrock">
+    Pull Bedrock usage through AWS account, region, and CloudWatch signals.
+  </Card>
+  <Card title="Azure OpenAI" href="/integrations/usage/cloud-platforms/azure-openai">
+    Pull Azure OpenAI usage by subscription, resource, deployment, and region.
+  </Card>
+  <Card title="Google Vertex AI" href="/integrations/usage/cloud-platforms/google-vertex">
+    Pull Vertex AI usage by project, model, and region.
+  </Card>
+</Cards>
+
+## What success looks like
+
+After connecting a cloud platform, Doow should show usage rows for the expected
+account, project, subscription, resource, region, deployment, or model. If the
+connection succeeds but no usage appears, check that the credential can read
+the cloud monitoring, billing, or usage data source for the right account.
+
+## Next steps
+
+Open the setup guide for your cloud provider. If you are still choosing a
+usage-data path, return to [Choose a usage data source](/integrations/usage/choose-source).

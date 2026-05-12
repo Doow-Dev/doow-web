@@ -1,0 +1,96 @@
+---
+title: "OTLP push"
+description: "Forward OpenTelemetry metrics from your collector into Doow."
+slug: "integrations/usage/observability/otlp"
+section: "integrations"
+order: 355
+status: "published"
+updatedAt: "2026-05-11"
+---
+If you already have an OpenTelemetry Collector deployed, you can forward usage metrics to Doow without installing the `@doow/track` SDK. Doow accepts standard OTLP/HTTP metrics and maps them into Doow usage events.
+
+## What you need
+
+- A running OpenTelemetry Collector (v0.80+)
+- A Doow SDK API key (`dk_` prefix) — generate one from **Settings → API Keys → SDK Keys**
+- Your collector must use **delta temporality** (not cumulative) for counter metrics
+
+## How it works
+
+You add Doow as an OTLP/HTTP exporter in your collector config. Your collector forwards metrics to Doow's push endpoint. Doow normalizes the OTLP payload and attributes usage to the matching licenses in your workspace.
+
+## Collector configuration
+
+```yaml
+exporters:
+  otlphttp/doow:
+    endpoint: https://api.doow.co/telemetry/otlp
+    headers:
+      Authorization: "Bearer dk_your_api_key"
+    compression: gzip
+    timeout: 10s
+    retry_on_failure:
+      enabled: true
+      initial_interval: 1s
+      max_interval: 30s
+
+service:
+  pipelines:
+    metrics/doow:
+      receivers: [otlp]
+      exporters: [otlphttp/doow]
+```
+
+## Metric attribution
+
+Doow maps incoming OTLP metrics to licenses using the `doow.license_id` resource attribute. Include it in your metric data:
+
+```yaml
+processors:
+  resource/doow:
+    attributes:
+      - key: doow.license_id
+        value: "lic_your_license_id"
+        action: upsert
+```
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Metric name | The OTLP metric name — must match a metric tuple configured in Doow |
+| Data points | Numeric values from each delta-temporality data point |
+| Resource attributes | Used for license attribution (`doow.license_id`) and custom dimensions |
+| Timestamp | The data point timestamp |
+
+## What Doow does not read
+
+- Trace data or log data forwarded to the same collector
+- Histogram bucket details beyond the aggregated sum and count
+- Any payload content from your application
+
+## Confirm metrics arrived
+
+After configuring OTLP push, open the integration detail page from **Company Settings → Integrations**. A healthy OTLP connection should show recent received events or metrics from the collector.
+
+If Doow receives no data, confirm that the collector can reach the Doow endpoint, that the `dk_` key is valid, and that the exporter includes the required authorization header.
+
+## Troubleshooting
+
+Use these checks when OTLP data does not arrive:
+
+- Confirm the collector can reach the Doow OTLP endpoint over the network.
+- Confirm the `dk_` key is active and has not been revoked.
+- Confirm the exporter sends the authorization header expected by Doow.
+- Confirm the collector is receiving metrics before it forwards them to Doow.
+- Check collector logs for export failures or retry loops.
+
+## Notes
+
+- Use delta temporality for all counter metrics. Cumulative counters are not supported and will be rejected.
+- The same `dk_` API key type is used for both the instrumentation SDK and OTLP push. You can use separate keys for each if you want independent revocation.
+- Rate limits are shared with the instrumentation SDK per organization. Contact support if you need higher limits.
+
+## Next steps
+
+After metrics arrive, review the metric names and attribution fields in Doow. Add identity or HRIS data if you need to attribute metrics to users, teams, or departments.

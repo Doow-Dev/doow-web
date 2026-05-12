@@ -1,4 +1,4 @@
-export type DocsSection = "start" | "guides" | "reference" | "updates";
+export type DocsSection = "integrations";
 
 export interface DocsTocItem {
   depth: 2 | 3;
@@ -28,6 +28,7 @@ export interface DocsPage extends DocsPageFrontmatter {
   body: string;
   canonicalPath: string;
   links: string[];
+  sourcePath: string;
   toc: DocsTocItem[];
 }
 
@@ -40,13 +41,15 @@ export interface DocsNavItem {
 }
 
 export interface DocsSidebarLink {
-  href: string;
+  href?: string;
   label: string;
   description?: string;
   badge?: "new" | "beta";
+  items?: DocsSidebarLink[];
 }
 
 export interface DocsSidebarGroup {
+  id?: string;
   label: string;
   section: DocsSection;
   items: DocsSidebarLink[];

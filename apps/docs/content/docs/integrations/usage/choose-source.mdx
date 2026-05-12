@@ -1,0 +1,74 @@
+---
+title: "Choose a usage data source"
+description: "Choose how Doow should receive usage data for AI, cloud, app, or metric usage."
+slug: "integrations/usage/choose-source"
+section: "integrations"
+order: 309
+status: "published"
+updatedAt: "2026-05-11"
+---
+Usage data tells Doow what is being consumed. Choose the source based on where
+the usage data already exists and who controls the system producing it.
+
+## Choose the right path
+
+<Cards>
+  <Card title="Direct provider APIs" href="/integrations/usage/direct-provider-apis">
+    Choose this when the provider exposes usage or billing APIs and you can
+    create read-only credentials.
+  </Card>
+  <Card title="Cloud platforms" href="/integrations/usage/cloud-platforms">
+    Choose this when usage is reported through cloud monitoring, billing,
+    account, subscription, or project data.
+  </Card>
+  <Card title="Instrumentation SDK" href="/integrations/usage/instrumentation-sdk">
+    Choose this when you own the application and need to emit custom usage
+    events.
+  </Card>
+  <Card title="Observability" href="/integrations/usage/observability">
+    Choose this when usage metrics already flow through Datadog, New Relic,
+    AppSignal, Sentry, or a similar platform.
+  </Card>
+  <Card title="OTLP push" href="/integrations/usage/observability/otlp">
+    Choose this when you already run OpenTelemetry Collector and want to
+    forward metrics to Doow.
+  </Card>
+</Cards>
+
+## Recommended default
+
+If the provider has a direct usage API, start with
+[Direct provider APIs](/integrations/usage/direct-provider-apis). This is the
+lowest-effort path because Doow pulls usage directly from the provider of
+record.
+
+Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk) when
+you need custom metrics that vendors do not expose. Use
+[Observability integrations](/integrations/usage/observability) when your
+metrics already exist in a monitoring platform.
+
+## Compare the paths
+
+| Path | Best for | Examples |
+|---|---|---|
+| Direct provider APIs | Provider-owned usage data | OpenAI, Anthropic, Groq, Fireworks AI, OpenRouter, Replicate, Authress |
+| Cloud platforms | Usage exposed through cloud monitoring or billing | AWS Bedrock, Azure OpenAI, Google Vertex AI |
+| Instrumentation SDK | Product usage you emit yourself | Node.js SDK, serverless wrappers, sidecar, CLI |
+| Observability | Metrics already collected in monitoring tools | Datadog, New Relic, AppSignal, Sentry |
+| OTLP push | Metrics already flowing through OpenTelemetry | OpenTelemetry Collector |
+
+## What success looks like
+
+After setup, Doow should show usage records for the provider, project, account,
+model, deployment, service, or metric you connected. If the connection succeeds
+but no usage appears, check that the credential has read access to the right
+organization, project, account, or region.
+
+## Next steps
+
+Pick the setup guide that matches your source:
+
+- [Direct provider APIs](/integrations/usage/direct-provider-apis)
+- [Instrumentation SDK](/integrations/usage/instrumentation-sdk)
+- [Observability integrations](/integrations/usage/observability)
+- [OTLP push](/integrations/usage/observability/otlp)

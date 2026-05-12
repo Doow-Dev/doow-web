@@ -1,0 +1,72 @@
+---
+title: "Direct provider APIs"
+description: "Pull usage data directly from provider APIs using credentials you supply."
+slug: "integrations/usage/direct-provider-apis"
+section: "integrations"
+order: 310
+status: "published"
+updatedAt: "2026-05-11"
+---
+Direct provider API integrations connect Doow directly to a provider's API using credentials you supply. Doow pulls usage data on a scheduled basis — no agent or middleware is involved. The data comes directly from the provider of record.
+
+## When to use this path
+
+Use direct provider APIs when the provider already exposes usage, billing, or
+metrics data and you can create a read-only credential. This is usually the
+simplest usage-data path because Doow pulls from the provider of record.
+
+Do not use this path when you need custom product metrics that the provider
+does not expose. Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk)
+for custom events, or [Observability integrations](/integrations/usage/observability)
+when the metrics already live in an observability platform.
+
+## How it works
+
+1. You provide a read-only credential (API key, service account, IAM role, or OAuth token) from within your provider's dashboard
+2. Doow stores it encrypted and begins polling the provider's usage API on a regular schedule
+3. Doow normalizes the usage data into Doow usage events and attributes it to the matching applications and licenses in your workspace
+
+## Choose a provider type
+
+Start with AI providers when the usage lives directly in an AI or API
+provider account. Start with cloud platforms when usage is exposed through a
+cloud monitoring, billing, account, subscription, or project layer.
+
+## Sub-categories
+
+### AI providers
+
+Providers with a direct usage or metrics API. Doow calls the provider's usage endpoint and reads per-model, per-project consumption data.
+
+| Provider | What Doow reads |
+|---|---|
+| [OpenAI](/integrations/usage/direct-provider-apis/openai) | Token usage per model and project |
+| [Anthropic](/integrations/usage/direct-provider-apis/anthropic) | Token usage per model including cache reads and cache writes |
+| [Groq](/integrations/usage/direct-provider-apis/groq) | Input and output token rates per model |
+| [Fireworks AI](/integrations/usage/direct-provider-apis/fireworks-ai) | Prompt and cached token throughput per model |
+| [OpenRouter](/integrations/usage/direct-provider-apis/openrouter) | Usage per model and routing endpoint |
+| [Replicate](/integrations/usage/direct-provider-apis/replicate) | Predictions and compute time per model |
+| [Authress](/integrations/usage/direct-provider-apis/authress) | API call volume per resource and operation |
+
+### Cloud platforms
+
+Providers where usage data is surfaced through a monitoring or billing export API rather than a direct usage endpoint. Doow reads from the platform's monitoring or billing layer to get per-model or per-deployment consumption.
+
+| Provider | What Doow reads |
+|---|---|
+| [AWS Bedrock](/integrations/usage/cloud-platforms/aws-bedrock) | Token usage per model and region via CloudWatch |
+| [Azure OpenAI](/integrations/usage/cloud-platforms/azure-openai) | Token usage per deployment and region via Azure Monitor |
+| [Google Vertex AI](/integrations/usage/cloud-platforms/google-vertex) | Usage per model, project, and region via Cloud Billing |
+
+## Confirm the sync worked
+
+After connecting a provider, open the integration detail page from
+**Company Settings → Integrations**. A healthy sync should show a connected
+state, a recent sync timestamp, and usage rows for the expected organization,
+project, account, region, model, deployment, or endpoint.
+
+## Next steps
+
+If you already know your provider, open its setup guide. If you are still
+choosing between usage-data paths, return to
+[Choose a usage data source](/integrations/usage/choose-source).

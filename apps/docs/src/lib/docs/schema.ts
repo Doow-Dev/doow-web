@@ -1,12 +1,20 @@
-import { dateStringSchema, requiredStringSchema, slugSchema } from "@doow/content-schemas";
+import { dateStringSchema, requiredStringSchema } from "@doow/content-schemas";
 import { z } from "zod";
 
-export const docsSections = ["start", "guides", "reference", "updates"] as const;
+export const docsSections = ["integrations"] as const;
+
+const docsSlugSchema = z
+  .string()
+  .min(1)
+  .regex(
+    /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)*$/,
+    "must be a lowercase kebab-case route path",
+  );
 
 export const DocsFrontmatterSchema = z.object({
   title: requiredStringSchema,
   description: requiredStringSchema,
-  slug: slugSchema,
+  slug: docsSlugSchema,
   section: z.enum(docsSections),
   order: z.number().int().nonnegative(),
   status: z.enum(["published", "draft"]).default("published"),

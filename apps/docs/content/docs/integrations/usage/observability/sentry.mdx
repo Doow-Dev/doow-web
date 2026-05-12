@@ -1,0 +1,73 @@
+---
+title: "Sentry"
+description: "Connect Sentry error events and quota consumption to Doow."
+slug: "integrations/usage/observability/sentry"
+section: "integrations"
+order: 354
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Sentry to pull error event counts and quota usage data into Doow from your Sentry organization.
+
+## What you need
+
+- A Sentry account
+- Your Sentry **organization slug**
+- Authorization via Sentry OAuth
+
+## Finding your organization slug
+
+1. Go to [sentry.io](https://sentry.io)
+2. Click your organization name in the top-left
+3. Navigate to **Settings → General Settings**
+4. Your **Organization Slug** is listed under the organization name — it is also visible in your Sentry URL (for example, `sentry.io/organizations/your-slug/`)
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Error event counts | Aggregated error volumes per project, outcome type, and time window |
+| Quota consumption | Event quota usage across your Sentry organization |
+| Project | Which Sentry project generated the events |
+| Date | The time window the usage occurred in |
+
+Data is pulled from Sentry's Stats API and aggregated into Doow's usage pipeline.
+
+## What Doow does not read
+
+- The content of any error events, exception messages, stack traces, or user context
+- Source code or release artifacts
+- Environment variables or secrets stored in Sentry
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Sentry** and click **Connect**
+3. A dialog opens asking for your organization slug
+4. Enter your slug and click **Connect**
+5. Doow verifies the credentials and begins the initial sync
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy observability sync should show a connected state, a recent sync timestamp, and metric or event rows for the expected account, app, service, project, or environment.
+
+If no metrics appear, verify that the metric exists in the observability platform for the selected time range and that the credential can read it.
+
+## Troubleshooting
+
+Use these checks when metrics are missing or incomplete:
+
+- Confirm the API key can read the account, app, service, or project.
+- Confirm the metric exists in the observability platform before connecting it to Doow.
+- Confirm the metric has data in the selected time range.
+- Check whether the provider aggregates or delays metric availability.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Sentry, and click **Disconnect**. The stored authorization is deleted immediately. You can also revoke the OAuth grant from your Sentry organization settings under **Developer Settings → Authorized Applications**.
+
+## Next steps
+
+After metrics appear, connect identity or HRIS data if you need to attribute usage to users, teams, or departments.

@@ -1,0 +1,116 @@
+---
+title: "Node.js SDK"
+description: "Install the Node.js SDK to emit batched usage events to Doow."
+slug: "integrations/usage/instrumentation-sdk/nodejs"
+section: "integrations"
+order: 341
+status: "published"
+updatedAt: "2026-05-11"
+---
+The `@doow/track` package is the primary integration method for Node.js applications. Install it, initialize with your API key, and call `track()` wherever usage occurs.
+
+## Installation
+
+```bash
+npm install @doow/track
+# or
+yarn add @doow/track
+```
+
+## Quick start
+
+```ts
+import { DoowTracker } from '@doow/track';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+// Track a usage event
+meter.track({
+  metric: 'api_calls',
+  quantity: 1,
+  license_id: 'lic_your_license_id',
+});
+
+// Flush and shut down cleanly on process exit
+await meter.shutdown();
+```
+
+## Initialization options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `endpoint` | string | `https://api.doow.co` | Doow API endpoint |
+| `enabled` | boolean | `true` | Set to `false` to disable all tracking (useful in development) |
+| `attribution` | object | — | Key-value pairs merged into every event — use for environment, team, or service attribution |
+| `flushAt` | number | `20` | Flush after this many events are queued |
+| `flushInterval` | number | `10000` | Flush every N milliseconds |
+| `retryCount` | number | `3` | Max retries on transient failures |
+| `onError` | function | `console.warn` | Called on errors — the SDK never throws |
+| `debug` | boolean | `false` | Enable debug logging |
+
+## Environment variable overrides
+
+All options can be set via environment variables. Environment variables take precedence over code-level options.
+
+| Variable | Description |
+|---|---|
+| `DOOW_TRACK_API_KEY` | Your `dk_` API key |
+| `DOOW_TRACK_ENDPOINT` | Override the API endpoint |
+| `DOOW_TRACK_DISABLED=true` | Disable the SDK entirely |
+| `DOOW_TRACK_FLUSH_AT` | Flush event count threshold |
+| `DOOW_TRACK_FLUSH_INTERVAL` | Flush interval in milliseconds |
+| `DOOW_TRACK_ATTRIBUTION` | JSON string for SDK-level attribution (for example, `{"env":"prod"}`) |
+
+## Event shape
+
+```ts
+meter.track({
+  metric: 'tokens',         // metric name — must match a metric tuple on the license
+  quantity: 1024,           // numeric usage value
+  license_id: 'lic_...',   // which Doow license to attribute to
+  unit: 'tokens',           // optional: unit label
+  attribution: {            // optional: event-level attribution
+    model: 'gpt-4o',
+    team: 'platform',
+  },
+});
+```
+
+## Graceful shutdown
+
+Always call `meter.shutdown()` before your process exits. It flushes any buffered events and waits for in-flight requests to complete.
+
+```ts
+process.on('SIGTERM', async () => {
+  await meter.shutdown();
+  process.exit(0);
+});
+```
+
+## Confirm the event arrived
+
+After sending a test event, open the integration detail page from **Company Settings → Integrations**. A healthy SDK connection should show recent received events for the expected metric and license.
+
+If the event does not appear, confirm that the `dk_` key is valid, the event has a numeric quantity, and the `license_id` matches a license in your Doow workspace.
+
+## Production checklist
+
+Before using this method in production, confirm that your implementation handles batching, retries, shutdown, and credential rotation. Keep the `dk_` key in a secret manager or environment variable, not in source code.
+
+## Troubleshooting
+
+Use these checks when events do not arrive:
+
+- Confirm the `dk_` key is active and belongs to the expected Doow workspace.
+- Confirm each event includes `metric`, `quantity`, and `license_id`.
+- Confirm `quantity` is numeric and greater than zero.
+- Confirm your process flushes events before shutdown.
+- Check application logs for authentication, validation, or network errors.
+
+## Disconnecting
+
+Go to **Settings → API Keys → SDK Keys** in your Doow workspace and revoke the key. The SDK will start receiving `401` responses and stop sending events. No changes are needed in your application code until you replace the key.
+
+## Next steps
+
+After the test event appears, send events from a production-like environment and confirm batching, retry, and shutdown behavior before rollout.

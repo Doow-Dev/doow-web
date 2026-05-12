@@ -1,0 +1,103 @@
+---
+title: "Integrations"
+description: "Choose what to connect so Doow can map usage, people, and spend."
+slug: "integrations"
+section: "integrations"
+order: 300
+status: "published"
+updatedAt: "2026-05-11"
+---
+Use integrations to give Doow the data it needs to understand software usage,
+ownership, employee context, and finance-confirmed spend. If you are not sure
+where to start, begin with usage data and identity. That gives Doow both what
+is being used and who is using it.
+
+<Callout title="Recommended first setup" tone="success">
+  Start with one usage source and one identity provider. Add HRIS when you
+  need department or employment context, then add accounting when you need
+  finance-confirmed spend.
+</Callout>
+
+## Get started
+
+Use these guides when you are setting up Doow for the first time.
+
+<Cards>
+  <Card title="What Doow needs" href="/integrations/what-doow-needs">
+    Understand usage, organization, and financial data before connecting
+    anything.
+  </Card>
+  <Card title="Choose what to connect first" href="/integrations/choose-what-to-connect-first">
+    Pick the first source based on the outcome you want Doow to show.
+  </Card>
+  <Card title="How integrations work" href="/integrations/how-integrations-work">
+    Learn how connections, first syncs, pausing, and disconnecting work.
+  </Card>
+  <Card title="Connecting integrations" href="/integrations/connect">
+    Follow the common connection flow after you know which source to connect.
+  </Card>
+</Cards>
+
+## Choose by goal
+
+Start from what you want Doow to help you answer.
+
+<Cards>
+  <Card title="I want to see usage" href="/integrations/usage/choose-source">
+    Choose a usage data source for AI, cloud, product, or metric consumption.
+  </Card>
+  <Card title="I want users and ownership" href="/integrations/identity/google-workspace">
+    Connect identity so Doow can map app access, users, and assignments.
+  </Card>
+  <Card title="I want departments and status" href="/integrations/hris">
+    Connect HRIS so Doow can use departments, managers, and employment status.
+  </Card>
+  <Card title="I want verified spend" href="/integrations/accounting">
+    Connect accounting so Doow can compare usage against finance-confirmed
+    expenses.
+  </Card>
+</Cards>
+
+## Usage data
+
+Usage data tells Doow what is actually being consumed. Choose the route that
+matches where the data already lives.
+
+<Cards>
+  <Card title="Direct provider APIs" href="/integrations/usage/direct-provider-apis">
+    Use this when providers such as OpenAI, Anthropic, AWS, Azure, or Vertex
+    expose usage or billing data.
+  </Card>
+  <Card title="Instrumentation SDK" href="/integrations/usage/instrumentation-sdk">
+    Use this when you own the application and want to emit custom usage events.
+  </Card>
+  <Card title="Observability" href="/integrations/usage/observability">
+    Use this when usage metrics already flow through Datadog, New Relic,
+    AppSignal, Sentry, or OpenTelemetry.
+  </Card>
+</Cards>
+
+## Data layers
+
+These data layers work together. You can connect one source at a time.
+
+| Data layer | What it answers | Good first source |
+|---|---|---|
+| Usage data | What is being consumed? | [Choose a usage data source](/integrations/usage/choose-source) |
+| Organization data | Who uses it and where do they belong? | [Google Workspace](/integrations/identity/google-workspace) or [Microsoft 365](/integrations/identity/microsoft-365) |
+| Financial data | What did the company pay? | [Accounting integrations](/integrations/accounting) |
+
+## What success looks like
+
+After connecting any source, confirm that Doow received data before moving to
+the next integration.
+
+<Callout title="A healthy connection" tone="success">
+  The integration shows a connected state, a recent sync or event timestamp,
+  imported records in the detail page, and no credential or permission errors
+  in the event log.
+</Callout>
+
+If the connection succeeds but no data appears, check the provider account,
+credential scope, selected workspace, and sync status before adding more
+integrations.

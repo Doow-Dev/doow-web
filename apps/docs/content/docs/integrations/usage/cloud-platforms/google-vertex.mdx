@@ -1,0 +1,95 @@
+---
+title: "Google Vertex AI"
+description: "Connect Google Vertex AI usage, project, and region metrics to Doow."
+slug: "integrations/usage/cloud-platforms/google-vertex"
+section: "integrations"
+order: 332
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Google Vertex AI to pull per-model usage and cost data into Doow via Cloud Billing.
+
+## What you need
+
+- A Google Cloud account with Vertex AI enabled
+- A **service account** with read-only access to Cloud Billing data
+- Your **billing project ID** — the GCP project that has the billing export or Cloud Billing API enabled
+- Optionally: one or more **consumer project IDs** to scope usage to specific projects
+
+## Creating a read-only service account
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com)
+2. Navigate to **IAM & Admin → Service Accounts → Create Service Account**
+3. Name it something identifiable (for example, `doow-vertex-readonly`)
+4. Grant it the **Billing Account Viewer** role at the billing account level:
+   - Go to **Billing → Manage Billing Accounts → [Your Account] → Account Management**
+   - Add the service account with the **Billing Account Viewer** role
+5. Go back to the service account, navigate to **Keys → Add Key → Create new key (JSON)**
+6. Download the JSON key file
+
+When connecting in Doow, you will paste the contents of this JSON key file.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Usage date | The day the usage occurred |
+| Model / SKU | Which Vertex AI model or service was used |
+| Quantity | Usage amount (tokens, API calls, or compute units depending on the SKU) |
+| Consumer project | The GCP project that generated the usage (if scoped) |
+| Region | The GCP region where the usage occurred |
+
+Usage is pulled from Cloud Billing export or the Billing API and aggregated at the day level per model, project, and region.
+
+## What Doow does not read
+
+- The content of any model requests or responses
+- Your Cloud Storage data, databases, or other GCP services
+- Payment methods, invoices, or billing contact information beyond usage metrics
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Google Vertex AI** and click **Connect**
+3. A dialog opens asking for your credentials
+4. Enter your **billing project ID**
+5. Paste the contents of your service account JSON key
+6. Optionally, enter one or more **consumer project IDs** to limit usage tracking to specific projects
+7. Click **Connect**
+8. Doow verifies the credentials and begins the initial usage sync
+
+## Multi-project setups
+
+If Vertex AI usage is spread across multiple GCP projects, enter those project IDs in the **Consumer project IDs** field. Doow will pull usage for all of them under the same billing account and show per-project breakdowns.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy cloud sync should show a connected state, a recent sync timestamp, and usage rows for the expected account, project, region, deployment, or model.
+
+If the connection succeeds but no usage appears, verify that the credential has read access to the correct cloud account, project, region, monitoring data, and billing or usage export source.
+
+## Troubleshooting
+
+Use these checks when cloud usage data is missing or incomplete:
+
+- Confirm the credential belongs to the intended cloud account, subscription, or project.
+- Confirm it can read the required monitoring, billing, or usage export data.
+- Confirm the expected regions, deployments, or models have recent usage.
+- Check whether the cloud provider reports usage with a delay.
+- Check the integration event log for permission or sync errors.
+
+### Google Vertex AI-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| No project usage appears | The service account cannot read the project that owns Vertex AI usage | Grant read access on the correct Google Cloud project |
+| Some usage is missing | Usage exists in another project or region | Add a connection for each project that owns usage |
+| Billing data is unavailable | The service account cannot read billing or usage export data | Confirm billing export access before reconnecting |
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Google Vertex AI, and click **Disconnect**. The stored credentials are deleted immediately. You can also delete the service account key from the Google Cloud Console or disable the service account to fully revoke access.
+
+## Next steps
+
+After cloud usage appears, connect identity and HRIS data if you need owner, department, or employment context for the usage.

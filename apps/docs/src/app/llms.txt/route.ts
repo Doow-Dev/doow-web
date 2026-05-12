@@ -10,7 +10,7 @@ export async function GET() {
   const lines: string[] = [
     "# Doow Docs",
     "",
-    "> Production documentation for Doow setup, workflows, integrations, and releases.",
+    "> Production documentation for connecting Doow integrations.",
     "",
     `Site: ${docsSiteUrl}`,
     "",

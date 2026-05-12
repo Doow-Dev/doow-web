@@ -1,0 +1,92 @@
+---
+title: "Accounting integrations"
+description: "Pull expense, transaction, vendor, and category data from accounting systems."
+slug: "integrations/accounting"
+section: "integrations"
+order: 380
+status: "published"
+updatedAt: "2026-05-11"
+---
+Doow connects to your accounting platform to pull software-related expenses directly from your books. This gives Doow a verified, finance-grade spend record to match against contracts, surfacing accurate cost data without manual entry.
+
+## Supported providers
+
+- QuickBooks Online
+- Xero
+- FreshBooks
+- NetSuite
+- Sage Intacct
+- Microsoft Dynamics 365 Business Central
+- And others — the full list is shown during the connection flow
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find your accounting platform and click **Connect**
+3. A secure linking modal opens
+4. Select your accounting provider from the list (or it may be pre-selected if you clicked a specific card)
+5. Log in with your accounting admin credentials within the modal
+6. Approve read-only access when prompted
+7. The modal closes and Doow completes the connection and begins the initial expense sync
+
+Doow does not receive your login credentials — you authorize access directly through your accounting provider's own login screen inside the modal. After the initial sync, Doow refreshes expense data on a scheduled basis to stay current with new transactions.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Vendor name | The supplier or payee on the expense |
+| Amount | The total amount of the expense |
+| Transaction date | When the expense was recorded |
+| Description | The line-item description on the expense |
+| Account category | The account code or category the expense is filed under (for example, Software, SaaS, IT) |
+
+## What Doow does not read
+
+- Payroll expenses or employee compensation entries
+- Banking credentials or account numbers
+- Balance sheet or P&L data beyond expense transactions
+- Any data outside expense and transaction records
+
+## How expense data is used in Doow
+
+**Spend verification:** Doow matches expenses pulled from your accounting platform against the apps in your software catalog. This gives you a finance-confirmed spend figure for each tool, not just an estimate from invoices.
+
+**Contract reconciliation:** When a contract is recorded for an app, Doow compares the contract value against actual expenses to identify overbilling or missed renewals.
+
+**Cost attribution:** Expenses categorized in your accounting platform are used to build accurate spend totals per vendor and per department.
+
+## Selecting expense categories
+
+During setup, you can choose which expense categories or account codes Doow should sync. If your SaaS and software spend is filed under specific accounts (for example, "Software Subscriptions", "IT Costs"), selecting only those accounts keeps the sync focused and prevents unrelated expenses from appearing in your catalog.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy accounting sync should show a connected state, a recent sync timestamp, and imported expense records from the selected categories or account codes.
+
+If no expenses appear, confirm that you selected the categories that contain software or SaaS spend and that the connected accounting user can read those transactions.
+
+## Troubleshooting
+
+Use these checks when expense data is missing or incomplete:
+
+- Confirm the connected accounting user can read expense transactions.
+- Confirm the selected categories or account codes contain software spend.
+- Confirm the transaction date range includes the expenses you expect.
+- Check the integration event log for permission or sync errors.
+
+### Accounting-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Connection succeeds but no expenses appear | The selected categories do not contain software or SaaS spend | Reopen setup and select the account codes that contain software expenses |
+| Vendor totals look incomplete | Spend is split across multiple vendors, subsidiaries, or account codes | Confirm the expense categories and entities included in the sync |
+| Expenses are present but unrelated | Too many account categories were selected | Narrow the sync to software, SaaS, IT, or other relevant categories |
+
+## Disconnecting
+
+To disconnect an accounting integration, go to **Company Settings → Integrations**, find your accounting platform, and click **Disconnect**. This immediately stops syncs and removes stored credentials. Expense records already pulled into Doow are retained until you choose to delete them.
+
+## Next steps
+
+After expense data appears, connect usage and identity sources so Doow can compare spend against consumption and ownership.

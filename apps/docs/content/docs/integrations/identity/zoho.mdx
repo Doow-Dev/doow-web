@@ -1,0 +1,76 @@
+---
+title: "Zoho"
+description: "Sync users and directory access from Zoho as an identity provider."
+slug: "integrations/identity/zoho"
+section: "integrations"
+order: 364
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect your Zoho account to sync your organization's user directory into Doow.
+
+> **Note:** This integration covers Zoho as an **identity provider** — syncing users managed through Zoho's directory. If you use Zoho People for HR, see the [Zoho People HRIS integration](/integrations/hris/zoho-people).
+
+## What you need
+
+- A Zoho account with **Administrator** privileges in your Zoho organization
+
+## What Doow reads
+
+### Users
+- Full name and primary work email address
+- Account status (active or inactive)
+- Department and job title (where set in your Zoho profile)
+
+## What Doow does not read
+
+- Passwords or authentication secrets
+- CRM data, email content, or any product-specific Zoho data
+- Any data outside user profiles and account status
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Zoho** and click **Connect**
+3. A popup window opens — Doow fetches the Zoho OAuth consent URL
+4. The popup navigates to Zoho's OAuth consent screen
+5. Sign in with an Administrator account
+6. Review the requested permissions and click **Accept**
+7. The popup closes automatically and Doow completes the connection
+8. A success notification confirms the integration is connected
+
+> If your browser blocks the popup, you will be redirected to Zoho's consent screen directly. After approving, you are redirected back to the Integrations page and the connection completes automatically.
+
+## Permissions requested
+
+Doow requests the following Zoho OAuth scopes:
+
+| Scope | Purpose |
+|---|---|
+| `ZohoDirectory.Users.READ` | Read user profiles and account status |
+
+All scopes are read-only. Doow cannot create, modify, or delete any data in your Zoho account.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy identity sync should show a connected state, a recent sync timestamp, imported users, and app assignment or activity records where the provider makes them available.
+
+If the connection is successful but no users appear, verify that you connected the right tenant, granted admin consent, and allowed the required read scopes.
+
+## Troubleshooting
+
+Use these checks when the connection succeeds but data is missing or incomplete:
+
+- Confirm you connected the intended tenant or domain.
+- Confirm the admin consent screen granted the requested read permissions.
+- Confirm the provider account can read users, groups, and app assignments.
+- Check the integration event log for permission or sync errors.
+- Trigger a manual sync when the integration supports it.
+
+## Disconnecting
+
+To disconnect, go to **Company Settings → Integrations**, find Zoho, and click **Disconnect**. You can also revoke the Doow app from your Zoho account under **My Account → Connected Apps**.
+
+## Next steps
+
+After the sync works, connect HRIS if you need departments and employment status. If you are reviewing AI, cloud, or app usage, connect a usage data source next.

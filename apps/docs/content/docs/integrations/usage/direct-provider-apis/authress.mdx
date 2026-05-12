@@ -1,0 +1,72 @@
+---
+title: "Authress"
+description: "Connect Authress API call usage to Doow."
+slug: "integrations/usage/direct-provider-apis/authress"
+section: "integrations"
+order: 317
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Authress to pull API usage data into Doow — authorization checks, authentication events, and credential operations per resource and operation type.
+
+## What you need
+
+- An Authress account
+- An **Authress access key** from your Authress account
+- Your **Authress API URL** (your account-specific domain, for example, `https://youraccountid.api.authress.io`)
+
+## Creating an access key
+
+1. Go to your [Authress Management Portal](https://authress.io)
+2. Navigate to **Service Clients** or **Access Keys**
+3. Create a new service client or access key with read access to usage data
+4. Copy the access key
+5. Paste both the access key and your API URL into Doow when prompted
+
+## What Doow reads
+
+| Metric | Description |
+|---|---|
+| Authorization checks | Number of authorization check operations per resource and time period |
+| Authentication events | Number of authentication operations |
+| Credential operations | Number of credential-related API calls |
+
+Usage is pulled from the Authress API and aggregated at the day level per operation type.
+
+## What Doow does not read
+
+- The content of any authorization decisions or access policies
+- User identity data or profile information
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Authress** and click **Connect**
+3. A dialog opens asking for your API URL and access key
+4. Fill in both fields and click **Connect**
+5. Doow verifies the credentials and begins the initial usage sync
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+
+If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Authress, and click **Disconnect**. The stored credentials are deleted immediately. You can also revoke the access key from your Authress Management Portal.
+
+## Next steps
+
+After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.

@@ -1,0 +1,93 @@
+---
+title: "Microsoft 365"
+description: "Sync users, groups, and app access from Microsoft 365."
+slug: "integrations/identity/microsoft-365"
+section: "integrations"
+order: 361
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect your Microsoft 365 or Azure Active Directory (Entra ID) tenant to sync your user directory and application activity into Doow.
+
+## What you need
+
+- A Microsoft 365 or Azure AD (Entra ID) account with **Global Administrator** or **Application Administrator** privileges
+- Access to your Azure tenant to complete the OAuth consent
+
+## What Doow reads
+
+### Users
+- Full name (given name + surname)
+- Primary work email address (userPrincipalName)
+- Account status (enabled or disabled)
+- Department and job title (where set in your directory)
+
+### App activity
+- Last sign-in time per user, per application, from Azure AD sign-in logs
+- Application assignments from your Azure AD enterprise apps
+
+## What Doow does not read
+
+- Passwords or authentication secrets
+- Email content (Outlook), calendar events, Teams messages, or OneDrive files
+- Any data outside directory, user profile, and sign-in audit logs
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Microsoft 365** and click **Connect**
+3. A popup window opens — Doow fetches the Microsoft OAuth consent URL
+4. The popup navigates to Microsoft's OAuth consent screen
+5. Sign in with an account that has Global Administrator or Application Administrator privileges
+6. Review the requested permissions — you may need to **grant admin consent** on behalf of your organization
+7. Click **Accept** to complete authorization
+8. The popup closes automatically and Doow completes the connection
+9. A success notification confirms the integration is connected
+
+> If your browser blocks the popup, you will be redirected to Microsoft's consent screen directly. After approving, you are redirected back to the Integrations page and the connection completes automatically.
+
+The initial sync may take a few minutes. After that, Doow refreshes user and activity data on a scheduled basis.
+
+## Permissions requested
+
+Doow requests the following Microsoft Graph API permissions:
+
+| Permission | Type | Purpose |
+|---|---|---|
+| `User.Read.All` | Application | Read all user profiles in your directory |
+| `Directory.Read.All` | Application | Read organizational structure and group memberships |
+| `AuditLog.Read.All` | Application | Read sign-in and activity logs |
+
+All permissions are read-only. Doow cannot create, modify, or delete any data in your Microsoft 365 tenant.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy identity sync should show a connected state, a recent sync timestamp, imported users, and app assignment or activity records where the provider makes them available.
+
+If the connection is successful but no users appear, verify that you connected the right tenant, granted admin consent, and allowed the required read scopes.
+
+## Troubleshooting
+
+Use these checks when the connection succeeds but data is missing or incomplete:
+
+- Confirm you connected the intended tenant or domain.
+- Confirm the admin consent screen granted the requested read permissions.
+- Confirm the provider account can read users, groups, and app assignments.
+- Check the integration event log for permission or sync errors.
+- Trigger a manual sync when the integration supports it.
+
+### Microsoft 365-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Users do not appear after OAuth | Admin consent was not granted for the tenant | Reconnect and grant admin consent for the requested Microsoft Graph permissions |
+| App activity is missing | The tenant does not expose the expected activity data or scope | Confirm the Graph permissions and tenant audit/activity configuration |
+| Wrong tenant appears | The OAuth flow used the wrong Microsoft account | Disconnect and reconnect with an admin from the intended tenant |
+
+## Disconnecting
+
+To disconnect, go to **Company Settings → Integrations**, find Microsoft 365, and click **Disconnect**. This immediately stops all syncs and removes stored credentials. You can also revoke the Doow enterprise app from **Azure Active Directory → Enterprise Applications**.
+
+## Next steps
+
+After the sync works, connect HRIS if you need departments and employment status. If you are reviewing AI, cloud, or app usage, connect a usage data source next.

@@ -1,0 +1,58 @@
+---
+title: "Deel"
+description: "Connect Deel worker records, departments, and employment status to Doow."
+slug: "integrations/hris/deel"
+section: "integrations"
+order: 373
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Deel to sync your employee and contractor roster into Doow.
+
+## What you need
+
+- A Deel account with **Admin** access
+
+## What Doow reads
+
+- Worker name, work email, department, job title
+- Employment or contract status (active, ended)
+- Start date and end date
+
+For a full description of how this data is used in Doow, see [HRIS overview](/integrations/hris).
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Deel** and click **Connect**
+3. A secure linking modal opens
+4. Deel is pre-selected in the modal — log in with your Deel Admin credentials within the modal
+5. Approve read-only access when prompted
+6. The modal closes and Doow completes the connection and begins the initial employee sync
+
+## What Doow does not read
+
+Salary, compensation, contract rates, payment history, tax documents, banking details, or any financial or personal identification data. See [HRIS overview → What Doow does not read](/integrations/hris#what-doow-does-not-read).
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy HRIS sync should show a connected state, a recent sync timestamp, and imported employee records with work email and employment status.
+
+If records are missing, confirm that the connected HR account has access to the employees you expect Doow to read and that those employees have work email addresses.
+
+## Troubleshooting
+
+Use these checks when employee data is missing or stale:
+
+- Confirm the connected HR admin can read the expected employee records.
+- Confirm employee work email addresses are present and match identity records.
+- Check whether terminated or inactive employees are filtered in the provider.
+- Check the integration event log for permission or sync errors.
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Deel, and click **Disconnect**. You can also revoke access from your Deel account under **Settings → Integrations**.
+
+## Next steps
+
+After the sync works, connect an identity provider if you have not already done so. Identity data helps Doow match HRIS employees to app users and assignments.

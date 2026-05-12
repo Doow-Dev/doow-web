@@ -1,0 +1,93 @@
+---
+title: "Azure OpenAI"
+description: "Connect Azure OpenAI token usage and deployment metrics to Doow."
+slug: "integrations/usage/cloud-platforms/azure-openai"
+section: "integrations"
+order: 331
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Azure OpenAI to pull per-deployment token usage into Doow via Azure Monitor.
+
+## What you need
+
+- An Azure subscription with Azure OpenAI resources deployed
+- A **service principal** (app registration) with read-only access to Azure Monitor metrics
+- Your Azure **Tenant ID**, and the **Client ID** and **Client Secret** of the service principal
+- Optionally: the resource name of your Azure OpenAI resource (for narrowing the metric scope)
+
+## Creating a read-only service principal
+
+1. Go to the [Azure Portal](https://portal.azure.com)
+2. Navigate to **Azure Active Directory (Entra ID) → App registrations → New registration**
+3. Name it something identifiable (for example, `Doow - Azure OpenAI Read`)
+4. After creation, go to **Certificates & secrets → New client secret**
+5. Set an expiry and copy the secret value — you will not see it again
+6. Note the **Application (client) ID** and **Directory (tenant) ID** from the app's Overview page
+7. Go to your **Azure OpenAI resource → Access control (IAM) → Add role assignment**
+8. Assign the **Monitoring Reader** role to the service principal you just created
+
+The **Monitoring Reader** role is a built-in Azure role that grants read-only access to metrics. It does not allow access to model configurations, deployments, or data.
+
+## What Doow reads
+
+| Metric | Description |
+|---|---|
+| `input_tokens` | Prompt tokens sent to each deployment, per day |
+| `output_tokens` | Completion tokens returned by each deployment, per day |
+| Model / deployment | Which deployment was called (for example, `gpt-4o`, `gpt-35-turbo`) |
+| Region | The Azure region where the resource is hosted |
+
+Usage is pulled from Azure Monitor and aggregated at the day level per deployment and region.
+
+## What Doow does not read
+
+- The content of any prompts or completions
+- Your Azure storage data, key vaults, or any other Azure services
+- Your subscription billing details beyond OpenAI metric data
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Azure OpenAI** and click **Connect**
+3. A dialog opens asking for your service principal credentials
+4. Enter your **Tenant ID**, **Client ID**, and **Client Secret**
+5. Optionally enter your **Azure OpenAI resource name** to scope metrics to a specific resource
+6. Click **Connect**
+7. Doow verifies the credentials and begins the initial usage sync
+
+## Multi-resource setups
+
+If you have multiple Azure OpenAI resources (for example, one per region or business unit), add a separate connection for each resource. Each connection uses its own set of service principal credentials.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy cloud sync should show a connected state, a recent sync timestamp, and usage rows for the expected account, project, region, deployment, or model.
+
+If the connection succeeds but no usage appears, verify that the credential has read access to the correct cloud account, project, region, monitoring data, and billing or usage export source.
+
+## Troubleshooting
+
+Use these checks when cloud usage data is missing or incomplete:
+
+- Confirm the credential belongs to the intended cloud account, subscription, or project.
+- Confirm it can read the required monitoring, billing, or usage export data.
+- Confirm the expected regions, deployments, or models have recent usage.
+- Check whether the cloud provider reports usage with a delay.
+- Check the integration event log for permission or sync errors.
+
+### Azure OpenAI-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| No deployment usage appears | The service principal cannot read the Azure OpenAI resource or Azure Monitor data | Confirm the role assignment on the resource, subscription, and monitoring scope |
+| Only one resource appears | Each Azure OpenAI resource needs its own connection | Add a separate connection for each resource you want Doow to read |
+| Credentials validate but sync is empty | Usage is in another subscription or region | Confirm the resource ID, subscription, and region before reconnecting |
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Azure OpenAI, and click **Disconnect**. The stored credentials are deleted immediately. You can also delete the service principal from Azure Active Directory or remove its role assignment to fully revoke access.
+
+## Next steps
+
+After cloud usage appears, connect identity and HRIS data if you need owner, department, or employment context for the usage.

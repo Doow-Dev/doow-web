@@ -1,0 +1,88 @@
+---
+title: "How integrations work"
+description: "Learn how Doow connects, syncs, pauses, and disconnects integrations."
+slug: "integrations/how-integrations-work"
+section: "integrations"
+order: 304
+status: "published"
+updatedAt: "2026-05-11"
+---
+Integrations connect external systems to Doow so data can sync into your
+workspace. Different sources use different connection methods, but the user
+journey is the same: connect a source, let Doow sync, confirm data arrived, and
+monitor the connection over time.
+
+## Connection methods
+
+| Method | Used for | What you provide |
+|---|---|---|
+| OAuth | Google Workspace, Microsoft 365, Zoho | Admin consent through the provider |
+| Client credentials | Okta, OneLogin | Domain, client ID, and client secret |
+| API key or token | OpenAI, Anthropic, Datadog, New Relic, Sentry | Read-only credential from the provider |
+| Service credential | AWS, Azure, Google Cloud | Read-only IAM, service principal, or service account credential |
+| Secure linking flow | HRIS and accounting providers | Provider authorization through a secure modal |
+| SDK or OTLP push | Custom usage events and OpenTelemetry metrics | `dk_` API key from Doow |
+
+## What happens after connect
+
+After you click **Connect**, Doow validates the credential or authorization
+grant. If validation succeeds, the integration appears in **My connections**
+and Doow starts the first sync.
+
+The first sync can take longer than later syncs because Doow needs to fetch,
+normalize, and match records for the first time. Do not connect additional
+sources to work around an empty first sync until you have checked the sync
+status.
+
+## Confirm a connection worked
+
+A healthy connection should show:
+
+- A connected state in **Company Settings → Integrations**.
+- A recent sync, event, or activity timestamp.
+- Imported records in the integration detail page.
+- No credential or permission errors in the event log.
+
+<Cards>
+  <Card title="Connected state">
+    The integration card appears in My connections and shows that the source is
+    connected.
+  </Card>
+  <Card title="Recent activity">
+    The detail page shows a recent sync, event, or received-metric timestamp.
+  </Card>
+  <Card title="Imported records">
+    The detail page contains users, employees, expenses, usage rows, or events
+    from the connected source.
+  </Card>
+  <Card title="Clean event log">
+    The event log does not show credential, permission, scope, or rate-limit
+    errors.
+  </Card>
+</Cards>
+
+For usage data, confirm that events or usage rows appear for the expected
+provider, project, account, deployment, model, or metric. For organization
+data, confirm users and app assignments appear. For accounting, confirm
+expenses appear for the selected categories.
+
+<Callout title="Connected is not the same as synced">
+  A source can accept credentials before data appears. If the connection is
+  marked connected but records are empty, check the sync status and event log
+  before replacing credentials.
+</Callout>
+
+## Pausing and disconnecting
+
+Use pause when you want to stop syncs temporarily but keep the credential. Use
+disconnect when you want Doow to delete the stored credential and stop reading
+from the source.
+
+To fully revoke access, also revoke the credential or authorization grant in
+the provider's own admin settings.
+
+## Next steps
+
+Open [Connecting integrations](/integrations/connect) for the exact connection
+flow, or return to [Choose what to connect first](/integrations/choose-what-to-connect-first)
+if you are still deciding which source to start with.

@@ -1,0 +1,84 @@
+---
+title: "Datadog"
+description: "Connect Datadog custom metrics and event counts to Doow."
+slug: "integrations/usage/observability/datadog"
+section: "integrations"
+order: 351
+status: "published"
+updatedAt: "2026-05-11"
+---
+Connect Datadog to pull custom metrics and usage data into Doow from your Datadog organization.
+
+## What you need
+
+- A Datadog account
+- A **Datadog API key** and **Application key**, or an OAuth authorization
+
+> Datadog uses two separate credentials for API access. The API key authenticates the request; the Application key determines what data the request can access. Both are required when connecting with API keys.
+
+## Creating an API key and Application key
+
+1. Go to [app.datadoghq.com](https://app.datadoghq.com)
+2. Navigate to **Organization Settings → API Keys**
+3. Click **New Key**, name it (for example, `Doow - Usage Read`), and copy the API key
+4. Navigate to **Organization Settings → Application Keys**
+5. Click **New Key**, name it (for example, `Doow - Usage Read`), and copy the Application key
+6. Paste both into Doow when prompted
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Metric series | Time-series values for custom metrics, per service and project |
+| Event counts | Aggregated event volumes for configured metric queries |
+| Date | The time window the usage occurred in |
+
+Data is pulled from Datadog's metrics API and aggregated into Doow's usage pipeline.
+
+## What Doow does not read
+
+- The content of any traces, logs, or error events
+- Infrastructure configuration or environment variables
+- Source code, deployment artifacts, or secrets
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings → Integrations** in your Doow workspace
+2. Find **Datadog** and click **Connect**
+3. A dialog opens asking for your credentials
+4. Enter your API key and Application key
+5. Click **Connect**
+6. Doow verifies the credentials and begins the initial sync
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy observability sync should show a connected state, a recent sync timestamp, and metric or event rows for the expected account, app, service, project, or environment.
+
+If no metrics appear, verify that the metric exists in the observability platform for the selected time range and that the credential can read it.
+
+## Troubleshooting
+
+Use these checks when metrics are missing or incomplete:
+
+- Confirm the API key can read the account, app, service, or project.
+- Confirm the metric exists in the observability platform before connecting it to Doow.
+- Confirm the metric has data in the selected time range.
+- Check whether the provider aggregates or delays metric availability.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+### Datadog-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| API key validates but metrics are empty | The metric name or account does not contain data for the selected range | Confirm the metric in Datadog before reconnecting |
+| Application key is rejected | The key does not have access to the org or metrics scope | Create a new Application key with read access to the expected org |
+| Only some services appear | Metrics are tagged differently than expected | Confirm service, environment, project, or team tags in Datadog |
+
+## Disconnecting
+
+Go to **Company Settings → Integrations**, find Datadog, and click **Disconnect**. The stored credentials are deleted immediately. You can also revoke the API or Application key from your Datadog organization settings.
+
+## Next steps
+
+After metrics appear, connect identity or HRIS data if you need to attribute usage to users, teams, or departments.
