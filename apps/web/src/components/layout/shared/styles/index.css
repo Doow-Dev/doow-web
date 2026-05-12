@@ -116,14 +116,17 @@
   }
 
   .progressive-split__item-copy {
+    display: grid;
+    gap: 0.55rem;
     min-width: 0;
   }
 
   .progressive-split__item-button {
-    display: inherit;
-    grid-template-columns: inherit;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     align-items: inherit;
-    gap: 0.55rem;
+    gap: inherit;
     width: 100%;
     margin: 0;
     border: 0;
@@ -389,14 +392,17 @@
   }
 
   .progressive-split__item-copy {
+    display: grid;
+    gap: 0.55rem;
     min-width: 0;
   }
 
   .progressive-split__item-button {
-    display: inherit;
-    grid-template-columns: inherit;
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     align-items: inherit;
-    gap: 0.55rem;
+    gap: inherit;
     width: 100%;
     margin: 0;
     border: 0;
