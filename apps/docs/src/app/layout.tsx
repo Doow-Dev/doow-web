@@ -3,6 +3,8 @@ import { Inter, Sometype_Mono } from "next/font/google";
 
 import { ThemeScript } from "@/components/docs/theme-provider";
 import "@/styles/globals.css";
+import "@/styles/sidebar-accordion.css";
+import "@/styles/docs-layout-frame.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,10 +27,10 @@ export const metadata: Metadata = {
     default: "Doow Docs",
     template: "%s | Doow Docs",
   },
-  description: "Production documentation for Doow setup, workflows, integrations, and releases.",
+  description: "Production documentation for connecting Doow integrations.",
   openGraph: {
     title: "Doow Docs",
-    description: "Production documentation for Doow setup, workflows, integrations, and releases.",
+    description: "Production documentation for connecting Doow integrations.",
     type: "website",
     url: docsSiteUrl,
   },

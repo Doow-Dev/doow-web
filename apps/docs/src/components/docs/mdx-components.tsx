@@ -1,5 +1,13 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@doow/ui/ui/alert";
+import { Card as UiCard } from "@doow/ui/ui/card";
+import {
+  Tooltip as UiTooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@doow/ui/ui/tooltip";
 
 import { CopyButton } from "./copy-button";
 import { Tabs } from "./tabs";
@@ -44,15 +52,15 @@ export function Callout({
   tone?: CalloutTone;
 }) {
   return (
-    <aside className="docs-callout" data-tone={tone}>
-      <strong>{title ?? (tone === "warning" ? "Important" : "Note")}</strong>
-      <div>{children}</div>
-    </aside>
+    <Alert className="docs-callout" data-tone={tone}>
+      <AlertTitle>{title ?? (tone === "warning" ? "Important" : "Note")}</AlertTitle>
+      <AlertDescription>{children}</AlertDescription>
+    </Alert>
   );
 }
 
 export function Steps({ children }: { children: ReactNode }) {
-  return <div className="docs-steps">{children}</div>;
+  return <UiCard className="docs-steps">{children}</UiCard>;
 }
 
 export function Card({
@@ -72,11 +80,11 @@ export function Card({
   );
 
   return href ? (
-    <Link className="docs-mdx-card" href={href}>
-      {content}
+    <Link className="docs-mdx-card-link-shell" href={href}>
+      <UiCard className="docs-mdx-card">{content}</UiCard>
     </Link>
   ) : (
-    <div className="docs-mdx-card">{content}</div>
+    <UiCard className="docs-mdx-card">{content}</UiCard>
   );
 }
 
@@ -118,9 +126,16 @@ export function Tooltip({
   label: string;
 }) {
   return (
-    <span className="docs-tooltip" title={label}>
-      {children}
-    </span>
+    <TooltipProvider>
+      <UiTooltip>
+        <TooltipTrigger asChild>
+          <span className="docs-tooltip" tabIndex={0}>
+            {children}
+          </span>
+        </TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </UiTooltip>
+    </TooltipProvider>
   );
 }
 

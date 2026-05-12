@@ -1,7 +1,13 @@
 "use client";
 
-import { Children, useId, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import type { KeyboardEvent, ReactNode } from "react";
+import { Children, useId, useMemo, useState, useSyncExternalStore } from "react";
+import type { ReactNode } from "react";
+import {
+  Tabs as TabsRoot,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@doow/ui/ui/tabs";
 
 const STORAGE_PREFIX = "docs-tabs:";
 
@@ -56,8 +62,6 @@ export function Tabs({
   const [override, setOverride] = useState<number | null>(null);
   const active = override ?? (storedIndex >= 0 ? storedIndex : 0);
 
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-
   function activate(idx: number) {
     setOverride(idx);
     try {
@@ -65,52 +69,43 @@ export function Tabs({
     } catch {}
   }
 
-  function onKeyDown(event: KeyboardEvent<HTMLButtonElement>, idx: number) {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-    event.preventDefault();
-    const dir = event.key === "ArrowRight" ? 1 : -1;
-    const next = (idx + dir + labels.length) % labels.length;
-    activate(next);
-    tabRefs.current[next]?.focus();
-  }
-
   if (labels.length === 0) {
-    return <div className="docs-tabs"><div className="docs-tabs__panel">{children}</div></div>;
+    return (
+      <TabsRoot className="docs-tabs" defaultValue="content">
+        <TabsContent className="docs-tabs__panel" value="content">
+          {children}
+        </TabsContent>
+      </TabsRoot>
+    );
   }
 
-  const activePanel = panels[active] ?? panels[0] ?? null;
+  const activeValue = String(active);
 
   return (
-    <div className="docs-tabs">
-      <div className="docs-tabs__list" role="tablist">
+    <TabsRoot className="docs-tabs" onValueChange={(value) => activate(Number(value))} value={activeValue}>
+      <TabsList className="docs-tabs__list">
         {labels.map((label, idx) => (
-          <button
-            aria-controls={`${groupId}-panel-${idx}`}
-            aria-selected={idx === active}
+          <TabsTrigger
             className="docs-tabs__tab"
             id={`${groupId}-tab-${idx}`}
             key={label}
-            onClick={() => activate(idx)}
-            onKeyDown={(event) => onKeyDown(event, idx)}
-            ref={(el) => {
-              tabRefs.current[idx] = el;
-            }}
-            role="tab"
-            tabIndex={idx === active ? 0 : -1}
-            type="button"
+            value={String(idx)}
           >
             {label}
-          </button>
+          </TabsTrigger>
         ))}
-      </div>
-      <div
-        aria-labelledby={`${groupId}-tab-${active}`}
-        className="docs-tabs__panel"
-        id={`${groupId}-panel-${active}`}
-        role="tabpanel"
-      >
-        {activePanel}
-      </div>
-    </div>
+      </TabsList>
+      {panels.map((panel, idx) => (
+        <TabsContent
+          aria-labelledby={`${groupId}-tab-${idx}`}
+          className="docs-tabs__panel"
+          id={`${groupId}-panel-${idx}`}
+          key={idx}
+          value={String(idx)}
+        >
+          {panel}
+        </TabsContent>
+      ))}
+    </TabsRoot>
   );
 }

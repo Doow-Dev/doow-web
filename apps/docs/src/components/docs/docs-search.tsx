@@ -47,6 +47,18 @@ export function DocsSearch() {
         setIsOpen(true);
       }
 
+      const target = event.target as HTMLElement | null;
+      const isTyping =
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.isContentEditable;
+
+      if (!isTyping && event.key === "/") {
+        event.preventDefault();
+        setMode("search");
+        setIsOpen(true);
+      }
+
       if (event.key === "Escape") {
         setIsOpen(false);
       }
@@ -94,7 +106,7 @@ export function DocsSearch() {
   const isAsk = mode === "ask";
   const placeholder = isAsk
     ? "Ask a question about Doow..."
-    : "Search guides, reference, and releases...";
+    : "Search integrations...";
   const headerTitle = isAsk ? "Ask Doow Docs" : "Search Doow Docs";
   const headerHelp = isAsk
     ? "AI answers are coming soon. For now, ask via search and pick the closest doc."
@@ -171,7 +183,7 @@ export function DocsSearch() {
               ) : (
                 <div className="docs-search-empty">
                   <strong>No results found</strong>
-                  <p>Try a product workflow, setup term, or reference topic.</p>
+                  <p>Try a provider, telemetry method, or integration family.</p>
                 </div>
               )}
             </div>
@@ -179,5 +191,19 @@ export function DocsSearch() {
         </div>
       ) : null}
     </>
+  );
+}
+
+export function DocsSidebarSearch() {
+  return (
+    <button
+      className="docs-sidebar-search"
+      onClick={() => dispatchDocsSearchOpen("search")}
+      type="button"
+    >
+      <Search aria-hidden="true" size={14} />
+      <span>Search sidebar...</span>
+      <kbd>/</kbd>
+    </button>
   );
 }
