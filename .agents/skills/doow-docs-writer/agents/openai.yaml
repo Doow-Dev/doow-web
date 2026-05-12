@@ -1,0 +1,7 @@
+interface:
+  display_name: "Doow Docs Writer"
+  short_description: "Write clear, task-first Doow docs."
+  default_prompt: "Use $doow-docs-writer to review this Doow docs page for page type, reader job, cognitive load, and production readiness."
+
+policy:
+  allow_implicit_invocation: true
