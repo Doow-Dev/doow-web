@@ -18,6 +18,7 @@
   "dependencies": {
     "@doow/content-schemas": "workspace:*",
     "@doow/mdx": "workspace:*",
+    "@doow/ui": "workspace:*",
     "@radix-ui/react-slot": "1.2.4",
     "clsx": "2.1.1",
     "gray-matter": "4.0.3",
