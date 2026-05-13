@@ -1,0 +1,106 @@
+---
+title: "Doow Agent"
+description: "Collect browser and desktop app usage with Doow Agent."
+slug: "integrations/usage/doow-agent"
+section: "integrations"
+order: 309
+status: "published"
+updatedAt: "2026-05-13"
+---
+Doow Agent collects usage activity from user devices so Doow can see SaaS
+usage that provider APIs, billing exports, or custom application events do not
+cover.
+
+Browser Agent and Desktop Agent are the same Doow usage-collection product
+across two surfaces. Browser Agent covers browser and web SaaS activity.
+Desktop Agent extends the same usage stream to native desktop applications.
+
+## When to use Doow Agent
+
+Use Doow Agent when you need usage data from the places where employees
+actually work, not only from a provider's account-level API.
+
+<Cards>
+  <Card title="Browser Agent">
+    Use Browser Agent when you need web and browser-based SaaS usage, such as
+    activity in apps employees open from a supported browser.
+  </Card>
+  <Card title="Desktop Agent">
+    Use Desktop Agent when important usage happens in native desktop apps, such
+    as Slack Desktop, Notion Desktop, Figma Desktop, or similar installed
+    applications.
+  </Card>
+</Cards>
+
+If a provider gives you complete usage through a read-only API, use
+[Direct provider APIs](/integrations/usage/direct-provider-apis) instead. If
+you own the application and need to emit custom product metrics, use the
+[Instrumentation SDK](/integrations/usage/instrumentation-sdk).
+
+## How the surfaces fit together
+
+Doow Agent keeps one product model while collecting from different device
+surfaces.
+
+| Surface | What it observes | Best for |
+|---|---|---|
+| Browser Agent | Browser activity and web SaaS context | Browser-based SaaS usage |
+| Desktop Agent | Foreground desktop app activity, process identity, time, and idle state | Native app usage that browser collection cannot see |
+
+Desktop Agent is not a separate analytics system. It closes the native app
+coverage gap while keeping browser and desktop usage in the same Doow usage
+stream.
+
+## What Doow receives
+
+Doow Agent sends usage activity metadata into Doow. The exact fields differ by
+surface because browsers and desktop operating systems expose different
+context.
+
+- Browser Agent can include browser activity context, such as the app domain
+  and path.
+- Desktop Agent can include desktop activity context, such as app name,
+  process name, timing, duration, idle or active state, device, platform, and
+  account linkage.
+
+This metadata helps Doow attribute usage to the right users, applications, and
+licenses.
+
+## Privacy boundary
+
+Doow Agent is for usage attribution, not content inspection.
+
+<Callout title="Desktop collection boundary">
+  Desktop Agent is designed to collect app activity metadata. It does not
+  collect screenshots, keystrokes, clipboard contents, typed content, document
+  bodies, message bodies, file contents, audio or video content, or window
+  titles.
+</Callout>
+
+For Browser Agent, confirm the extension permissions and distribution path for
+your workspace before rollout.
+
+## Confirm it is working
+
+After Doow Agent is enabled, open the integration detail page from
+**Company Settings -> Integrations**. A healthy setup should show recent
+activity and usage records for the expected users and apps.
+
+If Doow Agent is connected but usage is missing, check these items first:
+
+- The user is signed in to Doow Agent.
+- Tracking is turned on.
+- The expected browser or desktop surface is installed and running.
+- The app activity happened after the agent was enabled.
+- The app can be matched to a known app or safely reported as unresolved until
+  mapping is available.
+
+## Next steps
+
+Choose the surface that matches the activity you need to collect:
+
+- Use Browser Agent for browser and web SaaS usage.
+- Use Desktop Agent for native desktop app usage.
+- Return to [Choose a usage data source](/integrations/usage/choose-source)
+  if provider APIs, SDK events, observability metrics, or OTLP may be a better
+  path.
