@@ -1379,10 +1379,16 @@ pre {
 
 .docs-prose {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.2rem;
+  min-width: 0;
   color: var(--docs-text-muted);
   font-size: 0.98rem;
   line-height: 1.78;
+}
+
+.docs-prose > * {
+  min-width: 0;
 }
 
 .docs-prose h2,
