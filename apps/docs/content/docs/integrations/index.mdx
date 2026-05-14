@@ -5,7 +5,7 @@ slug: "integrations"
 section: "integrations"
 order: 300
 status: "published"
-updatedAt: "2026-05-12"
+updatedAt: "2026-05-14"
 ---
 Use this page to decide which systems to connect to Doow. If unsure, start
 with one usage integration and one identity integration so Doow can see what
@@ -64,6 +64,10 @@ Usage data tells Doow what is actually being consumed. Choose the integration
 path that matches where the data already lives.
 
 <Cards>
+  <Card title="Doow Agent" href="/integrations/usage/doow-agent">
+    Use this when Doow should collect browser or desktop app usage directly
+    from user devices.
+  </Card>
   <Card title="Direct provider APIs" href="/integrations/usage/direct-provider-apis">
     Use this when providers such as OpenAI, Anthropic, AWS, Azure, or Vertex
     expose usage or billing data.
@@ -99,8 +103,8 @@ moving to the next one.
 </Callout>
 
 If the connection succeeds but no data appears, check the provider account,
-credential scope, selected workspace, and sync status before adding more
-integrations.
+credential scope, selected workspace, sync status, agent installation, and
+tracking state before adding more integrations.
 
 ## Next step
 
