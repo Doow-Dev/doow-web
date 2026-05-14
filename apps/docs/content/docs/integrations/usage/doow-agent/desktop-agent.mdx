@@ -7,14 +7,12 @@ order: 311
 status: "published"
 updatedAt: "2026-05-14"
 ---
-Install Desktop Agent when Doow needs native desktop app usage from user
-devices. Desktop Agent is the desktop surface of Doow Agent, the same usage
-collection product that also includes Browser Agent.
+Install Desktop Agent when Doow should measure installed apps employees use on
+their computers.
 
-## When to use Desktop Agent
+## Choose Desktop Agent
 
-Use Desktop Agent when employees spend meaningful time in installed apps that
-Browser Agent cannot observe.
+Choose this path when important usage happens outside the browser.
 
 <Cards>
   <Card title="Use Desktop Agent">
@@ -26,65 +24,19 @@ Browser Agent cannot observe.
   </Card>
 </Cards>
 
-Desktop Agent does not create a second analytics model. It extends the same
-Doow Agent usage stream to native desktop applications.
-
-## What Desktop Agent collects
-
-Desktop Agent collects activity metadata needed to attribute native app usage
-to the right users, applications, and licenses.
-
-The desktop surface can include:
-
-- foreground app name
-- process or executable identifier
-- timestamps and duration
-- idle and active state
-- device, platform, and account linkage data
-- network context used by the shared activity pipeline
-
-Desktop Agent can report an app as unresolved when Doow cannot map it yet. That
-lets usage flow continue while app mapping is completed.
-
-## What Desktop Agent does not collect
-
-Desktop Agent is for usage attribution, not content inspection.
-
-<Callout title="Desktop privacy boundary" tone="warning">
-  Desktop Agent does not collect screenshots, keystrokes, clipboard contents,
-  typed content, document bodies, message bodies, file contents, audio or video
-  content, or window titles.
-</Callout>
-
-Any request to collect more than app activity metadata needs a separate
-product and privacy review before rollout.
-
-## Platform availability
-
-Desktop Agent is one product across platforms. Confirm the rollout path for
-your workspace before sending installers to users.
-
-| Platform | Rollout guidance |
-|---|---|
-| Windows | Treat Windows as the baseline desktop rollout path, but confirm the approved installer and rollout status for your workspace before external deployment. |
-| Linux | Confirm whether Linux is enabled for your workspace before rollout. The current implementation is Ubuntu-first, and broad deployment depends on workspace approval. |
-| macOS | Confirm availability before rollout. The shared desktop runtime supports the macOS direction, but public availability must be verified for your workspace. |
-
-Keep Windows, Linux, and macOS on this page unless a platform needs materially
-different installation, permission, or troubleshooting steps.
+Desktop Agent and Browser Agent feed the same Doow usage view. Use Desktop
+Agent to cover native apps that Browser Agent cannot see.
 
 ## Before rollout
 
-Confirm these items before asking users to install Desktop Agent.
+Confirm these items before asking users to install Desktop Agent:
 
-- Confirm the approved Desktop Agent download or managed-install path.
-- Confirm which platforms are enabled for your workspace.
-- Confirm whether the rollout is for all employees, a pilot cohort, or a
-  specific department.
-- Review the privacy boundary with the team that owns security, legal, or
-  device management.
-- Confirm users can sign in to Desktop Agent.
-- Confirm users can turn tracking on or off from the desktop app.
+- the approved Desktop Agent download or managed-install path
+- which platforms are enabled for your workspace
+- who should install it: all employees, a pilot cohort, or one department
+- who needs to review the privacy boundary
+- whether users can sign in from the desktop app
+- whether users can turn tracking on or off from the desktop app
 
 ## Install and enable Desktop Agent
 
@@ -107,7 +59,34 @@ Do not use an internal build, unsigned installer, or private package for a
 customer rollout unless that is the approved distribution path for your
 workspace.
 
-## Confirm usage is flowing
+## Review privacy before rollout
+
+Desktop Agent is for usage attribution, not content inspection.
+
+It can send app activity metadata such as app name, process identity, timing,
+duration, idle or active state, device, platform, account linkage, and network
+context used for attribution.
+
+<Callout title="Desktop privacy boundary" tone="warning">
+  Desktop Agent does not collect screenshots, keystrokes, clipboard contents,
+  typed content, document bodies, message bodies, file contents, audio or video
+  content, or window titles.
+</Callout>
+
+Any request to collect more than app activity metadata needs a separate
+product and privacy review before rollout.
+
+## Confirm platform availability
+
+Confirm platform availability before sending installers to users.
+
+| Platform | What to confirm |
+|---|---|
+| Windows | Confirm the approved installer and rollout status for your workspace. |
+| Linux | Confirm Linux is enabled for your workspace. The current implementation is Ubuntu-first. |
+| macOS | Confirm availability for your workspace before rollout. |
+
+## Confirm it worked
 
 After installation, confirm the agent is sending usable activity before
 expanding the rollout.

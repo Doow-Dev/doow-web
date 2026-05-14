@@ -5,30 +5,25 @@ slug: "integrations/usage/doow-agent"
 section: "integrations"
 order: 309
 status: "published"
-updatedAt: "2026-05-13"
+updatedAt: "2026-05-14"
 ---
-Doow Agent collects usage activity from user devices so Doow can see SaaS
-usage that provider APIs, billing exports, or custom application events do not
-cover.
+Doow Agent helps Doow see SaaS usage that happens on employee devices.
 
-Browser Agent and Desktop Agent are the same Doow usage-collection product
-across two surfaces. Browser Agent covers browser and web SaaS activity.
-Desktop Agent extends the same usage stream to native desktop applications.
+Use it when provider APIs or billing exports do not show the full picture,
+especially when employees use apps from a browser or from installed desktop
+apps.
 
-## When to use Doow Agent
+## Choose where to collect usage
 
-Use Doow Agent when you need usage data from the places where employees
-actually work, not only from a provider's account-level API.
+Pick the surface that matches where the work happens.
 
 <Cards>
   <Card title="Browser Agent" href="/integrations/usage/doow-agent/browser-agent">
-    Use Browser Agent when you need web and browser-based SaaS usage, such as
-    activity in apps employees open from a supported browser.
+    Start here when the apps you care about are opened in a supported browser.
   </Card>
   <Card title="Desktop Agent" href="/integrations/usage/doow-agent/desktop-agent">
-    Use Desktop Agent when important usage happens in native desktop apps, such
-    as Slack Desktop, Notion Desktop, Figma Desktop, or similar installed
-    applications.
+    Start here when employees use installed apps such as Slack Desktop,
+    Notion Desktop, Figma Desktop, or similar tools.
   </Card>
 </Cards>
 
@@ -37,40 +32,26 @@ If a provider gives you complete usage through a read-only API, use
 you own the application and need to emit custom product metrics, use the
 [Instrumentation SDK](/integrations/usage/instrumentation-sdk).
 
-## How the surfaces fit together
+## Before you roll it out
 
-Doow Agent keeps one product model while collecting from different device
-surfaces.
+Confirm these items before sending an agent to users:
 
-| Surface | What it observes | Best for |
-|---|---|---|
-| Browser Agent | Browser activity and web SaaS context | Browser-based SaaS usage |
-| Desktop Agent | Foreground desktop app activity, process identity, time, and idle state | Native app usage that browser collection cannot see |
+- which users should install it
+- which browser or desktop platforms are approved for your workspace
+- which distribution path your workspace should use
+- who will review the permission or privacy notice before rollout
 
-Desktop Agent is not a separate analytics system. It closes the native app
-coverage gap while keeping browser and desktop usage in the same Doow usage
-stream.
+<Callout title="Browser and desktop are one rollout family">
+  Browser Agent and Desktop Agent send usage activity into the same Doow usage
+  view. Use one, or use both, depending on where employees use the apps you need
+  to measure.
+</Callout>
 
-## What Doow receives
-
-Doow Agent sends usage activity metadata into Doow. The exact fields differ by
-surface because browsers and desktop operating systems expose different
-context.
-
-- Browser Agent can include browser activity context, such as the app domain
-  and path.
-- Desktop Agent can include desktop activity context, such as app name,
-  process name, timing, duration, idle or active state, device, platform, and
-  account linkage.
-
-This metadata helps Doow attribute usage to the right users, applications, and
-licenses.
-
-## Privacy boundary
+## Review privacy before rollout
 
 Doow Agent is for usage attribution, not content inspection.
 
-<Callout title="Desktop collection boundary">
+<Callout title="Desktop privacy boundary">
   Desktop Agent is designed to collect app activity metadata. It does not
   collect screenshots, keystrokes, clipboard contents, typed content, document
   bodies, message bodies, file contents, audio or video content, or window
@@ -80,24 +61,20 @@ Doow Agent is for usage attribution, not content inspection.
 For [Browser Agent](/integrations/usage/doow-agent/browser-agent), confirm the
 extension permissions and distribution path for your workspace before rollout.
 
-## Confirm it is working
+## Confirm it worked
 
-After Doow Agent is enabled, open the integration detail page from
-**Company Settings -> Integrations**. A healthy setup should show recent
-activity and usage records for the expected users and apps.
+After users install the agent, open **Company Settings -> Integrations** in
+Doow. A healthy setup shows recent activity for the expected users and apps.
 
-If Doow Agent is connected but usage is missing, check these items first:
+If the agent is connected but usage is missing, check these items first:
 
-- The user is signed in to Doow Agent.
+- The user is signed in.
 - Tracking is turned on.
-- The expected browser or desktop surface is installed and running.
-- The app activity happened after the agent was enabled.
-- The app can be matched to a known app or safely reported as unresolved until
-  mapping is available.
+- The browser extension or desktop app is installed and running.
+- The user opened the app after the agent was enabled.
+- Doow can map the app, or report it as unresolved until mapping is complete.
 
 ## Next steps
-
-Choose the surface that matches the activity you need to collect:
 
 - Use [Browser Agent](/integrations/usage/doow-agent/browser-agent) for browser
   and web SaaS usage.

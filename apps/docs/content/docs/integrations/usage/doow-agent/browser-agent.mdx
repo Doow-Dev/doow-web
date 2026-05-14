@@ -7,19 +7,17 @@ order: 310
 status: "published"
 updatedAt: "2026-05-14"
 ---
-Install Browser Agent when Doow needs browser-based SaaS usage from user
-devices. Browser Agent is the browser surface of Doow Agent, the same usage
-collection product that also includes Desktop Agent.
+Install Browser Agent when Doow should measure SaaS apps employees use in a
+supported browser.
 
-## When to use Browser Agent
+## Choose Browser Agent
 
-Use Browser Agent when important SaaS usage happens in web apps that employees
-open from a supported browser.
+Choose this path when the apps you care about are opened in the browser and
+provider APIs do not give you enough usage detail.
 
 <Cards>
   <Card title="Use Browser Agent">
-    You need browser and web SaaS activity, app-domain context, and user-level
-    activity signals from employee devices.
+    You need browser-based SaaS usage by user, app, and workspace.
   </Card>
   <Card title="Use another source">
     You only need provider-owned usage from an API, custom product metrics from
@@ -32,52 +30,15 @@ If provider APIs already give you complete usage, start with
 native desktop app usage, use Desktop Agent after confirming the rollout path
 for your workspace.
 
-## What Browser Agent collects
-
-Browser Agent records browser usage activity so Doow can attribute SaaS usage
-to the right users, applications, and licenses.
-
-The browser surface can include:
-
-- browser interaction events, such as clicks, keydown activity, and scrolling
-- web context, such as app domain and path
-- local activity state before sync
-- user, organization, device, browser, and network context needed for usage
-  attribution
-
-Browser Agent does not replace provider APIs. It fills the gap when usage is
-best observed from the browser session itself.
-
-## Browser and permission requirements
-
-Confirm the rollout requirements before you send Browser Agent to users.
-
-| Requirement | What to confirm |
-|---|---|
-| Supported browser | Confirm the approved browser list for your workspace. Do not roll out Safari, Edge, Opera, or another browser until Doow confirms support for your workspace. |
-| Distribution path | Confirm whether users install from a browser store, managed browser policy, or a private installation path. |
-| Site access | Browser Agent needs browser site access so it can attribute SaaS usage from the apps users open. |
-| Local storage and sync | Browser Agent stores activity locally before syncing it to Doow. |
-| Security review | Review the browser permission prompt with the team that owns security or device management before a broad rollout. |
-
 ## Before rollout
 
-Confirm these items before asking users to install Browser Agent.
+Confirm these items before asking users to install Browser Agent:
 
-<Callout title="Use your approved distribution path">
-  Use the Browser Agent distribution path approved for your Doow workspace. If
-  you do not have one, get it from your Doow admin or support contact before
-  rollout.
-</Callout>
-
-- Confirm the approved browser list for your workspace.
-- Confirm whether the extension is distributed through a browser store,
-  managed browser policy, or a private installation path.
-- Confirm who should install it: all employees, a pilot cohort, or a specific
-  department.
-- Review the browser permission prompt with the team that owns security or
-  device management.
-- Confirm that users can sign in to Doow from the extension.
+- the approved browser list for your workspace
+- the approved extension distribution path
+- who should install it: all employees, a pilot cohort, or one department
+- who needs to review the browser permission prompt
+- whether users can sign in to Doow from the extension
 
 ## Install and enable Browser Agent
 
@@ -99,7 +60,22 @@ Do not use a development build, unpacked extension, or private package for a
 customer rollout unless that is the approved distribution path for your
 workspace.
 
-## Confirm usage is flowing
+## Review browser permissions
+
+Browser Agent is for SaaS usage attribution. It helps Doow understand which
+browser apps are being used and by whom.
+
+The browser surface can include browser activity signals, app domain and path,
+local activity state before sync, and user, organization, device, browser, and
+network context needed for attribution.
+
+<Callout title="Use your approved distribution path">
+  Use the Browser Agent distribution path approved for your Doow workspace. If
+  you do not have one, get it from your Doow admin or support contact before
+  rollout.
+</Callout>
+
+## Confirm it worked
 
 After installation, confirm the agent is sending usable activity before
 expanding the rollout.
