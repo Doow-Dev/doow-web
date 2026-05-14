@@ -5,7 +5,7 @@ slug: "integrations/what-doow-needs"
 section: "integrations"
 order: 302
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-14"
 ---
 Doow works best when it can combine usage data, organization data, and
 financial data. You do not need to connect everything on day one. Start with
@@ -16,7 +16,7 @@ sources as your review process matures.
 
 | Data layer | What it answers | Examples |
 |---|---|---|
-| Usage data | What is being consumed? | Tokens, API calls, model usage, events, requests, quota consumption |
+| Usage data | What is being consumed? | Browser activity, desktop app activity, tokens, API calls, model usage, events, requests, quota consumption |
 | Organization data | Who uses it and where do they belong? | Users, groups, app assignments, departments, managers, employment status |
 | Financial data | What did the company pay? | Expenses, vendors, account categories, transaction dates |
 
@@ -38,8 +38,9 @@ When these layers work together, Doow can help you answer questions like:
 
 For most teams, connect:
 
-1. One usage source for the product, AI provider, or platform you want to
-   inspect first.
+1. One usage source for the product, AI provider, app, or platform you want to
+   inspect first. That can be Doow Agent, a provider API, SDK events,
+   observability metrics, or OTLP.
 2. One identity provider so Doow can match usage to people.
 
 That gives Doow enough context to show what is being used and who is connected
