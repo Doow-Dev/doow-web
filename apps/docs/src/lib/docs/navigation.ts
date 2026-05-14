@@ -29,7 +29,14 @@ export const docsSidebar: DocsSidebarGroup[] = [
     section: "integrations",
     items: [
       { href: "/integrations/usage/choose-source", label: "Choose a usage source", description: "Pick Doow Agent, provider APIs, SDK, observability, or OTLP." },
-      { href: "/integrations/usage/doow-agent", label: "Doow Agent", description: "Collect browser and desktop app usage." },
+      {
+        href: "/integrations/usage/doow-agent",
+        label: "Doow Agent",
+        description: "Collect browser and desktop app usage.",
+        items: [
+          { href: "/integrations/usage/doow-agent/browser-agent", label: "Browser Agent", description: "Collect browser-based SaaS usage." },
+        ],
+      },
       {
         href: "/integrations/usage/direct-provider-apis",
         label: "Direct provider APIs",

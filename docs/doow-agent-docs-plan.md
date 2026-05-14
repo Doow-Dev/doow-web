@@ -136,17 +136,17 @@ OS, split them. If not, keep platform notes inside the Desktop Agent page.
 - Reader job: Help an admin install and verify browser-based usage collection.
 - Dependencies: Doow Agent overview
 - Work:
-  - [ ] Explain when Browser Agent is the right surface.
-  - [ ] Document supported browsers only from verified source truth.
-  - [ ] Explain permissions and privacy in customer language.
-  - [ ] Add setup steps.
-  - [ ] Add proof steps for confirming usage data appears.
-  - [ ] Add troubleshooting for missing browser activity.
+  - [x] Explain when Browser Agent is the right surface.
+  - [x] Document supported browsers only from verified source truth.
+  - [x] Explain permissions and privacy in customer language.
+  - [x] Add setup steps.
+  - [x] Add proof steps for confirming usage data appears.
+  - [x] Add troubleshooting for missing browser activity.
 - Done when:
-  - [ ] The page helps a customer complete setup.
-  - [ ] Browser support does not overclaim store availability or unverified
+  - [x] The page helps a customer complete setup.
+  - [x] Browser support does not overclaim store availability or unverified
     browsers.
-  - [ ] The page avoids internal build commands unless they are truly customer
+  - [x] The page avoids internal build commands unless they are truly customer
     setup commands.
 
 ### 4. Desktop Agent
