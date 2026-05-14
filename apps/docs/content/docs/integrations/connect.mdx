@@ -5,7 +5,7 @@ slug: "integrations/connect"
 section: "integrations"
 order: 301
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-14"
 ---
 All integrations are managed from **Company Settings → Integrations**. The page has two tabs: **My connections** (already connected) and **Not connected** (available to connect). You can search across all integrations from either tab.
 
@@ -17,7 +17,7 @@ are not sure, start with [What Doow needs](/integrations/what-doow-needs) and
 
 | If you want... | Connect... |
 |---|---|
-| Usage visibility | A usage data source |
+| Usage visibility | A usage data source, such as Doow Agent, provider APIs, SDK events, or observability metrics |
 | User and app ownership | An identity provider |
 | Department and employment context | HRIS |
 | Finance-confirmed spend | Accounting |
@@ -94,6 +94,19 @@ These providers connect via an API key or service credential that you supply.
 4. Click **Connect**
 5. Doow verifies the credential and begins the initial usage sync
 
+### Doow Agent — Installed agent
+
+Doow Agent uses an approved Browser Agent or Desktop Agent rollout path. It
+does not connect like a provider API.
+
+1. Open [Doow Agent](/integrations/usage/doow-agent) and choose Browser Agent
+   or Desktop Agent.
+2. Confirm the approved distribution path for your workspace.
+3. Install the agent on the supported browser or platform.
+4. Sign in with the user account that belongs to your Doow workspace.
+5. Turn tracking on if it is not already enabled.
+6. Confirm recent browser or desktop activity appears in Doow.
+
 ### Observability integrations — Platform pull (Datadog, New Relic, AppSignal, Sentry)
 
 These connect the same way as usage-based integrations — via an API key dialog.
@@ -117,6 +130,7 @@ Each integration type has a different set of tabs on its detail page:
 | Identity / SSO | **Users** — synced users and app activity · **Activity** — sign-in events · **Event log** — raw sync events |
 | HRIS | **Overview** — synced employee records · **Event log** — raw sync events |
 | Accounting | **Overview** — synced expenses · **Event log** — raw sync events |
+| Doow Agent | **Activity** — browser or desktop activity records · **Event log** — agent events and sync state |
 | Usage-based integrations | **Sources** — sync run status per data source · **Event log** — raw metered events |
 
 ### Enabling and disabling
@@ -139,14 +153,15 @@ After connecting any integration, open its detail page from **My connections**.
 A healthy setup should show a connected state, a recent sync or event
 timestamp, and imported records that match the source you connected.
 
-For usage integrations, check for usage rows or events. For identity, check
-users and app assignments. For HRIS, check employee records and employment
-status. For accounting, check imported expenses from the selected categories.
+For usage integrations, check for usage rows, events, browser activity, or
+desktop activity. For identity, check users and app assignments. For HRIS,
+check employee records and employment status. For accounting, check imported
+expenses from the selected categories.
 
 <Cards>
   <Card title="Usage data">
     Look for usage rows, events, provider projects, models, services, metrics,
-    or deployments.
+    deployments, browser apps, desktop apps, and expected users.
   </Card>
   <Card title="Identity">
     Look for users, groups, app assignments, and activity records where the
@@ -169,10 +184,12 @@ Use these checks before you disconnect and reconnect:
 - Confirm the credential belongs to the right provider account, tenant,
   project, subscription, or workspace.
 - Confirm the credential has read access to the data type Doow needs.
+- For Doow Agent, confirm the agent is installed, the user is signed in, and
+  tracking is turned on.
 - Confirm the source has records in the selected date range.
 - Check whether the provider reports usage or metric data with a delay.
 - Open the integration event log and look for credential, scope, permission,
-  or rate-limit errors.
+  tracker, sync, or rate-limit errors.
 
 ## Next steps
 
