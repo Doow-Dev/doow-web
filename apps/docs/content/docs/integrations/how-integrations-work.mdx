@@ -5,12 +5,15 @@ slug: "integrations/how-integrations-work"
 section: "integrations"
 order: 304
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-14"
 ---
-Integrations connect external systems to Doow so data can sync into your
-workspace. Different sources use different connection methods, but the user
-journey is the same: connect a source, let Doow sync, confirm data arrived, and
-monitor the connection over time.
+Integrations bring data into Doow so your workspace can connect usage, people,
+and spend. Some integrations connect to an external system. Others install an
+agent, receive pushed events, or read metrics from a platform you already use.
+
+Different sources use different connection methods, but the user journey is the
+same: connect or enable a source, confirm data arrived, and monitor it over
+time.
 
 ## Connection methods
 
@@ -21,18 +24,23 @@ monitor the connection over time.
 | API key or token | OpenAI, Anthropic, Datadog, New Relic, Sentry | Read-only credential from the provider |
 | Service credential | AWS, Azure, Google Cloud | Read-only IAM, service principal, or service account credential |
 | Secure linking flow | HRIS and accounting providers | Provider authorization through a secure modal |
+| Installed agent | Doow Agent | Approved Browser Agent or Desktop Agent rollout path |
 | SDK or OTLP push | Custom usage events and OpenTelemetry metrics | `dk_` API key from Doow |
 
 ## What happens after connect
 
-After you click **Connect**, Doow validates the credential or authorization
-grant. If validation succeeds, the integration appears in **My connections**
-and Doow starts the first sync.
+After you click **Connect**, install an agent, or enable a push source, Doow
+validates the source in the way that matches that integration. Credentials and
+authorization grants are verified. Agents are confirmed by sign-in, tracking
+state, and recent activity. Push sources are confirmed by received events or
+metrics.
 
-The first sync can take longer than later syncs because Doow needs to fetch,
-normalize, and match records for the first time. Do not connect additional
-sources to work around an empty first sync until you have checked the sync
-status.
+If validation succeeds, the integration appears in **My connections** and Doow
+starts receiving or syncing data. The first sync or first activity window can
+take longer than later updates because Doow needs to fetch, receive, normalize,
+and match records for the first time. Do not connect additional sources to work
+around an empty first sync until you have checked the sync status, agent
+activity, or event log.
 
 ## Confirm a connection worked
 
@@ -62,24 +70,27 @@ A healthy connection should show:
 </Cards>
 
 For usage data, confirm that events or usage rows appear for the expected
-provider, project, account, deployment, model, or metric. For organization
-data, confirm users and app assignments appear. For accounting, confirm
-expenses appear for the selected categories.
+provider, project, account, deployment, model, metric, browser app, desktop
+app, or user. For organization data, confirm users and app assignments appear.
+For accounting, confirm expenses appear for the selected categories.
 
-<Callout title="Connected is not the same as synced">
-  A source can accept credentials before data appears. If the connection is
-  marked connected but records are empty, check the sync status and event log
-  before replacing credentials.
+<Callout title="Connected is not the same as active">
+  A source can accept credentials or install successfully before useful data
+  appears. If the connection is marked connected but records are empty, check
+  sync status, agent activity, tracking state, and the event log before
+  replacing credentials.
 </Callout>
 
 ## Pausing and disconnecting
 
-Use pause when you want to stop syncs temporarily but keep the credential. Use
-disconnect when you want Doow to delete the stored credential and stop reading
-from the source.
+Use pause when you want to stop syncs or activity collection temporarily while
+keeping the connection. Use disconnect when you want Doow to delete the stored
+credential or stop reading from the source.
 
 To fully revoke access, also revoke the credential or authorization grant in
-the provider's own admin settings.
+the provider's own admin settings. For installed agents, also remove or disable
+the agent through the approved device-management or installation path for your
+workspace.
 
 ## Next steps
 
