@@ -29,9 +29,6 @@ Doow has one tracking product, not two separate products.
 Doow Agent
 ├─ Browser Agent: browser extension surface for browser and web SaaS usage
 └─ Desktop Agent: desktop runtime surface for native app usage
-   ├─ Windows
-   ├─ Linux
-   └─ macOS
 ```
 
 The public docs must keep this mental model:
@@ -73,18 +70,16 @@ Usage data
 │  ├─ Overview
 │  ├─ Browser Agent
 │  └─ Desktop Agent
-│     ├─ Windows
-│     ├─ Linux
-│     └─ macOS
 ├─ Direct provider APIs
 ├─ Cloud platforms
 ├─ Instrumentation SDK
 └─ Observability
 ```
 
-The OS-specific pages are optional until the overview and Desktop Agent page
-prove that users need separate OS setup pages. If setup differs materially by
-OS, split them. If not, keep platform notes inside the Desktop Agent page.
+Windows, Linux, and macOS are platform implementations of the same Desktop
+Agent product. Keep platform details inside the Desktop Agent page unless
+installation, permissions, troubleshooting, or rollout steps become materially
+different for a platform.
 
 ## Page sequence
 
@@ -158,71 +153,35 @@ OS, split them. If not, keep platform notes inside the Desktop Agent page.
   collection.
 - Dependencies: Doow Agent overview
 - Work:
-  - [ ] Explain when Desktop Agent is the right surface.
-  - [ ] Explain what it collects: app identity, process identity, timing,
+  - [x] Explain when Desktop Agent is the right surface.
+  - [x] Explain what it collects: app identity, process identity, timing,
     duration, idle/active state, device/platform/account context.
-  - [ ] Explain what it does not collect: screenshots, keystrokes, clipboard,
+  - [x] Explain what it does not collect: screenshots, keystrokes, clipboard,
     typed content, document bodies, message bodies, file contents, audio/video,
     and window titles.
-  - [ ] Add setup steps or mark missing customer setup steps for verification.
-  - [ ] Add proof steps for confirming native app usage appears.
-  - [ ] Add troubleshooting for missing desktop activity.
-  - [ ] Add platform status wording without overclaiming readiness.
+  - [x] Add setup steps or mark missing customer setup steps for verification.
+  - [x] Add proof steps for confirming native app usage appears.
+  - [x] Add troubleshooting for missing desktop activity.
+  - [x] Add platform status wording inside the page without overclaiming
+    readiness.
 - Done when:
-  - [ ] The page is useful to customers, not a mirror of internal architecture
+  - [x] The page is useful to customers, not a mirror of internal architecture
     docs.
-  - [ ] Privacy boundaries are clear.
-  - [ ] Platform readiness claims are source-backed or marked for verification.
+  - [x] Privacy boundaries are clear.
+  - [x] Platform readiness claims are source-backed or marked for verification.
 
-### 5. Windows Desktop Agent
+### 5. Future platform splits
 
-- Target file:
-  `apps/docs/content/docs/integrations/usage/doow-agent/desktop-agent/windows.mdx`
-- Page type: How-to guide
-- Reader job: Help an admin install and validate the Windows Desktop Agent.
-- Dependencies: Desktop Agent page; product confirmation on installer path
-- Work:
-  - [ ] Confirm the customer installation path.
-  - [ ] Confirm supported Windows versions.
-  - [ ] Add setup, proof, and recovery steps.
-  - [ ] Include only customer-relevant operational notes.
-- Done when:
-  - [ ] Windows-specific steps are materially clearer than keeping the content
-    inside the Desktop Agent page.
-
-### 6. Linux Desktop Agent
-
-- Target file:
-  `apps/docs/content/docs/integrations/usage/doow-agent/desktop-agent/linux.mdx`
-- Page type: How-to guide
-- Reader job: Help an admin install and validate the Linux Desktop Agent where
-  supported.
-- Dependencies: Desktop Agent page; product confirmation on Linux pilot status
-- Work:
-  - [ ] Confirm whether Linux is public, pilot, or internal.
-  - [ ] Confirm Ubuntu 24.04 GNOME scope and packaging status.
-  - [ ] Explain X11 and GNOME Wayland support boundaries only if customer
-    relevant.
-  - [ ] Add setup, proof, and recovery steps.
-- Done when:
-  - [ ] The page avoids presenting internal adapter design as customer setup.
-
-### 7. macOS Desktop Agent
-
-- Target file:
-  `apps/docs/content/docs/integrations/usage/doow-agent/desktop-agent/macos.mdx`
-- Page type: Status or how-to guide, depending on readiness
-- Reader job: Help an admin understand macOS availability and next action.
-- Dependencies: Product confirmation on macOS readiness
-- Work:
-  - [ ] Confirm whether macOS is available, planned, private pilot, or not yet
-    public.
-  - [ ] If available, add setup, proof, and recovery steps.
-  - [ ] If unavailable, keep the page out of published navigation or use a
-    controlled status note only if product wants it public.
-- Done when:
-  - [ ] The page does not imply the macOS adapter is finished unless product
-    and source evidence confirm it.
+- Target: no files by default
+- Page type: Not applicable until a split is needed
+- Reader job: Keep Windows, Linux, and macOS docs inside one Desktop Agent page
+  unless customer workflows diverge.
+- Split into platform pages only when:
+  - [ ] A platform has a materially different installation path.
+  - [ ] A platform has materially different permissions or prerequisites.
+  - [ ] A platform has materially different troubleshooting.
+  - [ ] A platform has a different public rollout status that cannot be
+    explained cleanly in one platform table.
 
 ## Dependency map
 
@@ -232,28 +191,30 @@ Source audit
    └─ Doow Agent overview
       ├─ Browser Agent
       └─ Desktop Agent
-         ├─ Windows page, if separate setup is needed
-         ├─ Linux page, if separate setup is needed
-         └─ macOS page, if public readiness is confirmed
+         └─ Platform notes inside the Desktop Agent page
 ```
 
 Independent work after the overview lands:
 
 - Browser Agent setup can proceed independently of Desktop Agent setup.
-- Desktop privacy wording can proceed before OS-specific pages.
-- OS-specific pages must wait for product readiness confirmation.
+- Desktop privacy wording lives in the Desktop Agent page.
+- Platform-specific pages are deferred unless a real customer workflow split
+  appears.
 
 ## Open questions
 
 - [ ] What is the customer-facing Browser Agent installation path?
 - [ ] Which browser stores or extension distribution paths are public?
 - [ ] Is Safari support public, private, or only a build target?
-- [ ] What is the customer-facing Desktop Agent download path?
+- [ ] What is the customer-facing Desktop Agent download path? The public page
+  now requires the approved workspace distribution path instead of inventing
+  one.
 - [ ] Is Windows public, controlled rollout, or internal pilot?
 - [ ] Is Linux public, controlled rollout, or internal pilot?
 - [ ] Is macOS public, planned, or not yet available?
-- [ ] Should OS-specific pages be published now or drafted only after setup
-  paths are confirmed?
+- [x] Should OS-specific pages be published now or drafted only after setup
+  paths are confirmed? Decision: no OS-specific pages by default; keep platform
+  notes inside the Desktop Agent page.
 
 ## Quality bar
 

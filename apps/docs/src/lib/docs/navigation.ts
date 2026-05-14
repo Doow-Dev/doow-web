@@ -35,6 +35,7 @@ export const docsSidebar: DocsSidebarGroup[] = [
         description: "Collect browser and desktop app usage.",
         items: [
           { href: "/integrations/usage/doow-agent/browser-agent", label: "Browser Agent", description: "Collect browser-based SaaS usage." },
+          { href: "/integrations/usage/doow-agent/desktop-agent", label: "Desktop Agent", description: "Collect native desktop app usage." },
         ],
       },
       {
