@@ -54,6 +54,13 @@ jobs:
           rm -f apps/web/.next/standalone/apps/web/.next/oryx-manifest.toml
           rm -f apps/web/.next/standalone/node_modules.tar.gz
           rm -f apps/web/.next/standalone/oryx-manifest.toml
+          # @vercel/nft puts packages in node_modules/.pnpm/node_modules/ without
+          # top-level entries. Flatten them so Node.js standard resolution works.
+          PNPM_FLAT="apps/web/.next/standalone/node_modules/.pnpm/node_modules"
+          if [ -d "$PNPM_FLAT" ]; then
+            cp -rn "$PNPM_FLAT/." "apps/web/.next/standalone/node_modules/"
+            rm -rf "apps/web/.next/standalone/node_modules/.pnpm"
+          fi
 
       - name: Login to Azure
         uses: azure/login@v2
