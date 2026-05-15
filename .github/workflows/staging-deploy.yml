@@ -48,12 +48,12 @@ jobs:
 
       - name: Prepare standalone package
         run: |
-          cp -r apps/web/public apps/web/.next/standalone/
-          mkdir -p apps/web/.next/standalone/.next
-          cp -r apps/web/.next/static apps/web/.next/standalone/.next/static
-          rm -f apps/web/.next/standalone/.next/oryx-manifest.toml
-          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > apps/web/.next/standalone/package.json
+          cp -r apps/web/public apps/web/.next/standalone/apps/web/
+          mkdir -p apps/web/.next/standalone/apps/web/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
+          rm -f apps/web/.next/standalone/apps/web/.next/oryx-manifest.toml
           rm -f apps/web/.next/standalone/node_modules.tar.gz
+          rm -f apps/web/.next/standalone/oryx-manifest.toml
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -67,7 +67,7 @@ jobs:
           az webapp config set \
             --name landing-page \
             --resource-group Doow-dev \
-            --startup-file "node server.js" \
+            --startup-file "node apps/web/server.js" \
             --slot staging
 
       - name: Set runtime app settings
