@@ -1,0 +1,117 @@
+---
+title: "Integrations"
+description: "Choose the data sources Doow reads for usage, people, and spend."
+slug: "integrations"
+section: "integrations"
+order: 300
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use this page to choose the source that gives Doow the data you need next. You
+may be connecting Doow for the first time, adding another source later, or
+checking what a source reads before asking an admin for access.
+
+<Callout title="If you are unsure">
+  Start with the question you want Doow to answer. Many teams begin with one
+  usage source and one identity provider, but the right next source is the one
+  that fills the data gap in front of you.
+</Callout>
+
+## Get started
+
+Use these pages when you need context before opening a provider setup page.
+
+<Cards>
+  <Card title="What Doow needs" href="/docs/integrations/what-doow-needs">
+    Understand usage, organization, and financial data before connecting
+    anything.
+  </Card>
+  <Card title="Choose what to connect" href="/docs/integrations/choose-what-to-connect-first">
+    Pick a connection path based on the outcome you want Doow to show.
+  </Card>
+  <Card title="How integrations work" href="/docs/integrations/how-integrations-work">
+    Learn how connections, first syncs, pausing, and disconnecting work.
+  </Card>
+  <Card title="Connecting integrations" href="/docs/integrations/connect">
+    Follow the common connection flow after you know which source to connect.
+  </Card>
+</Cards>
+
+## Choose by goal
+
+Pick the outcome you need, then connect the source that supplies that data.
+
+<Cards>
+  <Card title="I want to see usage" href="/docs/integrations/usage/choose-source">
+    Choose a usage integration for browser activity, desktop app activity, AI,
+    cloud, product, or metric consumption.
+  </Card>
+  <Card title="I want users and ownership" href="/docs/integrations/identity/google-workspace">
+    Connect identity so Doow can map app access, users, groups, and
+    assignments.
+  </Card>
+  <Card title="I want departments and status" href="/docs/integrations/hris">
+    Connect HRIS so Doow can use departments, managers, and employment status.
+  </Card>
+  <Card title="I want verified spend" href="/docs/integrations/accounting">
+    Connect accounting so Doow can compare usage against finance-confirmed
+    expenses.
+  </Card>
+</Cards>
+
+## Usage data
+
+Usage data tells Doow what is being consumed. Choose the path that matches
+where the usage already lives.
+
+<Cards>
+  <Card title="Doow Agent" href="/docs/integrations/usage/doow-agent">
+    Use this when Doow collects browser or desktop app usage directly
+    from user devices.
+  </Card>
+  <Card title="Direct provider APIs" href="/docs/integrations/usage/direct-provider-apis">
+    Use this when providers such as OpenAI, Anthropic, AWS, Azure, or Vertex
+    expose usage or billing data.
+  </Card>
+  <Card title="Instrumentation SDK" href="/docs/integrations/usage/instrumentation-sdk">
+    Use this when you own the application and want to emit custom usage events.
+  </Card>
+  <Card title="Observability" href="/docs/integrations/usage/observability">
+    Use this when usage metrics already flow through Datadog, New Relic,
+    AppSignal, Sentry, or OpenTelemetry.
+  </Card>
+</Cards>
+
+## Data layers
+
+Each source family answers a different question. Connect the source family
+that matches the question you need Doow to answer.
+
+| Source family | Use it when | Start here |
+|---|---|---|
+| Usage data | You need consumption from apps, AI providers, cloud platforms, products, or metrics. | [Choose a usage data source](/integrations/usage/choose-source) |
+| Organization data | You need users, groups, assignments, departments, managers, or employment status. | [Identity providers](/integrations/identity/google-workspace) or [HRIS](/integrations/hris) |
+| Financial data | You need finance-confirmed spend, vendors, expense categories, or transaction dates. | [Accounting integrations](/integrations/accounting) |
+
+## What success looks like
+
+After connecting any source, confirm that Doow received usable data before
+depending on it in reviews or workflows.
+
+<Callout title="A healthy connection" tone="success">
+  The integration shows a connected state, a recent sync or event timestamp,
+  imported records in the detail page, and no credential or permission errors
+  in the event log.
+</Callout>
+
+If the connection succeeds but no data appears, check the provider account,
+credential scope, selected workspace, sync status, agent installation, and
+tracking state before adding more integrations.
+
+## Next step
+
+If you are still choosing, go to
+[Choose what to connect](/integrations/choose-what-to-connect-first). If you
+already know the source family, open the exact setup page from the sidebar or
+use [Connecting integrations](/integrations/connect) for the common connection
+flow.

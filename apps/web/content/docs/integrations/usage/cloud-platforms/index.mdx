@@ -1,0 +1,91 @@
+---
+title: "Cloud platforms"
+description: "Choose a cloud platform integration for AI usage reported through cloud monitoring or billing."
+slug: "integrations/usage/cloud-platforms"
+section: "integrations"
+order: 329
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use cloud platform integrations when AI usage is recorded by AWS, Azure, or
+Google Cloud instead of a direct provider usage endpoint.
+
+## When to use this path
+
+Choose this path when the cloud account, subscription, project, resource,
+region, deployment, model, or billing export is the source of record for the
+usage Doow needs.
+
+Use another usage source when cloud data is not the best record:
+
+- Use [Direct provider APIs](/integrations/usage/direct-provider-apis) when
+  the provider account directly exposes usage, billing, or request data.
+- Use [Instrumentation SDK](/integrations/usage/instrumentation-sdk) when your
+  application needs to emit custom usage events.
+- Use [Observability integrations](/integrations/usage/observability) when the
+  metric already exists in Datadog, New Relic, AppSignal, Sentry, or
+  OpenTelemetry.
+
+## Choose your cloud platform
+
+<Cards>
+  <Card title="AWS Bedrock" href="/docs/integrations/usage/cloud-platforms/aws-bedrock">
+    Read Bedrock runtime metrics from CloudWatch by AWS account, region, and model.
+  </Card>
+  <Card title="Azure OpenAI" href="/docs/integrations/usage/cloud-platforms/azure-openai">
+    Read Azure OpenAI metrics from Azure Monitor by subscription, resource, deployment, and region.
+  </Card>
+  <Card title="Google Vertex AI" href="/docs/integrations/usage/cloud-platforms/google-vertex">
+    Read Vertex AI usage from Cloud Billing export data in BigQuery.
+  </Card>
+</Cards>
+
+## Compare the setup paths
+
+| Platform | Source Doow reads | Setup owner usually needed |
+|---|---|---|
+| AWS Bedrock | CloudWatch Bedrock runtime metrics | AWS admin or platform owner |
+| Azure OpenAI | Azure Monitor metrics for Azure OpenAI resources | Azure admin or platform owner |
+| Google Vertex AI | Cloud Billing export data in BigQuery | Google Cloud billing or data platform owner |
+
+Each setup path uses a read-oriented credential. The provider guide explains
+the exact access to create before connecting it in Doow.
+
+## What Doow reads
+
+| Platform | Usage dimensions |
+|---|---|
+| AWS Bedrock | Account, region, model, invocation activity, and token metrics where CloudWatch reports them |
+| Azure OpenAI | Subscription, resource, deployment, model, region, and token metrics where Azure Monitor reports them |
+| Google Vertex AI | Billing account, consumer project, service, SKU, location, usage amount, cost, and currency from billing export rows |
+
+## What Doow does not read
+
+- Prompt or completion content
+- Model request or response payloads
+- Unrelated cloud services outside the connected usage source
+- Cloud secrets, environment variables, or security configuration
+- Payment methods, invoices, or billing contact information
+
+## What success looks like
+
+After connecting a cloud platform, open the integration detail page from
+**Company Settings**, then **Integrations**. A healthy cloud sync shows a
+connected state, a recent sync timestamp, and usage rows for the expected
+account, project, subscription, resource, region, deployment, model, service,
+SKU, or location.
+
+If the connection succeeds but no usage appears, confirm the credential can
+read the right monitoring or billing source and that the selected cloud scope
+has recent usage.
+
+## Next steps
+
+Open the setup guide for the cloud provider that owns the usage:
+
+- [AWS Bedrock](/integrations/usage/cloud-platforms/aws-bedrock)
+- [Azure OpenAI](/integrations/usage/cloud-platforms/azure-openai)
+- [Google Vertex AI](/integrations/usage/cloud-platforms/google-vertex)
+
+If you are still choosing between usage-data paths, return to
+[Choose a usage data source](/integrations/usage/choose-source).

@@ -1,0 +1,47 @@
+---
+title: "Connect Google Workspace"
+description: "Authorize Doow to read your Google Workspace directory and usage signals."
+slug: "connect-google-workspace"
+category: integrations
+order: 2
+status: published
+updatedAt: "2025-05-15"
+---
+
+Connecting Google Workspace gives Doow access to your user directory, group memberships, and (optionally) app usage signals from Google's Admin Reports API.
+
+## What you'll need
+
+- Google Workspace **Super Admin** account
+- Doow workspace with **Admin** role
+
+## Steps
+
+1. In Doow, go to **Integrations** and find **Google Workspace**.
+2. Click **Connect**.
+3. You'll be redirected to Google's OAuth consent screen.
+4. Sign in with your Super Admin account.
+5. Review the requested permissions and click **Allow**.
+6. You'll be redirected back to Doow. The first sync starts automatically.
+
+## Permissions requested
+
+| Permission | Purpose |
+|---|---|
+| `admin.directory.user.readonly` | Read user accounts and profile data |
+| `admin.directory.group.readonly` | Read group memberships |
+| `admin.reports.audit.readonly` | Read app usage events (optional) |
+
+## After connecting
+
+- Users from your Google Workspace directory will appear in **People**.
+- Group memberships are used to assign users to teams in Doow.
+- If you granted the Reports API scope, app usage events will populate within 24 hours.
+
+## Troubleshooting
+
+If the connection fails, confirm that:
+- You signed in with a Super Admin account (not a delegated admin)
+- Your Google Workspace plan includes the Admin SDK API (available on Business and Enterprise plans)
+
+Still having trouble? [Chat with us](#) or see [Integration not syncing](/help/troubleshooting/integration-not-syncing).

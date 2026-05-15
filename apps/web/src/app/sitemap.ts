@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { BLOG_LIVE, blogUrl } from "@/lib/blog/config";
 import { getAllPostMeta, getAllTags } from "@/lib/blog/content";
+import { getAllDocsPages } from "@/lib/docs/content";
 import { POSTS_PER_PAGE } from "@/lib/blog/posts";
 import { absoluteSiteUrl } from "@/lib/seo/site";
 
@@ -38,8 +39,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: absoluteSiteUrl(route || "/"),
   })) satisfies MetadataRoute.Sitemap;
 
+  const docsPages = await getAllDocsPages();
+  const docsEntries = docsPages.map((page) => ({
+    changeFrequency: "monthly" as const,
+    lastModified: page.updatedAt ? new Date(page.updatedAt) : new Date(),
+    priority: 0.6,
+    url: absoluteSiteUrl(page.canonicalPath),
+  })) satisfies MetadataRoute.Sitemap;
+
   if (!BLOG_LIVE) {
-    return staticEntries;
+    return [...staticEntries, ...docsEntries];
   }
 
   const blogIndexEntry = {
@@ -72,6 +81,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticEntries,
+    ...docsEntries,
     blogIndexEntry,
     ...postEntries,
     ...tagEntries,

@@ -1,0 +1,43 @@
+---
+title: "Connect your first integration"
+description: "Step-by-step walkthrough for connecting your first data source to Doow."
+slug: "connect-your-first-integration"
+category: getting-started
+order: 3
+status: published
+updatedAt: "2025-05-15"
+---
+
+Integrations are how Doow collects data. Once connected, Doow syncs usage and spend data automatically on a regular schedule.
+
+## Before you start
+
+You'll need:
+- Admin access to your Doow workspace
+- Admin or read-only API credentials for the source you want to connect (e.g., Google Workspace, Okta, Slack)
+
+## Connect an integration
+
+1. In your Doow workspace, go to **Integrations** in the left sidebar.
+2. Browse or search for the tool you want to connect.
+3. Click the integration card to open its setup page.
+4. Follow the on-screen authorization steps. For most integrations this means:
+   - Signing in to the third-party service
+   - Granting Doow the requested read-only permissions
+5. Once authorized, Doow will run the first sync immediately.
+
+## What happens after connecting
+
+- The first sync may take a few minutes depending on the volume of data.
+- You'll see a **Last synced** timestamp on the integration card when it completes.
+- Usage and spend data will start appearing in your dashboards.
+
+## Choosing what to connect first
+
+We recommend connecting in this order for the fastest time to value:
+
+1. **Identity provider** (Google Workspace, Okta, Azure AD) — establishes your user directory
+2. **HRIS** (BambooHR, Workday, Rippling) — maps users to teams and cost centers
+3. **Usage sources** — provider APIs, Doow Agent, or direct billing feeds
+
+If you're unsure which to start with, see [How integrations work](/help/integrations/how-integrations-work).

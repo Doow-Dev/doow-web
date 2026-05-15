@@ -1,0 +1,211 @@
+@media (min-width: 76.001rem) {
+  :root {
+    --docs-frame-margin: clamp(0.5rem, 0.75vw, 0.75rem);
+  }
+
+  html:has(.docs-shell) {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body:has(.docs-shell) {
+    height: auto;
+    min-height: 100%;
+    overflow: visible !important;
+  }
+
+  body:has(.docs-shell)::before,
+  body:has(.docs-shell)::after {
+    content: "" !important;
+    position: fixed !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 95 !important;
+    pointer-events: none !important;
+    background: var(--docs-canvas, #eef2ef) !important;
+  }
+
+  body:has(.docs-shell)::before {
+    top: 0 !important;
+    height: var(--docs-frame-margin) !important;
+  }
+
+  body:has(.docs-shell)::after {
+    bottom: 0 !important;
+    height: var(--docs-frame-margin) !important;
+  }
+
+  .docs-shell {
+    --docs-sidebar-width: 18rem;
+    position: relative !important;
+    isolation: isolate !important;
+    display: block !important;
+    min-height: calc(100vh - (var(--docs-frame-margin) * 2)) !important;
+    margin: var(--docs-frame-margin) !important;
+    overflow: visible !important;
+    border-color: transparent !important;
+    border-radius: 0.9rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .docs-shell::before {
+    content: "" !important;
+    position: fixed !important;
+    inset: var(--docs-frame-margin) calc(var(--docs-frame-margin) + var(--scrollbar-offset, 0px)) var(--docs-frame-margin) var(--docs-frame-margin) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    border: 1px solid var(--docs-frame-border, var(--docs-border)) !important;
+    border-radius: 0.9rem !important;
+    background: var(--docs-frame, #fbfcfb) !important;
+    box-shadow: var(--docs-frame-shadow, 0 24px 70px rgba(5, 35, 27, 0.14)) !important;
+  }
+
+  .docs-shell::after {
+    content: "" !important;
+    position: fixed !important;
+    inset: var(--docs-frame-margin) calc(var(--docs-frame-margin) + var(--scrollbar-offset, 0px)) var(--docs-frame-margin) var(--docs-frame-margin) !important;
+    z-index: 130 !important;
+    pointer-events: none !important;
+    border: 1px solid var(--docs-frame-border, var(--docs-border)) !important;
+    border-radius: 0.9rem !important;
+    background: transparent !important;
+  }
+
+  .docs-main-pane {
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+    min-height: calc(100vh - (var(--docs-frame-margin) * 2)) !important;
+    padding-top: 0 !important;
+    border-left: 0 !important;
+    border-radius: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  :root.dark .docs-main-pane {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  .docs-topbar {
+    position: fixed !important;
+    top: var(--docs-frame-margin) !important;
+    right: calc(var(--docs-frame-margin) + var(--scrollbar-offset, 0px)) !important;
+    left: var(--docs-frame-margin) !important;
+    z-index: 100 !important;
+    width: auto !important;
+    height: var(--docs-topbar-height) !important;
+    border-bottom: 1px solid var(--docs-frame-border, var(--docs-border)) !important;
+    border-radius: 0.9rem 0.9rem 0 0 !important;
+    background: var(--docs-frame, #fbfcfb) !important;
+    background-color: var(--docs-frame, #fbfcfb) !important;
+    overflow: hidden !important;
+  }
+
+  .docs-topbar__inner {
+    --docs-topbar-inline-padding: clamp(0.9rem, 1.3vw, 1.3rem);
+    --docs-article-inline-padding: clamp(1.6rem, 4vw, 4rem);
+    --docs-search-start: calc(
+      var(--docs-sidebar-width) +
+      max(0px, calc((100vw - var(--scrollbar-offset, 0px) - (var(--docs-frame-margin) * 2) - var(--docs-sidebar-width) - 68rem) / 2)) +
+      var(--docs-article-inline-padding) -
+      var(--docs-topbar-inline-padding)
+    );
+    grid-template-columns: var(--docs-search-start) minmax(16rem, 28rem) minmax(18rem, 1fr) auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: var(--docs-topbar-height) !important;
+    margin: 0 !important;
+    padding: 0.72rem var(--docs-topbar-inline-padding) !important;
+  }
+
+  .docs-topbar .docs-brand--mobile {
+    display: inline-flex !important;
+  }
+
+  .docs-sidebar .docs-brand--sidebar {
+    display: none !important;
+  }
+
+  .docs-sidebar {
+    position: fixed !important;
+    top: calc(var(--docs-frame-margin) + var(--docs-topbar-height)) !important;
+    bottom: var(--docs-frame-margin) !important;
+    left: var(--docs-frame-margin) !important;
+    z-index: 90 !important;
+    width: var(--docs-sidebar-width) !important;
+    height: calc(100vh - var(--docs-topbar-height) - (var(--docs-frame-margin) * 2)) !important;
+    max-height: none !important;
+    padding: 0 !important;
+    border-right: 1px solid var(--docs-frame-border, var(--docs-border)) !important;
+    border-radius: 0 0 0 0.9rem !important;
+    background: var(--docs-frame, #fbfcfb) !important;
+    background-color: var(--docs-frame, #fbfcfb) !important;
+    overflow: hidden !important;
+  }
+
+  .docs-sidebar__panel {
+    display: flex !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    flex-direction: column !important;
+    padding: 1rem 0.85rem 1rem !important;
+  }
+
+  .docs-sidebar__scroll-area {
+    margin-top: 0.05rem !important;
+    padding-top: 0.72rem !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+    border-top: 1px solid color-mix(in srgb, var(--docs-frame-border, var(--docs-border)) 82%, transparent) !important;
+  }
+
+  .docs-sidebar__scroll-area .scroll-area__viewport {
+    height: 100% !important;
+    padding-right: 0.74rem !important;
+  }
+
+  .docs-sidebar__scroll-area .scroll-area__scrollbar[data-orientation="vertical"] {
+    right: -0.14rem !important;
+    width: 0.62rem !important;
+    padding: 0.36rem 0.08rem 0.36rem 0.22rem !important;
+  }
+
+  .docs-shell__body {
+    display: block !important;
+    min-height: calc(100vh - (var(--docs-frame-margin) * 2)) !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: var(--docs-topbar-height) 0 0 var(--docs-sidebar-width) !important;
+    border: 0 !important;
+    border-radius: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  :root.dark .docs-shell,
+  :root.dark .docs-shell__body {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .docs-home,
+  .docs-empty,
+  .docs-article {
+    min-width: 0 !important;
+    width: min(100%, 64rem) !important;
+    margin-inline: auto !important;
+    padding-top: clamp(1.15rem, 2.1vw, 2.25rem) !important;
+    padding-inline: clamp(1.6rem, 4vw, 4rem) !important;
+  }
+
+  .docs-article {
+    width: min(100%, 68rem) !important;
+  }
+}

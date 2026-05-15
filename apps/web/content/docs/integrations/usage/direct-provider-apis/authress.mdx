@@ -1,0 +1,95 @@
+---
+title: "Authress"
+description: "Connect Authress API call usage to Doow."
+slug: "integrations/usage/direct-provider-apis/authress"
+section: "integrations"
+order: 317
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Authress when Doow needs API call usage, authorization activity, and
+credential-operation signals from your Authress account.
+
+## What you need
+
+- An Authress account with access to the environment you want Doow to read.
+- An Authress **service client access key** approved for usage reporting.
+- Your Authress **API URL**, such as `https://youraccountid.api.authress.io`
+  or your configured custom domain.
+
+<Callout title="Use a dedicated service client">
+  Authress service clients identify programmatic callers, and access keys
+  authenticate those callers. Use a dedicated service client for Doow so the key
+  can be revoked without affecting production authorization calls.
+</Callout>
+
+## Create an access key
+
+1. Go to the [Authress Management Portal](https://authress.io).
+2. Open **Service Clients**.
+3. Create a service client for Doow or open an existing reporting client.
+4. Add an access key for that service client.
+5. Copy the private key value.
+6. Paste the access key and Authress API URL into Doow when prompted.
+
+## What Doow reads
+
+| Metric | Description |
+|---|---|
+| API call usage | Billable Authress API calls by route or usage category |
+| Authorization activity | Authorization request counts and resource activity where available |
+| Authentication activity | Authentication event counts where available |
+| Credential operations | Service client and access-key operation counts where available |
+
+Doow reads Authress usage and event metadata available to the connected
+credential and aggregates it at the day level. Authress documents billable API
+routes, account usage endpoints, and audit-stream events for authentication and
+authorization activity.
+
+## What Doow does not read
+
+- The full content of access policies or authorization records
+- User identity data or profile information
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Authress** and select **Connect**.
+3. Enter the Authress API URL.
+4. Paste the service client access key.
+5. Select **Connect**.
+6. Wait for Doow to verify the credentials and begin the initial usage sync.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected Authress account, route, resource,
+or operation category.
+
+If the credential is accepted but no usage appears, verify that the API URL
+points to the right Authress account and that the service client can read the
+usage or audit data Doow is configured to read.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Authress, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Revoke the
+service client access key in Authress when you want to remove provider-side
+access too.
+
+## Next steps
+
+After usage data appears, connect an identity provider if Doow needs to match
+Authress usage to users and app ownership. Connect accounting if the review
+needs finance-confirmed spend.

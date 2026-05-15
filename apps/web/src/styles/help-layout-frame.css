@@ -1,0 +1,197 @@
+@media (min-width: 76.001rem) {
+  :root {
+    --help-frame-margin: clamp(0.5rem, 0.75vw, 0.75rem);
+  }
+
+  html:has(.help-shell) {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body:has(.help-shell) {
+    height: auto;
+    min-height: 100%;
+    overflow: visible !important;
+  }
+
+  body:has(.help-shell)::before,
+  body:has(.help-shell)::after {
+    content: "" !important;
+    position: fixed !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 95 !important;
+    pointer-events: none !important;
+    background: var(--help-canvas, #eef2ef) !important;
+  }
+
+  body:has(.help-shell)::before {
+    top: 0 !important;
+    height: var(--help-frame-margin) !important;
+  }
+
+  body:has(.help-shell)::after {
+    bottom: 0 !important;
+    height: var(--help-frame-margin) !important;
+  }
+
+  .help-shell {
+    --help-sidebar-width: 18rem;
+    position: relative !important;
+    isolation: isolate !important;
+    display: block !important;
+    min-height: calc(100vh - (var(--help-frame-margin) * 2)) !important;
+    margin: var(--help-frame-margin) !important;
+    overflow: visible !important;
+    border-color: transparent !important;
+    border-radius: 0.9rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .help-shell::before {
+    content: "" !important;
+    position: fixed !important;
+    inset: var(--help-frame-margin) calc(var(--help-frame-margin) + var(--scrollbar-offset, 0px)) var(--help-frame-margin) var(--help-frame-margin) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    border: 1px solid var(--help-frame-border, var(--help-border)) !important;
+    border-radius: 0.9rem !important;
+    background: var(--help-frame, #fbfcfb) !important;
+    box-shadow: var(--help-frame-shadow, 0 24px 70px rgba(5, 35, 27, 0.14)) !important;
+  }
+
+  .help-shell::after {
+    content: "" !important;
+    position: fixed !important;
+    inset: var(--help-frame-margin) calc(var(--help-frame-margin) + var(--scrollbar-offset, 0px)) var(--help-frame-margin) var(--help-frame-margin) !important;
+    z-index: 130 !important;
+    pointer-events: none !important;
+    border: 1px solid var(--help-frame-border, var(--help-border)) !important;
+    border-radius: 0.9rem !important;
+    background: transparent !important;
+  }
+
+  .help-main-pane {
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+    min-height: calc(100vh - (var(--help-frame-margin) * 2)) !important;
+    padding-top: 0 !important;
+    border-left: 0 !important;
+    border-radius: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  :root.dark .help-main-pane {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  .help-topbar {
+    position: fixed !important;
+    top: var(--help-frame-margin) !important;
+    right: calc(var(--help-frame-margin) + var(--scrollbar-offset, 0px)) !important;
+    left: var(--help-frame-margin) !important;
+    z-index: 100 !important;
+    width: auto !important;
+    height: var(--help-topbar-height) !important;
+    border-bottom: 1px solid var(--help-frame-border, var(--help-border)) !important;
+    border-radius: 0.9rem 0.9rem 0 0 !important;
+    background: var(--help-frame, #fbfcfb) !important;
+    background-color: var(--help-frame, #fbfcfb) !important;
+    overflow: hidden !important;
+  }
+
+  .help-topbar__inner {
+    --help-topbar-inline-padding: clamp(0.9rem, 1.3vw, 1.3rem);
+    --help-article-inline-padding: clamp(1.6rem, 4vw, 4rem);
+    --help-search-start: calc(
+      var(--help-sidebar-width) +
+      max(0px, calc((100vw - var(--scrollbar-offset, 0px) - (var(--help-frame-margin) * 2) - var(--help-sidebar-width) - 68rem) / 2)) +
+      var(--help-article-inline-padding) -
+      var(--help-topbar-inline-padding)
+    );
+    grid-template-columns: var(--help-search-start) minmax(16rem, 28rem) minmax(18rem, 1fr) auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: var(--help-topbar-height) !important;
+    margin: 0 !important;
+    padding: 0.72rem var(--help-topbar-inline-padding) !important;
+  }
+
+  .help-topbar .help-brand--mobile {
+    display: inline-flex !important;
+  }
+
+  .help-sidebar .help-brand--sidebar {
+    display: none !important;
+  }
+
+  .help-sidebar {
+    position: fixed !important;
+    top: calc(var(--help-frame-margin) + var(--help-topbar-height)) !important;
+    bottom: var(--help-frame-margin) !important;
+    left: var(--help-frame-margin) !important;
+    z-index: 90 !important;
+    width: var(--help-sidebar-width) !important;
+    height: calc(100vh - var(--help-topbar-height) - (var(--help-frame-margin) * 2)) !important;
+    max-height: none !important;
+    padding: 0 !important;
+    border-right: 1px solid var(--help-frame-border, var(--help-border)) !important;
+    border-radius: 0 0 0 0.9rem !important;
+    background: var(--help-frame, #fbfcfb) !important;
+    background-color: var(--help-frame, #fbfcfb) !important;
+    overflow: hidden !important;
+  }
+
+  .help-sidebar__panel {
+    display: flex !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    flex-direction: column !important;
+    padding: 1rem 0.85rem 1rem !important;
+  }
+
+  .help-sidebar__scroll-area {
+    margin-top: 0.05rem !important;
+    padding-top: 0.72rem !important;
+    min-height: 0 !important;
+    flex: 1 1 auto !important;
+    border-top: 1px solid color-mix(in srgb, var(--help-frame-border, var(--help-border)) 82%, transparent) !important;
+  }
+
+  .help-sidebar__scroll-area .scroll-area__viewport {
+    height: 100% !important;
+    padding-right: 0.74rem !important;
+  }
+
+  .help-sidebar__scroll-area .scroll-area__scrollbar[data-orientation="vertical"] {
+    right: -0.14rem !important;
+    width: 0.62rem !important;
+    padding: 0.36rem 0.08rem 0.36rem 0.22rem !important;
+  }
+
+  .help-shell__body {
+    display: block !important;
+    min-height: calc(100vh - (var(--help-frame-margin) * 2)) !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: var(--help-topbar-height) 0 0 var(--help-sidebar-width) !important;
+    border: 0 !important;
+    border-radius: inherit !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  :root.dark .help-shell,
+  :root.dark .help-shell__body {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+}

@@ -1,0 +1,132 @@
+---
+title: "Desktop Agent"
+description: "Install Desktop Agent to collect native desktop app usage."
+slug: "integrations/usage/doow-agent/desktop-agent"
+section: "integrations"
+order: 311
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use Desktop Agent when Doow needs native desktop app usage from employee
+devices.
+
+## Choose Desktop Agent
+
+Choose this path when the apps you care about run outside the browser and
+provider APIs do not expose enough usage detail.
+
+<Cards>
+  <Card title="Use Desktop Agent">
+    You need native app usage for tools such as Slack Desktop, Notion Desktop,
+    Figma Desktop, or similar installed applications.
+  </Card>
+  <Card title="Use Browser Agent" href="/docs/integrations/usage/doow-agent/browser-agent">
+    You only need browser and web SaaS activity from supported browsers.
+  </Card>
+</Cards>
+
+Desktop Agent and Browser Agent feed the same Doow usage view. Use Desktop
+Agent for native apps that Browser Agent cannot see.
+
+## Before rollout
+
+Confirm the rollout owner, platform support, and privacy review before asking
+users to install Desktop Agent:
+
+- the approved Desktop Agent download or managed-install path
+- which platforms are enabled for your workspace
+- who needs to install it: all employees, a pilot cohort, or one department
+- who needs to review the privacy boundary
+- whether users are allowed to sign in from the desktop app
+- whether users are allowed to turn tracking on or off from the desktop app
+
+## Install and enable Desktop Agent
+
+Use this flow once your workspace has an approved Desktop Agent distribution
+path.
+
+<Steps>
+
+1. Open the approved Desktop Agent download or managed-install path.
+2. Install Desktop Agent on the supported platform.
+3. Open Desktop Agent.
+4. Sign in with the user account that belongs to your Doow workspace.
+5. Turn tracking on if it is not already enabled.
+6. Open a native desktop app that Doow needs to track.
+7. Use the app long enough for desktop activity to be recorded.
+
+</Steps>
+
+Do not use an internal build, unsigned installer, or private package for a
+customer rollout unless that is the approved distribution path for your
+workspace.
+
+## Review privacy before rollout
+
+Desktop Agent is for usage attribution, not content inspection.
+
+It sends app activity metadata such as app name, process identity, timing,
+duration, idle or active state, device, platform, account linkage, and network
+context used for attribution.
+
+<Callout title="Desktop privacy boundary" tone="warning">
+  Desktop Agent does not collect screenshots, keystrokes, clipboard contents,
+  typed content, document bodies, message bodies, file contents, audio or video
+  content, or window titles.
+</Callout>
+
+Any request to collect more than app activity metadata needs a separate
+product and privacy review before rollout.
+
+## Confirm platform availability
+
+Confirm platform availability before sending installers to users.
+
+| Platform | What to confirm |
+|---|---|
+| Windows | Confirm the approved installer and rollout status for your workspace. |
+| Linux | Confirm Linux is enabled for your workspace. The current implementation is Ubuntu-first. |
+| macOS | Confirm availability for your workspace before rollout. |
+
+## Confirm it worked
+
+After installation, confirm Desktop Agent is sending usable activity before
+expanding the rollout.
+
+1. Open **Company Settings -> Integrations** in Doow.
+2. Open the Desktop Agent or Doow Agent detail page.
+3. Confirm the connection shows recent desktop activity.
+4. Confirm the expected user appears in the activity records.
+5. Confirm the expected app appears in the usage view.
+6. Check that the event log has no sign-in, permission, collector, or sync
+   errors.
+
+<Callout title="Connected is not the same as collecting" tone="warning">
+  A user can install Desktop Agent without producing useful usage data. Confirm
+  recent activity after the user opens and uses a tracked desktop app.
+</Callout>
+
+## Troubleshooting
+
+Use these checks when desktop activity is missing or incomplete:
+
+| Issue | What to check |
+|---|---|
+| The user does not appear | Confirm the user signed in to Desktop Agent with the expected Doow account. |
+| No recent activity appears | Confirm tracking is turned on and the user opened a native desktop app after enabling the agent. |
+| The app is missing | Confirm the app is installed locally, the platform is enabled for your workspace, and the app can be mapped from app or process metadata. |
+| Activity stops after install | Confirm Desktop Agent is still running, the user is still signed in, and the tracker is still enabled. |
+| Platform support is unclear | Confirm the workspace rollout status for Windows, Linux, or macOS before expanding deployment. |
+| Privacy questions block rollout | Review the desktop privacy boundary with security, legal, or device-management owners before adding more users. |
+
+## Next steps
+
+After desktop activity appears in Doow, connect the next source that fills the
+missing context:
+
+- Use [Browser Agent](/integrations/usage/doow-agent/browser-agent) when
+  employees also use browser-based SaaS apps.
+- Connect an identity provider so Doow can map desktop activity to users,
+  groups, and ownership.
+- Return to [Doow Agent](/integrations/usage/doow-agent) if you are still
+  deciding between browser and desktop collection.

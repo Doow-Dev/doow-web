@@ -1,0 +1,61 @@
+---
+title: "Common error messages"
+description: "A reference of common Doow error messages with explanations and recommended fixes."
+slug: "common-error-messages"
+category: troubleshooting
+order: 3
+status: published
+updatedAt: "2025-05-15"
+---
+
+This article lists common error messages you may encounter in Doow, what they mean, and how to resolve them.
+
+## Integration errors
+
+### "Authorization expired — please reconnect"
+
+The OAuth token Doow holds for this integration has expired or been revoked.
+
+**Fix:** Click **Reconnect** on the integration page and complete the OAuth flow again.
+
+### "Insufficient permissions"
+
+Doow attempted to access data it doesn't have permission to read. This usually happens when an admin reduces the scopes after the initial authorization.
+
+**Fix:** Re-authorize the integration with the full set of permissions shown on the setup page.
+
+### "Rate limit exceeded — will retry automatically"
+
+The source API returned a rate-limit response. This is temporary.
+
+**Fix:** No action needed. Doow retries automatically after the rate-limit window resets. If the error persists beyond 24 hours, contact support.
+
+### "Invalid credentials"
+
+The API key or service account credentials stored for this integration are no longer valid — they may have been rotated or deleted.
+
+**Fix:** Go to the integration settings, enter the updated credentials, and save.
+
+## Account errors
+
+### "Workspace is in read-only mode"
+
+This appears when your subscription has lapsed or your trial has ended without a payment method on file.
+
+**Fix:** Go to **Settings → Billing** and add a payment method or renew your subscription.
+
+### "You don't have permission to do this"
+
+You're attempting an action that requires the Admin role.
+
+**Fix:** Ask a workspace Admin to perform the action, or ask them to upgrade your role in **Settings → Team members**.
+
+### "Invitation link has expired"
+
+Workspace invitation links are valid for 7 days.
+
+**Fix:** Ask a workspace Admin to resend the invitation from **Settings → Team members → Pending invitations**.
+
+## Still seeing an error?
+
+If your error isn't listed here, [chat with us](#) with a screenshot of the error message and the steps you took before it appeared. Our team typically responds within a few hours.

@@ -1,0 +1,97 @@
+---
+title: "Observability integrations"
+description: "Read usage signals from observability platforms and OpenTelemetry."
+slug: "integrations/usage/observability"
+section: "integrations"
+order: 350
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use observability integrations when the usage signal already exists in your
+monitoring platform or OpenTelemetry pipeline.
+
+## When to use this path
+
+Choose this path when the platform team already collects the metric Doow needs
+and the metric has the right account, app, service, project, environment, or
+license attribution.
+
+Use another usage source when the observability data is not the source of
+record:
+
+- Use [Direct provider APIs](/integrations/usage/direct-provider-apis) when
+  the AI or SaaS provider already exposes usage directly.
+- Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk) when
+  your product must emit custom usage events that do not exist in the
+  monitoring system.
+- Use [Doow Agent](/integrations/usage/doow-agent) when the usage happens in
+  employee browsers or desktop apps instead of your backend.
+
+## Choose a path
+
+Observability has two setup paths. Pick the one that matches where the metric
+already lives.
+
+| Path | Use it when | Setup guide |
+|---|---|---|
+| Platform pull | The metric already lives in Datadog, New Relic, AppSignal, or Sentry. | Open the platform guide below |
+| OTLP push | The metric already flows through an OpenTelemetry Collector. | [OTLP push](/integrations/usage/observability/otlp) |
+
+## Platform pull
+
+Doow connects to the observability platform API using credentials you supply
+and reads the metrics or event counts available to that credential.
+
+| Platform | What Doow reads |
+|---|---|
+| [Datadog](/integrations/usage/observability/datadog) | Custom metric series and event counts per service and project |
+| [New Relic](/integrations/usage/observability/newrelic) | Telemetry events and metric data per account and service |
+| [AppSignal](/integrations/usage/observability/appsignal) | Performance metric timeseries per app and environment |
+| [Sentry](/integrations/usage/observability/sentry) | Error event counts and quota consumption per project |
+
+## OTLP push
+
+Use OTLP push when the metric already flows through an OpenTelemetry Collector.
+The collector forwards selected metrics to Doow's OTLP endpoint with a `dk_`
+SDK key.
+
+Open [OTLP push](/integrations/usage/observability/otlp) when the team that
+owns the collector can add a Doow exporter.
+
+## What Doow reads
+
+| Source | What Doow reads |
+|---|---|
+| Platform pull | Metric series, event counts, account/app/service/project fields, timestamps, and tags where available |
+| OTLP push | Metric names, numeric data points, resource attributes, timestamps, and `doow.license_id` attribution |
+
+Doow reads the usage signal and its reporting dimensions. It does not need the
+full trace, log, or application payload that may exist in the same telemetry
+system.
+
+## Confirm the sync worked
+
+After connecting a platform or configuring OTLP push, open the integration
+detail page from **Company Settings**, then **Integrations**. A healthy
+connection shows recent metrics or events for the expected account, app,
+service, project, environment, license, or collector.
+
+## What Doow does not read
+
+- The content of any error events, traces, or logs
+- Payload data from your application requests
+- Infrastructure secrets or environment configuration
+- Billing payment methods or invoices
+
+## Next steps
+
+Open the setup guide for the source that already has the metric:
+
+- [Datadog](/integrations/usage/observability/datadog)
+- [New Relic](/integrations/usage/observability/newrelic)
+- [AppSignal](/integrations/usage/observability/appsignal)
+- [Sentry](/integrations/usage/observability/sentry)
+- [OTLP push](/integrations/usage/observability/otlp)
+
+If you are still choosing between usage-data paths, return to
+[Choose a usage data source](/integrations/usage/choose-source).

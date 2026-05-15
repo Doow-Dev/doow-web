@@ -1,0 +1,93 @@
+---
+title: "Choose a usage data source"
+description: "Choose how Doow receives usage data for AI, cloud, app, or metric usage."
+slug: "integrations/usage/choose-source"
+section: "integrations"
+order: 309
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use this page to choose where Doow gets usage data. The right path depends on
+where the activity is recorded, who controls that system, and whether Doow
+needs to collect browser or desktop activity directly.
+
+## Choose the right path
+
+<Cards>
+  <Card title="Doow Agent" href="/docs/integrations/usage/doow-agent">
+    Use this when Doow needs browser or desktop app activity from user devices.
+  </Card>
+  <Card title="Direct provider APIs" href="/docs/integrations/usage/direct-provider-apis">
+    Use this when the provider exposes usage or billing APIs and your team can
+    create read-only credentials.
+  </Card>
+  <Card title="Cloud platforms" href="/docs/integrations/usage/cloud-platforms">
+    Use this when usage is reported through cloud monitoring, billing,
+    account, subscription, or project data.
+  </Card>
+  <Card title="Instrumentation SDK" href="/docs/integrations/usage/instrumentation-sdk">
+    Use this when you own the application and need to emit custom usage
+    events.
+  </Card>
+  <Card title="Observability" href="/docs/integrations/usage/observability">
+    Use this when usage metrics already flow through Datadog, New Relic,
+    AppSignal, Sentry, or a similar platform.
+  </Card>
+  <Card title="OTLP push" href="/docs/integrations/usage/observability/otlp">
+    Use this when you already run OpenTelemetry Collector and want to forward
+    metrics to Doow.
+  </Card>
+</Cards>
+
+## Common choices
+
+Use Doow Agent when the activity happens in browser-based SaaS apps or native
+desktop apps. Browser Agent and Desktop Agent are the same Doow
+usage-collection product across different device surfaces.
+
+Use [Direct provider APIs](/integrations/usage/direct-provider-apis) when the
+provider is the source of record and exposes usage data. This is usually the
+lowest-effort path for AI, API, and platform usage because Doow reads usage
+from the provider that produced it.
+
+Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk) when
+you need custom metrics that vendors do not expose. Use
+[Observability integrations](/integrations/usage/observability) when your
+metrics already exist in a monitoring platform.
+
+## Compare the paths
+
+Use this table to choose the path and the person or team you likely need for
+setup.
+
+| Path | Use when | Usually needs |
+|---|---|---|
+| Doow Agent | Browser or desktop app activity must be collected from user devices. | IT, security, or the team that approves browser and desktop rollout. |
+| Direct provider APIs | The provider owns the usage record and exposes a usage API. | A provider admin who can create read-only credentials. |
+| Cloud platforms | Usage is exposed through cloud monitoring, billing, account, subscription, or project data. | A cloud or IAM admin who can create read-only access. |
+| Instrumentation SDK | Your application produces the usage event and no vendor source has it. | Engineering access to the application that emits events. |
+| Observability | Usage metrics already exist in a monitoring platform. | The observability or platform owner for that account. |
+| OTLP push | Metrics already flow through OpenTelemetry Collector. | The team that manages the OpenTelemetry pipeline. |
+
+## What success looks like
+
+A working usage source shows records for the activity you connected. For Doow
+Agent, browser or desktop activity appears for the expected apps and users. For
+provider, cloud, SDK, observability, or OTLP paths, usage appears for the
+expected provider, project, account, model, deployment, service, or metric.
+
+If the connection succeeds but no usage appears, check that the source is
+enabled for the right users, workspace, organization, project, account, region,
+or metric stream.
+
+## Next steps
+
+Pick the setup guide that matches your source:
+
+- [Doow Agent](/integrations/usage/doow-agent) for browser and desktop
+  activity collection
+- [Direct provider APIs](/integrations/usage/direct-provider-apis)
+- [Cloud platforms](/integrations/usage/cloud-platforms)
+- [Instrumentation SDK](/integrations/usage/instrumentation-sdk)
+- [Observability integrations](/integrations/usage/observability)
+- [OTLP push](/integrations/usage/observability/otlp)

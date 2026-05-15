@@ -1,0 +1,108 @@
+---
+title: "Datadog"
+description: "Connect Datadog custom metrics and event counts to Doow."
+slug: "integrations/usage/observability/datadog"
+section: "integrations"
+order: 351
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Datadog when Doow needs usage metrics or event counts that already
+exist in your Datadog organization.
+
+## What you need
+
+- A Datadog organization with the metrics you want Doow to read.
+- The Datadog site for that organization, such as US1, US3, US5, EU, AP1, or
+  AP2.
+- A Datadog **API key** and **Application key**, or a Datadog OAuth
+  authorization.
+
+<Callout title="Use a reporting-safe key pair">
+  Datadog uses API keys to identify the organization and Application keys to
+  authorize API access for a user or service account. Use a key pair approved
+  for Doow reporting and scoped to the Datadog data Doow needs to read.
+</Callout>
+
+## Create an API key and Application key
+
+1. Go to your Datadog site, such as [app.datadoghq.com](https://app.datadoghq.com).
+2. Open **Organization Settings**, then **API Keys**.
+3. Create a new API key.
+4. Name it something identifiable, such as `Doow usage read`.
+5. Copy the API key.
+6. Open **Organization Settings**, then **Application Keys**.
+7. Create a new Application key for the user or service account approved for
+   reporting.
+8. Name it something identifiable, such as `Doow usage read`.
+9. Copy the Application key.
+10. Paste both keys into Doow when prompted.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Metric series | Time-series values from configured Datadog metric queries |
+| Event counts | Aggregated event volumes where the configured Datadog source exposes them |
+| Tags | Service, project, environment, team, or custom tags where present |
+| Date | The time window the usage occurred in |
+
+Doow reads Datadog metric data available to the connected credential and
+aggregates it into Doow usage reporting.
+
+## What Doow does not read
+
+- The content of any traces, logs, or error events
+- Infrastructure configuration or environment variables
+- Source code, deployment artifacts, or secrets
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Datadog** and select **Connect**.
+3. Select the Datadog site for your organization.
+4. Enter the API key and Application key, or complete OAuth authorization.
+5. Select **Connect**.
+6. Wait for Doow to verify the credentials and begin the initial sync.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy observability sync shows a connected state, a
+recent sync timestamp, and metric or event rows for the expected organization,
+service, project, environment, or tag.
+
+If no metrics appear, verify that the metric exists in Datadog for the selected
+time range and that the key pair can read it.
+
+## Troubleshooting
+
+Use these checks when metrics are missing or incomplete:
+
+- Confirm the API key can read the account, app, service, or project.
+- Confirm the metric exists in the observability platform before connecting it to Doow.
+- Confirm the metric has data in the selected time range.
+- Check whether the provider aggregates or delays metric availability.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+### Datadog-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| API key validates but metrics are empty | The metric name or account does not contain data for the selected range | Confirm the metric in Datadog before reconnecting |
+| Application key is rejected | The key does not have access to the org or metrics scope | Create a new Application key with read access to the expected org |
+| Only some services appear | Metrics are tagged differently than expected | Confirm service, environment, project, or team tags in Datadog |
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Datadog, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Revoke the API
+key, Application key, or OAuth grant in Datadog when you want to remove
+provider-side access too.
+
+## Next steps
+
+After metrics appear, connect an identity provider if Doow needs to match
+Datadog usage to users and app ownership. Connect HRIS when the review needs
+department or employment context.

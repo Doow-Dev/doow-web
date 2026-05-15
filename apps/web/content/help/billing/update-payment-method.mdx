@@ -1,0 +1,51 @@
+---
+title: "Update your payment method"
+description: "How to add or replace a credit card, update billing details, and add a VAT number."
+slug: "update-payment-method"
+category: billing
+order: 3
+status: published
+updatedAt: "2025-05-15"
+---
+
+You can update your payment method at any time from Billing settings. Changes apply to the next invoice.
+
+## Replace your credit card
+
+1. Go to **Settings → Billing → Payment method**.
+2. Click **Update card**.
+3. Enter your new card number, expiry, and CVC.
+4. Click **Save**.
+
+The new card becomes the default for all future charges. Your previous card is removed.
+
+## Add a backup payment method
+
+Doow supports one active payment method per workspace. If you need to change cards without a lapse in service, add the new card first, then remove the old one.
+
+## Update billing address
+
+Your billing address appears on invoices and is used for tax calculations.
+
+1. Go to **Settings → Billing → Billing details**.
+2. Edit the address fields.
+3. Click **Save changes**.
+
+## Add a VAT number
+
+If your organization is VAT-registered, adding your VAT number removes VAT from future invoices.
+
+1. Go to **Settings → Billing → Billing details**.
+2. Enter your VAT number in the **Tax ID** field.
+3. Click **Save changes**.
+
+Doow validates VAT numbers against official registries. If validation fails, check that the number matches your registration certificate exactly.
+
+## Failed payments
+
+If a payment fails, Doow will:
+1. Retry the charge after 3 days, then again after 7 days.
+2. Email the billing contact with instructions to update the payment method.
+3. After the final retry, downgrade the workspace to read-only.
+
+To restore access after a failed payment, update your card and contact [support@doow.co](mailto:support@doow.co) to manually retry the charge.

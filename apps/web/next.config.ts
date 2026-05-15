@@ -3,6 +3,7 @@ import bundleAnalyzer from "@next/bundle-analyzer";
 import path from "node:path";
 
 import { BLOG_REDIRECTS } from "./src/lib/blog/redirects";
+import { docsRedirects } from "./src/lib/docs/redirects";
 
 const DEFAULT_BLOB_BASE_URL = "https://landingpageassests.blob.core.windows.net/images";
 
@@ -34,7 +35,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@doow/content-schemas", "@doow/mdx"],
+  transpilePackages: ["@doow/content-schemas", "@doow/mdx", "@doow/ui"],
   output: "standalone",
   outputFileTracingIncludes: {
     "/*": ["./node_modules/@img/sharp-win32-x64/lib/*"],
@@ -96,6 +97,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...BLOG_REDIRECTS,
+      ...docsRedirects.map((r) => ({
+        source: r.from,
+        destination: r.to,
+        permanent: false,
+      })),
       {
         source: "/contact_us",
         destination: "/",

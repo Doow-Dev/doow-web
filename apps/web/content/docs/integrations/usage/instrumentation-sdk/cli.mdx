@@ -1,0 +1,129 @@
+---
+title: "CLI / Daemon"
+description: "Pipe newline-delimited usage events into Doow from scripts and daemons."
+slug: "integrations/usage/instrumentation-sdk/cli"
+section: "integrations"
+order: 344
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use the CLI / Daemon when scripts, jobs, shell pipelines, or batch workers own
+the usage event and cannot embed the SDK directly.
+
+## What you need
+
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- Node.js 18+ for global install, or a runtime that can run the CLI.
+
+<Callout title="Start with one pipe">
+  Send one newline-delimited JSON event through the CLI and confirm it appears
+  in Doow before wiring the command into scheduled jobs or long-running
+  daemons.
+</Callout>
+
+## Installation
+
+```bash
+# Global install
+npm install -g @doow/track
+
+# Or run without installing
+npx @doow/track --api-key dk_your_api_key
+```
+
+## Pipe mode
+
+Use pipe mode for one-shot scripts, cron jobs, or batch workers that already
+produce usage records.
+
+```bash
+echo '{"metric":"api_calls","quantity":1,"license_id":"lic_..."}' \
+  | doow-track --api-key dk_your_api_key
+```
+
+The command reads events from stdin and exits when stdin closes.
+
+## Daemon mode
+
+Use daemon mode when multiple local processes need to send events through the
+same background process.
+
+```bash
+doow-track --config ./doow-track.json --pidfile /var/run/doow-track.pid
+```
+
+Reload the config with `SIGHUP` when your process manager supports it.
+
+```bash
+kill -HUP $(cat /var/run/doow-track.pid)
+```
+
+## Event format
+
+Each line must be a valid JSON object with a metric, quantity, and
+`license_id`.
+
+```json
+{"metric":"api_calls","quantity":1,"license_id":"lic_abc123"}
+{"metric":"tokens","quantity":512,"license_id":"lic_abc123","attribution":{"model":"gpt-4o"}}
+```
+
+Do not send request payloads, customer content, secrets, or raw application
+logs as event metadata.
+
+## Config file
+
+```json
+{
+  "apiKey": "dk_your_api_key",
+  "endpoint": "https://api.doow.co",
+  "flushAt": 20,
+  "flushInterval": 10000,
+  "attribution": {
+    "env": "prod",
+    "service": "billing-worker"
+  }
+}
+```
+
+## Confirm the event arrived
+
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
+
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
+
+## Production checklist
+
+Before using this method in production:
+
+- Store the `dk_` key in a secret manager, process manager secret, or
+  environment variable.
+- Confirm the job exits nonzero or logs clearly when event delivery fails.
+- Confirm daemon logs are collected by your runtime.
+- Create separate keys for staging and production when you need independent
+  revocation.
+- Keep metric names and units stable before tying them to customer reporting.
+
+## Troubleshooting
+
+Use these checks when events do not arrive:
+
+- Confirm the `dk_` key is active and belongs to the expected Doow workspace.
+- Confirm each event includes `metric`, `quantity`, and `license_id`.
+- Confirm `quantity` is numeric and greater than zero.
+- Confirm your process flushes events before shutdown.
+- Check application logs for authentication, validation, or network errors.
+
+## Graceful shutdown
+
+Give daemon processes enough termination time to finish their final flush
+before the process manager stops them.
+
+## Next steps
+
+After the test event appears, send events from a production-like environment
+and confirm pipe, daemon, retry, and shutdown behavior before rollout.

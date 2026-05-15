@@ -1,0 +1,113 @@
+---
+title: "Microsoft 365"
+description: "Sync users, groups, and app access from Microsoft 365."
+slug: "integrations/identity/microsoft-365"
+section: "integrations"
+order: 361
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Microsoft 365 when Doow needs users, groups, app assignments, and
+sign-in activity from your Microsoft Entra ID tenant.
+
+## What you need
+
+- A Microsoft 365 tenant backed by Microsoft Entra ID.
+- A tenant admin who can grant admin consent for Microsoft Graph permissions.
+- Permission to review or approve enterprise applications in Microsoft Entra
+  admin center if your organization restricts app consent.
+
+You do not need to create API credentials manually. Doow uses Microsoft OAuth
+and asks an admin to grant the required read permissions.
+
+<Callout title="Grant tenant-wide admin consent deliberately">
+  Microsoft Graph application permissions run without a signed-in user context.
+  Review the requested permissions in Microsoft Entra ID before granting
+  consent for the tenant.
+</Callout>
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Users | Display name, given name, surname, `userPrincipalName`, mail, account status, department, job title, and manager where available |
+| Groups | Group names, IDs, and memberships where Microsoft Graph returns them |
+| App assignments | Enterprise app assignments and app role assignments where available |
+| Sign-in activity | Microsoft Entra sign-in records and timestamps where the tenant exposes them |
+| Tenant | Tenant identifiers used to scope imported records to your organization |
+
+## What Doow does not read
+
+- Passwords or authentication secrets
+- Email content (Outlook), calendar events, Teams messages, or OneDrive files
+- SharePoint files or document contents
+- Azure subscriptions, Azure resource configuration, or unrelated cloud data
+- Data outside the approved directory and audit scopes
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Microsoft 365** and select **Connect**.
+3. Sign in with a Microsoft account that can grant tenant admin consent.
+4. Review the requested Microsoft Graph permissions.
+5. Grant admin consent for the organization.
+6. Wait for Doow to verify the authorization and begin the initial sync.
+
+The initial sync may take a few minutes depending on directory size. After
+that, Doow refreshes identity data on a scheduled basis.
+
+## Permissions requested
+
+Doow requests Microsoft Graph permissions for the data it reads:
+
+| Permission | Type | Purpose |
+|---|---|---|
+| `User.Read.All` | Application | Read all user profiles in your directory |
+| `Directory.Read.All` | Application | Read directory structure, groups, memberships, and app assignment data |
+| `AuditLog.Read.All` | Application | Read audit log data, including sign-in records |
+
+These permissions require admin consent. They are read-oriented permissions;
+Doow cannot create, modify, or delete data in your Microsoft 365 tenant.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy Microsoft 365 sync shows a connected state, a
+recent sync timestamp, imported users, groups, app assignments, and sign-in
+activity where Microsoft Graph provides it.
+
+If the connection succeeds but no users appear, verify that the admin account
+belongs to the intended tenant and granted consent for the required Microsoft
+Graph permissions.
+
+## Troubleshooting
+
+Use these checks when Microsoft 365 data is missing or incomplete:
+
+- Confirm the OAuth grant belongs to the intended Microsoft Entra tenant.
+- Confirm tenant-wide admin consent was granted for the Doow enterprise app.
+- Confirm the approved Microsoft Graph permissions include user, directory, and
+  audit log read access.
+- Check the integration event log for permission or sync errors.
+
+### Microsoft 365-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Users do not appear after OAuth | Admin consent was not granted for the tenant or the wrong tenant was used | Reconnect and grant consent from the intended tenant |
+| Groups or app assignments are missing | The approved permissions do not allow Doow to read the needed directory data | Reconnect after confirming `Directory.Read.All` was approved |
+| Sign-in activity is missing | The tenant does not expose the expected sign-in records or `AuditLog.Read.All` was not approved | Confirm audit log access and check a broader date range |
+| Wrong tenant appears | The OAuth flow used the wrong Microsoft account | Disconnect and reconnect with an admin from the intended tenant |
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Microsoft 365, and
+select **Disconnect**. Doow deletes the stored authorization immediately.
+Remove the Doow enterprise application from Microsoft Entra ID when you want to
+remove tenant-side access too.
+
+## Next steps
+
+After Microsoft 365 users and assignments appear, connect HRIS if Doow needs
+department, manager, or employment status. Connect a usage source when Doow
+needs to compare access against AI, cloud, or app usage.

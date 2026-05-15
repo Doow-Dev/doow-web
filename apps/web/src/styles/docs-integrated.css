@@ -1,0 +1,56 @@
+/**
+ * Strips the "floating app card" visual from docs without touching the layout engine.
+ * The frame CSS positions the sidebar/topbar correctly; this file only removes the
+ * border, shadow, margin, and canvas strips that made it look like a separate app.
+ *
+ * Search modal z-index: the modal is rendered via React Portal directly on document.body,
+ * so no z-index overrides are needed here — it sits above all docs stacking contexts.
+ */
+
+@media (min-width: 76.001rem) {
+  /* Zero out the frame margin so everything sits flush to the viewport edge */
+  :root {
+    --docs-frame-margin: 0px;
+  }
+
+  /* Remove card border, shadow, and corner radius */
+  .docs-shell {
+    margin: 0 !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove the canvas background strips above/below the card */
+  body:has(.docs-shell)::before,
+  body:has(.docs-shell)::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Remove the frosted-glass card background pseudo-element */
+  .docs-shell::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Remove the card border overlay pseudo-element */
+  .docs-shell::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  /* Make topbar and sidebar flush to the edges */
+  .docs-topbar {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .docs-sidebar {
+    top: var(--docs-topbar-height) !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+  }
+}

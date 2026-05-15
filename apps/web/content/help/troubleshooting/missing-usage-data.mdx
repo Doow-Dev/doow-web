@@ -1,0 +1,51 @@
+---
+title: "Missing usage data"
+description: "Why usage data might be absent or incomplete, and how to resolve it."
+slug: "missing-usage-data"
+category: troubleshooting
+order: 2
+status: published
+updatedAt: "2025-05-15"
+---
+
+If your dashboards show no data or less data than you'd expect after connecting an integration, there are several common reasons.
+
+## Data hasn't appeared yet
+
+After connecting a new integration, the first sync can take up to 30 minutes depending on the volume of data. Check the **Last synced** timestamp on the integration card.
+
+If the sync completed but data is still missing, continue reading.
+
+## The integration requires additional permissions
+
+Some usage data (for example, Google Workspace app activity) requires an additional API scope that isn't requested by default.
+
+**Fix:** Go to the integration settings and look for optional scopes. Enable the ones you need and re-authorize.
+
+## Usage data lag from the source
+
+Some SaaS APIs publish usage data with a delay. For example, cloud billing APIs may lag 24–48 hours behind real usage.
+
+**Fix:** Wait the expected lag period and check again. The integration detail page lists the typical lag for that source.
+
+## The wrong time range is selected
+
+Doow dashboards default to the last 30 days. If the integration was connected recently or the data you're looking for is older, adjust the date range.
+
+1. Open the dashboard or report.
+2. Click the date range picker.
+3. Select the period you want to view.
+
+## Users aren't mapped
+
+If users from the usage source don't match users in your identity provider, their usage won't be attributed to anyone in your workspace.
+
+**Fix:** Go to **People → Unmatched users** to see users that Doow couldn't map. You can manually match them or adjust the matching rules in **Settings → Identity mapping**.
+
+## Data is filtered out
+
+Active filters on a dashboard can hide data that would otherwise be visible.
+
+**Fix:** Reset all filters by clicking **Clear filters** on the affected dashboard.
+
+If you're still not seeing expected data after checking all of the above, [chat with us](#) and describe what you're looking for and which integration is involved.

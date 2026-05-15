@@ -1,0 +1,39 @@
+---
+title: "How integrations work"
+description: "What connecting an integration does, what data is collected, and how syncs work."
+slug: "how-integrations-work"
+category: integrations
+order: 1
+status: published
+updatedAt: "2025-05-15"
+---
+
+An integration is a connection between Doow and a data source — such as an identity provider, HR system, SaaS tool, or cloud platform. Once connected, Doow reads data from that source on a regular schedule.
+
+## What data Doow collects
+
+Doow collects only the data needed to map usage and spend. This typically includes:
+
+- **Users and groups** — from identity providers and HR systems
+- **Usage events** — from SaaS APIs, the Doow Agent, or observability pipelines
+- **Spend signals** — from billing APIs or exported invoices
+
+Doow does not collect personal communications, file contents, or any data unrelated to software usage.
+
+## Sync frequency
+
+Most integrations sync automatically:
+
+- **Standard sync** — every 24 hours
+- **Real-time / webhook** — for integrations that support push events
+- **Manual sync** — you can trigger a resync at any time from the integration settings page
+
+## Permissions Doow requests
+
+Doow requests the minimum read-only permissions required to collect the data listed above. You can review the exact OAuth scopes requested on each integration's setup page before authorizing.
+
+## Removing an integration
+
+Disconnecting an integration stops future syncs. Historical data already collected is retained in your workspace unless you explicitly delete it from **Settings → Data management**.
+
+For step-by-step connection guides, see the articles in this category.
