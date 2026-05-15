@@ -1,0 +1,90 @@
+---
+title: "Anthropic"
+description: "Connect Anthropic model usage and token metrics to Doow."
+slug: "integrations/usage/direct-provider-apis/anthropic"
+section: "integrations"
+order: 312
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Anthropic when Doow needs organization-level Claude usage, token
+counts, cache metrics, and request counts.
+
+## What you need
+
+- An Anthropic organization member with the admin role.
+- An **Admin API key** for the Usage & Cost Admin API. This is different from a
+  standard Anthropic API key used to make model calls.
+
+<Callout title="Use the admin usage key">
+  Anthropic usage reports require an Admin API key. Use the minimum access
+  available for usage reporting. Doow does not need permission to make model
+  calls.
+</Callout>
+
+## Create an Admin API key
+
+1. Go to [console.anthropic.com](https://console.anthropic.com).
+2. Open your organization settings.
+3. Create an Admin API key for usage reporting.
+4. Name it something identifiable, such as `Doow usage read`.
+5. Copy the key. Anthropic only shows the secret once.
+6. Paste it into Doow when prompted.
+
+## What Doow reads
+
+| Metric | Description |
+|---|---|
+| `input_tokens` | Tokens in prompts sent to each model, per day |
+| `output_tokens` | Tokens in completions returned by each model, per day |
+| `cache_read_input_tokens` | Tokens served from prompt cache reads, per day |
+| `cache_creation_input_tokens` | Tokens written into the prompt cache, per day |
+| `requests` | Number of API calls made, per day |
+| Model | Which Claude model was called |
+
+Usage is aggregated at the day level. Doow does not read individual request-level data.
+
+## What Doow does not read
+
+- The content of any prompts or completions
+- Your fine-tune datasets or uploaded files
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Anthropic** and select **Connect**.
+3. Paste the Admin API key.
+4. Select **Connect**.
+5. Wait for Doow to verify the key and begin the initial usage sync.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected organization, workspace, model,
+service tier, or context window.
+
+If the credential is accepted but no usage appears, verify that the key belongs
+to the right Anthropic organization and has access to usage data.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Anthropic, and select
+**Disconnect**. Doow deletes the stored key immediately. Revoke the key in the
+Anthropic Console when you want to remove provider-side access too.
+
+## Next steps
+
+After usage data appears, connect an identity provider if Doow needs to match
+Anthropic usage to users and app ownership. Connect accounting if the review
+needs finance-confirmed spend.

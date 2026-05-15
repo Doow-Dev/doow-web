@@ -1,0 +1,91 @@
+---
+title: "Gusto"
+description: "Connect Gusto employee records and employment status to Doow."
+slug: "integrations/hris/gusto"
+section: "integrations"
+order: 372
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Gusto when Doow needs employee records and employment status from
+Gusto.
+
+## What you need
+
+- A Gusto account for the company you want Doow to read.
+- A Gusto admin who can approve the HRIS connection.
+
+<Callout title="Keep payroll data out of this connection">
+  Gusto is also a payroll system. Doow uses this HRIS connection for employee
+  reporting fields, not payroll runs, tax filings, contractor payments, or bank
+  details.
+</Callout>
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Employee name | First and last name |
+| Work email | Primary work email used to match employees to app users |
+| Department | Department or team where Gusto returns it |
+| Job title | Employee title where Gusto returns it |
+| Employment status | Active, onboarding, terminated, or similar status values where available |
+| Start date / end date | Start date and termination date where available |
+
+For a full description of how this data is used in Doow, see [HRIS overview](/integrations/hris).
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Gusto** and select **Connect**.
+3. Complete the secure Gusto linking flow.
+4. Sign in with the Gusto admin account that owns approval.
+5. Approve read access for the employee fields Doow imports.
+6. Wait for Doow to verify the connection and begin the initial employee sync.
+
+## What Doow does not read
+
+- Salary, compensation, payroll, or dismissal payroll data
+- Tax filings or tax documents
+- Contractor payments or payment history
+- Banking, direct deposit, or payroll funding details
+- Benefits elections or sensitive payroll configuration
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy Gusto sync shows a connected state, a recent
+sync timestamp, and imported employee records with work email and employment
+status where Gusto returns them.
+
+If records are missing, confirm that the connected Gusto admin can read the
+employees Doow needs and that those employees have work email addresses.
+
+## Troubleshooting
+
+Use these checks when Gusto employee data is missing or stale:
+
+- Confirm the connected Gusto admin can read the expected employee records.
+- Confirm employee work email addresses are present and match identity records.
+- Check whether onboarding, terminated, or inactive employees are filtered by
+  Gusto permissions or sync settings.
+- Check the integration event log for permission or sync errors.
+
+### Gusto-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Connection cannot verify | The Gusto authorization was denied or expired | Reconnect with the approved Gusto admin account |
+| Employees are missing | The connected Gusto admin cannot access the expected company or employee records | Confirm the admin can view those employees in Gusto before reconnecting |
+| Employment status is missing | Gusto does not expose the expected status value for those records or the records are outside the synced employee set | Check the employee record in Gusto and rerun the sync |
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Gusto, and select
+**Disconnect**. Doow deletes the stored authorization immediately. Revoke the
+connected app in Gusto when you want to remove provider-side access too.
+
+## Next steps
+
+After Gusto employees appear, connect an identity provider if Doow needs to
+match employees to app users, groups, and assignments.

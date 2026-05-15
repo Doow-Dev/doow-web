@@ -1,0 +1,128 @@
+---
+title: "Sidecar"
+description: "Run the Doow sidecar to collect usage events from non-Node services."
+slug: "integrations/usage/instrumentation-sdk/sidecar"
+section: "integrations"
+order: 342
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use the Sidecar when your service owns the usage event but cannot embed the
+Node.js SDK directly.
+
+## What you need
+
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- Docker or Kubernetes access for the service that emits events.
+
+<Callout title="Keep the sidecar close to the app">
+  Run the sidecar beside the workload that creates usage events. The sidecar
+  receives structured JSON events locally and forwards them to Doow with the
+  `dk_` key.
+</Callout>
+
+## Input modes
+
+Choose the input mode that matches how your application can emit events.
+
+| Mode | `DOOW_TRACK_INPUT` value | Description |
+|---|---|---|
+| TCP | `tcp:9091` | The sidecar listens on a TCP port; your app sends newline-delimited JSON |
+| stdin | `stdin` (default) | Your app pipes events to the sidecar's stdin |
+| File tail | `file:/var/log/events.jsonl` | The sidecar tails a shared log file |
+
+## Event format
+
+Each line must be a valid JSON object with a metric, quantity, and
+`license_id`.
+
+```json
+{"metric":"api_calls","quantity":1,"license_id":"lic_abc123"}
+{"metric":"tokens","quantity":512,"license_id":"lic_abc123","attribution":{"model":"gpt-4o"}}
+```
+
+Do not send request payloads, customer content, secrets, or raw application
+logs as event metadata.
+
+## Docker Compose
+
+```yaml
+services:
+  app:
+    image: your-app
+    environment:
+      - DOOW_SIDECAR_HOST=doow-sidecar
+      - DOOW_SIDECAR_PORT=9091
+
+  doow-sidecar:
+    image: doow/track-sidecar:latest
+    environment:
+      - DOOW_TRACK_API_KEY=dk_your_api_key
+      - DOOW_TRACK_INPUT=tcp:9091
+    ports:
+      - '9091:9091'
+```
+
+## Kubernetes
+
+```yaml
+containers:
+  - name: app
+    image: your-app:latest
+
+  - name: doow-sidecar
+    image: doow/track-sidecar:latest
+    env:
+      - name: DOOW_TRACK_API_KEY
+        valueFrom:
+          secretKeyRef:
+            name: doow-secrets
+            key: api-key
+      - name: DOOW_TRACK_INPUT
+        value: tcp:9091
+```
+
+## Health check
+
+The sidecar exposes `/healthz` on port 9090. Set
+`DOOW_TRACK_HEALTH_PORT` when that port conflicts with your runtime.
+
+## Confirm the event arrived
+
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
+
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
+
+## Production checklist
+
+Before using this method in production:
+
+- Store the `dk_` key in a container secret or environment secret.
+- Confirm the application and sidecar use the same input mode and port.
+- Confirm the sidecar health check is wired into your runtime.
+- Confirm the runtime gives the sidecar enough time to flush before shutdown.
+- Keep metric names and units stable before tying them to customer reporting.
+
+## Troubleshooting
+
+Use these checks when events do not arrive:
+
+- Confirm the `dk_` key is active and belongs to the expected Doow workspace.
+- Confirm each event includes `metric`, `quantity`, and `license_id`.
+- Confirm `quantity` is numeric and greater than zero.
+- Confirm your process flushes events before shutdown.
+- Check application logs for authentication, validation, or network errors.
+
+## Graceful shutdown
+
+In Kubernetes, set `terminationGracePeriodSeconds` high enough for the sidecar
+to finish its final flush during pod shutdown.
+
+## Next steps
+
+After the test event appears, send events from a production-like environment
+and confirm input mode, health check, and shutdown behavior before rollout.

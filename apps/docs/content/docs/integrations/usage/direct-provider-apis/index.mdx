@@ -1,0 +1,107 @@
+---
+title: "Direct provider APIs"
+description: "Pull usage data directly from provider APIs using credentials you supply."
+slug: "integrations/usage/direct-provider-apis"
+section: "integrations"
+order: 310
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use direct provider APIs when the provider is the source of record for usage
+and your team can create a read-only credential for Doow.
+
+Doow pulls usage data on a schedule from the provider API. No agent or
+middleware is involved.
+
+## When to use this path
+
+Use direct provider APIs when the provider already exposes usage, billing, or
+metrics data and a provider admin can create a read-only credential. This is
+usually the lowest-effort usage-data path because Doow reads from the system
+that produced the usage.
+
+Do not use this path when you need custom product metrics that the provider
+does not expose. Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk)
+for custom events, or [Observability integrations](/integrations/usage/observability)
+when the metrics already live in an observability platform.
+
+## How it works
+
+1. A provider admin creates a read-only credential in the provider dashboard.
+2. You add the credential in Doow.
+3. Doow stores the credential encrypted and polls the provider's usage API on a
+   regular schedule.
+4. Doow normalizes the usage data and attributes it to matching applications
+   and licenses in your workspace.
+
+## Before you choose a provider
+
+Confirm these items before opening a setup guide:
+
+- which provider account, organization, project, region, or endpoint owns the
+  usage
+- who can create a read-only credential in that provider
+- whether the provider exposes the usage fields Doow needs
+- whether usage reporting has a normal delay
+- whether cloud-hosted usage lives under a cloud platform path instead
+
+## Choose a provider type
+
+Start with AI providers when the usage lives directly in an AI or API
+provider account. Start with cloud platforms when usage is exposed through a
+cloud monitoring, billing, account, subscription, or project layer.
+
+## Sub-categories
+
+### AI providers
+
+Use these pages when usage lives directly in an AI or API provider account.
+Doow calls the provider's usage endpoint and reads provider-owned consumption
+data.
+
+| Provider | What Doow reads |
+|---|---|
+| [OpenAI](/integrations/usage/direct-provider-apis/openai) | Token usage per model and project |
+| [Anthropic](/integrations/usage/direct-provider-apis/anthropic) | Token usage per model including cache reads and cache writes |
+| [Groq](/integrations/usage/direct-provider-apis/groq) | Input and output token rates per model |
+| [Fireworks AI](/integrations/usage/direct-provider-apis/fireworks-ai) | Prompt and cached token throughput per model |
+| [OpenRouter](/integrations/usage/direct-provider-apis/openrouter) | Usage per model and routing endpoint |
+| [Replicate](/integrations/usage/direct-provider-apis/replicate) | Predictions and compute time per model |
+| [Authress](/integrations/usage/direct-provider-apis/authress) | API call volume per resource and operation |
+
+### Cloud platforms
+
+Use these pages when usage is surfaced through a cloud monitoring or billing
+layer rather than a direct provider usage endpoint.
+
+| Provider | What Doow reads |
+|---|---|
+| [AWS Bedrock](/integrations/usage/cloud-platforms/aws-bedrock) | Token usage per model and region via CloudWatch |
+| [Azure OpenAI](/integrations/usage/cloud-platforms/azure-openai) | Token usage per deployment and region via Azure Monitor |
+| [Google Vertex AI](/integrations/usage/cloud-platforms/google-vertex) | Usage per model, project, and region via Cloud Billing |
+
+## Confirm the sync worked
+
+After connecting a provider, open the integration detail page from
+**Company Settings**, then **Integrations**. A healthy sync shows a connected state, a
+recent sync timestamp, and usage rows for the expected organization,
+project, account, region, model, deployment, or endpoint.
+
+## Common blockers
+
+Use these checks when credentials are accepted but usage does not appear:
+
+- Confirm the credential belongs to the account, organization, project, region,
+  or endpoint that owns the usage.
+- Confirm the credential has read access to usage, billing, metrics, or
+  organization-level data.
+- Confirm the provider has usage in the selected date range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, permission, or
+  rate-limit errors.
+
+## Next steps
+
+If you already know your provider, open its setup guide. If you are still
+choosing between usage-data paths, return to
+[Choose a usage data source](/integrations/usage/choose-source).

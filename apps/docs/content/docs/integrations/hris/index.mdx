@@ -1,0 +1,125 @@
+---
+title: "HRIS integrations"
+description: "Sync employee status, departments, and manager relationships into Doow."
+slug: "integrations/hris"
+section: "integrations"
+order: 370
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use HRIS integrations when Doow needs employee status, departments, managers,
+job titles, or start and end dates from your HR system.
+
+HRIS data is different from identity data. Identity providers show users,
+groups, and app access. HRIS shows whether those users are employees, which
+team they belong to, and whether they have left the company.
+
+## Supported providers
+
+<Cards>
+  <Card title="BambooHR" href="/integrations/hris/bamboohr">
+    Read employee records, departments, and employment status.
+  </Card>
+  <Card title="Gusto" href="/integrations/hris/gusto">
+    Read employee records and employment status.
+  </Card>
+  <Card title="Deel" href="/integrations/hris/deel">
+    Read worker records and employment status.
+  </Card>
+  <Card title="Zoho People" href="/integrations/hris/zoho-people">
+    Read employee records, departments, and employment status.
+  </Card>
+</Cards>
+
+## When to use HRIS
+
+Connect HRIS when the review depends on employee context:
+
+- Find app users who are no longer active employees.
+- Break usage or spend down by department.
+- Match managers or teams to app ownership.
+- Separate contractors, employees, and terminated workers where the HRIS
+  provides that status.
+
+Use an identity provider instead when Doow only needs users, groups, app
+assignments, or login activity.
+
+## How HRIS connections work
+
+When you connect an HRIS provider, you authorize Doow through the provider or a
+secure linking flow. Doow does not receive your HR login password. It receives
+a token or linked authorization that lets it read the employee data approved
+for the integration.
+
+After the initial sync, Doow refreshes employee data on a scheduled basis to
+keep headcount, departments, and employment status current.
+
+## What Doow reads from your HRIS
+
+| Field | Description |
+|---|---|
+| Full name | Employee first and last name |
+| Work email | Primary work email address used to match employees to app users |
+| Department | The department or team the employee belongs to |
+| Manager | Manager relationship where the provider returns it |
+| Job title | Employee's role or title |
+| Employment status | Active, on leave, or terminated |
+| Start date / end date | Hire date and termination date (where available) |
+
+## What Doow does not read
+
+- Salary, compensation, or payroll data
+- Performance reviews or HR notes
+- Tax identification numbers or personal government IDs
+- Banking details or direct deposit information
+- Any financial payroll data
+
+## How employee data is used in Doow
+
+**Seat attribution:** Doow matches HRIS employees to app user lists from your
+identity provider. If an employee appears in an app's user list but is marked
+as terminated in your HRIS, Doow can flag that as a seat to review.
+
+**Department spend breakdown:** When employees are assigned to departments in
+your HRIS, Doow can attribute software costs and usage to the right team.
+
+**Headcount accuracy:** Doow uses your HRIS as the source for who is active,
+inactive, on leave, or terminated where the provider returns that status.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy HRIS sync shows a connected state, a recent
+sync timestamp, and imported employee records with work email and employment
+status.
+
+If records are missing, confirm that the connected HR account can read the
+employees Doow needs and that those employees have work email addresses.
+
+## Troubleshooting
+
+Use these checks when employee data is missing or stale:
+
+- Confirm the connected HR admin can read the expected employee records.
+- Confirm employee work email addresses are present and match identity records.
+- Check whether terminated or inactive employees are filtered in the provider.
+- Check the integration event log for permission or sync errors.
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find your HR platform, and
+select **Disconnect**. Doow deletes the stored authorization immediately.
+Employee records already imported into Doow are retained until you delete them
+or your retention settings remove them.
+
+## Next steps
+
+Open the setup guide for your HRIS provider:
+
+- [BambooHR](/integrations/hris/bamboohr)
+- [Gusto](/integrations/hris/gusto)
+- [Deel](/integrations/hris/deel)
+- [Zoho People](/integrations/hris/zoho-people)
+
+After employee records appear, connect an identity provider if Doow needs to
+match HRIS employees to app users, groups, and assignments.

@@ -1,0 +1,95 @@
+---
+title: "Replicate"
+description: "Connect Replicate predictions and compute usage to Doow."
+slug: "integrations/usage/direct-provider-apis/replicate"
+section: "integrations"
+order: 316
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Replicate when Doow needs prediction counts, model activity, and compute
+usage from your Replicate account or organization.
+
+## What you need
+
+- A Replicate account or organization with the predictions you want Doow to
+  read.
+- A **Replicate API token** from the account or organization context that owns
+  the usage.
+- Access to billing or account usage when finance or spend review is part of
+  the workflow.
+
+<Callout title="Use a dedicated token">
+  Replicate API tokens authenticate HTTP API requests. Use a token created for
+  Doow usage reporting so it can be revoked without disrupting production model
+  calls.
+</Callout>
+
+## Create an API token
+
+1. Go to [replicate.com/account/api-tokens](https://replicate.com/account/api-tokens).
+2. Switch to the account or organization that owns the usage.
+3. Create a new API token.
+4. Name it something identifiable, such as `Doow usage read`.
+5. Copy the token.
+6. Paste it into Doow when prompted.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Model | The model or deployment that created the prediction |
+| Predictions | Number of predictions created by day |
+| Status | Whether predictions succeeded, failed, or were canceled |
+| Compute time | Prediction runtime metrics where Replicate reports them |
+| Date | The day the usage occurred |
+
+Doow reads Replicate prediction metadata available to the connected token and
+aggregates it at the day level. Replicate's prediction objects include model,
+status, timestamps, and runtime metrics such as `predict_time` when available.
+
+## What Doow does not read
+
+- The inputs or outputs of any prediction (images, text, audio, etc.)
+- Your private model weights or fine-tune data
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Replicate** and select **Connect**.
+3. Paste the API token.
+4. Select **Connect**.
+5. Wait for Doow to verify the token and begin the initial usage sync.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected account, organization, model, or
+deployment.
+
+If the credential is accepted but no usage appears, verify that the token
+belongs to the Replicate account or organization where the predictions were
+created.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Replicate, and select
+**Disconnect**. Doow deletes the stored token immediately. Disable the token in
+Replicate when you want to remove provider-side access too.
+
+## Next steps
+
+After usage data appears, connect an identity provider if Doow needs to match
+Replicate usage to users and app ownership. Connect accounting if the review
+needs finance-confirmed spend.

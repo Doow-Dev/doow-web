@@ -1,0 +1,128 @@
+---
+title: "Google Vertex AI"
+description: "Connect Google Vertex AI usage, project, and region metrics to Doow."
+slug: "integrations/usage/cloud-platforms/google-vertex"
+section: "integrations"
+order: 332
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Google Vertex AI when Doow needs usage, cost, project, SKU, and region
+signals from Google Cloud billing data.
+
+## What you need
+
+- A Google Cloud billing account that pays for the Vertex AI usage you want
+  Doow to read.
+- Cloud Billing export to BigQuery enabled for that billing account.
+- A service account with read access to the billing export dataset.
+- A project where the service account can run BigQuery jobs.
+- Optional: one or more consumer project IDs to scope reporting to specific
+  Vertex AI projects.
+
+<Callout title="Use billing export for Google Cloud usage">
+  Google Cloud exports detailed billing data to BigQuery with fields such as
+  services, SKUs, projects, locations, usage, cost, and currency. Doow reads
+  that export for Vertex AI reporting; it does not need access to model request
+  payloads.
+</Callout>
+
+## Create a read-only service account
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com).
+2. Open **IAM & Admin**, then **Service Accounts**, then **Create Service Account**.
+3. Name it something identifiable, such as `doow-vertex-readonly`.
+4. Grant the service account read access to the BigQuery dataset that receives
+   Cloud Billing export data.
+5. Grant the service account permission to run BigQuery jobs in the billing
+   project.
+6. If your approval process requires billing-account visibility, grant
+   **Billing Account Viewer** at the billing account level.
+7. Open **Keys**, then **Add key**, then **Create new key**.
+8. Choose **JSON** and download the key file.
+
+When connecting in Doow, you will paste the contents of this JSON key file.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Usage date | The day the usage occurred |
+| Service and SKU | Which Vertex AI service or SKU generated usage |
+| Usage amount | Usage quantity in the unit reported by Google Cloud Billing |
+| Cost | Cost estimate and currency from the billing export |
+| Consumer project | The Google Cloud project that generated the usage |
+| Location | Region or location fields from the billing export |
+| Labels and credits | Labels, credits, or adjustments where present in the export |
+
+Doow reads Vertex AI usage from the Cloud Billing export dataset and
+aggregates it at the day level by billing account, project, service, SKU, and
+location where those fields are available.
+
+## What Doow does not read
+
+- The content of any model requests or responses
+- Cloud Storage objects, databases, model artifacts, or unrelated Google Cloud data
+- Payment methods, invoices, or billing contact information
+- Vertex AI endpoint configuration or model settings
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Google Vertex AI** and select **Connect**.
+3. Enter the billing project ID that contains the BigQuery billing export.
+4. Enter the billing export dataset and table details if prompted.
+5. Paste the contents of the service account JSON key.
+6. Optional: enter consumer project IDs to limit reporting to specific Vertex AI
+   projects.
+7. Select **Connect**.
+8. Wait for Doow to verify the credentials and begin the initial usage sync.
+
+## Multi-project setups
+
+If Vertex AI usage is spread across multiple Google Cloud projects under the
+same billing account, enter those project IDs in the **Consumer project IDs**
+field. Doow reads usage for those projects from the same billing export and
+shows per-project breakdowns.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy cloud sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected billing account, project, service,
+SKU, or location.
+
+If the connection succeeds but no usage appears, verify that Cloud Billing
+export is enabled, the export table contains Vertex AI rows, and the service
+account can read the BigQuery dataset.
+
+## Troubleshooting
+
+Use these checks when cloud usage data is missing or incomplete:
+
+- Confirm the credential belongs to the intended cloud account, subscription, or project.
+- Confirm it can read the required monitoring, billing, or usage export data.
+- Confirm the expected regions, deployments, or models have recent usage.
+- Check whether the cloud provider reports usage with a delay.
+- Check the integration event log for permission or sync errors.
+
+### Google Vertex AI-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| No project usage appears | The billing export does not include the project or the project filter is too narrow | Confirm the consumer project IDs and billing account |
+| Some usage is missing | Usage exists in a different billing account or export table | Connect the billing account or export that owns that usage |
+| Billing data is unavailable | The service account cannot read the BigQuery export dataset | Grant dataset read access and BigQuery job permission before reconnecting |
+| Recent usage is missing | Cloud Billing export has not delivered the latest rows yet | Check an earlier date range before rotating credentials |
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Google Vertex AI, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Delete the
+service account key or remove its BigQuery and billing roles in Google Cloud
+when you want to remove provider-side access too.
+
+## Next steps
+
+After cloud usage appears, connect an identity provider if Doow needs to match
+Vertex AI usage to users and app ownership. Connect HRIS when the review needs
+department or employment context.

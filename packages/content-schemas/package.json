@@ -1,0 +1,26 @@
+{
+  "name": "@doow/content-schemas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./asset-path": "./src/asset-path.ts",
+    "./date": "./src/date.ts",
+    "./frontmatter-primitives": "./src/frontmatter-primitives.ts",
+    "./link": "./src/link.ts",
+    "./seo": "./src/seo.ts",
+    "./slug": "./src/slug.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "typescript": "6.0.2",
+    "vitest": "4.0.15"
+  }
+}

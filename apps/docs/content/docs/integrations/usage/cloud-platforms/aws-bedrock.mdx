@@ -1,0 +1,135 @@
+---
+title: "AWS Bedrock"
+description: "Connect AWS Bedrock usage through CloudWatch metrics."
+slug: "integrations/usage/cloud-platforms/aws-bedrock"
+section: "integrations"
+order: 330
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect AWS Bedrock when Doow needs token usage, invocation activity, and model
+usage by AWS account and region.
+
+## What you need
+
+- An AWS account with Amazon Bedrock enabled.
+- The AWS region or regions where your Bedrock workloads run.
+- An IAM credential with read-only access to CloudWatch metrics for those
+  regions.
+
+<Callout title="Use a dedicated read-only credential">
+  Create a credential for Doow Bedrock reporting instead of reusing an
+  application credential. Doow only needs to read CloudWatch metrics for the
+  selected AWS account and regions.
+</Callout>
+
+## Create a read-only IAM credential
+
+Doow needs an AWS access key pair that can read CloudWatch metric data. Use
+this minimum policy as the starting point:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:GetMetricData",
+        "cloudwatch:ListMetrics"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Then create the IAM credential:
+
+1. Go to the [AWS IAM Console](https://console.aws.amazon.com/iam).
+2. Open **Users**, then **Create user**.
+3. Name the user something identifiable, such as `doow-bedrock-readonly`.
+4. Attach a custom policy with the permissions above.
+5. Open **Security credentials**, then **Create access key**.
+6. Select **Third-party service** as the use case.
+7. Copy the **Access Key ID** and **Secret Access Key**. AWS only shows the
+   secret once.
+
+## What Doow reads
+
+| Metric | Description |
+|---|---|
+| `InputTokenCount` | Text input tokens reported by Bedrock runtime metrics |
+| `OutputTokenCount` | Output tokens reported by Bedrock runtime metrics |
+| Invocations | Invocation counts and related CloudWatch metric activity |
+| Model | Which Bedrock model was invoked where CloudWatch dimensions report it |
+| Region | The AWS region where the usage occurred |
+
+Doow reads Amazon Bedrock runtime metrics from CloudWatch and aggregates them
+at the day level by account, region, and model where those dimensions are
+available.
+
+## What Doow does not read
+
+- The content of any inference requests or responses
+- Your S3 data, other AWS services, or unrelated CloudWatch namespaces
+- IAM users, IAM policies, secrets, or security configuration
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **AWS Bedrock** and select **Connect**.
+3. Enter the **Access Key ID** and **Secret Access Key**.
+4. Select the AWS regions where your Bedrock workloads run.
+5. Select **Connect**.
+6. Wait for Doow to verify the credentials and begin the initial usage sync.
+
+## Multi-region setups
+
+If Bedrock workloads run across multiple AWS regions, select each region during
+setup. Doow reads CloudWatch metrics from the selected regions and aggregates
+them in your catalog.
+
+## Multi-account setups
+
+If your organization uses multiple AWS accounts for Bedrock, add a separate
+connection for each account that owns usage.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy cloud sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected AWS account, region, and model.
+
+If the connection succeeds but no usage appears, verify that the credential can
+read CloudWatch metrics in the AWS account and regions where Bedrock usage
+occurred.
+
+## Troubleshooting
+
+Use these checks when cloud usage data is missing or incomplete:
+
+- Confirm the credential belongs to the intended cloud account, subscription, or project.
+- Confirm it can read the required monitoring, billing, or usage export data.
+- Confirm the expected regions, deployments, or models have recent usage.
+- Check whether the cloud provider reports usage with a delay.
+- Check the integration event log for permission or sync errors.
+
+### AWS Bedrock-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| No usage appears for a region | The IAM user cannot read CloudWatch metrics in that region | Confirm the policy covers each Bedrock region you expect Doow to read |
+| Some models are missing | Bedrock usage exists in a different account or region | Add a connection for each AWS account and region that owns usage |
+| Sync fails with access denied | The IAM policy is missing required read permissions | Re-check the read-only policy attached to the IAM user |
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find AWS Bedrock, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Delete the IAM
+user or access key in AWS when you want to remove provider-side access too.
+
+## Next steps
+
+After cloud usage appears, connect an identity provider if Doow needs to match
+Bedrock usage to users and app ownership. Connect HRIS when the review needs
+department or employment context.

@@ -23,10 +23,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build
         env:
@@ -36,15 +41,20 @@ jobs:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ secrets.NEXT_PUBLIC_POSTHOG_HOST }}
           BLOG_LIVE: ${{ secrets.BLOG_LIVE }}
-        run: npm run build
+          CATALOG_ADMIN_KEY: ${{ secrets.CATALOG_ADMIN_KEY }}
+          DOOW_API_BASE_URL: ${{ secrets.DOOW_API_BASE_URL }}
+          X_ADMIN_SECRET: ${{ secrets.X_ADMIN_SECRET }}
+          NEXT_PUBLIC_CRISP_WEBSITE_ID: ${{ secrets.NEXT_PUBLIC_CRISP_WEBSITE_ID }}
+        run: pnpm build:web
 
       - name: Prepare standalone package
         run: |
-          cp -r public .next/standalone/
-          cp -r .next/static .next/standalone/.next/static
-          rm -f .next/standalone/.next/oryx-manifest.toml
-          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > .next/standalone/package.json
-          cd .next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
+          cp -r apps/web/public apps/web/.next/standalone/
+          mkdir -p apps/web/.next/standalone/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/.next/static
+          rm -f apps/web/.next/standalone/.next/oryx-manifest.toml
+          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > apps/web/.next/standalone/package.json
+          cd apps/web/.next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -70,10 +80,12 @@ jobs:
               DOOW_API_BASE_URL="${{ secrets.DOOW_API_BASE_URL }}" \
               CATALOG_ADMIN_KEY="${{ secrets.CATALOG_ADMIN_KEY }}" \
               X_ADMIN_SECRET="${{ secrets.X_ADMIN_SECRET }}" \
-              BLOG_LIVE="${{ secrets.BLOG_LIVE }}"
+              BLOG_LIVE="${{ secrets.BLOG_LIVE }}" \
+              CRISP_API_IDENTIFIER="${{ secrets.CRISP_API_IDENTIFIER }}" \
+              CRISP_API_KEY="${{ secrets.CRISP_API_KEY }}"
 
       - name: Zip standalone bundle
-        run: (cd .next/standalone && zip -r ../../standalone.zip . -x "*.git*")
+        run: (cd apps/web/.next/standalone && zip -r ../../../../standalone.zip . -x "*.git*")
 
       - name: Deploy standalone bundle to production
         run: |

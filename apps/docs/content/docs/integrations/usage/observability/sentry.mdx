@@ -1,0 +1,94 @@
+---
+title: "Sentry"
+description: "Connect Sentry event-count and outcome data to Doow."
+slug: "integrations/usage/observability/sentry"
+section: "integrations"
+order: 354
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect Sentry when Doow needs event counts and outcome status signals from
+your Sentry organization.
+
+## What you need
+
+- A Sentry organization with projects Doow needs to report on.
+- Your Sentry **organization slug**.
+- Sentry OAuth authorization approved for Doow reporting.
+
+<Callout title="Use a reporting-safe authorization">
+  Sentry supports OAuth for third-party applications. The OAuth grant gives
+  Doow access to the Sentry organization selected during authorization, with
+  the scopes approved in Sentry.
+</Callout>
+
+## Finding your organization slug
+
+1. Go to [sentry.io](https://sentry.io) and open your organization.
+2. Open **Settings**, then **General Settings**.
+3. Copy **Organization Slug**.
+
+The slug is also visible in Sentry organization URLs. For example,
+`https://myorganization.sentry.io` uses `myorganization` as the slug.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Event counts | Aggregated Sentry event volume for the configured organization and time window |
+| Outcome status | Accepted, filtered, rate-limited, invalid, and related outcome states where Sentry returns them |
+| Category | Sentry categories such as error, transaction, attachment, replay, profile, or monitor where present |
+| Project | The Sentry project that generated the events |
+| Date | The time window the usage occurred in |
+
+Doow reads Sentry event-count data available to the authorized connection and
+aggregates it into Doow usage reporting.
+
+## What Doow does not read
+
+- The content of any error events, exception messages, stack traces, or user context
+- Source code or release artifacts
+- Environment variables or secrets stored in Sentry
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Sentry** and select **Connect**.
+3. Enter your organization slug.
+4. Complete the Sentry OAuth authorization.
+5. Select **Connect**.
+6. Wait for Doow to verify the authorization and begin the initial sync.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy Sentry sync shows a connected state, a recent
+sync timestamp, and event-count rows for the expected organization, project,
+category, outcome, or time window.
+
+If no rows appear, verify that the Sentry organization slug is correct, the
+OAuth grant belongs to the intended organization, and Sentry has events in the
+selected time range.
+
+## Troubleshooting
+
+Use these checks when Sentry data is missing or incomplete:
+
+- Confirm the OAuth grant belongs to the Sentry organization you entered.
+- Confirm the organization slug matches the Sentry organization URL.
+- Confirm the project has events in the selected time range.
+- Check whether Sentry grouped, filtered, or rate-limited the expected events.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find Sentry, and select
+**Disconnect**. Doow deletes the stored authorization immediately. Revoke the
+OAuth grant in Sentry too when you want to remove provider-side access.
+
+## Next steps
+
+After Sentry events appear, connect an identity provider if Doow needs to match
+usage to users or app ownership. Connect HRIS when the review needs department
+or employment context.

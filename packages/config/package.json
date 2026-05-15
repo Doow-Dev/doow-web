@@ -1,0 +1,15 @@
+{
+  "name": "@doow/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./eslint/next": "./eslint/next.mjs",
+    "./postcss/tailwind": "./postcss/tailwind.mjs",
+    "./tsconfig/base": "./tsconfig/base.json"
+  },
+  "peerDependencies": {
+    "eslint-config-next": "16.2.3"
+  }
+}

@@ -1,0 +1,150 @@
+---
+title: "Node.js SDK"
+description: "Install the Node.js SDK to emit batched usage events to Doow."
+slug: "integrations/usage/instrumentation-sdk/nodejs"
+section: "integrations"
+order: 341
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use the Node.js SDK when a Node.js service owns the usage event and can send it
+to Doow from application code.
+
+## What you need
+
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- A Node.js service where the usage event happens.
+
+## Installation
+
+```bash
+npm install @doow/track
+# or
+yarn add @doow/track
+```
+
+## Quick start
+
+Send one test event before adding the SDK to every usage path.
+
+```ts
+import { DoowTracker } from '@doow/track';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+// Track a usage event
+meter.track({
+  metric: 'api_calls',
+  quantity: 1,
+  license_id: 'lic_your_license_id',
+});
+
+await meter.shutdown();
+```
+
+After the event appears in Doow, move the `track()` call to the application
+path where usage is created.
+
+## Event shape
+
+```ts
+meter.track({
+  metric: 'tokens',
+  quantity: 1024,
+  license_id: 'lic_...',
+  unit: 'tokens',
+  attribution: {
+    model: 'gpt-4o',
+    team: 'platform',
+  },
+});
+```
+
+| Field | Description |
+|---|---|
+| `metric` | Metric name that matches the usage you want Doow to report |
+| `quantity` | Numeric usage value |
+| `license_id` | Doow license that receives the usage |
+| `unit` | Optional unit label |
+| `attribution` | Optional metadata for team, model, environment, feature, or service |
+
+Do not send request payloads, customer content, secrets, or raw application
+logs in `attribution`.
+
+## Initialization options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `endpoint` | string | `https://api.doow.co` | Doow API endpoint |
+| `enabled` | boolean | `true` | Set to `false` to disable all tracking (useful in development) |
+| `attribution` | object | None | Key-value pairs merged into every event for environment, team, or service attribution |
+| `flushAt` | number | `20` | Flush after this many events are queued |
+| `flushInterval` | number | `10000` | Flush every N milliseconds |
+| `retryCount` | number | `3` | Max retries on transient failures |
+| `onError` | function | `console.warn` | Called when the SDK reports an error |
+| `debug` | boolean | `false` | Enable debug logging |
+
+## Environment variable overrides
+
+Environment variables can set common SDK options.
+
+| Variable | Description |
+|---|---|
+| `DOOW_TRACK_API_KEY` | Your `dk_` API key |
+| `DOOW_TRACK_ENDPOINT` | Override the API endpoint |
+| `DOOW_TRACK_DISABLED=true` | Disable the SDK entirely |
+| `DOOW_TRACK_FLUSH_AT` | Flush event count threshold |
+| `DOOW_TRACK_FLUSH_INTERVAL` | Flush interval in milliseconds |
+| `DOOW_TRACK_ATTRIBUTION` | JSON string for SDK-level attribution (for example, `{"env":"prod"}`) |
+
+## Graceful shutdown
+
+Call `meter.shutdown()` before the process exits so buffered events can flush.
+
+```ts
+process.on('SIGTERM', async () => {
+  await meter.shutdown();
+  process.exit(0);
+});
+```
+
+## Confirm the event arrived
+
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
+
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
+
+## Production checklist
+
+Before using this method in production:
+
+- Store the `dk_` key in a secret manager or environment variable.
+- Confirm batching and retry settings match your traffic volume.
+- Confirm the service calls `shutdown()` during process termination.
+- Create separate keys for staging and production when you need independent
+  revocation.
+- Keep metric names and units stable before tying them to customer reporting.
+
+## Troubleshooting
+
+Use these checks when events do not arrive:
+
+- Confirm the `dk_` key is active and belongs to the expected Doow workspace.
+- Confirm each event includes `metric`, `quantity`, and `license_id`.
+- Confirm `quantity` is numeric and greater than zero.
+- Confirm your process flushes events before shutdown.
+- Check application logs for authentication, validation, or network errors.
+
+## Disconnecting
+
+Go to **Settings**, then **API Keys**, then **SDK Keys** in your Doow workspace and revoke the
+key. Replace the key in your application before sending more production events.
+
+## Next steps
+
+After the test event appears, send events from a production-like environment
+and confirm batching, retry, and shutdown behavior before rollout.

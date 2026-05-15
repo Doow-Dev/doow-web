@@ -1,0 +1,96 @@
+---
+title: "OpenRouter"
+description: "Connect OpenRouter usage and routing metrics to Doow."
+slug: "integrations/usage/direct-provider-apis/openrouter"
+section: "integrations"
+order: 315
+status: "published"
+updatedAt: "2026-05-15"
+---
+Connect OpenRouter when Doow needs usage, spend, token, and routing signals
+from the models your team runs through OpenRouter.
+
+## What you need
+
+- An OpenRouter account or organization with the usage you want Doow to read.
+- A **Management key** for organization-wide API key usage.
+- Admin access when the OpenRouter account is an organization.
+
+<Callout title="Use the right OpenRouter key">
+  OpenRouter's management keys are for administrative API-key operations and
+  cannot call completion endpoints. Use a management key when Doow needs
+  organization-level key usage. A normal OpenRouter API key may only expose
+  usage for that key.
+</Callout>
+
+## Create a management key
+
+1. Go to [openrouter.ai](https://openrouter.ai).
+2. Switch to the organization or workspace that owns the usage.
+3. Open the **Management API Keys** page.
+4. Create a new management key.
+5. Name it something identifiable, such as `Doow usage read`.
+6. Copy the key. OpenRouter only shows the secret when it is created.
+7. Paste it into Doow when prompted.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Usage | Usage totals by API key or account scope |
+| Tokens | Prompt and completion token totals where OpenRouter reports them |
+| Spend | OpenRouter credits and BYOK spend estimates where available |
+| Model | Model metadata from activity or usage records where available |
+| API key | Key name, status, workspace, and usage fields where available |
+| Date | The day or time range the usage occurred |
+
+Doow reads OpenRouter usage data available to the connected credential and
+aggregates it for reporting. OpenRouter documents activity exports grouped by
+model, API key, or creator, response-level usage details, and management-key
+access to API-key usage fields.
+
+## What Doow does not read
+
+- The content of any prompts or completions
+- Per-user API keys or application-level credentials
+- Billing payment methods or invoices
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **OpenRouter** and select **Connect**.
+3. Paste the management key.
+4. Select **Connect**.
+5. Wait for Doow to verify the key and begin the initial usage sync.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected organization, workspace, API key,
+model, or route.
+
+If the credential is accepted but no usage appears, verify that the key belongs
+to the right OpenRouter organization or workspace and has access to the usage
+scope Doow is configured to read.
+
+## Troubleshooting
+
+Use these checks when usage data is missing or incomplete:
+
+- Confirm the credential belongs to the provider organization you want Doow to read.
+- Confirm the credential can read usage, billing, metrics, or organization-level data.
+- Confirm the provider has usage in the selected time range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, or rate-limit errors.
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find OpenRouter, and select
+**Disconnect**. Doow deletes the stored key immediately. Revoke the management
+key in OpenRouter when you want to remove provider-side access too.
+
+## Next steps
+
+After usage data appears, connect an identity provider if Doow needs to match
+OpenRouter usage to users and app ownership. Connect accounting if the review
+needs finance-confirmed spend.

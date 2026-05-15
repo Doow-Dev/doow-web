@@ -1,0 +1,135 @@
+---
+title: "Serverless"
+description: "Send usage events from Lambda, Vercel, and Azure Functions."
+slug: "integrations/usage/instrumentation-sdk/serverless"
+section: "integrations"
+order: 343
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use the Serverless guide when a Lambda, Vercel Function, or Azure Function owns
+the usage event and must flush it before the invocation ends.
+
+## What you need
+
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- `@doow/track` installed in the function package.
+
+<Callout title="Prove the flush path first">
+  Serverless runtimes can freeze or terminate work after the handler returns.
+  Send one test event and confirm it appears in Doow before adding tracking to
+  every invocation path.
+</Callout>
+
+## AWS Lambda
+
+```ts
+import { DoowTracker } from '@doow/track';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+export const handler = meter.withLambda(async (event, context) => {
+  meter.track({ metric: 'api_calls', quantity: 1, license_id: 'lic_...' });
+  return { statusCode: 200, body: 'ok' };
+});
+```
+
+Use the Lambda wrapper when you want the SDK to manage the flush path around
+the handler. Confirm the test event appears in Doow before shipping.
+
+## Vercel Functions
+
+```ts
+import { DoowTracker } from '@doow/track';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+export default meter.withVercel(async (req: VercelRequest, res: VercelResponse) => {
+  meter.track({ metric: 'requests', quantity: 1, license_id: 'lic_...' });
+  res.status(200).json({ ok: true });
+});
+```
+
+Use the Vercel wrapper when the event is created during the request lifecycle.
+Confirm the response path still gives the SDK time to flush.
+
+## Azure Functions
+
+```ts
+import { DoowTracker } from '@doow/track';
+import type { Context, HttpRequest } from '@azure/functions';
+
+const meter = new DoowTracker(process.env.DOOW_TRACK_API_KEY);
+
+export default meter.withAzureFunction(async (context: Context, req: HttpRequest) => {
+  meter.track({ metric: 'invocations', quantity: 1, license_id: 'lic_...' });
+  context.res = { status: 200, body: 'ok' };
+});
+```
+
+Use the Azure Functions wrapper when the event is created inside the function
+handler. Confirm the invocation completes and the event appears in Doow.
+
+## Event shape
+
+Each event needs a metric, quantity, and `license_id`.
+
+```ts
+meter.track({
+  metric: 'tokens',
+  quantity: 1024,
+  license_id: 'lic_...',
+  attribution: {
+    function: 'generate-summary',
+    environment: 'prod',
+  },
+});
+```
+
+Do not send request payloads, customer content, secrets, or raw application
+logs in event metadata.
+
+## Confirm the event arrived
+
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
+
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
+
+## Production checklist
+
+Before using this method in production:
+
+- Store the `dk_` key in the runtime secret manager or environment settings.
+- Confirm the function waits for the SDK flush path before returning.
+- Confirm retries and timeouts fit the function's maximum duration.
+- Create separate keys for staging and production when you need independent
+  revocation.
+- Keep metric names and units stable before tying them to customer reporting.
+
+## Troubleshooting
+
+Use these checks when events do not arrive:
+
+- Confirm the `dk_` key is active and belongs to the expected Doow workspace.
+- Confirm each event includes `metric`, `quantity`, and `license_id`.
+- Confirm `quantity` is numeric and greater than zero.
+- Confirm your process flushes events before shutdown.
+- Check application logs for authentication, validation, or network errors.
+
+## Notes
+
+- Initialize `DoowTracker` outside the handler when your runtime reuses warm
+  instances.
+- Keep the first rollout small enough that missing events are easy to inspect.
+- Watch function duration after adding tracking so flush work does not exceed
+  the runtime timeout.
+
+## Next steps
+
+After the test event appears, send events from a production-like environment
+and confirm flush, retry, and timeout behavior before rollout.

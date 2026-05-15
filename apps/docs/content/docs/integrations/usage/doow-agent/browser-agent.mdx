@@ -1,0 +1,119 @@
+---
+title: "Browser Agent"
+description: "Install Browser Agent to collect browser-based SaaS usage."
+slug: "integrations/usage/doow-agent/browser-agent"
+section: "integrations"
+order: 310
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use Browser Agent when Doow needs browser-based SaaS usage from employee
+devices.
+
+## Choose Browser Agent
+
+Choose this path when the apps you care about run in a supported browser and
+provider APIs do not expose enough usage detail.
+
+<Cards>
+  <Card title="Use Browser Agent">
+    You need browser-based SaaS usage by user, app, and workspace.
+  </Card>
+  <Card title="Use another source">
+    You only need provider-owned usage from an API, custom product metrics from
+    your application, or metrics already collected in an observability tool.
+  </Card>
+</Cards>
+
+If provider APIs already give you complete usage, start with
+[Direct provider APIs](/integrations/usage/direct-provider-apis). If you need
+native desktop app usage, use
+[Desktop Agent](/integrations/usage/doow-agent/desktop-agent) after confirming
+the rollout path for your workspace.
+
+## Before rollout
+
+Confirm the rollout owner, browser support, and permission review before asking
+users to install Browser Agent:
+
+- the approved browser list for your workspace
+- the approved extension distribution path
+- who needs to install it: all employees, a pilot cohort, or one department
+- who needs to review the browser permission prompt
+- whether users are allowed to sign in to Doow from the extension
+
+## Install and enable Browser Agent
+
+Use this flow once your workspace has an approved distribution path.
+
+<Steps>
+
+1. Open the approved Browser Agent distribution path.
+2. Install the extension in the supported browser.
+3. Open the Browser Agent extension.
+4. Sign in with the user account that belongs to your Doow workspace.
+5. Turn tracking on if it is not already enabled.
+6. Open a browser-based SaaS app that Doow needs to track.
+7. Use the app long enough for browser activity to be recorded.
+
+</Steps>
+
+Do not use a development build, unpacked extension, or private package for a
+customer rollout unless that is the approved distribution path for your
+workspace.
+
+## Review browser permissions
+
+Browser Agent is for SaaS usage attribution, not browser-content inspection.
+It helps Doow understand which browser apps are being used and by whom.
+
+The browser surface can include browser activity signals, app domain and path,
+local activity state before sync, and user, organization, device, browser, and
+network context needed for attribution.
+
+<Callout title="Use your approved distribution path">
+  Use the Browser Agent distribution path approved for your Doow workspace. If
+  you do not have one, get it from your Doow admin or support contact before
+  rollout.
+</Callout>
+
+## Confirm it worked
+
+After installation, confirm Browser Agent is sending usable activity before
+expanding the rollout.
+
+1. Open **Company Settings -> Integrations** in Doow.
+2. Open the Browser Agent or Doow Agent detail page.
+3. Confirm the connection shows recent browser activity.
+4. Confirm the expected user appears in the activity records.
+5. Confirm the expected app or domain appears in the usage view.
+6. Check that the event log has no sign-in, permission, or sync errors.
+
+<Callout title="Connected is not the same as active" tone="warning">
+  A user can install the extension without producing useful usage data. Confirm
+  recent activity after the user opens and uses a tracked browser app.
+</Callout>
+
+## Troubleshooting
+
+Use these checks when browser activity is missing or incomplete:
+
+| Issue | What to check |
+|---|---|
+| The user does not appear | Confirm the user signed in to Browser Agent with the expected Doow account. |
+| No recent activity appears | Confirm tracking is turned on and the user opened a browser-based SaaS app after enabling the extension. |
+| The app is missing | Confirm the app is browser-based, the browser is supported for your workspace, and the app can be mapped from its domain. |
+| Activity stops after install | Confirm the extension is still enabled, the user is still signed in, and the browser has not blocked the required permissions. |
+| Permission questions block rollout | Review the browser permission prompt with your security or device-management owner before expanding to more users. |
+
+## Next steps
+
+After browser activity appears in Doow, connect the next source that fills the
+missing context:
+
+- Use Desktop Agent when employees also use native desktop apps that Browser
+  Agent cannot observe.
+- Connect an identity provider so Doow can map browser activity to users,
+  groups, and ownership.
+- Return to [Doow Agent](/integrations/usage/doow-agent) if you are still
+  deciding between browser and desktop collection.

@@ -1,0 +1,139 @@
+---
+title: "Accounting integrations"
+description: "Pull expense, transaction, vendor, and category data from accounting systems."
+slug: "integrations/accounting"
+section: "integrations"
+order: 380
+status: "published"
+updatedAt: "2026-05-15"
+---
+Use accounting integrations when Doow needs finance-confirmed spend from your
+books.
+
+Accounting data is different from usage data. Usage sources show what people or
+systems consumed. Accounting sources show what the company paid, which vendor
+was paid, when the expense was recorded, and which account category owns it.
+
+## Supported providers
+
+- QuickBooks Online
+- Xero
+- FreshBooks
+- NetSuite
+- Sage Intacct
+- Microsoft Dynamics 365 Business Central
+- Other providers shown during the connection flow
+
+## When to use accounting
+
+Connect accounting when the review depends on finance records:
+
+- Compare software usage against actual expenses.
+- Confirm vendor spend before renewal review.
+- Find expenses split across subsidiaries, entities, vendors, or account codes.
+- Reconcile contract value against recorded transactions.
+
+Use a usage source instead when the missing data is activity, tokens, API
+calls, requests, or app usage.
+
+## How to connect
+
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find your accounting platform and select **Connect**.
+3. Complete the secure accounting linking flow.
+4. Select your accounting provider if it is not already selected.
+5. Sign in with an accounting admin account approved for reporting.
+6. Approve read access for the expense and transaction data Doow imports.
+7. Select the expense categories, account codes, entities, or subsidiaries for
+   Doow to include if prompted.
+8. Wait for Doow to verify the connection and begin the initial expense sync.
+
+Doow does not receive your accounting login password. You authorize access
+through the accounting provider or secure linking flow, and Doow stores the
+authorization needed to sync approved expense data.
+
+## What Doow reads
+
+| Field | Description |
+|---|---|
+| Vendor name | The supplier or payee on the expense |
+| Amount | The total amount of the expense |
+| Currency | Currency reported by the accounting system where available |
+| Transaction date | When the expense was recorded |
+| Description | The line-item description on the expense |
+| Account category | The account code or category the expense is filed under |
+| Entity or subsidiary | Business entity, subsidiary, or location where the provider returns it |
+| Transaction ID | Provider record identifier used for reconciliation and deduplication |
+
+## What Doow does not read
+
+- Payroll expenses or employee compensation entries
+- Banking credentials or account numbers
+- Bank balances or live cash positions
+- Tax filings, payroll journals, or employee reimbursement details outside the
+  selected expense sync
+- Balance sheet or profit-and-loss data beyond the expense records Doow imports
+- Data outside the selected expense categories, account codes, entities, or
+  subsidiaries
+
+## How expense data is used in Doow
+
+**Spend verification:** Doow matches expenses from your accounting platform
+against apps in your software catalog. That gives each tool a finance-confirmed
+spend figure.
+
+**Contract reconciliation:** When a contract is recorded for an app, Doow
+compares contract value against recorded expenses so finance can review
+differences before renewal.
+
+**Cost attribution:** Expense categories, entities, subsidiaries, and vendor
+names help Doow group spend by tool, team, or finance owner.
+
+## Selecting expense categories
+
+During setup, choose the expense categories or account codes that contain the
+software and SaaS spend Doow needs. Selecting only relevant categories keeps the
+sync focused and prevents unrelated expenses from appearing in your catalog.
+
+## Confirm the sync worked
+
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy accounting sync shows a connected state, a
+recent sync timestamp, and imported expense records from the selected
+categories, account codes, entities, or subsidiaries.
+
+If no expenses appear, confirm that the selected categories contain software or
+SaaS spend and that the connected accounting user can read those transactions.
+
+## Troubleshooting
+
+Use these checks when expense data is missing or incomplete:
+
+- Confirm the connected accounting user can read expense transactions.
+- Confirm the selected categories or account codes contain software spend.
+- Confirm the transaction date range includes the expenses you expect.
+- Confirm the correct entity, subsidiary, or location is included when your
+  accounting system separates books that way.
+- Check the integration event log for permission or sync errors.
+
+### Accounting-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Connection succeeds but no expenses appear | The selected categories do not contain software or SaaS spend | Reopen setup and select the account codes that contain software expenses |
+| Vendor totals look incomplete | Spend is split across multiple vendors, subsidiaries, or account codes | Confirm the expense categories and entities included in the sync |
+| Expenses are present but unrelated | Too many account categories were selected | Narrow the sync to software, SaaS, IT, or other relevant categories |
+| Currency or entity data looks wrong | The accounting provider records the expense under a different entity or currency | Confirm the provider record and adjust the included entity or subsidiary |
+
+## Disconnecting
+
+Go to **Company Settings**, then **Integrations**, find your accounting
+platform, and select **Disconnect**. Doow deletes the stored authorization
+immediately. Expense records already imported into Doow are retained until you
+delete them or your retention settings remove them.
+
+## Next steps
+
+After expenses appear, connect a usage source if Doow needs to compare spend
+against consumption. Connect an identity provider when the review needs users,
+groups, or app ownership.
