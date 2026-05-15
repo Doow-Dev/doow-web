@@ -71,6 +71,10 @@ Orient the user
 For integration-specific structures, read
 `references/doow-docs-patterns.md`.
 
+For integration strategy, page framing, headings, and production readiness,
+read `references/connection-source-docs-dna.md`. Use it before sweeping
+integration pages, hub pages, chooser pages, or source-category pages.
+
 ## Use approved MDX components
 
 Doow docs currently allow:
@@ -83,8 +87,8 @@ Use components to reduce cognitive load, not to decorate prose. Read
 ## Source patterns
 
 Borrow exact patterns, not brand vibes. If you reference a source such as
-Diataxis, Clerk, Stytch, Stripe, Vercel, or Firecrawl, name the specific
-pattern being applied.
+Diataxis, Clerk, Stytch, Stripe, Vercel, Firecrawl, Ramp, Mercury, or Brex,
+name the specific pattern being applied.
 
 Read `references/source-patterns.md` when planning a docs architecture,
 navigation, page-type, or quality pass.
@@ -101,6 +105,21 @@ Before finishing a docs change, run the review in
 - The page tells the reader how to confirm success.
 - The page gives recovery paths for common failures.
 - Next steps point to the next useful task, not generic exploration.
+
+## Finishing pass
+
+Structure alone does not produce tasteful docs. After the structural review,
+run the five prose checks from `references/prose-rules.md`:
+
+1. First sentence matches the page-type recipe.
+2. No banned phrases without justification.
+3. Paragraph rhythm: one idea per paragraph, four sentences max.
+4. Every sentence helps the reader choose, connect, verify, recover, or
+   continue. Cut the rest.
+5. Voice matches a Doow anchor (Stytch for hubs, Stripe for reference).
+
+Use the thin-page detector in `references/prose-rules.md` when sweeping
+existing pages for stubs.
 
 ## Verification
 

@@ -9,14 +9,15 @@ Use for `/integrations`.
 
 ```text
 What integrations do for Doow
--> recommended first setup
+-> what source families are for
 -> choose by outcome
--> integration categories
--> next steps
+-> compare paths when needed
+-> exact setup pages
 ```
 
-The hub must help users who do not yet know what to connect. Do not start with
-a raw catalog before orientation.
+The hub must help users who do not yet know what to connect, while still
+serving users who are returning to add another source. Do not start with a raw
+catalog before orientation. Do not imply one universal setup sequence.
 
 ## Chooser page
 
@@ -24,13 +25,15 @@ Use for pages that help users choose a connection path.
 
 ```text
 Decision this page helps with
--> recommendation for unsure users
+-> what each source family is for
 -> choice cards by outcome
 -> comparison table only if needed
 -> next setup page
 ```
 
 Prefer cards for major choices. Use tables for detailed comparison.
+Recommendations are allowed, but frame them as useful paths, not mandatory
+order.
 
 ## Provider setup guide
 
@@ -38,20 +41,24 @@ Use for pages such as OpenAI, Okta, Google Workspace, BambooHR, Datadog, or
 accounting integrations.
 
 ```text
-Use this integration when
+When to use this source
 -> what Doow reads
 -> what Doow does not read
--> before you start
--> setup steps
+-> what you need
+-> connect the source
 -> confirm the sync worked
 -> troubleshooting
 -> disconnecting
--> next steps
+-> next useful source
 ```
 
 Rules:
 
-- Put "Use this integration when" near the top.
+- Put "When to use this source" near the top.
+- Add "Choose another source when" if the source is easy to confuse with a
+  neighboring path.
+- Name who can connect the source when ownership or admin access is likely to
+  block setup.
 - Keep setup steps imperative and short.
 - Use provider-specific troubleshooting where possible.
 - Avoid saying "confirm it worked" without describing a visible success state.
@@ -108,7 +115,9 @@ Use bullets only for generic checks.
 Next steps should point to the next useful task. For integrations, common next
 steps are:
 
-- Connect an identity provider to map usage to users.
-- Connect HRIS to add department and manager context.
-- Connect accounting to verify spend.
+- Connect an identity provider if usage needs to map to users.
+- Connect HRIS if department, manager, or employment status matters.
+- Connect accounting if finance-confirmed spend matters.
 - Choose another usage source if this provider is not the main source.
+
+Do not present these as a required global sequence.
