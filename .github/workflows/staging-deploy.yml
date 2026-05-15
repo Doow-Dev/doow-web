@@ -48,12 +48,14 @@ jobs:
 
       - name: Prepare standalone package
         run: |
-          cp -r apps/web/public apps/web/.next/standalone/
-          mkdir -p apps/web/.next/standalone/.next
-          cp -r apps/web/.next/static apps/web/.next/standalone/.next/static
-          rm -f apps/web/.next/standalone/.next/oryx-manifest.toml
-          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > apps/web/.next/standalone/package.json
-          cd apps/web/.next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
+          # Monorepo: server.js lives at apps/web/ within the standalone tree
+          mkdir -p apps/web/.next/standalone/apps/web
+          cp -r apps/web/public apps/web/.next/standalone/apps/web/
+          mkdir -p apps/web/.next/standalone/apps/web/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
+          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node apps/web/server.js"}}' > apps/web/.next/standalone/package.json
+          # Dereference pnpm symlinks so Node can resolve modules without the virtual store
+          cd apps/web/.next/standalone && tar --dereference -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -68,7 +70,7 @@ jobs:
             --name landing-page \
             --resource-group Doow-dev \
             --slot staging \
-            --startup-file "node server.js"
+            --startup-file "node apps/web/server.js"
 
       - name: Set runtime app settings
         run: |
