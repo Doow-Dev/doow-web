@@ -11,33 +11,6 @@ import { DocsToc } from "./docs-toc";
 import { PageActions } from "./page-actions";
 import { WasThisHelpful } from "./was-this-helpful";
 
-const footerColumns = [
-  {
-    label: "Get started",
-    links: [
-      { label: "Integrations overview", href: "/integrations" },
-      { label: "Connecting integrations", href: "/integrations/connect" },
-      { label: "Accounting", href: "/integrations/accounting" },
-    ],
-  },
-  {
-    label: "Usage data",
-    links: [
-      { label: "Direct provider APIs", href: "/integrations/usage/direct-provider-apis" },
-      { label: "Instrumentation SDK", href: "/integrations/usage/instrumentation-sdk" },
-      { label: "Observability", href: "/integrations/usage/observability" },
-    ],
-  },
-  {
-    label: "Organization data",
-    links: [
-      { label: "Google Workspace", href: "/integrations/identity/google-workspace" },
-      { label: "Microsoft 365", href: "/integrations/identity/microsoft-365" },
-      { label: "HRIS overview", href: "/integrations/hris" },
-    ],
-  },
-];
-
 export function DocsArticleLayout({
   children,
   page,
@@ -94,25 +67,6 @@ export function DocsArticleLayout({
           ) : null}
           <WasThisHelpful slug={page.slug} />
           <ArticlePager prev={prev} next={next} />
-          <section className="docs-home__footer docs-article__footer" aria-labelledby="docs-article-footer">
-            <h2 className="sr-only" id="docs-article-footer">
-              More resources
-            </h2>
-            <div className="docs-footer-grid">
-              {footerColumns.map((col) => (
-                <div className="docs-footer-col" key={col.label}>
-                  <h3>{col.label}</h3>
-                  <ul>
-                    {col.links.map((link) => (
-                      <li key={link.href}>
-                        <Link href={link.href}>{link.label}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
         </article>
         <aside className="docs-right-rail" aria-label="Page tools">
           <section className="docs-toc" aria-label="On this page">
