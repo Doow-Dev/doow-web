@@ -5,34 +5,44 @@ slug: "integrations/usage/direct-provider-apis/fireworks-ai"
 section: "integrations"
 order: 314
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect Fireworks AI to pull per-model token throughput into Doow.
+Connect Fireworks AI when Doow needs token usage, model activity, and
+Fireworks usage signals from your account.
 
 ## What you need
 
-- A Fireworks AI account
-- An **API key** from your Fireworks account
+- A Fireworks AI account with access to the account you want Doow to read.
+- A Fireworks **API key** from that account.
+- Access to Fireworks usage, billing, or metrics data for the account.
 
-## Creating an API key
+<Callout title="Use a reporting-safe key">
+  Use a Fireworks key approved for Doow usage reporting. Fireworks documents API
+  keys for account access and metrics export, and Doow does not need permission
+  to manage deployments, billing settings, or unrelated account configuration.
+</Callout>
 
-1. Go to [fireworks.ai](https://fireworks.ai)
-2. Navigate to **Settings → API Keys**
-3. Click **Create new key**
-4. Name it something identifiable (for example, `Doow - Usage Read`)
-5. Copy the key
-6. Paste it into Doow when prompted
+## Create an API key
+
+1. Go to [fireworks.ai](https://fireworks.ai).
+2. Open **Settings**, then **API Keys**.
+3. Create a new key.
+4. Name it something identifiable, such as `Doow usage read`.
+5. Copy the key. Fireworks only returns the plain key value when it is created.
+6. Paste it into Doow when prompted.
 
 ## What Doow reads
 
 | Metric | Description |
 |---|---|
-| `prompt_tokens_per_second` | Prompt token throughput per model, per day |
-| `cached_prompt_tokens_per_second` | Cached prompt token throughput per model, per day |
+| `prompt_tokens_per_second` | Prompt token throughput by model and day |
+| `cached_prompt_tokens_per_second` | Cached prompt token throughput by model and day |
 | Model | Which model was called |
 | Date | The day the usage occurred |
 
-Usage is pulled from Fireworks' API and aggregated at the day level.
+Doow reads Fireworks usage signals available to the connected account and
+aggregates them at the day level. Fireworks documents billing exports for
+account-wide usage and Prometheus-style metrics for deployment activity.
 
 ## What Doow does not read
 
@@ -41,17 +51,21 @@ Usage is pulled from Fireworks' API and aggregated at the day level.
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **Fireworks AI** and click **Connect**
-3. A dialog opens asking for your API key
-4. Paste your key and click **Connect**
-5. Doow verifies the key and begins the initial usage sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Fireworks AI** and select **Connect**.
+3. Paste the API key.
+4. Select **Connect**.
+5. Wait for Doow to verify the key and begin the initial usage sync.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected account, model, resource, or
+endpoint.
 
-If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+If the credential is accepted but no usage appears, verify that the key belongs
+to the right Fireworks account and can access the usage or metrics surface Doow
+is configured to read.
 
 ## Troubleshooting
 
@@ -65,8 +79,12 @@ Use these checks when usage data is missing or incomplete:
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find Fireworks AI, and click **Disconnect**. The stored key is deleted immediately. You can also revoke the key from your Fireworks account settings.
+Go to **Company Settings**, then **Integrations**, find Fireworks AI, and select
+**Disconnect**. Doow deletes the stored key immediately. Revoke the key in
+Fireworks when you want to remove provider-side access too.
 
 ## Next steps
 
-After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.
+After usage data appears, connect an identity provider if Doow needs to match
+Fireworks usage to users and app ownership. Connect accounting if the review
+needs finance-confirmed spend.

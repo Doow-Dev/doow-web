@@ -5,60 +5,71 @@ slug: "integrations/usage/instrumentation-sdk"
 section: "integrations"
 order: 340
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-The instrumentation SDK lets you push usage events from your own applications directly into Doow using the `@doow/track` SDK. Unlike direct provider API integrations (where Doow pulls from a provider's API), the SDK is a push route — your application emits events in real time as usage occurs.
+Use the Instrumentation SDK when your own application is the best source of a
+usage event and no provider API already records that event for Doow to read.
 
 ## When to use this
 
-Use the instrumentation SDK when:
-- You are building a product that you want to meter and track against a contract in Doow
-- You want usage data in Doow that is not available from a vendor's usage API
-- You need attribution at a granularity (per customer, per feature, per environment) that vendor APIs don't expose
+Use this path when your engineering team owns the place where usage happens.
+The application emits structured events to Doow with a `dk_` SDK key.
+
+Use the SDK when you need to:
+
+- Meter usage against a customer contract in Doow.
+- Send usage that a vendor API does not expose.
+- Attribute usage by customer, license, feature, team, model, or environment.
+- Prove a custom event flow before connecting broader billing or identity data.
+
+<Callout title="Use provider data when it already exists">
+  If OpenAI, Anthropic, AWS, Azure, Vertex, or another provider already records
+  the usage you need, start with that provider source. Use the SDK when your
+  product owns the usage event or needs attribution the provider does not have.
+</Callout>
 
 ## Choose a method
 
-Pick the method that matches where your application runs.
+Pick the method that matches where the event is produced and how much control
+you have over that runtime.
 
 | Method | Use it when | Setup guide |
 |---|---|---|
-| Node.js SDK | You can add `@doow/track` directly to a Node.js application | [Node.js SDK](/integrations/usage/instrumentation-sdk/nodejs) |
-| Sidecar | Your service is not written in Node.js, or you want telemetry outside the main process | [Sidecar](/integrations/usage/instrumentation-sdk/sidecar) |
-| Serverless | Your function must flush events before each invocation exits | [Serverless](/integrations/usage/instrumentation-sdk/serverless) |
-| CLI / Daemon | You want to pipe events from scripts, jobs, or shell pipelines | [CLI / Daemon](/integrations/usage/instrumentation-sdk/cli) |
+| [Node.js SDK](/integrations/usage/instrumentation-sdk/nodejs) | You can add `@doow/track` directly to a Node.js service. | Node.js application code |
+| [Sidecar](/integrations/usage/instrumentation-sdk/sidecar) | The service is not written in Node.js, or telemetry must stay outside the main process. | Container or Kubernetes deployment |
+| [Serverless](/integrations/usage/instrumentation-sdk/serverless) | The runtime exits after each invocation and must flush before returning. | Lambda, Vercel, or Azure Functions |
+| [CLI / Daemon](/integrations/usage/instrumentation-sdk/cli) | Events come from scripts, jobs, shell pipelines, or batch workers. | Command line or background daemon |
 
 ## How it works
 
-1. Generate an SDK API key from **Settings → API Keys → SDK Keys** in your Doow workspace (keys start with `dk_`)
-2. Install the SDK or configure your delivery method (see sub-sections below)
-3. Emit `track()` calls from your application code as usage occurs
-4. Doow receives the events, deduplicates them, and attributes them to the matching license in your workspace
-
-## Integration methods
-
-Choose the method that fits your stack:
-
-| Method | Best for |
-|---|---|
-| [Node.js SDK](/integrations/usage/instrumentation-sdk/nodejs) | Node.js applications — direct code integration with automatic batching and retry |
-| [Sidecar](/integrations/usage/instrumentation-sdk/sidecar) | Non-Node.js applications — run a companion container that receives events over TCP or stdin |
-| [Serverless](/integrations/usage/instrumentation-sdk/serverless) | AWS Lambda, Vercel, and Azure Functions — managed flush wrappers for short-lived runtimes |
-| [CLI / Daemon](/integrations/usage/instrumentation-sdk/cli) | Scripted pipelines and shell integrations — pipe newline-delimited JSON events from any process |
+1. Create an SDK API key from **Settings**, then **API Keys**, then **SDK Keys** in your Doow
+   workspace. SDK keys start with `dk_`.
+2. Install or configure the delivery method that matches your runtime.
+3. Send one test event with a metric, quantity, and `license_id`.
+4. Confirm Doow receives the event and attributes it to the expected license.
+5. Roll the event into production after batching, retry, shutdown, and
+   credential rotation are covered.
 
 ## What Doow receives
 
-Each event you emit includes:
-- `metric` — the metric name (for example, `api_calls`, `tokens`, `storage_gb`)
-- `quantity` — the numeric usage value
-- `license_id` — which license in your Doow workspace to attribute it to
-- Optional: `attribution` metadata for team, model, environment, or other custom dimensions
+Each event includes the fields Doow needs to turn application activity into
+usage reporting:
 
-Doow does not receive any payload content from your application — only the structured metric events you explicitly emit.
+| Field | Description |
+|---|---|
+| `metric` | Metric name, such as `api_calls`, `tokens`, or `storage_gb` |
+| `quantity` | Numeric usage value |
+| `license_id` | Doow license that receives the usage |
+| `unit` | Optional unit label, such as `tokens` or `requests` |
+| `attribution` | Optional metadata for team, model, environment, feature, or service |
+
+Doow receives only the structured metric events you emit. Do not send request
+payloads, customer content, secrets, or raw application logs as event metadata.
 
 ## Confirm events arrived
 
 After sending a test event, open the integration detail page from
-**Company Settings → Integrations**. A healthy SDK integration should show the
+**Company Settings**, then **Integrations**. A healthy SDK integration shows the
 event with the expected metric, quantity, license, and attribution fields.
 
 If no event appears, check the `dk_` key, event shape, `license_id`, and flush
@@ -66,9 +77,15 @@ behavior before adding more instrumentation.
 
 ## Authentication
 
-All SDK events are authenticated with your `dk_` API key. Keys can be created, rotated, and revoked from **Settings → API Keys → SDK Keys** without disconnecting your integration.
+All SDK events are authenticated with a `dk_` API key. Create separate keys for
+different environments or delivery methods when you need independent
+revocation.
 
 ## Next steps
 
-Open the setup guide for your runtime, send one test event, then confirm the
-event appears in Doow before rolling the integration into production.
+Open the setup guide for your runtime:
+
+- [Node.js SDK](/integrations/usage/instrumentation-sdk/nodejs)
+- [Sidecar](/integrations/usage/instrumentation-sdk/sidecar)
+- [Serverless](/integrations/usage/instrumentation-sdk/serverless)
+- [CLI / Daemon](/integrations/usage/instrumentation-sdk/cli)

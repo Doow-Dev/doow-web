@@ -5,36 +5,46 @@ slug: "integrations/usage/observability/newrelic"
 section: "integrations"
 order: 352
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect New Relic to pull telemetry and usage data into Doow from your New Relic account.
+Connect New Relic when Doow needs metric data or event counts that already
+exist in your New Relic account.
 
 ## What you need
 
-- A New Relic account
-- Your **Account ID**
-- A **User API key** from your New Relic account
+- A New Relic account with the metric or event data you want Doow to read.
+- The New Relic **Account ID** that owns the data.
+- A New Relic **User API key** approved for Doow reporting.
 
-## Finding your Account ID and API key
+<Callout title="Use a reporting-safe User API key">
+  New Relic user keys are used with NerdGraph and New Relic APIs. Use a key from
+  a user or service account approved to query the account data Doow needs.
+</Callout>
 
-1. Go to [one.newrelic.com](https://one.newrelic.com)
-2. Click your account name in the top-right corner → **Account settings**
-3. Your **Account ID** is shown in the URL and on the account settings page — copy it
-4. Navigate to **API keys** (under the profile menu or search for it)
-5. Click **Create a key**, select **User key**, name it (for example, `Doow - Usage Read`)
-6. Copy the key — you will only see it once
-7. Paste both the Account ID and the API key into Doow when prompted
+## Find your Account ID and API key
+
+1. Go to [one.newrelic.com](https://one.newrelic.com).
+2. Open the account that owns the metric data.
+3. Open **Account settings** and copy the **Account ID**.
+4. Open **API keys**.
+5. Create a new key.
+6. Select **User key**.
+7. Name it something identifiable, such as `Doow usage read`.
+8. Copy the key.
+9. Paste the Account ID and User API key into Doow when prompted.
 
 ## What Doow reads
 
 | Field | Description |
 |---|---|
-| Metric data | Time-series telemetry events per account and service |
-| Event counts | Aggregated usage volumes for configured metric queries |
+| Metric data | Time-series data from configured New Relic metric or NRQL queries |
+| Event counts | Aggregated event volumes where the configured query returns them |
 | Account ID | The New Relic account that generated the data |
+| Attributes | App, service, project, environment, or custom attributes where present |
 | Date | The time window the usage occurred in |
 
-Data is pulled from New Relic's metrics API and aggregated into Doow's usage pipeline.
+Doow reads New Relic data available to the connected User API key and
+aggregates it into Doow usage reporting.
 
 ## What Doow does not read
 
@@ -45,17 +55,22 @@ Data is pulled from New Relic's metrics API and aggregated into Doow's usage pip
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **New Relic** and click **Connect**
-3. A dialog opens asking for your Account ID and User API key
-4. Fill in both fields and click **Connect**
-5. Doow verifies the credentials and begins the initial sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **New Relic** and select **Connect**.
+3. Enter the Account ID.
+4. Paste the User API key.
+5. Select **Connect**.
+6. Wait for Doow to verify the credentials and begin the initial sync.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy observability sync should show a connected state, a recent sync timestamp, and metric or event rows for the expected account, app, service, project, or environment.
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy observability sync shows a connected state, a
+recent sync timestamp, and metric or event rows for the expected account, app,
+service, project, environment, or attribute.
 
-If no metrics appear, verify that the metric exists in the observability platform for the selected time range and that the credential can read it.
+If no metrics appear, verify that the metric or NRQL query returns data in New
+Relic for the selected time range and that the User API key can read it.
 
 ## Troubleshooting
 
@@ -69,8 +84,12 @@ Use these checks when metrics are missing or incomplete:
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find New Relic, and click **Disconnect**. The stored credentials are deleted immediately. You can also revoke the API key from your New Relic account under **API keys**.
+Go to **Company Settings**, then **Integrations**, find New Relic, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Revoke the
+User API key in New Relic when you want to remove provider-side access too.
 
 ## Next steps
 
-After metrics appear, connect identity or HRIS data if you need to attribute usage to users, teams, or departments.
+After metrics appear, connect an identity provider if Doow needs to match New
+Relic usage to users and app ownership. Connect HRIS when the review needs
+department or employment context.

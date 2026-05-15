@@ -5,54 +5,88 @@ slug: "integrations/hris/deel"
 section: "integrations"
 order: 373
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect Deel to sync your employee and contractor roster into Doow.
+Connect Deel when Doow needs employee, contractor, or worker status from Deel.
 
 ## What you need
 
-- A Deel account with **Admin** access
+- A Deel account that manages the workers Doow needs to read.
+- A Deel admin who can approve the HRIS connection.
+
+<Callout title="Keep payment data out of this connection">
+  Deel can manage contracts, payroll, payments, and compliance workflows. Doow
+  uses this HRIS connection for worker reporting fields, not contract rates,
+  payment history, tax documents, or banking details.
+</Callout>
 
 ## What Doow reads
 
-- Worker name, work email, department, job title
-- Employment or contract status (active, ended)
-- Start date and end date
+| Field | Description |
+|---|---|
+| Worker name | First and last name |
+| Work email | Work email used to match workers to app users |
+| Worker type | Hiring type such as employee, contractor, or EOR where Deel returns it |
+| Team | Team or department where Deel returns it |
+| Job title | Worker job title where Deel returns it |
+| Status | Worker, hiring, or contract status where available |
+| Start date / end date | Start date and termination or contract end date where available |
 
 For a full description of how this data is used in Doow, see [HRIS overview](/integrations/hris).
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **Deel** and click **Connect**
-3. A secure linking modal opens
-4. Deel is pre-selected in the modal — log in with your Deel Admin credentials within the modal
-5. Approve read-only access when prompted
-6. The modal closes and Doow completes the connection and begins the initial employee sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Deel** and select **Connect**.
+3. Complete the secure Deel linking flow.
+4. Sign in with the Deel admin account that owns approval.
+5. Approve read access for the worker fields Doow imports.
+6. Wait for Doow to verify the connection and begin the initial worker sync.
 
 ## What Doow does not read
 
-Salary, compensation, contract rates, payment history, tax documents, banking details, or any financial or personal identification data. See [HRIS overview → What Doow does not read](/integrations/hris#what-doow-does-not-read).
+- Salary, compensation, contract rates, or payment history
+- Tax documents or payroll records
+- Banking, withdrawal, or payment account details
+- Identity documents, visas, or immigration documents
+- Contract documents, signatures, or legal terms
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy HRIS sync should show a connected state, a recent sync timestamp, and imported employee records with work email and employment status.
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy Deel sync shows a connected state, a recent
+sync timestamp, and imported worker records with work email, worker type, team,
+job title, and status where Deel returns them.
 
-If records are missing, confirm that the connected HR account has access to the employees you expect Doow to read and that those employees have work email addresses.
+If records are missing, confirm that the connected Deel admin can read the
+workers Doow needs and that those workers have work email addresses.
 
 ## Troubleshooting
 
-Use these checks when employee data is missing or stale:
+Use these checks when Deel worker data is missing or stale:
 
-- Confirm the connected HR admin can read the expected employee records.
-- Confirm employee work email addresses are present and match identity records.
-- Check whether terminated or inactive employees are filtered in the provider.
+- Confirm the connected Deel admin can read the expected worker records.
+- Confirm worker work email addresses are present and match identity records.
+- Check whether inactive, offboarding, ended, or archived workers are filtered
+  by Deel permissions or sync settings.
 - Check the integration event log for permission or sync errors.
+
+### Deel-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Connection cannot verify | The Deel authorization was denied or expired | Reconnect with the approved Deel admin account |
+| Workers are missing | The connected Deel admin cannot access the expected worker profiles or teams | Confirm the admin can view those workers in Deel before reconnecting |
+| Worker status is missing | Deel does not expose the expected hiring or contract status for those records | Check the worker profile and contract status in Deel, then rerun the sync |
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find Deel, and click **Disconnect**. You can also revoke access from your Deel account under **Settings → Integrations**.
+Go to **Company Settings**, then **Integrations**, find Deel, and select
+**Disconnect**. Doow deletes the stored authorization immediately. Revoke the
+connected app or API access in Deel when you want to remove provider-side
+access too.
 
 ## Next steps
 
-After the sync works, connect an identity provider if you have not already done so. Identity data helps Doow match HRIS employees to app users and assignments.
+After Deel workers appear, connect an identity provider if Doow needs to match
+workers to app users, groups, and assignments.

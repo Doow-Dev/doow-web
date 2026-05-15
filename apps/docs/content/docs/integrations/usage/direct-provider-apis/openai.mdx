@@ -5,25 +5,33 @@ slug: "integrations/usage/direct-provider-apis/openai"
 section: "integrations"
 order: 311
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect OpenAI to pull per-model usage and token consumption into Doow.
+Connect OpenAI when Doow needs organization-level model usage, token counts,
+and request counts from your OpenAI account.
 
 ## What you need
 
-- An OpenAI account with **Owner** access to your organization
-- An **Admin API key** — this is different from a standard user API key
+- An OpenAI organization role that can create Admin API keys and read usage
+  data.
+- An **Admin API key**. This is different from a standard API key used to make
+  model calls.
 
-> Admin API keys give read access to organization-level usage data. They are separate from the API keys used to make model calls. You create them in the OpenAI platform under your organization settings.
+<Callout title="Use the minimum access available">
+  OpenAI Admin API keys are organization-level keys. Use the narrowest
+  permissions available for usage reporting. Doow does not need permission to
+  create users, manage projects, or make model calls.
+</Callout>
 
-## Creating a read-only Admin API key
+## Create an Admin API key
 
-1. Go to [platform.openai.com](https://platform.openai.com)
-2. Navigate to **Settings → Organization → API keys** (or **Admin keys**, depending on your view)
-3. Click **Create new secret key**
-4. Set the key's permissions to **Read only** — Doow does not need write access
-5. Copy the key — you will only see it once
-6. Paste it into Doow when prompted
+1. Go to [platform.openai.com](https://platform.openai.com).
+2. Open your organization settings and find **Admin keys**.
+3. Create a new Admin API key.
+4. If permissions are configurable, select the minimum read access needed for
+   usage reporting.
+5. Copy the key. OpenAI only shows the secret once.
+6. Paste it into Doow when prompted.
 
 ## What Doow reads
 
@@ -32,7 +40,7 @@ Connect OpenAI to pull per-model usage and token consumption into Doow.
 | `input_tokens` | Number of tokens in prompts sent to each model, per day |
 | `output_tokens` | Number of tokens in completions returned by each model, per day |
 | `requests` | Number of API calls made, per day |
-| Model | Which model was called (for example, `gpt-4o`, `gpt-4-turbo`) |
+| Model | Which model was called |
 | Project | OpenAI project ID, if your organization uses projects for team attribution |
 
 Usage is aggregated at the day level. Doow does not read individual request-level data.
@@ -46,21 +54,26 @@ Usage is aggregated at the day level. Doow does not read individual request-leve
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **OpenAI** and click **Connect**
-3. A dialog opens asking for your Admin API key
-4. Paste your key and click **Connect**
-5. Doow verifies the key and begins the initial usage sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **OpenAI** and select **Connect**.
+3. Paste the Admin API key.
+4. Select **Connect**.
+5. Wait for Doow to verify the key and begin the initial usage sync.
 
 ## Multi-organization setups
 
-If your company runs multiple OpenAI organizations (for example, one per business unit), you can connect each one separately. Add a new OpenAI connection for each organization's Admin key and Doow will track them all in one place.
+If your company runs multiple OpenAI organizations, connect each organization
+separately. Add one OpenAI connection for each organization's Admin API key so
+Doow can track usage across them.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected organization, project, model,
+resource, or endpoint.
 
-If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+If the credential is accepted but no usage appears, verify that the key belongs
+to the right OpenAI organization and has access to usage data.
 
 ## Troubleshooting
 
@@ -82,8 +95,12 @@ Use these checks when usage data is missing or incomplete:
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find OpenAI, and click **Disconnect**. The stored key is deleted immediately. You can also revoke the key directly from the OpenAI platform under **Settings → API keys**.
+Go to **Company Settings**, then **Integrations**, find OpenAI, and select
+**Disconnect**. Doow deletes the stored key immediately. Revoke the key in the
+OpenAI platform when you want to remove provider-side access too.
 
 ## Next steps
 
-After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.
+After usage data appears, connect an identity provider if Doow needs to match
+OpenAI usage to users and app ownership. Connect accounting if the review needs
+finance-confirmed spend.

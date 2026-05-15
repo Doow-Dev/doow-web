@@ -5,21 +5,35 @@ slug: "integrations/usage/observability/otlp"
 section: "integrations"
 order: 355
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-If you already have an OpenTelemetry Collector deployed, you can forward usage metrics to Doow without installing the `@doow/track` SDK. Doow accepts standard OTLP/HTTP metrics and maps them into Doow usage events.
+Use OTLP push when usage metrics already flow through an OpenTelemetry
+Collector and the team that owns the collector can forward selected metrics to
+Doow.
+
+Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk) instead
+when the metric does not exist yet and your application needs to emit a custom
+usage event.
 
 ## What you need
 
-- A running OpenTelemetry Collector (v0.80+)
-- A Doow SDK API key (`dk_` prefix) — generate one from **Settings → API Keys → SDK Keys**
-- Your collector must use **delta temporality** (not cumulative) for counter metrics
+- A running OpenTelemetry Collector with an OTLP/HTTP exporter.
+- A Doow SDK API key with a `dk_` prefix from **Settings**, then **API Keys**,
+  then **SDK Keys**.
+- Metrics that include the `doow.license_id` resource attribute.
+- Delta temporality for counter metrics sent to Doow.
 
-## How it works
+<Callout title="Send only the metrics Doow needs">
+  The collector may receive traces, logs, and many application metrics. Route
+  only the usage metrics Doow needs into the Doow exporter pipeline.
+</Callout>
 
-You add Doow as an OTLP/HTTP exporter in your collector config. Your collector forwards metrics to Doow's push endpoint. Doow normalizes the OTLP payload and attributes usage to the matching licenses in your workspace.
+## Add the Doow exporter
 
-## Collector configuration
+Add Doow as an OTLP/HTTP exporter in your collector configuration. The exporter
+forwards the metrics pipeline to Doow's OTLP endpoint with your `dk_` key.
+
+Use this as the starting shape:
 
 ```yaml
 exporters:
@@ -41,9 +55,11 @@ service:
       exporters: [otlphttp/doow]
 ```
 
-## Metric attribution
+## Add license attribution
 
-Doow maps incoming OTLP metrics to licenses using the `doow.license_id` resource attribute. Include it in your metric data:
+Doow maps incoming OTLP metrics to licenses using the `doow.license_id`
+resource attribute. Add the attribute before the metric reaches the Doow
+exporter:
 
 ```yaml
 processors:
@@ -54,26 +70,34 @@ processors:
         action: upsert
 ```
 
+Add the processor to the metrics pipeline that exports to Doow.
+
 ## What Doow reads
 
 | Field | Description |
 |---|---|
-| Metric name | The OTLP metric name — must match a metric tuple configured in Doow |
+| Metric name | The OTLP metric name configured for Doow usage reporting |
 | Data points | Numeric values from each delta-temporality data point |
 | Resource attributes | Used for license attribution (`doow.license_id`) and custom dimensions |
 | Timestamp | The data point timestamp |
 
 ## What Doow does not read
 
-- Trace data or log data forwarded to the same collector
-- Histogram bucket details beyond the aggregated sum and count
-- Any payload content from your application
+- Trace data or log data received by the same collector
+- Full request or response payloads from your application
+- Environment variables, infrastructure secrets, or collector credentials
+- Billing payment methods or invoices
 
 ## Confirm metrics arrived
 
-After configuring OTLP push, open the integration detail page from **Company Settings → Integrations**. A healthy OTLP connection should show recent received events or metrics from the collector.
+After configuring OTLP push, open the integration detail page from **Company
+Settings**, then **Integrations**. A healthy OTLP connection shows recent
+metrics from the collector for the expected metric name, license, environment,
+or service.
 
-If Doow receives no data, confirm that the collector can reach the Doow endpoint, that the `dk_` key is valid, and that the exporter includes the required authorization header.
+If Doow receives no data, confirm that the collector can reach the Doow
+endpoint, the `dk_` key is active, and the exporter includes the authorization
+header.
 
 ## Troubleshooting
 
@@ -83,14 +107,30 @@ Use these checks when OTLP data does not arrive:
 - Confirm the `dk_` key is active and has not been revoked.
 - Confirm the exporter sends the authorization header expected by Doow.
 - Confirm the collector is receiving metrics before it forwards them to Doow.
+- Confirm the metrics pipeline includes the Doow exporter.
+- Confirm the metrics include `doow.license_id`.
+- Confirm counter metrics use delta temporality.
 - Check collector logs for export failures or retry loops.
 
-## Notes
+## Disconnecting
 
-- Use delta temporality for all counter metrics. Cumulative counters are not supported and will be rejected.
-- The same `dk_` API key type is used for both the instrumentation SDK and OTLP push. You can use separate keys for each if you want independent revocation.
-- Rate limits are shared with the instrumentation SDK per organization. Contact support if you need higher limits.
+Go to **Company Settings**, then **Integrations**, find OTLP push, and select
+**Disconnect**. Remove the Doow exporter from the collector configuration and
+revoke the `dk_` key when you want provider-side access removed too.
+
+## Production checks
+
+Before rollout, confirm these conditions:
+
+- The Doow exporter is attached only to the intended metrics pipeline.
+- The `dk_` key is stored as a secret, not committed in collector config.
+- Retry and timeout behavior is acceptable for the collector owner.
+- The metric names and `doow.license_id` values match what Doow expects.
+- Cumulative counters are converted before export or excluded from the Doow
+  pipeline.
 
 ## Next steps
 
-After metrics arrive, review the metric names and attribution fields in Doow. Add identity or HRIS data if you need to attribute metrics to users, teams, or departments.
+After metrics arrive, review the metric names and attribution fields in Doow.
+Connect an identity provider if Doow needs to match usage to users or app
+ownership. Connect HRIS when the review needs department or employment context.

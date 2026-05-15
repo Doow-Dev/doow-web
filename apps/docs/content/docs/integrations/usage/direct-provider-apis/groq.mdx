@@ -5,23 +5,32 @@ slug: "integrations/usage/direct-provider-apis/groq"
 section: "integrations"
 order: 313
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect Groq to pull per-model token usage into Doow.
+Connect Groq when Doow needs token usage and model activity from your Groq
+account.
 
 ## What you need
 
-- A Groq account with access to the **GroqCloud Console**
-- An **API key** from your Groq account
+- A Groq account with access to the **GroqCloud Console**.
+- Access to Groq **Prometheus Metrics** for the organization.
+- A Groq **API key** from the account that owns the usage.
 
-## Creating an API key
+<Callout title="Use an approved key">
+  Groq documents Prometheus Metrics as an Enterprise feature. Before
+  connecting, confirm that the account has metrics access and that the key is
+  approved for Doow usage reporting. Doow does not need permission to change
+  billing settings or manage unrelated account settings.
+</Callout>
 
-1. Go to [console.groq.com](https://console.groq.com)
-2. Navigate to **API Keys**
-3. Click **Create API Key**
-4. Name it something identifiable (for example, `Doow - Usage Read`)
-5. Copy the key — you will only see it once
-6. Paste it into Doow when prompted
+## Create an API key
+
+1. Go to [console.groq.com](https://console.groq.com).
+2. Open **API Keys**.
+3. Create a new API key.
+4. Name it something identifiable, such as `Doow usage read`.
+5. Copy the key. Groq only shows the secret once.
+6. Paste it into Doow when prompted.
 
 ## What Doow reads
 
@@ -29,7 +38,7 @@ Connect Groq to pull per-model token usage into Doow.
 |---|---|
 | `input_tokens_rate` | Input token consumption per model, per day |
 | `output_tokens_rate` | Output token consumption per model, per day |
-| Model | Which model was called (for example, `llama3-8b-8192`, `mixtral-8x7b`) |
+| Model | Which model was called |
 | Project | Groq project ID (where available for team attribution) |
 
 Usage is pulled from Groq's metrics API and aggregated at the day level.
@@ -41,17 +50,20 @@ Usage is pulled from Groq's metrics API and aggregated at the day level.
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **Groq** and click **Connect**
-3. A dialog opens asking for your API key
-4. Paste your key and click **Connect**
-5. Doow verifies the key and begins the initial usage sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Groq** and select **Connect**.
+3. Paste the API key.
+4. Select **Connect**.
+5. Wait for Doow to verify the key and begin the initial usage sync.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected account, project, model, resource,
+or endpoint.
 
-If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+If the credential is accepted but no usage appears, verify that the key belongs
+to the right Groq account and has access to the usage you expect Doow to read.
 
 ## Troubleshooting
 
@@ -65,8 +77,12 @@ Use these checks when usage data is missing or incomplete:
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find Groq, and click **Disconnect**. The stored key is deleted immediately. You can also revoke the key from the GroqCloud Console under **API Keys**.
+Go to **Company Settings**, then **Integrations**, find Groq, and select
+**Disconnect**. Doow deletes the stored key immediately. Revoke the key in the
+GroqCloud Console when you want to remove provider-side access too.
 
 ## Next steps
 
-After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.
+After usage data appears, connect an identity provider if Doow needs to match
+Groq usage to users and app ownership. Connect accounting if the review needs
+finance-confirmed spend.

@@ -5,15 +5,15 @@ slug: "integrations/usage/doow-agent/browser-agent"
 section: "integrations"
 order: 310
 status: "published"
-updatedAt: "2026-05-14"
+updatedAt: "2026-05-15"
 ---
-Install Browser Agent when Doow should measure SaaS apps employees use in a
-supported browser.
+Use Browser Agent when Doow needs browser-based SaaS usage from employee
+devices.
 
 ## Choose Browser Agent
 
-Choose this path when the apps you care about are opened in the browser and
-provider APIs do not give you enough usage detail.
+Choose this path when the apps you care about run in a supported browser and
+provider APIs do not expose enough usage detail.
 
 <Cards>
   <Card title="Use Browser Agent">
@@ -27,18 +27,20 @@ provider APIs do not give you enough usage detail.
 
 If provider APIs already give you complete usage, start with
 [Direct provider APIs](/integrations/usage/direct-provider-apis). If you need
-native desktop app usage, use Desktop Agent after confirming the rollout path
-for your workspace.
+native desktop app usage, use
+[Desktop Agent](/integrations/usage/doow-agent/desktop-agent) after confirming
+the rollout path for your workspace.
 
 ## Before rollout
 
-Confirm these items before asking users to install Browser Agent:
+Confirm the rollout owner, browser support, and permission review before asking
+users to install Browser Agent:
 
 - the approved browser list for your workspace
 - the approved extension distribution path
-- who should install it: all employees, a pilot cohort, or one department
+- who needs to install it: all employees, a pilot cohort, or one department
 - who needs to review the browser permission prompt
-- whether users can sign in to Doow from the extension
+- whether users are allowed to sign in to Doow from the extension
 
 ## Install and enable Browser Agent
 
@@ -51,7 +53,7 @@ Use this flow once your workspace has an approved distribution path.
 3. Open the Browser Agent extension.
 4. Sign in with the user account that belongs to your Doow workspace.
 5. Turn tracking on if it is not already enabled.
-6. Open a browser-based SaaS app that Doow should track.
+6. Open a browser-based SaaS app that Doow needs to track.
 7. Use the app long enough for browser activity to be recorded.
 
 </Steps>
@@ -62,8 +64,8 @@ workspace.
 
 ## Review browser permissions
 
-Browser Agent is for SaaS usage attribution. It helps Doow understand which
-browser apps are being used and by whom.
+Browser Agent is for SaaS usage attribution, not browser-content inspection.
+It helps Doow understand which browser apps are being used and by whom.
 
 The browser surface can include browser activity signals, app domain and path,
 local activity state before sync, and user, organization, device, browser, and
@@ -77,7 +79,7 @@ network context needed for attribution.
 
 ## Confirm it worked
 
-After installation, confirm the agent is sending usable activity before
+After installation, confirm Browser Agent is sending usable activity before
 expanding the rollout.
 
 1. Open **Company Settings -> Integrations** in Doow.
@@ -106,8 +108,8 @@ Use these checks when browser activity is missing or incomplete:
 
 ## Next steps
 
-After browser activity appears in Doow, connect the next source that improves
-the same usage picture:
+After browser activity appears in Doow, connect the next source that fills the
+missing context:
 
 - Use Desktop Agent when employees also use native desktop apps that Browser
   Agent cannot observe.

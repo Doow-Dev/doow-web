@@ -5,9 +5,16 @@ slug: "integrations/usage/instrumentation-sdk/nodejs"
 section: "integrations"
 order: 341
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-The `@doow/track` package is the primary integration method for Node.js applications. Install it, initialize with your API key, and call `track()` wherever usage occurs.
+Use the Node.js SDK when a Node.js service owns the usage event and can send it
+to Doow from application code.
+
+## What you need
+
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- A Node.js service where the usage event happens.
 
 ## Installation
 
@@ -18,6 +25,8 @@ yarn add @doow/track
 ```
 
 ## Quick start
+
+Send one test event before adding the SDK to every usage path.
 
 ```ts
 import { DoowTracker } from '@doow/track';
@@ -31,9 +40,37 @@ meter.track({
   license_id: 'lic_your_license_id',
 });
 
-// Flush and shut down cleanly on process exit
 await meter.shutdown();
 ```
+
+After the event appears in Doow, move the `track()` call to the application
+path where usage is created.
+
+## Event shape
+
+```ts
+meter.track({
+  metric: 'tokens',
+  quantity: 1024,
+  license_id: 'lic_...',
+  unit: 'tokens',
+  attribution: {
+    model: 'gpt-4o',
+    team: 'platform',
+  },
+});
+```
+
+| Field | Description |
+|---|---|
+| `metric` | Metric name that matches the usage you want Doow to report |
+| `quantity` | Numeric usage value |
+| `license_id` | Doow license that receives the usage |
+| `unit` | Optional unit label |
+| `attribution` | Optional metadata for team, model, environment, feature, or service |
+
+Do not send request payloads, customer content, secrets, or raw application
+logs in `attribution`.
 
 ## Initialization options
 
@@ -41,16 +78,16 @@ await meter.shutdown();
 |---|---|---|---|
 | `endpoint` | string | `https://api.doow.co` | Doow API endpoint |
 | `enabled` | boolean | `true` | Set to `false` to disable all tracking (useful in development) |
-| `attribution` | object | — | Key-value pairs merged into every event — use for environment, team, or service attribution |
+| `attribution` | object | None | Key-value pairs merged into every event for environment, team, or service attribution |
 | `flushAt` | number | `20` | Flush after this many events are queued |
 | `flushInterval` | number | `10000` | Flush every N milliseconds |
 | `retryCount` | number | `3` | Max retries on transient failures |
-| `onError` | function | `console.warn` | Called on errors — the SDK never throws |
+| `onError` | function | `console.warn` | Called when the SDK reports an error |
 | `debug` | boolean | `false` | Enable debug logging |
 
 ## Environment variable overrides
 
-All options can be set via environment variables. Environment variables take precedence over code-level options.
+Environment variables can set common SDK options.
 
 | Variable | Description |
 |---|---|
@@ -61,24 +98,9 @@ All options can be set via environment variables. Environment variables take pre
 | `DOOW_TRACK_FLUSH_INTERVAL` | Flush interval in milliseconds |
 | `DOOW_TRACK_ATTRIBUTION` | JSON string for SDK-level attribution (for example, `{"env":"prod"}`) |
 
-## Event shape
-
-```ts
-meter.track({
-  metric: 'tokens',         // metric name — must match a metric tuple on the license
-  quantity: 1024,           // numeric usage value
-  license_id: 'lic_...',   // which Doow license to attribute to
-  unit: 'tokens',           // optional: unit label
-  attribution: {            // optional: event-level attribution
-    model: 'gpt-4o',
-    team: 'platform',
-  },
-});
-```
-
 ## Graceful shutdown
 
-Always call `meter.shutdown()` before your process exits. It flushes any buffered events and waits for in-flight requests to complete.
+Call `meter.shutdown()` before the process exits so buffered events can flush.
 
 ```ts
 process.on('SIGTERM', async () => {
@@ -89,13 +111,23 @@ process.on('SIGTERM', async () => {
 
 ## Confirm the event arrived
 
-After sending a test event, open the integration detail page from **Company Settings → Integrations**. A healthy SDK connection should show recent received events for the expected metric and license.
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
 
-If the event does not appear, confirm that the `dk_` key is valid, the event has a numeric quantity, and the `license_id` matches a license in your Doow workspace.
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
 
 ## Production checklist
 
-Before using this method in production, confirm that your implementation handles batching, retries, shutdown, and credential rotation. Keep the `dk_` key in a secret manager or environment variable, not in source code.
+Before using this method in production:
+
+- Store the `dk_` key in a secret manager or environment variable.
+- Confirm batching and retry settings match your traffic volume.
+- Confirm the service calls `shutdown()` during process termination.
+- Create separate keys for staging and production when you need independent
+  revocation.
+- Keep metric names and units stable before tying them to customer reporting.
 
 ## Troubleshooting
 
@@ -109,8 +141,10 @@ Use these checks when events do not arrive:
 
 ## Disconnecting
 
-Go to **Settings → API Keys → SDK Keys** in your Doow workspace and revoke the key. The SDK will start receiving `401` responses and stop sending events. No changes are needed in your application code until you replace the key.
+Go to **Settings**, then **API Keys**, then **SDK Keys** in your Doow workspace and revoke the
+key. Replace the key in your application before sending more production events.
 
 ## Next steps
 
-After the test event appears, send events from a production-like environment and confirm batching, retry, and shutdown behavior before rollout.
+After the test event appears, send events from a production-like environment
+and confirm batching, retry, and shutdown behavior before rollout.

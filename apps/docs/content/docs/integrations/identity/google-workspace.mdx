@@ -5,93 +5,108 @@ slug: "integrations/identity/google-workspace"
 section: "integrations"
 order: 360
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect your Google Workspace account to sync your organization's user directory and application activity into Doow.
+Connect Google Workspace when Doow needs users, groups, and login activity from
+your company directory.
 
 ## What you need
 
-- A Google Workspace account with **Super Admin** or **Groups Admin** privileges
-- Admin Console access to your Workspace domain
+- A Google Workspace domain for your company.
+- A Google Workspace admin account that can approve the requested read scopes.
+- Permission to approve third-party app access in the Google Admin console if
+  your organization restricts OAuth apps.
 
-You do not need to create API credentials manually. Doow uses a standard OAuth flow — you simply authorize access through Google's consent screen.
+You do not need to create API credentials manually. Doow uses Google OAuth and
+asks an admin to approve read access.
+
+<Callout title="Approve the app your organization expects">
+  If Google Workspace app access controls are enabled, the Doow OAuth app may
+  need to be trusted in the Google Admin console before the connection can read
+  directory and audit data.
+</Callout>
 
 ## What Doow reads
 
-### Users
-- Full name (given name + family name)
-- Primary work email address
-- Account status (active or suspended)
-- Organizational unit / department
-
-### App activity
-- Last sign-in time per user, per application, from Google's login audit logs
-- Which Workspace-managed apps each user has access to
-
-### Domain
-- Your Workspace domain (for example, `yourcompany.com`) — used to scope all data to your organization
+| Field | Description |
+|---|---|
+| Users | Full name, primary work email, aliases where available, account status, and organizational unit |
+| Groups | Group names, email addresses, and membership where the approved scopes allow it |
+| Login activity | Google Workspace login audit events and timestamps where available |
+| Domain | The Workspace domain used to scope imported records to your organization |
 
 ## What Doow does not read
 
 - Passwords or authentication secrets
 - Email content, calendar events, or Drive files
 - Personal (non-Workspace) Google accounts
-- Any data outside directory and audit logs
+- Unrelated Google Cloud projects or resources
+- Data outside the approved directory, group, and audit scopes
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **Google Workspace** and click **Connect**
-3. A popup window opens — Doow fetches the Google OAuth consent URL
-4. The popup navigates to Google's OAuth consent screen
-5. Sign in with a Workspace account that has Super Admin or Groups Admin privileges
-6. Review the requested permissions and click **Allow**
-7. The popup closes automatically and Doow completes the connection
-8. A success notification confirms the integration is connected
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **Google Workspace** and select **Connect**.
+3. Sign in with the Google Workspace admin account that owns approval.
+4. Review the requested read scopes on Google's consent screen.
+5. Select **Allow**.
+6. Wait for Doow to verify the authorization and begin the initial sync.
 
-> If your browser blocks the popup, you will be redirected to Google's consent screen directly. After approving, you are redirected back to the Integrations page and the connection completes automatically.
-
-The initial sync may take a few minutes depending on the size of your directory. After that, Doow refreshes user and activity data on a scheduled basis.
+The initial sync may take a few minutes depending on directory size. After
+that, Doow refreshes identity data on a scheduled basis.
 
 ## Permissions requested
 
-Doow requests the following Google OAuth scopes:
+Doow requests Google OAuth scopes for the data it reads:
 
 | Scope | Purpose |
 |---|---|
-| `admin.directory.user.readonly` | Read user profiles and account status |
-| `admin.reports.audit.readonly` | Read application login activity |
+| `admin.directory.user.readonly` | Read user profiles, aliases, and account status |
+| `admin.directory.group.readonly` | Read groups and group metadata |
+| `admin.directory.group.member.readonly` | Read group membership |
+| `admin.reports.audit.readonly` | Read Workspace audit reports, including login activity |
 
-These are read-only scopes. Doow cannot create, modify, or delete any data in your Google Workspace.
+These are read-only scopes. Doow cannot create, modify, or delete data in your
+Google Workspace.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy identity sync should show a connected state, a recent sync timestamp, imported users, and app assignment or activity records where the provider makes them available.
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy Google Workspace sync shows a connected state,
+a recent sync timestamp, imported users, groups, and login activity where
+Google provides it.
 
-If the connection is successful but no users appear, verify that you connected the right tenant, granted admin consent, and allowed the required read scopes.
+If the connection succeeds but no users appear, verify that the admin account
+belongs to the intended Workspace domain and approved the required read scopes.
 
 ## Troubleshooting
 
-Use these checks when the connection succeeds but data is missing or incomplete:
+Use these checks when Google Workspace data is missing or incomplete:
 
-- Confirm you connected the intended tenant or domain.
-- Confirm the admin consent screen granted the requested read permissions.
-- Confirm the provider account can read users, groups, and app assignments.
+- Confirm the OAuth grant belongs to the intended Workspace domain.
+- Confirm the Google Admin console allows the Doow OAuth app to access the
+  requested services.
+- Confirm the admin account can read users, groups, and audit reports.
 - Check the integration event log for permission or sync errors.
-- Trigger a manual sync when the integration supports it.
 
 ### Google Workspace-specific checks
 
 | Symptom | Likely cause | Next action |
 |---|---|---|
-| OAuth completes but no users appear | The admin account cannot read directory users for the domain | Reconnect with a Google Workspace admin that can read the directory |
-| App activity is missing | The granted consent does not include the needed activity scope | Review the consent screen and reconnect if scopes were denied |
+| OAuth completes but no users appear | The admin account cannot read directory users for the domain | Reconnect with a Workspace admin that can read the directory |
+| Groups are missing | The approved scopes do not include group or group member read access | Trust the Doow app if required, then reconnect and approve the group scopes |
+| Login activity is missing | The approved scopes do not include audit report access or Google has not produced matching audit rows | Reconnect with the audit scope approved and check a broader date range |
 | Wrong domain appears | The OAuth flow used the wrong Google account | Disconnect and reconnect with the intended Workspace admin account |
 
 ## Disconnecting
 
-To disconnect, go to **Company Settings → Integrations**, find Google Workspace, and click **Disconnect**. This immediately stops all syncs and removes stored credentials. You can also revoke access directly from your [Google Account permissions page](https://myaccount.google.com/permissions).
+Go to **Company Settings**, then **Integrations**, find Google Workspace, and
+select **Disconnect**. Doow deletes the stored authorization immediately.
+Remove or block the Doow OAuth app in Google Admin console app access controls
+when you want to remove provider-side access too.
 
 ## Next steps
 
-After the sync works, connect HRIS if you need departments and employment status. If you are reviewing AI, cloud, or app usage, connect a usage data source next.
+After Google Workspace users and groups appear, connect HRIS if Doow needs
+department, manager, or employment status. Connect a usage source when Doow
+needs to compare access against AI, cloud, or app usage.

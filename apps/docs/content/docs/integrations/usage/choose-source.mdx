@@ -1,57 +1,54 @@
 ---
 title: "Choose a usage data source"
-description: "Choose how Doow should receive usage data for AI, cloud, app, or metric usage."
+description: "Choose how Doow receives usage data for AI, cloud, app, or metric usage."
 slug: "integrations/usage/choose-source"
 section: "integrations"
 order: 309
 status: "published"
-updatedAt: "2026-05-13"
+updatedAt: "2026-05-15"
 ---
-Usage data tells Doow what is being consumed. Choose the source based on where
-the usage data already exists, who controls the system producing it, and
-whether Doow needs to collect activity directly from a user's browser or
-desktop.
+Use this page to choose where Doow gets usage data. The right path depends on
+where the activity is recorded, who controls that system, and whether Doow
+needs to collect browser or desktop activity directly.
 
 ## Choose the right path
 
 <Cards>
   <Card title="Doow Agent" href="/integrations/usage/doow-agent">
-    Choose this when Doow should collect browser or desktop app usage directly
-    from user devices.
+    Use this when Doow needs browser or desktop app activity from user devices.
   </Card>
   <Card title="Direct provider APIs" href="/integrations/usage/direct-provider-apis">
-    Choose this when the provider exposes usage or billing APIs and you can
+    Use this when the provider exposes usage or billing APIs and your team can
     create read-only credentials.
   </Card>
   <Card title="Cloud platforms" href="/integrations/usage/cloud-platforms">
-    Choose this when usage is reported through cloud monitoring, billing,
+    Use this when usage is reported through cloud monitoring, billing,
     account, subscription, or project data.
   </Card>
   <Card title="Instrumentation SDK" href="/integrations/usage/instrumentation-sdk">
-    Choose this when you own the application and need to emit custom usage
+    Use this when you own the application and need to emit custom usage
     events.
   </Card>
   <Card title="Observability" href="/integrations/usage/observability">
-    Choose this when usage metrics already flow through Datadog, New Relic,
+    Use this when usage metrics already flow through Datadog, New Relic,
     AppSignal, Sentry, or a similar platform.
   </Card>
   <Card title="OTLP push" href="/integrations/usage/observability/otlp">
-    Choose this when you already run OpenTelemetry Collector and want to
-    forward metrics to Doow.
+    Use this when you already run OpenTelemetry Collector and want to forward
+    metrics to Doow.
   </Card>
 </Cards>
 
-## Recommended default
+## Common choices
 
-If you need to understand employee activity across browser-based SaaS apps or
-native desktop apps, start with Doow Agent. Browser Agent and Desktop Agent are
-the same Doow usage-collection product across different device surfaces.
+Use Doow Agent when the activity happens in browser-based SaaS apps or native
+desktop apps. Browser Agent and Desktop Agent are the same Doow
+usage-collection product across different device surfaces.
 
-If the provider has a direct usage API and that provider is the source of
-record, start with
-[Direct provider APIs](/integrations/usage/direct-provider-apis). This is the
-lowest-effort path for AI, API, and platform usage because Doow pulls usage
-directly from the provider of record.
+Use [Direct provider APIs](/integrations/usage/direct-provider-apis) when the
+provider is the source of record and exposes usage data. This is usually the
+lowest-effort path for AI, API, and platform usage because Doow reads usage
+from the provider that produced it.
 
 Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk) when
 you need custom metrics that vendors do not expose. Use
@@ -60,22 +57,24 @@ metrics already exist in a monitoring platform.
 
 ## Compare the paths
 
-| Path | Best for | Examples |
+Use this table to choose the path and the person or team you likely need for
+setup.
+
+| Path | Use when | Usually needs |
 |---|---|---|
-| Doow Agent | Browser and desktop app activity collected from user devices | Browser Agent, Desktop Agent |
-| Direct provider APIs | Provider-owned usage data | OpenAI, Anthropic, Groq, Fireworks AI, OpenRouter, Replicate, Authress |
-| Cloud platforms | Usage exposed through cloud monitoring or billing | AWS Bedrock, Azure OpenAI, Google Vertex AI |
-| Instrumentation SDK | Product usage you emit yourself | Node.js SDK, serverless wrappers, sidecar, CLI |
-| Observability | Metrics already collected in monitoring tools | Datadog, New Relic, AppSignal, Sentry |
-| OTLP push | Metrics already flowing through OpenTelemetry | OpenTelemetry Collector |
+| Doow Agent | Browser or desktop app activity must be collected from user devices. | IT, security, or the team that approves browser and desktop rollout. |
+| Direct provider APIs | The provider owns the usage record and exposes a usage API. | A provider admin who can create read-only credentials. |
+| Cloud platforms | Usage is exposed through cloud monitoring, billing, account, subscription, or project data. | A cloud or IAM admin who can create read-only access. |
+| Instrumentation SDK | Your application produces the usage event and no vendor source has it. | Engineering access to the application that emits events. |
+| Observability | Usage metrics already exist in a monitoring platform. | The observability or platform owner for that account. |
+| OTLP push | Metrics already flow through OpenTelemetry Collector. | The team that manages the OpenTelemetry pipeline. |
 
 ## What success looks like
 
-After setup, Doow should show usage records for the source you connected. For
-Doow Agent, that means browser or desktop activity appears for the expected
-apps and users. For provider, cloud, SDK, observability, or OTLP paths, that
-means usage appears for the expected provider, project, account, model,
-deployment, service, or metric.
+A working usage source shows records for the activity you connected. For Doow
+Agent, browser or desktop activity appears for the expected apps and users. For
+provider, cloud, SDK, observability, or OTLP paths, usage appears for the
+expected provider, project, account, model, deployment, service, or metric.
 
 If the connection succeeds but no usage appears, check that the source is
 enabled for the right users, workspace, organization, project, account, region,

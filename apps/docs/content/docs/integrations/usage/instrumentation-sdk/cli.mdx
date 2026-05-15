@@ -5,14 +5,22 @@ slug: "integrations/usage/instrumentation-sdk/cli"
 section: "integrations"
 order: 344
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-The `doow-track` CLI runs as a long-lived daemon or one-shot pipe process. Use it for scripted pipelines, shell integrations, or any environment where you want to emit events without embedding a Node.js SDK.
+Use the CLI / Daemon when scripts, jobs, shell pipelines, or batch workers own
+the usage event and cannot embed the SDK directly.
 
 ## What you need
 
-- A Doow SDK API key (`dk_` prefix) — generate one from **Settings → API Keys → SDK Keys**
-- Node.js 18+ (for global install) or Docker
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- Node.js 18+ for global install, or a runtime that can run the CLI.
+
+<Callout title="Start with one pipe">
+  Send one newline-delimited JSON event through the CLI and confirm it appears
+  in Doow before wiring the command into scheduled jobs or long-running
+  daemons.
+</Callout>
 
 ## Installation
 
@@ -26,24 +34,26 @@ npx @doow/track --api-key dk_your_api_key
 
 ## Pipe mode
 
-Pipe newline-delimited JSON events from any process:
+Use pipe mode for one-shot scripts, cron jobs, or batch workers that already
+produce usage records.
 
 ```bash
 echo '{"metric":"api_calls","quantity":1,"license_id":"lic_..."}' \
   | doow-track --api-key dk_your_api_key
 ```
 
-The CLI reads until stdin closes, flushes all events, and exits.
+The command reads events from stdin and exits when stdin closes.
 
 ## Daemon mode
 
-Run as a persistent background process with a config file:
+Use daemon mode when multiple local processes need to send events through the
+same background process.
 
 ```bash
 doow-track --config ./doow-track.json --pidfile /var/run/doow-track.pid
 ```
 
-Send `SIGHUP` to reload config without restarting:
+Reload the config with `SIGHUP` when your process manager supports it.
 
 ```bash
 kill -HUP $(cat /var/run/doow-track.pid)
@@ -51,12 +61,16 @@ kill -HUP $(cat /var/run/doow-track.pid)
 
 ## Event format
 
-Each line must be a valid JSON object:
+Each line must be a valid JSON object with a metric, quantity, and
+`license_id`.
 
 ```json
 {"metric":"api_calls","quantity":1,"license_id":"lic_abc123"}
 {"metric":"tokens","quantity":512,"license_id":"lic_abc123","attribution":{"model":"gpt-4o"}}
 ```
+
+Do not send request payloads, customer content, secrets, or raw application
+logs as event metadata.
 
 ## Config file
 
@@ -75,13 +89,24 @@ Each line must be a valid JSON object:
 
 ## Confirm the event arrived
 
-After sending a test event, open the integration detail page from **Company Settings → Integrations**. A healthy SDK connection should show recent received events for the expected metric and license.
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
 
-If the event does not appear, confirm that the `dk_` key is valid, the event has a numeric quantity, and the `license_id` matches a license in your Doow workspace.
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
 
 ## Production checklist
 
-Before using this method in production, confirm that your implementation handles batching, retries, shutdown, and credential rotation. Keep the `dk_` key in a secret manager or environment variable, not in source code.
+Before using this method in production:
+
+- Store the `dk_` key in a secret manager, process manager secret, or
+  environment variable.
+- Confirm the job exits nonzero or logs clearly when event delivery fails.
+- Confirm daemon logs are collected by your runtime.
+- Create separate keys for staging and production when you need independent
+  revocation.
+- Keep metric names and units stable before tying them to customer reporting.
 
 ## Troubleshooting
 
@@ -95,8 +120,10 @@ Use these checks when events do not arrive:
 
 ## Graceful shutdown
 
-On `SIGTERM` or `SIGINT` the daemon flushes all buffered events and exits cleanly.
+Give daemon processes enough termination time to finish their final flush
+before the process manager stops them.
 
 ## Next steps
 
-After the test event appears, send events from a production-like environment and confirm batching, retry, and shutdown behavior before rollout.
+After the test event appears, send events from a production-like environment
+and confirm pipe, daemon, retry, and shutdown behavior before rollout.

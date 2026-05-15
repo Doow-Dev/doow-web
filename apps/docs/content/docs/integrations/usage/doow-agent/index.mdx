@@ -5,13 +5,14 @@ slug: "integrations/usage/doow-agent"
 section: "integrations"
 order: 309
 status: "published"
-updatedAt: "2026-05-14"
+updatedAt: "2026-05-15"
 ---
-Doow Agent helps Doow see SaaS usage that happens on employee devices.
+Use Doow Agent when usage happens on employee devices and the provider does
+not expose enough usage detail through an API.
 
-Use it when provider APIs or billing exports do not show the full picture,
-especially when employees use apps from a browser or from installed desktop
-apps.
+Browser Agent and Desktop Agent are the same usage-collection product across
+different device surfaces. Use one or both depending on where employees use the
+apps you need to measure.
 
 ## Choose where to collect usage
 
@@ -19,10 +20,10 @@ Pick the surface that matches where the work happens.
 
 <Cards>
   <Card title="Browser Agent" href="/integrations/usage/doow-agent/browser-agent">
-    Start here when the apps you care about are opened in a supported browser.
+    Use this when the apps you care about are opened in a supported browser.
   </Card>
   <Card title="Desktop Agent" href="/integrations/usage/doow-agent/desktop-agent">
-    Start here when employees use installed apps such as Slack Desktop,
+    Use this when employees use installed apps such as Slack Desktop,
     Notion Desktop, Figma Desktop, or similar tools.
   </Card>
 </Cards>
@@ -34,17 +35,18 @@ you own the application and need to emit custom product metrics, use the
 
 ## Before you roll it out
 
-Confirm these items before sending an agent to users:
+Confirm the rollout owner and distribution path before sending an agent to
+users:
 
-- which users should install it
+- which users need to install it
 - which browser or desktop platforms are approved for your workspace
-- which distribution path your workspace should use
+- which distribution path your workspace uses
 - who will review the permission or privacy notice before rollout
 
 <Callout title="Browser and desktop are one rollout family">
   Browser Agent and Desktop Agent send usage activity into the same Doow usage
-  view. Use one, or use both, depending on where employees use the apps you need
-  to measure.
+  view. Choose the surface based on where employees use the apps you need to
+  measure.
 </Callout>
 
 ## Review privacy before rollout
@@ -63,8 +65,8 @@ extension permissions and distribution path for your workspace before rollout.
 
 ## Confirm it worked
 
-After users install the agent, open **Company Settings -> Integrations** in
-Doow. A healthy setup shows recent activity for the expected users and apps.
+A working agent setup shows recent activity for the expected users and apps in
+**Company Settings -> Integrations**.
 
 If the agent is connected but usage is missing, check these items first:
 
@@ -80,6 +82,8 @@ If the agent is connected but usage is missing, check these items first:
   and web SaaS usage.
 - Use [Desktop Agent](/integrations/usage/doow-agent/desktop-agent) for native
   desktop app usage.
+- Connect an identity provider if agent activity needs to map to users, groups,
+  and ownership.
 - Return to [Choose a usage data source](/integrations/usage/choose-source)
   if provider APIs, SDK events, observability metrics, or OTLP may be a better
   path.

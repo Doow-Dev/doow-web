@@ -5,16 +5,26 @@ slug: "integrations/usage/instrumentation-sdk/sidecar"
 section: "integrations"
 order: 342
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-The `doow/track-sidecar` Docker image runs alongside your application and accepts newline-delimited JSON events over TCP, stdin, or file tail. Use it when your application is not written in Node.js, or when you want to decouple telemetry emission from your main process.
+Use the Sidecar when your service owns the usage event but cannot embed the
+Node.js SDK directly.
 
 ## What you need
 
-- A Doow SDK API key (`dk_` prefix) — generate one from **Settings → API Keys → SDK Keys**
-- Docker or Kubernetes
+- A Doow SDK API key. SDK keys start with `dk_`.
+- A license ID for the contract or license that receives the usage.
+- Docker or Kubernetes access for the service that emits events.
+
+<Callout title="Keep the sidecar close to the app">
+  Run the sidecar beside the workload that creates usage events. The sidecar
+  receives structured JSON events locally and forwards them to Doow with the
+  `dk_` key.
+</Callout>
 
 ## Input modes
+
+Choose the input mode that matches how your application can emit events.
 
 | Mode | `DOOW_TRACK_INPUT` value | Description |
 |---|---|---|
@@ -24,12 +34,16 @@ The `doow/track-sidecar` Docker image runs alongside your application and accept
 
 ## Event format
 
-Each line must be a valid JSON object:
+Each line must be a valid JSON object with a metric, quantity, and
+`license_id`.
 
 ```json
 {"metric":"api_calls","quantity":1,"license_id":"lic_abc123"}
 {"metric":"tokens","quantity":512,"license_id":"lic_abc123","attribution":{"model":"gpt-4o"}}
 ```
+
+Do not send request payloads, customer content, secrets, or raw application
+logs as event metadata.
 
 ## Docker Compose
 
@@ -71,17 +85,27 @@ containers:
 
 ## Health check
 
-The sidecar exposes `/healthz` on port 9090 (configurable via `DOOW_TRACK_HEALTH_PORT`). Returns `200 OK` when running.
+The sidecar exposes `/healthz` on port 9090. Set
+`DOOW_TRACK_HEALTH_PORT` when that port conflicts with your runtime.
 
 ## Confirm the event arrived
 
-After sending a test event, open the integration detail page from **Company Settings → Integrations**. A healthy SDK connection should show recent received events for the expected metric and license.
+After sending a test event, open the integration detail page from **Company Settings**, then **Integrations**. A healthy SDK connection shows recent received
+events for the expected metric and license.
 
-If the event does not appear, confirm that the `dk_` key is valid, the event has a numeric quantity, and the `license_id` matches a license in your Doow workspace.
+If the event does not appear, confirm that the `dk_` key is valid, the event
+has a numeric quantity, and the `license_id` matches a license in your Doow
+workspace.
 
 ## Production checklist
 
-Before using this method in production, confirm that your implementation handles batching, retries, shutdown, and credential rotation. Keep the `dk_` key in a secret manager or environment variable, not in source code.
+Before using this method in production:
+
+- Store the `dk_` key in a container secret or environment secret.
+- Confirm the application and sidecar use the same input mode and port.
+- Confirm the sidecar health check is wired into your runtime.
+- Confirm the runtime gives the sidecar enough time to flush before shutdown.
+- Keep metric names and units stable before tying them to customer reporting.
 
 ## Troubleshooting
 
@@ -95,8 +119,10 @@ Use these checks when events do not arrive:
 
 ## Graceful shutdown
 
-On `SIGTERM` the sidecar stops accepting new events, flushes all buffered events, and exits. In Kubernetes, set `terminationGracePeriodSeconds: 10` to allow time for the final flush.
+In Kubernetes, set `terminationGracePeriodSeconds` high enough for the sidecar
+to finish its final flush during pod shutdown.
 
 ## Next steps
 
-After the test event appears, send events from a production-like environment and confirm batching, retry, and shutdown behavior before rollout.
+After the test event appears, send events from a production-like environment
+and confirm input mode, health check, and shutdown behavior before rollout.

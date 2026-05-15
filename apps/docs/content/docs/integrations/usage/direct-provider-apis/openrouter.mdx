@@ -5,37 +5,49 @@ slug: "integrations/usage/direct-provider-apis/openrouter"
 section: "integrations"
 order: 315
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect OpenRouter to pull per-model usage data into Doow across all the providers you route through OpenRouter.
+Connect OpenRouter when Doow needs usage, spend, token, and routing signals
+from the models your team runs through OpenRouter.
 
 ## What you need
 
-- An OpenRouter account
-- A **Provisioning key** or **Management key** from your OpenRouter account
+- An OpenRouter account or organization with the usage you want Doow to read.
+- A **Management key** for organization-wide API key usage.
+- Admin access when the OpenRouter account is an organization.
 
-> OpenRouter has two types of management credentials. The provisioning/management key is used for reading organization-level usage data and is separate from the per-user API keys your applications call. Use the provisioning or management key for Doow.
+<Callout title="Use the right OpenRouter key">
+  OpenRouter's management keys are for administrative API-key operations and
+  cannot call completion endpoints. Use a management key when Doow needs
+  organization-level key usage. A normal OpenRouter API key may only expose
+  usage for that key.
+</Callout>
 
-## Finding your provisioning or management key
+## Create a management key
 
-1. Go to [openrouter.ai](https://openrouter.ai)
-2. Navigate to **Settings → Keys** (or **Organization → API Keys**, depending on your account type)
-3. Look for a **Provisioning key** or **Management key**
-4. If none exists, create one
-5. Copy the key and paste it into Doow when prompted
-
-If your OpenRouter account only has standard API keys, use one of those — Doow will use the most appropriate credential it finds.
+1. Go to [openrouter.ai](https://openrouter.ai).
+2. Switch to the organization or workspace that owns the usage.
+3. Open the **Management API Keys** page.
+4. Create a new management key.
+5. Name it something identifiable, such as `Doow usage read`.
+6. Copy the key. OpenRouter only shows the secret when it is created.
+7. Paste it into Doow when prompted.
 
 ## What Doow reads
 
 | Field | Description |
 |---|---|
-| Model | The model or routing endpoint that handled each request |
-| Usage | Tokens consumed per model per day |
-| Endpoint | The OpenRouter routing endpoint, if distinct from the underlying model |
-| Date | The day the usage occurred |
+| Usage | Usage totals by API key or account scope |
+| Tokens | Prompt and completion token totals where OpenRouter reports them |
+| Spend | OpenRouter credits and BYOK spend estimates where available |
+| Model | Model metadata from activity or usage records where available |
+| API key | Key name, status, workspace, and usage fields where available |
+| Date | The day or time range the usage occurred |
 
-Usage is pulled from OpenRouter's API and aggregated at the day level per model and endpoint.
+Doow reads OpenRouter usage data available to the connected credential and
+aggregates it for reporting. OpenRouter documents activity exports grouped by
+model, API key, or creator, response-level usage details, and management-key
+access to API-key usage fields.
 
 ## What Doow does not read
 
@@ -45,17 +57,21 @@ Usage is pulled from OpenRouter's API and aggregated at the day level per model 
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **OpenRouter** and click **Connect**
-3. A dialog opens asking for your key
-4. Paste your provisioning key, management key, or API key and click **Connect**
-5. Doow verifies the key and begins the initial usage sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **OpenRouter** and select **Connect**.
+3. Paste the management key.
+4. Select **Connect**.
+5. Wait for Doow to verify the key and begin the initial usage sync.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy usage sync should show a connected state, a recent sync timestamp, and usage rows for the expected organization, project, model, resource, or endpoint.
+After connecting, open the integration detail page from **Company Settings**, then **Integrations**. A healthy usage sync shows a connected state, a recent sync
+timestamp, and usage rows for the expected organization, workspace, API key,
+model, or route.
 
-If the credential is accepted but no usage appears, verify that the key belongs to the right provider organization and has access to usage or billing data.
+If the credential is accepted but no usage appears, verify that the key belongs
+to the right OpenRouter organization or workspace and has access to the usage
+scope Doow is configured to read.
 
 ## Troubleshooting
 
@@ -69,8 +85,12 @@ Use these checks when usage data is missing or incomplete:
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find OpenRouter, and click **Disconnect**. The stored key is deleted immediately. You can also revoke the key from your OpenRouter account settings.
+Go to **Company Settings**, then **Integrations**, find OpenRouter, and select
+**Disconnect**. Doow deletes the stored key immediately. Revoke the management
+key in OpenRouter when you want to remove provider-side access too.
 
 ## Next steps
 
-After usage data appears, connect an identity provider so Doow can match usage to users and app ownership. Add accounting when you need finance-confirmed spend.
+After usage data appears, connect an identity provider if Doow needs to match
+OpenRouter usage to users and app ownership. Connect accounting if the review
+needs finance-confirmed spend.

@@ -1,39 +1,40 @@
 ---
-title: "Choose what to connect first"
-description: "Pick the right first integration based on what you want Doow to show."
+title: "Choose what to connect"
+description: "Pick the right connection path based on what you want Doow to show."
 slug: "integrations/choose-what-to-connect-first"
 section: "integrations"
 order: 303
 status: "published"
-updatedAt: "2026-05-14"
+updatedAt: "2026-05-15"
 ---
-Start with the question you need Doow to answer. The best first integration is
-the one that unlocks the answer you care about now.
+Use this page to choose the source family that matches the outcome you need.
+The right connection is the one that gives Doow the missing data for the review
+you are trying to run.
 
-<Callout title="If you are not sure" tone="success">
-  Connect one usage data source first, then connect one identity provider. This
-  gives Doow a practical baseline: what is being used and who is connected to
-  that usage.
+<Callout title="If you are not sure">
+  Many teams begin with one usage source and one identity provider because that
+  shows what is being used and who is connected to it. Use that as a baseline,
+  not a required order.
 </Callout>
 
 ## Choose by outcome
 
 <Cards>
   <Card title="See usage" href="/integrations/usage/choose-source">
-    Connect usage data so Doow can show browser activity, desktop app
-    activity, models, projects, services, and metrics.
+    Use this when you need browser activity, desktop app activity, models,
+    projects, services, events, or metrics.
   </Card>
   <Card title="Match usage to users" href="/integrations/identity/google-workspace">
-    Connect identity so Doow can explain who has access and who is associated
-    with app usage.
+    Use this when you need users, groups, app access, and assignments from an
+    identity provider.
   </Card>
   <Card title="Attribute to departments" href="/integrations/hris">
-    Connect HRIS so Doow can use departments, managers, job titles, and
-    employment status.
+    Use this when departments, managers, job titles, or employment status
+    matter for the review.
   </Card>
   <Card title="Reconcile against spend" href="/integrations/accounting">
-    Connect accounting so Doow can compare software usage with
-    finance-confirmed expenses.
+    Use this when finance needs vendors, expenses, categories, transactions, or
+    finance-confirmed spend.
   </Card>
   <Card title="Track your own product" href="/integrations/usage/instrumentation-sdk">
     Use the instrumentation SDK when you own the app and need to emit custom
@@ -45,13 +46,12 @@ the one that unlocks the answer you care about now.
   </Card>
 </Cards>
 
-## Recommended paths
+## Common paths
 
 ### Usage visibility
 
-Use this path when you want to understand browser activity, desktop app
-activity, AI provider usage, cloud platform usage, internal product usage, or
-observability metrics.
+Use this path when the missing data is activity, consumption, events, requests,
+tokens, services, or metrics.
 
 <Steps>
 
@@ -65,7 +65,8 @@ observability metrics.
 
 ### Ownership and user context
 
-Use this path when you want to know who uses each app.
+Use this path when the missing data is the person, group, assignment, team, or
+employment context behind the usage.
 
 <Steps>
 
@@ -79,7 +80,8 @@ Use this path when you want to know who uses each app.
 
 ### Spend reconciliation
 
-Use this path when finance needs a verified spend record.
+Use this path when the missing data is the finance record behind software or
+SaaS spend.
 
 <Steps>
 

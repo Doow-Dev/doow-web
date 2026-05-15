@@ -5,85 +5,115 @@ slug: "integrations/identity/onelogin"
 section: "integrations"
 order: 363
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect your OneLogin account to sync your user directory and application activity into Doow.
+Connect OneLogin when Doow needs users, groups, app assignments, and sign-in
+activity from your OneLogin account.
 
 ## What you need
 
-- A OneLogin account with **Super User** or **Administrator** privileges
-- Your OneLogin domain URL (for example, `https://yourcompany.onelogin.com`)
-- A **client ID** and **client secret** from a OneLogin API credential set you create (see below)
+- A OneLogin account that manages your company users and apps.
+- Your OneLogin domain URL, such as `https://yourcompany.onelogin.com`.
+- A OneLogin admin who can create API credentials.
+- A client ID and client secret from a OneLogin API credential set.
+
+<Callout title="Use a dedicated OneLogin API credential">
+  OneLogin's **Read All** credential can read across OneLogin API resources.
+  Create a separate credential for Doow so access is easy to review and revoke.
+</Callout>
 
 ## What Doow reads
 
-### Users
-- Full name and primary work email address
-- Account status (active or inactive)
-- Department and job title (where set in your OneLogin profile)
-
-### App activity
-- Last sign-in time per user, per application, from OneLogin's event log
-- Application assignments from your OneLogin app catalog
+| Field | Description |
+|---|---|
+| Users | Full name, primary work email, OneLogin profile fields, and account status |
+| Groups and roles | Group or role membership where OneLogin returns it |
+| App assignments | OneLogin app assignments and app catalog references where available |
+| Sign-in activity | OneLogin event records for app sign-ins and related identity activity |
+| Account | OneLogin domain used to scope imported records to your company |
 
 ## What Doow does not read
 
 - Passwords, MFA factors, or authentication secrets
-- Any data outside user profiles and application access logs
+- Session tokens or personal credentials
+- Application secrets or SAML signing material
+- Message content, files, or data inside connected applications
+- Data outside the OneLogin API resources Doow imports for identity reporting
 
-## Creating API credentials in OneLogin
+## Create API credentials
 
-Doow connects using OAuth 2.0 client credentials. You need to create an API credential set in your OneLogin admin portal first.
+Doow connects using OAuth 2.0 client credentials. Create a OneLogin API
+credential set before connecting OneLogin in Doow.
 
-1. Sign in to your OneLogin Admin portal
-2. Go to **Developers → API Credentials** and click **New Credential**
-3. Give the credential a name (for example, `Doow`) and set the permission to **Read All**
-4. Click **Save** — OneLogin will display a **Client ID** and **Client Secret**
-5. Copy both values
+1. Sign in to the OneLogin Admin portal.
+2. Go to **Developers**, then **API Credentials**.
+3. Select **New Credential**.
+4. Name the credential something identifiable, such as `Doow identity read`.
+5. Set the permission to **Read All**.
+6. Select **Save**.
+7. Copy the **Client ID** and **Client Secret**.
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **OneLogin** and click **Connect**
-3. A dialog opens asking for three fields:
-   - **Domain** — your OneLogin org URL (for example, `https://yourcompany.onelogin.com`)
-   - **Client ID** — from the API credential set you created above
-   - **Client Secret** — from the API credential set you created above
-4. Fill in all three fields and click **Connect**
-5. Doow verifies the credentials and begins the initial user and activity sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **OneLogin** and select **Connect**.
+3. Enter your OneLogin domain URL.
+4. Paste the client ID.
+5. Paste the client secret.
+6. Select **Connect**.
+7. Wait for Doow to verify the credentials and begin the initial sync.
 
 ## Permissions required
 
-Doow uses OneLogin's API with **Read All** access, which covers:
+Doow uses a OneLogin API credential with **Read All** access:
 
 | Permission | Purpose |
 |---|---|
 | Read users | Read user profiles and account status |
-| Read events | Read application sign-in activity |
+| Read groups and roles | Read group or role membership |
 | Read apps | Read application assignments |
+| Read events | Read sign-in and identity activity events |
 
-All access is read-only. Doow cannot create, modify, or delete any data in your OneLogin account.
+Read All gives GET access across OneLogin API resources. Doow uses that access
+for identity reporting and cannot create, modify, or delete data in your
+OneLogin account through this credential.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy identity sync should show a connected state, a recent sync timestamp, imported users, and app assignment or activity records where the provider makes them available.
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy OneLogin sync shows a connected state, a
+recent sync timestamp, imported users, groups or roles, app assignments, and
+sign-in activity where OneLogin provides it.
 
-If the connection is successful but no users appear, verify that you connected the right tenant, granted admin consent, and allowed the required read scopes.
+If the connection succeeds but no users appear, verify that the domain, client
+ID, and client secret belong to the same OneLogin API credential set.
 
 ## Troubleshooting
 
-Use these checks when the connection succeeds but data is missing or incomplete:
+Use these checks when OneLogin data is missing or incomplete:
 
-- Confirm you connected the intended tenant or domain.
-- Confirm the admin consent screen granted the requested read permissions.
-- Confirm the provider account can read users, groups, and app assignments.
+- Confirm the OneLogin domain points to the intended account.
+- Confirm the client ID and client secret come from the same API credential
+  set.
+- Confirm the credential permission is **Read All**.
 - Check the integration event log for permission or sync errors.
-- Trigger a manual sync when the integration supports it.
+
+### OneLogin-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Client credentials are rejected | Domain, client ID, or client secret does not match the API credential set | Re-copy all three values from the same OneLogin credential |
+| Users sync but app assignments are missing | The credential does not have the access Doow needs for app data | Confirm the credential uses **Read All** and rerun the sync |
+| Sign-in activity is missing | Matching OneLogin event records are outside the sync range or unavailable to the credential | Confirm events exist in OneLogin and check a broader date range |
 
 ## Disconnecting
 
-To disconnect, go to **Company Settings → Integrations**, find OneLogin, and click **Disconnect**. This immediately stops all syncs and removes stored credentials. You should also delete the API credential set from **OneLogin Admin → Developers → API Credentials** to fully revoke access.
+Go to **Company Settings**, then **Integrations**, find OneLogin, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Delete the
+OneLogin API credential set when you want to remove provider-side access too.
 
 ## Next steps
 
-After the sync works, connect HRIS if you need departments and employment status. If you are reviewing AI, cloud, or app usage, connect a usage data source next.
+After OneLogin users and assignments appear, connect HRIS if Doow needs
+department, manager, or employment status. Connect a usage source when Doow
+needs to compare access against AI, cloud, or app usage.

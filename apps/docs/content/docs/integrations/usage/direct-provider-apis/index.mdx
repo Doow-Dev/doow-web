@@ -5,15 +5,20 @@ slug: "integrations/usage/direct-provider-apis"
 section: "integrations"
 order: 310
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Direct provider API integrations connect Doow directly to a provider's API using credentials you supply. Doow pulls usage data on a scheduled basis — no agent or middleware is involved. The data comes directly from the provider of record.
+Use direct provider APIs when the provider is the source of record for usage
+and your team can create a read-only credential for Doow.
+
+Doow pulls usage data on a schedule from the provider API. No agent or
+middleware is involved.
 
 ## When to use this path
 
 Use direct provider APIs when the provider already exposes usage, billing, or
-metrics data and you can create a read-only credential. This is usually the
-simplest usage-data path because Doow pulls from the provider of record.
+metrics data and a provider admin can create a read-only credential. This is
+usually the lowest-effort usage-data path because Doow reads from the system
+that produced the usage.
 
 Do not use this path when you need custom product metrics that the provider
 does not expose. Use the [Instrumentation SDK](/integrations/usage/instrumentation-sdk)
@@ -22,9 +27,23 @@ when the metrics already live in an observability platform.
 
 ## How it works
 
-1. You provide a read-only credential (API key, service account, IAM role, or OAuth token) from within your provider's dashboard
-2. Doow stores it encrypted and begins polling the provider's usage API on a regular schedule
-3. Doow normalizes the usage data into Doow usage events and attributes it to the matching applications and licenses in your workspace
+1. A provider admin creates a read-only credential in the provider dashboard.
+2. You add the credential in Doow.
+3. Doow stores the credential encrypted and polls the provider's usage API on a
+   regular schedule.
+4. Doow normalizes the usage data and attributes it to matching applications
+   and licenses in your workspace.
+
+## Before you choose a provider
+
+Confirm these items before opening a setup guide:
+
+- which provider account, organization, project, region, or endpoint owns the
+  usage
+- who can create a read-only credential in that provider
+- whether the provider exposes the usage fields Doow needs
+- whether usage reporting has a normal delay
+- whether cloud-hosted usage lives under a cloud platform path instead
 
 ## Choose a provider type
 
@@ -36,7 +55,9 @@ cloud monitoring, billing, account, subscription, or project layer.
 
 ### AI providers
 
-Providers with a direct usage or metrics API. Doow calls the provider's usage endpoint and reads per-model, per-project consumption data.
+Use these pages when usage lives directly in an AI or API provider account.
+Doow calls the provider's usage endpoint and reads provider-owned consumption
+data.
 
 | Provider | What Doow reads |
 |---|---|
@@ -50,7 +71,8 @@ Providers with a direct usage or metrics API. Doow calls the provider's usage en
 
 ### Cloud platforms
 
-Providers where usage data is surfaced through a monitoring or billing export API rather than a direct usage endpoint. Doow reads from the platform's monitoring or billing layer to get per-model or per-deployment consumption.
+Use these pages when usage is surfaced through a cloud monitoring or billing
+layer rather than a direct provider usage endpoint.
 
 | Provider | What Doow reads |
 |---|---|
@@ -61,9 +83,22 @@ Providers where usage data is surfaced through a monitoring or billing export AP
 ## Confirm the sync worked
 
 After connecting a provider, open the integration detail page from
-**Company Settings → Integrations**. A healthy sync should show a connected
-state, a recent sync timestamp, and usage rows for the expected organization,
+**Company Settings**, then **Integrations**. A healthy sync shows a connected state, a
+recent sync timestamp, and usage rows for the expected organization,
 project, account, region, model, deployment, or endpoint.
+
+## Common blockers
+
+Use these checks when credentials are accepted but usage does not appear:
+
+- Confirm the credential belongs to the account, organization, project, region,
+  or endpoint that owns the usage.
+- Confirm the credential has read access to usage, billing, metrics, or
+  organization-level data.
+- Confirm the provider has usage in the selected date range.
+- Check whether the provider reports usage with a delay.
+- Check the integration event log for credential, scope, permission, or
+  rate-limit errors.
 
 ## Next steps
 

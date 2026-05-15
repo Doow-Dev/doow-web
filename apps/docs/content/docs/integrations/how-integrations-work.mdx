@@ -1,19 +1,19 @@
 ---
 title: "How integrations work"
-description: "Learn how Doow connects, syncs, pauses, and disconnects integrations."
+description: "Understand how Doow validates, syncs, pauses, and disconnects sources."
 slug: "integrations/how-integrations-work"
 section: "integrations"
 order: 304
 status: "published"
-updatedAt: "2026-05-14"
+updatedAt: "2026-05-15"
 ---
-Integrations bring data into Doow so your workspace can connect usage, people,
-and spend. Some integrations connect to an external system. Others install an
-agent, receive pushed events, or read metrics from a platform you already use.
+An integration is a connection between Doow and a source your company already
+uses. It exists so Doow can read, receive, or collect data for usage, people,
+and spend reviews.
 
-Different sources use different connection methods, but the user journey is the
-same: connect or enable a source, confirm data arrived, and monitor it over
-time.
+Each source uses the connection method that matches where the data lives. The
+path is usually the same: connect or enable the source, confirm data arrived,
+and monitor the connection over time.
 
 ## Connection methods
 
@@ -27,10 +27,10 @@ time.
 | Installed agent | Doow Agent | Approved Browser Agent or Desktop Agent rollout path |
 | SDK or OTLP push | Custom usage events and OpenTelemetry metrics | `dk_` API key from Doow |
 
-## What happens after connect
+## What happens after you connect
 
-After you click **Connect**, install an agent, or enable a push source, Doow
-validates the source in the way that matches that integration. Credentials and
+After you select **Connect**, install an agent, or enable a push source, Doow
+validates the source in the way that matches that connection. Credentials and
 authorization grants are verified. Agents are confirmed by sign-in, tracking
 state, and recent activity. Push sources are confirmed by received events or
 metrics.
@@ -38,15 +38,17 @@ metrics.
 If validation succeeds, the integration appears in **My connections** and Doow
 starts receiving or syncing data. The first sync or first activity window can
 take longer than later updates because Doow needs to fetch, receive, normalize,
-and match records for the first time. Do not connect additional sources to work
-around an empty first sync until you have checked the sync status, agent
-activity, or event log.
+and match records for the first time.
+
+If no records appear after the first connection, check the sync status, agent
+activity, tracking state, or event log before adding another source to work
+around the issue.
 
 ## Confirm a connection worked
 
-A healthy connection should show:
+A healthy connection shows:
 
-- A connected state in **Company Settings → Integrations**.
+- A connected state in **Company Settings**, then **Integrations**.
 - A recent sync, event, or activity timestamp.
 - Imported records in the integration detail page.
 - No credential or permission errors in the event log.
@@ -83,9 +85,9 @@ For accounting, confirm expenses appear for the selected categories.
 
 ## Pausing and disconnecting
 
-Use pause when you want to stop syncs or activity collection temporarily while
-keeping the connection. Use disconnect when you want Doow to delete the stored
-credential or stop reading from the source.
+Use pause to stop syncs or activity collection temporarily while keeping the
+connection. Use disconnect when you want Doow to delete the stored credential
+or stop reading from the source.
 
 To fully revoke access, also revoke the credential or authorization grant in
 the provider's own admin settings. For installed agents, also remove or disable
@@ -95,5 +97,5 @@ workspace.
 ## Next steps
 
 Open [Connecting integrations](/integrations/connect) for the exact connection
-flow, or return to [Choose what to connect first](/integrations/choose-what-to-connect-first)
-if you are still deciding which source to start with.
+flow, or return to [Choose what to connect](/integrations/choose-what-to-connect-first)
+if you are still deciding which source to use.

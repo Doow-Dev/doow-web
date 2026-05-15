@@ -5,55 +5,91 @@ slug: "integrations/hris/bamboohr"
 section: "integrations"
 order: 371
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect BambooHR to sync your employee roster and organizational structure into Doow.
+Connect BambooHR when Doow needs employee records, departments, job titles, and
+employment status from BambooHR.
 
 ## What you need
 
-- A BambooHR account with **Admin** access
-- Your BambooHR company subdomain (for example, `yourcompany.bamboohr.com`)
+- A BambooHR account that can read the employee records Doow needs.
+- Your BambooHR company subdomain, such as `yourcompany.bamboohr.com`.
+- Permission to approve or create the BambooHR connection for reporting.
+
+<Callout title="Use an HR-approved connection">
+  BambooHR API access follows the permissions of the BambooHR user or key used
+  for the request. Use an account or authorization approved to read the
+  employee fields Doow imports.
+</Callout>
 
 ## What Doow reads
 
-- Employee name, work email, department, job title
-- Employment status (active, terminated)
-- Start date and termination date
+| Field | Description |
+|---|---|
+| Employee name | First and last name |
+| Work email | Primary work email used to match employees to app users |
+| Department | Current department where BambooHR returns it |
+| Manager | Supervisor or manager relationship where available |
+| Job title | Current job title where BambooHR returns it |
+| Employment status | Active, inactive, terminated, or similar status values where available |
+| Start date / end date | Hire date and termination date where available |
 
 For a full description of how this data is used in Doow, see [HRIS overview](/integrations/hris).
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **BambooHR** and click **Connect**
-3. A secure linking modal opens
-4. BambooHR is pre-selected in the modal — log in with your BambooHR Admin credentials within the modal
-5. Approve read-only access when prompted
-6. The modal closes and Doow completes the connection and begins the initial employee sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **BambooHR** and select **Connect**.
+3. Enter your BambooHR company subdomain if prompted.
+4. Complete the secure BambooHR linking flow.
+5. Approve read access for the employee fields Doow imports.
+6. Wait for Doow to verify the connection and begin the initial employee sync.
 
 ## What Doow does not read
 
-Salary, compensation, payroll data, performance reviews, tax IDs, or any financial HR data. See [HRIS overview → What Doow does not read](/integrations/hris#what-doow-does-not-read).
+- Salary, compensation, payroll, bonus, or commission data
+- Performance reviews or HR notes
+- Tax IDs, national IDs, or personal government IDs
+- Banking details or direct deposit information
+- Employee documents, attachments, or files
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy HRIS sync should show a connected state, a recent sync timestamp, and imported employee records with work email and employment status.
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy BambooHR sync shows a connected state, a
+recent sync timestamp, and imported employee records with work email,
+department, job title, and employment status where BambooHR returns them.
 
-If records are missing, confirm that the connected HR account has access to the employees you expect Doow to read and that those employees have work email addresses.
+If records are missing, confirm that the connected BambooHR account can read
+the employees Doow needs and that those employees have work email addresses.
 
 ## Troubleshooting
 
-Use these checks when employee data is missing or stale:
+Use these checks when BambooHR employee data is missing or stale:
 
-- Confirm the connected HR admin can read the expected employee records.
+- Confirm the connected BambooHR account can read the expected employee
+  records.
 - Confirm employee work email addresses are present and match identity records.
-- Check whether terminated or inactive employees are filtered in the provider.
+- Check whether inactive or terminated employees are filtered by BambooHR
+  permissions or report settings.
 - Check the integration event log for permission or sync errors.
+
+### BambooHR-specific checks
+
+| Symptom | Likely cause | Next action |
+|---|---|---|
+| Connection cannot verify | The subdomain is wrong or the authorization cannot access BambooHR | Re-enter the BambooHR subdomain and reconnect with the approved account |
+| Employees are missing | The connected BambooHR user or key cannot view those employees | Ask the BambooHR admin to confirm employee visibility for the connection |
+| Department, job title, or status is blank | The field is not populated or is hidden from the connected account | Confirm the field exists on the employee profile and is visible to the connection |
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find BambooHR, and click **Disconnect**. You can also revoke access from your BambooHR account under **Settings → API Keys**.
+Go to **Company Settings**, then **Integrations**, find BambooHR, and select
+**Disconnect**. Doow deletes the stored authorization immediately. Revoke or
+delete the BambooHR API key or connected authorization when you want to remove
+provider-side access too.
 
 ## Next steps
 
-After the sync works, connect an identity provider if you have not already done so. Identity data helps Doow match HRIS employees to app users and assignments.
+After BambooHR employees appear, connect an identity provider if Doow needs to
+match employees to app users, groups, and assignments.

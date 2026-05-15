@@ -5,35 +5,46 @@ slug: "integrations/usage/observability/appsignal"
 section: "integrations"
 order: 353
 status: "published"
-updatedAt: "2026-05-11"
+updatedAt: "2026-05-15"
 ---
-Connect AppSignal to pull performance metrics and usage data into Doow from your AppSignal organization.
+Connect AppSignal when Doow needs metric timeseries that already exist for an
+AppSignal application.
 
 ## What you need
 
-- An AppSignal account
-- Your **App ID** for the application you want to connect
-- A **Personal API token** from your AppSignal account
+- An AppSignal account with access to the application you want Doow to read.
+- The AppSignal **App ID** for that application.
+- An AppSignal **Personal API token** approved for Doow reporting.
 
-## Finding your App ID and API token
+<Callout title="Use a reporting-safe token">
+  AppSignal API requests use a personal API token, and most app queries require
+  the application ID. Use a token approved to read the AppSignal metrics Doow
+  needs.
+</Callout>
 
-1. Go to [appsignal.com](https://appsignal.com) and open your organization
-2. Navigate to the app you want to connect → **App Settings**
-3. Your **App ID** is shown in the URL and app settings page — copy it
-4. Navigate to **Profile → Personal API Tokens**
-5. Click **Create token**, name it (for example, `Doow - Usage Read`)
-6. Copy the token
-7. Paste both the App ID and token into Doow when prompted
+## Find your App ID and API token
+
+1. Go to [appsignal.com](https://appsignal.com) and open your organization.
+2. Open the application you want Doow to read.
+3. Open **App Settings** and copy the **App ID**.
+4. Open your profile settings.
+5. Open **Personal API Tokens**.
+6. Create a token named something identifiable, such as `Doow usage read`.
+7. Copy the token.
+8. Paste the App ID and token into Doow when prompted.
 
 ## What Doow reads
 
 | Field | Description |
 |---|---|
-| Metric timeseries | Performance metric values per app and time window |
+| Metric timeseries | AppSignal metric values for the configured app and time window |
 | App ID | The AppSignal app that generated the data |
+| Environment | App environment or namespace where AppSignal reports it |
+| Tags | Metric tags or dimensions where present |
 | Date | The time window the usage occurred in |
 
-Data is pulled from AppSignal's metrics API and aggregated into Doow's usage pipeline.
+Doow reads AppSignal metric data available to the connected token and
+aggregates it into Doow usage reporting.
 
 ## What Doow does not read
 
@@ -44,17 +55,22 @@ Data is pulled from AppSignal's metrics API and aggregated into Doow's usage pip
 
 ## How to connect
 
-1. Go to **Company Settings → Integrations** in your Doow workspace
-2. Find **AppSignal** and click **Connect**
-3. A dialog opens asking for your App ID and Personal API token
-4. Fill in both fields and click **Connect**
-5. Doow verifies the credentials and begins the initial sync
+1. Go to **Company Settings**, then **Integrations** in your Doow workspace.
+2. Find **AppSignal** and select **Connect**.
+3. Enter the App ID.
+4. Paste the Personal API token.
+5. Select **Connect**.
+6. Wait for Doow to verify the credentials and begin the initial sync.
 
 ## Confirm the sync worked
 
-After connecting, open the integration detail page from **Company Settings → Integrations**. A healthy observability sync should show a connected state, a recent sync timestamp, and metric or event rows for the expected account, app, service, project, or environment.
+After connecting, open the integration detail page from **Company Settings**,
+then **Integrations**. A healthy observability sync shows a connected state, a
+recent sync timestamp, and metric rows for the expected AppSignal app,
+environment, namespace, or tag.
 
-If no metrics appear, verify that the metric exists in the observability platform for the selected time range and that the credential can read it.
+If no metrics appear, verify that the metric exists in AppSignal for the
+selected time range and that the Personal API token can read it.
 
 ## Troubleshooting
 
@@ -68,8 +84,13 @@ Use these checks when metrics are missing or incomplete:
 
 ## Disconnecting
 
-Go to **Company Settings → Integrations**, find AppSignal, and click **Disconnect**. The stored credentials are deleted immediately. You can also revoke the token from your AppSignal profile under **Personal API Tokens**.
+Go to **Company Settings**, then **Integrations**, find AppSignal, and select
+**Disconnect**. Doow deletes the stored credentials immediately. Revoke the
+token from your AppSignal profile when you want to remove provider-side access
+too.
 
 ## Next steps
 
-After metrics appear, connect identity or HRIS data if you need to attribute usage to users, teams, or departments.
+After metrics appear, connect an identity provider if Doow needs to match
+AppSignal usage to users and app ownership. Connect HRIS when the review needs
+department or employment context.

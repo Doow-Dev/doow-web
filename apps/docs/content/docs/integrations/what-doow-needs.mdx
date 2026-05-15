@@ -5,12 +5,12 @@ slug: "integrations/what-doow-needs"
 section: "integrations"
 order: 302
 status: "published"
-updatedAt: "2026-05-14"
+updatedAt: "2026-05-15"
 ---
-Doow works best when it can combine usage data, organization data, and
-financial data. You do not need to connect everything on day one. Start with
-the source that matches the outcome you need first, then add the other data
-sources as your review process matures.
+Doow uses connected data sources to understand what is used, who is connected
+to that usage, and what the company paid. You do not need every source before
+Doow is useful. Connect the source that answers the question in front of you,
+then add more context when the review needs it.
 
 ## The three data layers
 
@@ -22,10 +22,9 @@ sources as your review process matures.
 
 ## Why Doow combines them
 
-Usage alone can tell you that a tool is active, but it does not always explain
-who owns the usage or whether the spend is justified. Identity and HRIS data
-add people, ownership, department, and employment context. Accounting data adds
-the finance-confirmed spend record.
+Each layer answers a different part of the review. Usage data shows activity,
+but it may not identify the owner, team, employment status, or finance record.
+Organization and financial sources add that context.
 
 When these layers work together, Doow can help you answer questions like:
 
@@ -34,21 +33,26 @@ When these layers work together, Doow can help you answer questions like:
 - Which vendor costs are increasing faster than usage?
 - Which tools need review before renewal?
 
-## Minimum useful setup
+## Useful starting points
 
-For most teams, connect:
+Choose the source that matches the first review you need to run:
 
-1. One usage source for the product, AI provider, app, or platform you want to
-   inspect first. That can be Doow Agent, a provider API, SDK events,
-   observability metrics, or OTLP.
-2. One identity provider so Doow can match usage to people.
+- Connect a usage source when you need to see activity from an app, AI
+  provider, cloud platform, product, or metric stream.
+- Connect an identity provider when you need users, groups, assignments, or app
+  access.
+- Connect HRIS when departments, managers, job titles, or employment status
+  matter.
+- Connect accounting when finance-confirmed spend, vendors, categories, or
+  transactions matter.
 
-That gives Doow enough context to show what is being used and who is connected
-to it. Add HRIS when you need departments and employment status. Add accounting
-when you need finance-confirmed spend.
+Many teams start with one usage source and one identity provider because that
+shows what is being used and who is connected to it. That is a useful baseline,
+not a required order.
 
 ## What to connect next
 
-Use [Choose what to connect first](/integrations/choose-what-to-connect-first)
-to pick your first source based on your goal. If you already know the source,
-go to [Connecting integrations](/integrations/connect).
+Use [Choose what to connect](/integrations/choose-what-to-connect-first) when
+you need help choosing a source family. If you already know the source, go to
+[Connecting integrations](/integrations/connect) or open the exact setup page
+from the sidebar.

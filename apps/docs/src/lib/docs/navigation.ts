@@ -18,7 +18,7 @@ export const docsSidebar: DocsSidebarGroup[] = [
     items: [
       { href: "/integrations", label: "Overview", description: "Choose what to connect." },
       { href: "/integrations/what-doow-needs", label: "What Doow needs", description: "Usage, organization, and financial data." },
-      { href: "/integrations/choose-what-to-connect-first", label: "Choose what to connect first", description: "Pick the right first source." },
+      { href: "/integrations/choose-what-to-connect-first", label: "Choose what to connect", description: "Pick the right connection path." },
       { href: "/integrations/how-integrations-work", label: "How integrations work", description: "Connection, sync, pause, and disconnect." },
       { href: "/integrations/connect", label: "Connecting integrations", description: "Connect, pause, and disconnect sources." },
     ],
