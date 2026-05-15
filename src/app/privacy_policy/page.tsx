@@ -29,7 +29,7 @@ export default function PrivacyPolicy() {
                     <AboutBody>
                     Please read this policy carefully. By using the Service, you acknowledge that you have
                     read and understood how we handle your data. If you have questions, contact us at{" "}
-                    <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>.
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a>.
                     </AboutBody>
                 </AboutSection>
 
@@ -41,10 +41,7 @@ export default function PrivacyPolicy() {
                     controller for personal data collected through doow.co and the Doow platform.
                     </AboutBody>
                     <AboutBody>
-                    <strong>Privacy contact:</strong>{" "}
-                    <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>
-                    <br />
-                    <strong>General support:</strong>{" "}
+                    <strong>Contact:</strong>{" "}
                     <a className="underline" href="mailto:support@doow.co">support@doow.co</a>
                     </AboutBody>
                 </AboutSection>
@@ -214,7 +211,7 @@ export default function PrivacyPolicy() {
                         <strong>PostHog</strong> — product analytics. Collects anonymised event data about
                         how features are used. You can opt out by enabling Do Not Track in your browser or
                         by contacting{" "}
-                        <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>.
+                        <a className="underline" href="mailto:support@doow.co">support@doow.co</a>.
                         </li>
                         <li>
                         <strong>Azure Application Insights</strong> — server-side performance telemetry.
@@ -394,7 +391,7 @@ export default function PrivacyPolicy() {
                         usage and improve the product. These collect anonymised event data tied to a
                         pseudonymous session ID. You can opt out by enabling Do Not Track in your browser
                         or by contacting{" "}
-                        <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>.
+                        <a className="underline" href="mailto:support@doow.co">support@doow.co</a>.
                         </li>
                         <li>
                         <strong>Performance monitoring</strong> — Azure Application Insights collects
@@ -456,7 +453,7 @@ export default function PrivacyPolicy() {
                     </AboutBody>
                     <AboutBody>
                     To request early deletion of your data, contact{" "}
-                    <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>. Requests
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a>. Requests
                     will be processed within 30 days, subject to any legal retention obligations.
                     </AboutBody>
                 </AboutSection>
@@ -519,7 +516,7 @@ export default function PrivacyPolicy() {
                     </AboutBody>
                     <AboutBody>
                     For questions about safeguards applied to your data, contact{" "}
-                    <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>.
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a>.
                     </AboutBody>
                 </AboutSection>
 
@@ -565,7 +562,7 @@ export default function PrivacyPolicy() {
 
                     <AboutBody>
                     To exercise any of these rights, contact{" "}
-                    <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>. We will
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a>. We will
                     respond within 30 days. We may need to verify your identity before processing your
                     request.
                     </AboutBody>
@@ -577,7 +574,7 @@ export default function PrivacyPolicy() {
                     The Doow Service is intended for use by organisations and their adult employees. We do
                     not knowingly collect personal data from anyone under the age of 16. If you believe we
                     have inadvertently collected data from a minor, please contact us at{" "}
-                    <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a> and we will
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a> and we will
                     delete it promptly.
                     </AboutBody>
                 </AboutSection>
@@ -603,16 +600,7 @@ export default function PrivacyPolicy() {
                     handling of your personal data, please contact us:
                     </AboutBody>
                     <AboutBody>
-                    <ul className="list-disc ml-12 md:ml-6 space-y-2">
-                        <li>
-                        <strong>Privacy enquiries:</strong>{" "}
-                        <a className="underline" href="mailto:privacy@doow.co">privacy@doow.co</a>
-                        </li>
-                        <li>
-                        <strong>General support:</strong>{" "}
-                        <a className="underline" href="mailto:support@doow.co">support@doow.co</a>
-                        </li>
-                    </ul>
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a>
                     </AboutBody>
                     <AboutBody>
                     If you are located in the EEA or UK and are not satisfied with our response, you have
