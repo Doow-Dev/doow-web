@@ -49,12 +49,28 @@ jobs:
 
       - name: Prepare standalone package
         run: |
-          cp -r apps/web/public apps/web/.next/standalone/
-          mkdir -p apps/web/.next/standalone/.next
-          cp -r apps/web/.next/static apps/web/.next/standalone/.next/static
-          rm -f apps/web/.next/standalone/.next/oryx-manifest.toml
-          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > apps/web/.next/standalone/package.json
-          cd apps/web/.next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
+          # Monorepo: server.js lives at apps/web/ within the standalone tree
+          mkdir -p apps/web/.next/standalone/apps/web
+          cp -r apps/web/public apps/web/.next/standalone/apps/web/
+          mkdir -p apps/web/.next/standalone/apps/web/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
+          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node apps/web/server.js"}}' > apps/web/.next/standalone/package.json
+          cd apps/web/.next/standalone
+          # Resolve pnpm symlinks in root node_modules so .pnpm/ has real files
+          cp -rL node_modules node_modules_resolved
+          rm -rf node_modules
+          mv node_modules_resolved node_modules
+          # Resolve symlinks in apps/web/node_modules (next is a symlink; must be a
+          # real directory before we merge packages into it)
+          cp -rL apps/web/node_modules apps/web/node_modules_resolved
+          rm -rf apps/web/node_modules
+          mv apps/web/node_modules_resolved apps/web/node_modules
+          # Azure strips the root node_modules/ on zip deployment but preserves
+          # nested node_modules/. Hoist the pnpm virtual-store packages (@swc/helpers
+          # etc.) into apps/web/node_modules/ so they survive and Node can resolve them.
+          if [ -d node_modules/.pnpm/node_modules ]; then
+            cp -rn node_modules/.pnpm/node_modules/. apps/web/node_modules/
+          fi
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -68,7 +84,7 @@ jobs:
           az webapp config set \
             --name landing-page \
             --resource-group Doow-dev \
-            --startup-file "node server.js"
+            --startup-file "node apps/web/server.js"
 
       - name: Set runtime app settings
         run: |
@@ -105,5 +121,4 @@ jobs:
           KUDU_USER=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['user'])")
           KUDU_PASS=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['pass'])")
           KUDU_URL="https://landing-page-czbyg4h0c0ctbbgb.scm.canadacentral-01.azurewebsites.net"
-          curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/node_modules.tar.gz" || true
           curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/oryx-manifest.toml" || true
