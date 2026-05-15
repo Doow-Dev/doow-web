@@ -5,7 +5,7 @@ import "@/styles/help-globals.css";
 import "@/styles/help-layout-frame.css";
 import "@/styles/help-integrated.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://doow.co";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://doow.co";
 
 export const metadata: Metadata = {
   title: {

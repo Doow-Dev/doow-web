@@ -6,7 +6,7 @@ import "@/styles/docs-sidebar-accordion.css";
 import "@/styles/docs-layout-frame.css";
 import "@/styles/docs-integrated.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://doow.co";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://doow.co";
 
 export const metadata: Metadata = {
   title: {
