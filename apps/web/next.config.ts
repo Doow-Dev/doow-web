@@ -36,6 +36,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 const nextConfig: NextConfig = {
   transpilePackages: ["@doow/content-schemas", "@doow/mdx"],
   output: "standalone",
+  outputFileTracingRoot: path.join(__dirname, "../.."),
   outputFileTracingIncludes: {
     "/*": ["./node_modules/@img/sharp-win32-x64/lib/*"],
   },
