@@ -46,27 +46,6 @@ jobs:
           NEXT_PUBLIC_CRISP_WEBSITE_ID: ${{ secrets.NEXT_PUBLIC_CRISP_WEBSITE_ID }}
         run: pnpm build:web
 
-      - name: Inspect standalone structure
-        run: |
-          echo "=== standalone root ==="
-          ls -la apps/web/.next/standalone/
-          echo ""
-          echo "=== standalone node_modules (root) ==="
-          ls apps/web/.next/standalone/node_modules/ 2>/dev/null | head -30 || echo "(none)"
-          echo ""
-          echo "=== standalone apps/web/ ==="
-          ls -la apps/web/.next/standalone/apps/web/ 2>/dev/null || echo "(none)"
-          echo ""
-          echo "=== standalone apps/web/node_modules ==="
-          ls apps/web/.next/standalone/apps/web/node_modules/ 2>/dev/null | head -30 || echo "(none)"
-          echo ""
-          echo "=== @swc presence ==="
-          find apps/web/.next/standalone -name '@swc' -type d 2>/dev/null | head -10 || echo "(none)"
-          find apps/web/.next/standalone -path '*/@swc/helpers' -maxdepth 8 2>/dev/null | head -10 || echo "(none)"
-          echo ""
-          echo "=== symlinks in apps/web/node_modules ==="
-          find apps/web/.next/standalone/apps/web/node_modules -maxdepth 2 -type l 2>/dev/null | head -20 || echo "(none)"
-
       - name: Prepare standalone package
         run: |
           # Monorepo: server.js lives at apps/web/ within the standalone tree
@@ -75,13 +54,17 @@ jobs:
           mkdir -p apps/web/.next/standalone/apps/web/.next
           cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
           echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node apps/web/server.js"}}' > apps/web/.next/standalone/package.json
-          # Resolve pnpm symlinks in-place so the zip contains real files.
-          # Using tar.gz + Kudu deletion creates a race: for deployment slots az webapp deploy
-          # returns before the container restarts, so the tar is deleted before Oryx can extract it.
           cd apps/web/.next/standalone
+          # Resolve pnpm symlinks in root node_modules so .pnpm/ has real files
           cp -rL node_modules node_modules_resolved
           rm -rf node_modules
           mv node_modules_resolved node_modules
+          # Azure strips the root node_modules/ on zip deployment but preserves
+          # nested node_modules/. Hoist the pnpm virtual-store packages (@swc/helpers
+          # etc.) into apps/web/node_modules/ so they survive and Node can resolve them.
+          if [ -d node_modules/.pnpm/node_modules ]; then
+            cp -rn node_modules/.pnpm/node_modules/. apps/web/node_modules/
+          fi
 
       - name: Login to Azure
         uses: azure/login@v2
