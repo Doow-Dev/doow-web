@@ -48,19 +48,12 @@ jobs:
 
       - name: Prepare standalone package
         run: |
-          cp -r apps/web/public apps/web/.next/standalone/apps/web/
-          mkdir -p apps/web/.next/standalone/apps/web/.next
-          cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/static
-          rm -f apps/web/.next/standalone/apps/web/.next/oryx-manifest.toml
-          rm -f apps/web/.next/standalone/node_modules.tar.gz
-          rm -f apps/web/.next/standalone/oryx-manifest.toml
-          # @vercel/nft puts packages in node_modules/.pnpm/node_modules/ without
-          # top-level entries. Flatten them so Node.js standard resolution works.
-          PNPM_FLAT="apps/web/.next/standalone/node_modules/.pnpm/node_modules"
-          if [ -d "$PNPM_FLAT" ]; then
-            cp -rn "$PNPM_FLAT/." "apps/web/.next/standalone/node_modules/"
-            rm -rf "apps/web/.next/standalone/node_modules/.pnpm"
-          fi
+          cp -r apps/web/public apps/web/.next/standalone/
+          mkdir -p apps/web/.next/standalone/.next
+          cp -r apps/web/.next/static apps/web/.next/standalone/.next/static
+          rm -f apps/web/.next/standalone/.next/oryx-manifest.toml
+          echo '{"name":"doow-web","version":"0.1.0","scripts":{"start":"node server.js"}}' > apps/web/.next/standalone/package.json
+          cd apps/web/.next/standalone && tar -czf node_modules.tar.gz node_modules/ && rm -rf node_modules/
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -74,8 +67,8 @@ jobs:
           az webapp config set \
             --name landing-page \
             --resource-group Doow-dev \
-            --startup-file "node apps/web/server.js" \
-            --slot staging
+            --slot staging \
+            --startup-file "node server.js"
 
       - name: Set runtime app settings
         run: |
@@ -105,3 +98,14 @@ jobs:
             --type zip \
             --clean true \
             --async false
+
+      - name: Remove Oryx artifacts from wwwroot
+        run: |
+          CREDS=$(az webapp deployment list-publishing-credentials \
+            --name landing-page --resource-group Doow-dev --slot staging \
+            --query '{user:publishingUserName,pass:publishingPassword}' -o json)
+          KUDU_USER=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['user'])")
+          KUDU_PASS=$(echo $CREDS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['pass'])")
+          KUDU_URL="https://landing-page-staging-d7bydpddbuawa2hp.scm.canadacentral-01.azurewebsites.net"
+          curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/node_modules.tar.gz" || true
+          curl -s -u "$KUDU_USER:$KUDU_PASS" -X DELETE -H "If-Match: *" "$KUDU_URL/api/vfs/site/wwwroot/oryx-manifest.toml" || true
