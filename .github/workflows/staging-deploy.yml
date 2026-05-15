@@ -59,6 +59,11 @@ jobs:
           cp -rL node_modules node_modules_resolved
           rm -rf node_modules
           mv node_modules_resolved node_modules
+          # Resolve symlinks in apps/web/node_modules (next is a symlink; must be a
+          # real directory before we merge packages into it)
+          cp -rL apps/web/node_modules apps/web/node_modules_resolved
+          rm -rf apps/web/node_modules
+          mv apps/web/node_modules_resolved apps/web/node_modules
           # Azure strips the root node_modules/ on zip deployment but preserves
           # nested node_modules/. Hoist the pnpm virtual-store packages (@swc/helpers
           # etc.) into apps/web/node_modules/ so they survive and Node can resolve them.
