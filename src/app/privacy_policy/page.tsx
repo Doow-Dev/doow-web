@@ -9,9 +9,9 @@ export default function PrivacyPolicy() {
   return (
     <div className="w-full bg-doow_offwhite">
         <Header />
-        <TopSection 
-            title="Privacy Policy" 
-            subtitle="Updated: 3rd of April, 2023"
+        <TopSection
+            title="Privacy Policy"
+            subtitle="Updated: 15th of May, 2026"
             icon={ <ShieldCheck className="h-8 w-8"/>} 
         />
 
@@ -150,6 +150,79 @@ export default function PrivacyPolicy() {
                     privacy policy is modified, we will update its effective date
                     below. Whenever we make any changes to how we handle your data, we
                     will place a prominent banner on our site or send you an email.
+                    </AboutBody>
+                </AboutSection>
+                <AboutSection>
+                    <AboutTitle>Google Workspace Data</AboutTitle>
+                    <AboutBody>
+                    When an organisation administrator connects their Google Workspace
+                    account to Doow, we access certain data from Google APIs solely to
+                    provide spend management and utilisation insights within that
+                    organisation&apos;s Doow account. This section explains exactly
+                    what we access, how we protect it, and how long we keep it.
+                    </AboutBody>
+                    <AboutSubHeading>What we access</AboutSubHeading>
+                    <AboutBody>
+                    <ul className="list-disc ml-12 md:ml-6">
+                        <li>
+                        <strong>Directory data</strong> — basic user identity
+                        information (name, email address, admin status) from the Admin
+                        SDK Directory API, used to build an accurate employee roster
+                        and cross-reference it against SaaS application licences.
+                        </li>
+                        <li>
+                        <strong>OAuth token activity</strong> — audit log entries from
+                        the Admin Reports API showing which third-party applications
+                        employees have authorised with their Google accounts, used to
+                        detect shadow IT and unapproved spend.
+                        </li>
+                        <li>
+                        <strong>Workspace usage metrics</strong> — last SSO activity
+                        timestamps from the customer usage reports API, used to score
+                        licence utilisation and identify unused seats.
+                        </li>
+                    </ul>
+                    </AboutBody>
+                    <AboutBody>
+                    Access is strictly scoped to the domain of the organisation whose
+                    administrator completed the OAuth flow. Cross-tenant access is
+                    architecturally prevented; no data from any other Google Workspace
+                    domain is ever accessed or stored.
+                    </AboutBody>
+                    <AboutSubHeading>How we protect it</AboutSubHeading>
+                    <AboutBody>
+                    All OAuth tokens (access and refresh) are AES-encrypted before
+                    being stored in our database. Tokens are decrypted only at the
+                    point of use for scheduled API calls and are never logged or
+                    exposed. Google Workspace data is never sold, shared with, or made
+                    accessible to third parties; it is used solely to generate spend
+                    and utilisation insights within the connecting organisation&apos;s
+                    Doow account.
+                    </AboutBody>
+                    <AboutSubHeading>Data retention and deletion</AboutSubHeading>
+                    <AboutBody>
+                    Synced directory and activity data is retained for as long as the
+                    Google Workspace integration remains active. When an organisation
+                    administrator disconnects the integration:
+                    </AboutBody>
+                    <AboutBody>
+                    <ul className="list-disc ml-12 md:ml-6">
+                        <li>
+                        All associated OAuth tokens are immediately revoked and
+                        permanently deleted from our systems at the moment of
+                        disconnection.
+                        </li>
+                        <li>
+                        All synced Google Workspace data (user records, activity data,
+                        usage metrics) is purged from our systems within 30 days of
+                        disconnection.
+                        </li>
+                    </ul>
+                    </AboutBody>
+                    <AboutBody>
+                    To request early deletion of your organisation&apos;s Google
+                    Workspace data, contact us at{" "}
+                    <a className="underline" href="mailto:support@doow.co">support@doow.co</a>.
                     </AboutBody>
                 </AboutSection>
             </AboutWrapper>
