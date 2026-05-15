@@ -46,6 +46,27 @@ jobs:
           NEXT_PUBLIC_CRISP_WEBSITE_ID: ${{ secrets.NEXT_PUBLIC_CRISP_WEBSITE_ID }}
         run: pnpm build:web
 
+      - name: Inspect standalone structure
+        run: |
+          echo "=== standalone root ==="
+          ls -la apps/web/.next/standalone/
+          echo ""
+          echo "=== standalone node_modules (root) ==="
+          ls apps/web/.next/standalone/node_modules/ 2>/dev/null | head -30 || echo "(none)"
+          echo ""
+          echo "=== standalone apps/web/ ==="
+          ls -la apps/web/.next/standalone/apps/web/ 2>/dev/null || echo "(none)"
+          echo ""
+          echo "=== standalone apps/web/node_modules ==="
+          ls apps/web/.next/standalone/apps/web/node_modules/ 2>/dev/null | head -30 || echo "(none)"
+          echo ""
+          echo "=== @swc presence ==="
+          find apps/web/.next/standalone -name '@swc' -type d 2>/dev/null | head -10 || echo "(none)"
+          find apps/web/.next/standalone -path '*/@swc/helpers' -maxdepth 8 2>/dev/null | head -10 || echo "(none)"
+          echo ""
+          echo "=== symlinks in apps/web/node_modules ==="
+          find apps/web/.next/standalone/apps/web/node_modules -maxdepth 2 -type l 2>/dev/null | head -20 || echo "(none)"
+
       - name: Prepare standalone package
         run: |
           # Monorepo: server.js lives at apps/web/ within the standalone tree
